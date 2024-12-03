@@ -31,15 +31,25 @@ void Init()
 {
 	//------------------------------------------------------------------------
 	// Example Sprite Code....
-	testSprite = App::CreateSprite(".\\TestData\\Test.bmp", 8, 4);
-	testSprite->SetPosition(400.0f, 400.0f);
+	//testSprite = App::CreateSprite(".\\TestData\\IdleBLUE- 150ms - 32x32.png", 6, 4);
+	//testSprite->SetPosition(400.0f, 400.0f);
 	const float speed = 1.0f / 15.0f;
-	testSprite->CreateAnimation(ANIM_BACKWARDS, speed, { 0,1,2,3,4,5,6,7 });
-	testSprite->CreateAnimation(ANIM_LEFT, speed, { 8,9,10,11,12,13,14,15 });
-	testSprite->CreateAnimation(ANIM_RIGHT, speed, { 16,17,18,19,20,21,22,23 });
-	testSprite->CreateAnimation(ANIM_FORWARDS, speed, { 24,25,26,27,28,29,30,31 });
-	testSprite->SetScale(1.0f);
+	//testSprite->CreateAnimation(ANIM_BACKWARDS, speed, { 0,1,2,3,4,5,6,7 });
+	//testSprite->CreateAnimation(ANIM_LEFT, speed, { 8,9,10,11,12,13,14,15 });
+	//testSprite->CreateAnimation(ANIM_RIGHT, speed, { 16,17,18,19,20,21,22,23 });
+	//testSprite->CreateAnimation(ANIM_FORWARDS, speed, { 24,25,26,27,28,29,30,31 });
+	//testSprite->SetScale(1.0f);
 	//------------------------------------------------------------------------
+
+
+	CSimpleSprite* sprite = App::CreateSprite(".\\TestData\\IdleBLUE- 150ms - 32x32.png", 6, 1);
+	sprite->CreateAnimation(ANIM_BACKWARDS, speed, { 0,1,2,3,4,5,6 });
+	
+	CGameObject* gameobject = new CGameObject(sprite);
+	gameobject->SetPosition(100.0f, 400.0f);
+
+
+	CEntityManager::GetInstance().Start();
 }
 
 //------------------------------------------------------------------------
@@ -50,7 +60,10 @@ void Update(const float deltaTime)
 {
 	//------------------------------------------------------------------------
 	// Example Sprite Code....
-	testSprite->Update(deltaTime);
+
+	Timer::GetInstance().deltaTime = deltaTime;
+
+	/*testSprite->Update(deltaTime);
 	if (App::GetController().GetLeftThumbStickX() > 0.5f)
 	{
 		testSprite->SetAnimation(ANIM_RIGHT);
@@ -102,7 +115,7 @@ void Update(const float deltaTime)
 	if (App::GetController().CheckButton(XINPUT_GAMEPAD_A, true))
 	{
 		testSprite->SetAnimation(-1);
-	}
+	}*/
 	//------------------------------------------------------------------------
 	// Sample Sound.
 	//------------------------------------------------------------------------
@@ -116,6 +129,8 @@ void Update(const float deltaTime)
 	{
 		App::StopSound(".\\TestData\\Test.wav");
 	}
+
+	CEntityManager::GetInstance().Update();
 }
 
 //------------------------------------------------------------------------
@@ -126,7 +141,7 @@ void Render()
 {	
 	//------------------------------------------------------------------------
 	// Example Sprite Code....
-	testSprite->Draw();
+	/*testSprite->Draw();*/
 	//------------------------------------------------------------------------
 
 	//------------------------------------------------------------------------
@@ -151,8 +166,10 @@ void Render()
 		const float ey = 700 - cosf(a + i * 0.1f) * 60.0f;
 		g = (float)i / 20.0f;
 		b = (float)i / 20.0f;
-		App::DrawLine(sx, sy, ex, ey, r, g, b);
+		//App::DrawLine(sx, sy, ex, ey, r, g, b);
 	}
+
+	CEntityManager::GetInstance().Render();
 }
 //------------------------------------------------------------------------
 // Add your shutdown code here. Called when the APP_QUIT_KEY is pressed.
@@ -162,6 +179,8 @@ void Shutdown()
 {	
 	//------------------------------------------------------------------------
 	// Example Sprite Code....
-	delete testSprite;
+
+	CEntityManager::GetInstance().Clean();
+	//delete testSprite;
 	//------------------------------------------------------------------------
 }

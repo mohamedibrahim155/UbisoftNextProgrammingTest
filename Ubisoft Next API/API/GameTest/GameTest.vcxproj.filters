@@ -24,6 +24,10 @@
     <ClCompile Include="miniaudio\miniaudio.cpp">
       <Filter>API\third_party\miniaudio</Filter>
     </ClCompile>
+    <ClCompile Include="src\Entities\Entity.cpp" />
+    <ClCompile Include="src\Entities\EntityManager.cpp" />
+    <ClCompile Include="src\Timer\Timer.cpp" />
+    <ClCompile Include="src\Entities\GameObject\GameObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -54,6 +58,11 @@
     <ClInclude Include="miniaudio\miniaudio.h">
       <Filter>API\third_party\miniaudio</Filter>
     </ClInclude>
+    <ClInclude Include="src\Vector.h" />
+    <ClInclude Include="src\Entities\Entity.h" />
+    <ClInclude Include="src\Entities\EntityManager.h" />
+    <ClInclude Include="src\Timer\Timer.h" />
+    <ClInclude Include="src\Entities\GameObject\GameObject.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="API">
@@ -67,6 +76,9 @@
     </Filter>
     <Filter Include="API\third_party\stb_image">
       <UniqueIdentifier>{61cfc19b-c57e-4021-b530-bac172fcba86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{7f1442db-c385-4c17-8407-929d16dca147}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

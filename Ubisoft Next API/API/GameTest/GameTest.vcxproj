@@ -186,7 +186,12 @@
     <ClInclude Include="App\SimpleController.h" />
     <ClInclude Include="App\SimpleSound.h" />
     <ClInclude Include="App\SimpleSprite.h" />
+    <ClInclude Include="src\Entities\EntityManager.h" />
+    <ClInclude Include="src\Entities\Entity.h" />
     <ClInclude Include="miniaudio\miniaudio.h" />
+    <ClInclude Include="src\Entities\GameObject\GameObject.h" />
+    <ClInclude Include="src\Timer\Timer.h" />
+    <ClInclude Include="src\Vector.h" />
     <ClInclude Include="stb_image\stb_image.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
@@ -197,8 +202,12 @@
     <ClCompile Include="App\SimpleController.cpp" />
     <ClCompile Include="App\SimpleSound.cpp" />
     <ClCompile Include="App\SimpleSprite.cpp" />
+    <ClCompile Include="src\Entities\EntityManager.cpp" />
+    <ClCompile Include="src\Entities\Entity.cpp" />
     <ClCompile Include="GameTest.cpp" />
     <ClCompile Include="miniaudio\miniaudio.cpp" />
+    <ClCompile Include="src\Entities\GameObject\GameObject.cpp" />
+    <ClCompile Include="src\Timer\Timer.cpp" />
     <ClCompile Include="stb_image\stb_image.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

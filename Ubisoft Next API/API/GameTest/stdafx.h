@@ -13,3 +13,6 @@
 
 
 // TODO: reference additional headers your program requires here
+#include "src/Timer/Timer.h"
+#include "src/Entities/EntityManager.h"
+#include "src/Entities/GameObject/GameObject.h"
