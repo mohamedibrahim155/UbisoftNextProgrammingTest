@@ -29,6 +29,10 @@ enum
 //------------------------------------------------------------------------
 void Init()
 {
+#pragma region API_DEFAULT_INIT
+
+	/*
+	
 	//------------------------------------------------------------------------
 	// Example Sprite Code....
 	//testSprite = App::CreateSprite(".\\TestData\\IdleBLUE- 150ms - 32x32.png", 6, 4);
@@ -49,19 +53,32 @@ void Init()
 	gameobject->SetPosition(100.0f, 400.0f);
 
 
-	CEntityManager::GetInstance().Start();
+	*/
+
+#pragma endregion
+
+
+	CBaseScene* scene1 = new CSceneOne("Scene1");
+
+	CSceneManager::GetInstance().AddScene("Scene1", scene1);
+
+	CSceneManager::GetInstance().ChangeScene("Scene1");
+
+	CSceneManager::GetInstance().StartScene();
+
 }
 
 //------------------------------------------------------------------------
-// Update your simulation here. deltaTime is the elapsed time since the last update in ms.
+// UpdateScene your simulation here. deltaTime is the elapsed time since the last update in ms.
 // This will be called at no greater frequency than the value of APP_MAX_FRAME_RATE
 //------------------------------------------------------------------------
 void Update(const float deltaTime)
 {
+
+#pragma region API_DEFAULT_UPDATES
+
 	//------------------------------------------------------------------------
 	// Example Sprite Code....
-
-	Timer::GetInstance().deltaTime = deltaTime;
 
 	/*testSprite->Update(deltaTime);
 	if (App::GetController().GetLeftThumbStickX() > 0.5f)
@@ -119,7 +136,7 @@ void Update(const float deltaTime)
 	//------------------------------------------------------------------------
 	// Sample Sound.
 	//------------------------------------------------------------------------
-	if (App::GetController().CheckButton(XINPUT_GAMEPAD_B, true))
+	/*if (App::GetController().CheckButton(XINPUT_GAMEPAD_B, true))
 	{
 
 	
@@ -129,8 +146,12 @@ void Update(const float deltaTime)
 	{
 		App::StopSound(".\\TestData\\Test.wav");
 	}
+	*/
+#pragma endregion
 
-	CEntityManager::GetInstance().Update();
+	Timer::GetInstance().deltaTime = deltaTime;
+
+	CSceneManager::GetInstance().UpdateScene();
 }
 
 //------------------------------------------------------------------------
@@ -139,9 +160,11 @@ void Update(const float deltaTime)
 //------------------------------------------------------------------------
 void Render()
 {	
+#pragma region API_DEFAULT_RENDER
+/*
 	//------------------------------------------------------------------------
 	// Example Sprite Code....
-	/*testSprite->Draw();*/
+	testSprite->Draw();
 	//------------------------------------------------------------------------
 
 	//------------------------------------------------------------------------
@@ -167,9 +190,12 @@ void Render()
 		g = (float)i / 20.0f;
 		b = (float)i / 20.0f;
 		//App::DrawLine(sx, sy, ex, ey, r, g, b);
-	}
 
-	CEntityManager::GetInstance().Render();
+
+	}
+*/
+#pragma endregion
+	CSceneManager::GetInstance().RenderScene();
 }
 //------------------------------------------------------------------------
 // Add your shutdown code here. Called when the APP_QUIT_KEY is pressed.
@@ -177,10 +203,17 @@ void Render()
 //------------------------------------------------------------------------
 void Shutdown()
 {	
+#pragma region API_DEFAULT_SHUTDOWN
+
+
+
 	//------------------------------------------------------------------------
 	// Example Sprite Code....
-
-	CEntityManager::GetInstance().Clean();
 	//delete testSprite;
 	//------------------------------------------------------------------------
+#pragma endregion
+
+	CSceneManager::GetInstance().CleanScene();
+	CEntityManager::GetInstance().Clean();
+	
 }

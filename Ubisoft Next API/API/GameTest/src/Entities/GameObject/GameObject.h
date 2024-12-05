@@ -22,7 +22,6 @@ public:
 
 	Vector2 GetPosition();
 
-	std::string m_tag = "Untagged";
 	std::string m_name = "unNamed";
 
 	

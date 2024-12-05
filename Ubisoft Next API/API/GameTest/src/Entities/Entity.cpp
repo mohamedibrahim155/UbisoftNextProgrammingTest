@@ -13,7 +13,8 @@ CEntity::~CEntity()
 
 void CEntity::Destroy()
 {
-	CEntityManager::GetInstance().RemoveEntity(m_entityID);
+	OnDestroyedEvent.Invoke();
+	OnDestroy();
 }
 
 void CEntity::CopyFromOther(CEntity* entity)

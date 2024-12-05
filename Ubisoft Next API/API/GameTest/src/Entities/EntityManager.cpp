@@ -10,10 +10,9 @@ CEntityManager& CEntityManager::GetInstance()
 
 void CEntityManager::AddEntity(CEntity* entity)
 {
-	std::string m_entityID =  std::to_string((int)m_listOfEntities.size());
-	entity->m_entityID = m_entityID;
-
-	m_listOfEntities[m_entityID] = entity;
+	std::string m_entityID =  std::to_string((int)entitiesCount);
+	
+	AddEntity(m_entityID, entity);
 }
 
 void CEntityManager::AddEntity(std::string m_entityID, CEntity* entity)
@@ -21,37 +20,18 @@ void CEntityManager::AddEntity(std::string m_entityID, CEntity* entity)
 	entity->m_entityID = m_entityID;
 
 	m_listOfEntities[m_entityID] = entity;
+
+	entitiesCount++;
 }
 
-void CEntityManager::RemoveEntity(std::string m_entityID)
+void CEntityManager::RemoveEntity(std::string entityID)
 {
-	iterator = m_listOfEntities.begin();
-	for (iterator = m_listOfEntities.begin(); iterator != m_listOfEntities.end(); iterator++)
-	{
-		if (iterator->first == m_entityID)
-		{
-			DestroyEntity(iterator->second);
-
-			destroyedEntities.push_back(m_entityID);
-			return;
-		}
-	}
-
+	m_listOfEntities.erase(entityID);
 }
 
 void CEntityManager::RemoveEntity(CEntity* entity)
 {
-	iterator = m_listOfEntities.begin();
-	for (iterator = m_listOfEntities.begin(); iterator != m_listOfEntities.end(); iterator++)
-	{
-		if (iterator->second == entity)
-		{
-			DestroyEntity(iterator->second);
-
-			destroyedEntities.push_back(iterator->first);
-			return;
-		}
-	}
+	m_listOfEntities.erase(entity->m_entityID);
 }
 
 
@@ -95,12 +75,6 @@ void CEntityManager::Clean()
 	while (m_listOfEntities.size() != 0)
 	{
 		m_listOfEntities.begin()->second->Clean();
-
-		m_listOfEntities.begin()->second = nullptr;
-
-		delete m_listOfEntities.begin()->second;
-
-		m_listOfEntities.erase(m_listOfEntities.begin());
 	}
 
 	m_listOfEntities.clear();

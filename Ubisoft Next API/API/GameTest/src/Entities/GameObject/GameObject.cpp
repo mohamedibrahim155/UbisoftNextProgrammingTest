@@ -14,7 +14,7 @@ CGameObject::CGameObject(CSimpleSprite* sprite) : m_sprite(sprite)
 
 CGameObject::~CGameObject()
 {
-	Clean();
+	delete m_sprite;
 }
 
 void CGameObject::Start()
@@ -25,10 +25,11 @@ void CGameObject::Update()
 {
 	if (!m_isEnabled) return;
 
-	if (m_sprite == nullptr) return;
-
-	// Updating Sprite data
-	m_sprite->Update(Timer::GetInstance().deltaTime);
+	if (m_sprite != nullptr) 
+	{
+		// Updating Sprite data
+		m_sprite->Update(Timer::GetInstance().deltaTime);
+	}
 }
 
 void CGameObject::OnDestroy()
@@ -38,14 +39,17 @@ void CGameObject::OnDestroy()
 
 void CGameObject::Clean()
 {
-	m_sprite = nullptr;
-	delete m_sprite;
+	delete this;
 }
 
 void CGameObject::Render()
 {
+	if (!m_isEnabled)  return;
+
 	if (m_sprite != nullptr)
 	{
+
+
 		m_sprite->Draw();
 	}
 

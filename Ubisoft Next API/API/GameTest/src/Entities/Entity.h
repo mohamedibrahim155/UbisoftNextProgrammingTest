@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include "../src/Events/Event.h"
 class CEntity
 {
 public:
@@ -16,6 +17,10 @@ public:
 	void InitializeEntity(CEntity* entity);
 	
 	std::string m_entityID = "unknown";
+	std::string m_tag = "Untagged";
 	bool m_isEnabled = true;
+
+	CEvent OnDestroyedEvent;
+
 };
 

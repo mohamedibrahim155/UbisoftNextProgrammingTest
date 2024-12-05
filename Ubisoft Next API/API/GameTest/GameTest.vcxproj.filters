@@ -28,6 +28,11 @@
     <ClCompile Include="src\Entities\EntityManager.cpp" />
     <ClCompile Include="src\Timer\Timer.cpp" />
     <ClCompile Include="src\Entities\GameObject\GameObject.cpp" />
+    <ClCompile Include="src\SceneManger\SceneManager.cpp" />
+    <ClCompile Include="src\SceneManger\Scenes\SceneOne.cpp" />
+    <ClCompile Include="src\SceneManger\BaseScene.cpp" />
+    <ClCompile Include="src\SceneManger\Scenes\SceneTwo.cpp" />
+    <ClCompile Include="src\Events\Event.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -63,6 +68,11 @@
     <ClInclude Include="src\Entities\EntityManager.h" />
     <ClInclude Include="src\Timer\Timer.h" />
     <ClInclude Include="src\Entities\GameObject\GameObject.h" />
+    <ClInclude Include="src\SceneManger\SceneManager.h" />
+    <ClInclude Include="src\SceneManger\Scenes\SceneOne.h" />
+    <ClInclude Include="src\SceneManger\BaseScene.h" />
+    <ClInclude Include="src\SceneManger\Scenes\SceneTwo.h" />
+    <ClInclude Include="src\Events\Event.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="API">
