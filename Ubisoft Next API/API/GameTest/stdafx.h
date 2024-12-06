@@ -18,3 +18,4 @@
 #include "src/Entities/GameObject/GameObject.h"
 #include "src/SceneManger/SceneManager.h"
 #include "src/SceneManger/Scenes/SceneOne.h"
+#include "src/SceneManger/Scenes/SceneTwo.h"

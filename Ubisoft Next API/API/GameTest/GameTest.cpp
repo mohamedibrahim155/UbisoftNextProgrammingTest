@@ -58,11 +58,13 @@ void Init()
 #pragma endregion
 
 
-	CBaseScene* scene1 = new CSceneOne("Scene1");
+	CBaseScene* scene1 = new CSceneOne(SCENE_1);
+	CBaseScene* scene2 = new CSceneTwo(SCENE_2);
 
-	CSceneManager::GetInstance().AddScene("Scene1", scene1);
+	CSceneManager::GetInstance().AddScene(SCENE_1, scene1);
+	CSceneManager::GetInstance().AddScene(SCENE_2, scene2);
 
-	CSceneManager::GetInstance().ChangeScene("Scene1");
+	CSceneManager::GetInstance().ChangeScene(SCENE_1);
 
 	CSceneManager::GetInstance().Start();
 

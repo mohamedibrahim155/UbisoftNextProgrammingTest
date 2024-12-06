@@ -7,12 +7,12 @@ CSceneManager& CSceneManager::GetInstance()
 	return instance;
 }
 
-void CSceneManager::AddScene(std::string sceneName, CBaseScene* scene)
+void CSceneManager::AddScene(eScene sceneName, CBaseScene* scene)
 {  
 	m_listOfScenes[sceneName] = scene;
 }
 
-void CSceneManager::RemoveScene(std::string sceneName)
+void CSceneManager::RemoveScene(eScene sceneName)
 {
 	m_listOfScenes.erase(sceneName);
 }
@@ -64,20 +64,21 @@ void CSceneManager::CleanScene()
 }
 
 
-
-void CSceneManager::ChangeScene(std::string changeSceneName)
+void CSceneManager::ChangeScene(eScene changeScene)
 {
 	if (m_currentScene != nullptr)
 	{
 		m_currentScene->CleanScene();
 	}
 
-	m_currentScene = GetScene(changeSceneName);
+	m_currentScene = GetScene(changeScene);
+	m_currentSceneType = m_currentScene->GetType();
+	m_currentSceneName = m_currentScene->GetName();
 
 	m_currentScene->Start();
 }
 
-CBaseScene* CSceneManager::GetScene(std::string sceneName)
+CBaseScene* CSceneManager::GetScene(eScene scene)
 {
-	return m_listOfScenes[sceneName];
+	return m_listOfScenes[scene];
 }

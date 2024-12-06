@@ -7,25 +7,26 @@ class   CSceneManager
 public:
 	static CSceneManager& GetInstance();
 
-	void AddScene(std::string sceneName, CBaseScene* scene);
-	void RemoveScene(std::string sceneName);
+	void AddScene(eScene sceneEnum, CBaseScene* scene);
+	void RemoveScene(eScene sceneEnum);
 
 
 	void Start();
 	void Update();
 	void Render();
 	void CleanScene();
-	void ChangeScene(std::string changeSceneName);
+	void ChangeScene(eScene changeScene);
 
-	CBaseScene* GetScene(std::string sceneName);
+	CBaseScene* GetScene(eScene scene);
 
 private:
 
-	std::unordered_map<std::string, CBaseScene*>::iterator it;
-	std::unordered_map<std::string, CBaseScene*> m_listOfScenes;
+	std::unordered_map<eScene, CBaseScene*>::iterator it;
+	std::unordered_map<eScene, CBaseScene*> m_listOfScenes;
 
+	eScene m_currentSceneType = eScene::SCENE_1;
+	std::string m_currentSceneName = "Untitled";
 
-	eScene m_sceneEnum = eScene::NONE;
 	CBaseScene* m_currentScene;
 
 

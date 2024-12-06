@@ -6,7 +6,7 @@ class CSceneOne : public CBaseScene
 {
 
 public:
-	CSceneOne(std::string name);
+	CSceneOne(eScene scene);
 	 void Start()  override;
 	 void Update() override;
 	 void Render() override;

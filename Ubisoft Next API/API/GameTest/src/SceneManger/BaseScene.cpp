@@ -2,23 +2,24 @@
 #include "BaseScene.h"
 
 #include "SceneManager.h"
-CBaseScene::CBaseScene(std::string name) : m_sceneName(name)
+CBaseScene::CBaseScene(eScene sceneType) : m_sceneType(sceneType)
 {
-	CSceneManager::GetInstance().AddScene(m_sceneName, this);
+	CSceneManager::GetInstance().AddScene(m_sceneType, this);
 }
 
 CBaseScene::~CBaseScene()
 {
-	CSceneManager::GetInstance().RemoveScene(m_sceneName);
-}
-
-void CBaseScene::ChangeScene(std::string changeSceneName)
-{
-	CSceneManager::GetInstance().ChangeScene(changeSceneName);
+	CSceneManager::GetInstance().RemoveScene(m_sceneType);
 }
 
 
-std::string CBaseScene::GetSceneName()
+
+void CBaseScene::ChangeScene(eScene changeScene)
 {
-	return m_sceneName;
+	CSceneManager::GetInstance().ChangeScene(changeScene);
+}
+
+eScene CBaseScene::GetType()
+{
+	return (m_sceneType);
 }

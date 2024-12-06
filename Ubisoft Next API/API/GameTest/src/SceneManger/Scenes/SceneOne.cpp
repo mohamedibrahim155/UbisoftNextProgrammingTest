@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "SceneOne.h"
 
-CSceneOne::CSceneOne(std::string name) : CBaseScene(name)
+CSceneOne::CSceneOne(eScene name) : CBaseScene(name)
 {
 	sprite = App::CreateSprite(".\\TestData\\IdleBLUE- 150ms - 32x32.png", 6, 1);
 	sprite->CreateAnimation(2, 1.5f, { 0,1,2,3,4,5,6 });
@@ -30,8 +30,7 @@ void CSceneOne::Update()
 
 	if (App::GetController().CheckButton(APP_PAD_EMUL_LEFT_THUMB_LEFT,true))
 	{
-		gameobject->Destroy();
-		return;
+		ChangeScene(SCENE_2);
 	}
 
 	
@@ -44,10 +43,5 @@ void CSceneOne::Render()
 
 void CSceneOne::CleanScene()
 {
-
-	
-	sprite = nullptr;
-	delete sprite;
-	gameobject = nullptr;
-	delete gameobject;
+	gameobject->Clean();
 }
