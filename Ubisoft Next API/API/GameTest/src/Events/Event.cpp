@@ -13,6 +13,11 @@ void CEvent::UnSubscribe(std::string eventName)
     m_listOfEvents.erase(eventName);
 }
 
+void CEvent::UnSubscribeAllEvents()
+{
+    m_listOfEvents.clear();
+}
+
 void CEvent::Invoke()
 {
     for (std::pair<std::string, EVENT> event : m_listOfEvents)

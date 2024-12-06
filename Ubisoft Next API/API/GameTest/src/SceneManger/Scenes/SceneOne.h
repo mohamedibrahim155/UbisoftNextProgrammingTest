@@ -7,9 +7,9 @@ class CSceneOne : public CBaseScene
 
 public:
 	CSceneOne(std::string name);
-	 void StartScene()  override;
-	 void UpdateScene() override;
-	 void RenderScene() override;
+	 void Start()  override;
+	 void Update() override;
+	 void Render() override;
 	 void CleanScene()  override;
 
 private:

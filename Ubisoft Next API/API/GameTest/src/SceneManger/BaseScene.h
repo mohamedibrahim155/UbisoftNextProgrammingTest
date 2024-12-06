@@ -19,9 +19,9 @@ public:
 	CBaseScene(std::string name);
 	virtual ~CBaseScene();
 
-	virtual void StartScene() = 0;
-	virtual void UpdateScene() = 0;
-	virtual void RenderScene() = 0;
+	virtual void Start() = 0;
+	virtual void Update() = 0;
+	virtual void Render() = 0;
 	virtual void CleanScene() = 0;
 
 	void ChangeScene(std::string changeSceneName);

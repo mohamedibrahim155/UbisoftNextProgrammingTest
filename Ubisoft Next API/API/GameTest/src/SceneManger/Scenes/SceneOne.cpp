@@ -20,12 +20,12 @@ CSceneOne::CSceneOne(std::string name) : CBaseScene(name)
 }
 
 
-void CSceneOne::StartScene()
+void CSceneOne::Start()
 {
 	gameobject->SetPosition(100.0f, 400.0f);
 }
 
-void CSceneOne::UpdateScene()
+void CSceneOne::Update()
 {
 
 	if (App::GetController().CheckButton(APP_PAD_EMUL_LEFT_THUMB_LEFT,true))
@@ -37,7 +37,7 @@ void CSceneOne::UpdateScene()
 	
 }
 
-void CSceneOne::RenderScene()
+void CSceneOne::Render()
 {
 
 }

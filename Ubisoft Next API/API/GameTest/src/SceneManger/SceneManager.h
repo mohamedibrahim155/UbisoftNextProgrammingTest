@@ -11,9 +11,9 @@ public:
 	void RemoveScene(std::string sceneName);
 
 
-	void StartScene();
-	void UpdateScene();
-	void RenderScene();
+	void Start();
+	void Update();
+	void Render();
 	void CleanScene();
 	void ChangeScene(std::string changeSceneName);
 
@@ -24,7 +24,6 @@ private:
 	std::unordered_map<std::string, CBaseScene*>::iterator it;
 	std::unordered_map<std::string, CBaseScene*> m_listOfScenes;
 
-	std::vector<std::string> m_removedScenes;
 
 	eScene m_sceneEnum = eScene::NONE;
 	CBaseScene* m_currentScene;

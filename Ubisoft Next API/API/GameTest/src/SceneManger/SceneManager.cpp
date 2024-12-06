@@ -17,30 +17,30 @@ void CSceneManager::RemoveScene(std::string sceneName)
 	m_listOfScenes.erase(sceneName);
 }
 
-void CSceneManager::StartScene()
+void CSceneManager::Start()
 {
 	CEntityManager::GetInstance().Start();
 
 }
 
-void CSceneManager::UpdateScene()
+void CSceneManager::Update()
 {
 	CEntityManager::GetInstance().Update();
 
 	if (m_currentScene == nullptr) return;
 
-	m_currentScene->UpdateScene();
+	m_currentScene->Update();
 
 	
 }
 
-void CSceneManager::RenderScene()
+void CSceneManager::Render()
 {
 	CEntityManager::GetInstance().Render();
 
 	if (m_currentScene == nullptr) return;
 
-	m_currentScene->RenderScene();
+	m_currentScene->Render();
 	
 }
 
@@ -74,7 +74,7 @@ void CSceneManager::ChangeScene(std::string changeSceneName)
 
 	m_currentScene = GetScene(changeSceneName);
 
-	m_currentScene->StartScene();
+	m_currentScene->Start();
 }
 
 CBaseScene* CSceneManager::GetScene(std::string sceneName)

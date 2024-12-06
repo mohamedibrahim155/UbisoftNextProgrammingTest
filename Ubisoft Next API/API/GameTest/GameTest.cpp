@@ -64,12 +64,12 @@ void Init()
 
 	CSceneManager::GetInstance().ChangeScene("Scene1");
 
-	CSceneManager::GetInstance().StartScene();
+	CSceneManager::GetInstance().Start();
 
 }
 
 //------------------------------------------------------------------------
-// UpdateScene your simulation here. deltaTime is the elapsed time since the last update in ms.
+// Update your simulation here. deltaTime is the elapsed time since the last update in ms.
 // This will be called at no greater frequency than the value of APP_MAX_FRAME_RATE
 //------------------------------------------------------------------------
 void Update(const float deltaTime)
@@ -151,7 +151,7 @@ void Update(const float deltaTime)
 
 	Timer::GetInstance().deltaTime = deltaTime;
 
-	CSceneManager::GetInstance().UpdateScene();
+	CSceneManager::GetInstance().Update();
 }
 
 //------------------------------------------------------------------------
@@ -195,7 +195,7 @@ void Render()
 	}
 */
 #pragma endregion
-	CSceneManager::GetInstance().RenderScene();
+	CSceneManager::GetInstance().Render();
 }
 //------------------------------------------------------------------------
 // Add your shutdown code here. Called when the APP_QUIT_KEY is pressed.

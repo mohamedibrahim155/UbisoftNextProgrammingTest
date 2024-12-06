@@ -9,6 +9,7 @@ public:
 	using EVENT = std::function<void()>;
 	void Subscribe(std::string eventName, EVENT callback);
 	void UnSubscribe(std::string eventName);
+	void UnSubscribeAllEvents();
 
 	void Invoke();
 

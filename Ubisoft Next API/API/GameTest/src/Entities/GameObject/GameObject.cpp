@@ -14,6 +14,8 @@ CGameObject::CGameObject(CSimpleSprite* sprite) : m_sprite(sprite)
 
 CGameObject::~CGameObject()
 {
+	OnDestroyedEvent.UnSubscribeAllEvents();
+
 	delete m_sprite;
 }
 
