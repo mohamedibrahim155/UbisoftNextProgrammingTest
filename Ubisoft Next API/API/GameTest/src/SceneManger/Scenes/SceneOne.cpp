@@ -1,10 +1,11 @@
 #include "stdafx.h"
 #include "SceneOne.h"
-
+#include "../src/Utils/Utils.h"
+#include "App/app.h"
 CSceneOne::CSceneOne(eScene name) : CBaseScene(name)
 {
 	sprite = App::CreateSprite(".\\TestData\\IdleBLUE- 150ms - 32x32.png", 6, 1);
-	sprite->CreateAnimation(2, 1.5f, { 0,1,2,3,4,5,6 });
+	sprite->CreateAnimation(2, 1.0f / 15.0f, { 0,1,2,3,4,5,6 });
 
 	gameobject = new CGameObject(sprite);
 
@@ -22,8 +23,11 @@ CSceneOne::CSceneOne(eScene name) : CBaseScene(name)
 
 void CSceneOne::Start()
 {
-	gameobject->SetPosition(100.0f, 400.0f);
+	gameobject->SetPosition(Random::RandomRange(0, APP_VIRTUAL_WIDTH) , Random::RandomRange(0, APP_VIRTUAL_HEIGHT));
 }
+
+float timer = 5.0f;
+float elapsedTime = 0;
 
 void CSceneOne::Update()
 {
@@ -33,8 +37,24 @@ void CSceneOne::Update()
 		ChangeScene(SCENE_2);
 	}
 
+
+
+	if (elapsedTime >= timer)
+	{
+		gameobject->SetPosition(Random::RandomRange(0, APP_VIRTUAL_WIDTH), Random::RandomRange(0, APP_VIRTUAL_HEIGHT));
+		elapsedTime = 0;
+	}
+	else
+	{
+		elapsedTime += Timer::GetInstance().deltaTime;
+	}
+
+	gameobject->GetSprite()->SetAnimation(2);
 	
 }
+
+
+
 
 void CSceneOne::Render()
 {

@@ -30,7 +30,7 @@ void CGameObject::Update()
 	if (m_sprite != nullptr) 
 	{
 		// Updating Sprite data
-		m_sprite->Update(Timer::GetInstance().deltaTime);
+		m_sprite->Update(Timer::GetInstance().deltaTime * 1000);
 	}
 }
 

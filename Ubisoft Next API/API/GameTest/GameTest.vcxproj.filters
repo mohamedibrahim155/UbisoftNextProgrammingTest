@@ -33,6 +33,7 @@
     <ClCompile Include="src\SceneManger\BaseScene.cpp" />
     <ClCompile Include="src\SceneManger\Scenes\SceneTwo.cpp" />
     <ClCompile Include="src\Events\Event.cpp" />
+    <ClCompile Include="src\Utils\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -73,6 +74,7 @@
     <ClInclude Include="src\SceneManger\BaseScene.h" />
     <ClInclude Include="src\SceneManger\Scenes\SceneTwo.h" />
     <ClInclude Include="src\Events\Event.h" />
+    <ClInclude Include="src\Utils\Utils.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="API">

@@ -20,6 +20,8 @@ public:
 	void SetScale(float value);
 	void SetSprite(CSimpleSprite* sprite);
 
+	inline CSimpleSprite* GetSprite() { return m_sprite; };
+
 	Vector2 GetPosition();
 
 	std::string m_name = "unNamed";

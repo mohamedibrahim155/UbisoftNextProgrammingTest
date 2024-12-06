@@ -151,7 +151,7 @@ void Update(const float deltaTime)
 	*/
 #pragma endregion
 
-	Timer::GetInstance().deltaTime = deltaTime;
+	Timer::GetInstance().deltaTime = (deltaTime /1000);
 
 	CSceneManager::GetInstance().Update();
 }
