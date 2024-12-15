@@ -64,3 +64,49 @@ struct Vector2
 	}
 
 };
+
+struct  Vector3
+{
+	float x;
+	float y;
+	float z;
+
+	Vector3() : x(0), y(0) ,z(0){}
+	Vector3(float x, float y, float z)
+	{
+		this->x = x;
+		this->y = y;
+		this->z = z;
+	}
+
+
+	float Magnitude() const {
+		return std::sqrt(x * x + y * y + z * z);
+	}
+
+	Vector3 Normalize()
+	{
+		float magnitude = Magnitude();
+
+		if (magnitude != 0)
+		{
+			x /= magnitude;
+			y /= magnitude;
+			z /= magnitude;
+		}
+
+		return { x, y, z };
+	}
+
+	static Vector3 Zero()
+	{
+		return { 0,0 ,0 };
+	}
+
+
+	static Vector3 One()
+	{
+		return { 1,1 ,1 };
+	}
+
+};

@@ -14,7 +14,7 @@ namespace Random
 
 namespace Debug
 {
-	extern void Log(std::string message);
+	extern void Log( std::string message, Vector3 color = Vector3::One() );
 	extern void Log(int value);
 	extern void Log(float value);
 }

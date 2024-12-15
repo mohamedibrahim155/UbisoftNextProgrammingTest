@@ -45,9 +45,10 @@ float Random::RandomValue()
     return RandomRange(0.0f, 1.0f);
 }
 
-void Debug::Log(std::string message)
+void Debug::Log(std::string message, Vector3 color)
 {
-    App::Print((APP_VIRTUAL_WIDTH / 2) + (APP_VIRTUAL_WIDTH / 4), 0, message.c_str());
+    Vector3 nomralizedColor = color.Normalize();
+    App::Print((APP_VIRTUAL_WIDTH / 2) + (APP_VIRTUAL_WIDTH / 4), 0, message.c_str(), nomralizedColor.x, nomralizedColor.y, nomralizedColor.z);
 }
 
 void Debug::Log(int value)
