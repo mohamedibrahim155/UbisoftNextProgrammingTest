@@ -24,16 +24,17 @@
     <ClCompile Include="miniaudio\miniaudio.cpp">
       <Filter>API\third_party\miniaudio</Filter>
     </ClCompile>
-    <ClCompile Include="src\Entities\Entity.cpp" />
-    <ClCompile Include="src\Entities\EntityManager.cpp" />
     <ClCompile Include="src\Timer\Timer.cpp" />
-    <ClCompile Include="src\Entities\GameObject\GameObject.cpp" />
-    <ClCompile Include="src\SceneManger\SceneManager.cpp" />
-    <ClCompile Include="src\SceneManger\Scenes\SceneOne.cpp" />
-    <ClCompile Include="src\SceneManger\BaseScene.cpp" />
-    <ClCompile Include="src\SceneManger\Scenes\SceneTwo.cpp" />
     <ClCompile Include="src\Events\Event.cpp" />
     <ClCompile Include="src\Utils\Utils.cpp" />
+    <ClCompile Include="src\ECS\Entity.cpp" />
+    <ClCompile Include="src\ECS\Component.cpp" />
+    <ClCompile Include="src\ECS\System.cpp" />
+    <ClCompile Include="src\ECS\SystemManager.cpp" />
+    <ClCompile Include="src\ECS\Systems\RenderSystem.cpp" />
+    <ClCompile Include="src\ECS\Components\RenderComponent.cpp" />
+    <ClCompile Include="src\ECS\Components\Transform.cpp" />
+    <ClCompile Include="src\World\World.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -65,16 +66,17 @@
       <Filter>API\third_party\miniaudio</Filter>
     </ClInclude>
     <ClInclude Include="src\Vector.h" />
-    <ClInclude Include="src\Entities\Entity.h" />
-    <ClInclude Include="src\Entities\EntityManager.h" />
     <ClInclude Include="src\Timer\Timer.h" />
-    <ClInclude Include="src\Entities\GameObject\GameObject.h" />
-    <ClInclude Include="src\SceneManger\SceneManager.h" />
-    <ClInclude Include="src\SceneManger\Scenes\SceneOne.h" />
-    <ClInclude Include="src\SceneManger\BaseScene.h" />
-    <ClInclude Include="src\SceneManger\Scenes\SceneTwo.h" />
     <ClInclude Include="src\Events\Event.h" />
     <ClInclude Include="src\Utils\Utils.h" />
+    <ClInclude Include="src\ECS\Entity.h" />
+    <ClInclude Include="src\ECS\Component.h" />
+    <ClInclude Include="src\ECS\System.h" />
+    <ClInclude Include="src\ECS\SystemManager.h" />
+    <ClInclude Include="src\ECS\Systems\RenderSystem.h" />
+    <ClInclude Include="src\ECS\Components\RenderComponent.h" />
+    <ClInclude Include="src\ECS\Components\Transform.h" />
+    <ClInclude Include="src\World\World.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="API">

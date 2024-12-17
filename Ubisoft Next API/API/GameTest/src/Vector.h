@@ -109,4 +109,27 @@ struct  Vector3
 		return { 1,1 ,1 };
 	}
 
+	Vector3 operator = (const Vector3& other) const {
+		return Vector3(other.x, other.y, other.z);
+	}
+
+	Vector3 operator+(const Vector3& other) const {
+		return Vector3(x + other.x, y + other.y, z + other.z);
+	}
+
+	Vector3 operator-(const Vector3& other) const {
+		return Vector3(x - other.x, y - other.y, z - other.z);
+	}
+
+	Vector3 operator*(float scalar) const {
+		return Vector3(x * scalar, y * scalar, z* scalar);
+	}
+	Vector3 operator/(float scalar) const {
+		if (scalar == 0)
+		{
+			return Vector3::Zero();
+		}
+		return Vector3(x / scalar, y / scalar, z / scalar);
+	}
+
 };

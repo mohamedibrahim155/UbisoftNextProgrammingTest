@@ -14,8 +14,8 @@
 
 // TODO: reference additional headers your program requires here
 #include "src/Timer/Timer.h"
-#include "src/Entities/EntityManager.h"
-#include "src/Entities/GameObject/GameObject.h"
-#include "src/SceneManger/SceneManager.h"
-#include "src/SceneManger/Scenes/SceneOne.h"
-#include "src/SceneManger/Scenes/SceneTwo.h"
+//#include "src/Entities/EntityManager.h"
+//#include "src/Entities/GameObject/GameObject.h"
+//#include "src/SceneManger/SceneManager.h"
+//#include "src/SceneManger/Scenes/SceneOne.h"
+//#include "src/SceneManger/Scenes/SceneTwo.h"

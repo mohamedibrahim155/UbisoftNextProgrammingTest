@@ -10,7 +10,7 @@
 //------------------------------------------------------------------------
 #include "app\app.h"
 //------------------------------------------------------------------------
-
+#include "src/World/World.h"
 //------------------------------------------------------------------------
 // Example data....
 //------------------------------------------------------------------------
@@ -27,6 +27,8 @@ enum
 //------------------------------------------------------------------------
 // Called before first update. Do any initial setup here.
 //------------------------------------------------------------------------
+
+World* world;
 void Init()
 {
 #pragma region API_DEFAULT_INIT
@@ -58,16 +60,17 @@ void Init()
 #pragma endregion
 
 
-	CBaseScene* scene1 = new CSceneOne(SCENE_1);
-	CBaseScene* scene2 = new CSceneTwo(SCENE_2);
+	//CBaseScene* scene1 = new CSceneOne(SCENE_1);
+	//CBaseScene* scene2 = new CSceneTwo(SCENE_2);
 
-	CSceneManager::GetInstance().AddScene(SCENE_1, scene1);
-	CSceneManager::GetInstance().AddScene(SCENE_2, scene2);
+	//CSceneManager::GetInstance().AddScene(SCENE_1, scene1);
+	//CSceneManager::GetInstance().AddScene(SCENE_2, scene2);
 
-	CSceneManager::GetInstance().ChangeScene(SCENE_1);
+	//CSceneManager::GetInstance().ChangeScene(SCENE_1);
 
-	CSceneManager::GetInstance().Start();
+	//CSceneManager::GetInstance().Start();
 
+	world = new World();
 }
 
 //------------------------------------------------------------------------
@@ -153,7 +156,9 @@ void Update(const float deltaTime)
 
 	Timer::GetInstance().deltaTime = (deltaTime /1000);
 
-	CSceneManager::GetInstance().Update();
+	//CSceneManager::GetInstance().Update();
+
+	world->Update(deltaTime / 1000);
 }
 
 //------------------------------------------------------------------------
@@ -197,7 +202,9 @@ void Render()
 	}
 */
 #pragma endregion
-	CSceneManager::GetInstance().Render();
+	//CSceneManager::GetInstance().Render();
+
+	world->Render();
 }
 //------------------------------------------------------------------------
 // Add your shutdown code here. Called when the APP_QUIT_KEY is pressed.
@@ -215,7 +222,9 @@ void Shutdown()
 	//------------------------------------------------------------------------
 #pragma endregion
 
-	CSceneManager::GetInstance().CleanScene();
-	CEntityManager::GetInstance().Clean();
+	/*CSceneManager::GetInstance().CleanScene();
+	CEntityManager::GetInstance().Clean();*/
+
+	world->Clean();
 	
 }
