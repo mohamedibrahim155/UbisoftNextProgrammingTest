@@ -4,10 +4,15 @@
 #include <string>
 
 class SpriteRenderer;
+class EntityManager;
+using EntityID = int;
 class Entity
 {
 public:
-	Entity(int ID);
+
+	
+
+	Entity(EntityID ID);
 	virtual ~Entity();
 
 
@@ -26,7 +31,7 @@ public:
 	void SetScale(const Vector2& scale);
 	
 	//Getters
-	bool IsEnabled() const;
+	bool IsActive() const;
 	int GetID() const;
 	std::string GetTag() const;
 
@@ -37,10 +42,12 @@ public:
 
 
 	Transform transform;
+	EntityManager* manager;
+	bool isDestroyed = false;
 private:
 
 	bool isActive = true;
-	int enitityID;
+	EntityID enitityID;
 
 	std::string m_Tag = "Unkown";
 	std::unordered_map<ComponentType,IComponent*> listOfComponents;

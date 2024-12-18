@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "MovementSystem.h"
 
-void MovementSystem::Start()
+void MovementSystem::Start(std::vector<Entity*> entities)
 {
 }
 
@@ -9,10 +9,11 @@ void MovementSystem::Update(std::vector<Entity*> entities, float deltaTime)
 {
 	for (Entity* entity : entities)
 	{
+		
+		if (!entity->IsActive() || entity->isDestroyed) continue;
 		Transform* transform = &entity->transform;
-		RenderComponent* renderComp = (RenderComponent*)entity->GetComponent(ComponentType::RENDER_COMPONENT);
 
-		if (renderComp == nullptr && transform == nullptr) continue;
+		if (transform == nullptr) continue;
 
 
 		Vector3 position = entity->transform.position;

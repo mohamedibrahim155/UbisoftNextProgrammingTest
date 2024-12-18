@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "Entity.h"
 #include "Components/SpriteRenderer.h"
-
-Entity::Entity(int ID) : enitityID(ID)
+#include"../src/ECS/EntityManager.h"
+Entity::Entity(EntityID ID) : enitityID(ID)
 {
 	objectSprite = nullptr;
 }
@@ -69,7 +69,14 @@ bool Entity::RemoveComponent(ComponentType type)
 void Entity::Destroy()
 {
 	SetActive(false);
+	isDestroyed = true;
+	if (manager)
+	{
+		manager->DestroyEntity(enitityID);
+	}
 	CleanUps();
+
+	//delete this;
 }
 
 
@@ -106,7 +113,7 @@ Vector3 Entity::GetPosition()
 	return transform.position;
 }
 
-bool Entity::IsEnabled() const
+bool Entity::IsActive() const
 {
 	return isActive;
 }
@@ -115,6 +122,7 @@ int Entity::GetID() const
 {
 	return enitityID;
 }
+
 
 void Entity::SetActive(bool isActive)
 {

@@ -2,6 +2,7 @@
 #include "PlayerMoveScript.h"
 #include "../src/ECS/Entity.h"
 #include "../../Components/SpriteRenderer.h"
+#include "../App/app.h"
 PlayerMoveScript::PlayerMoveScript() : ScriptComponent()
 {
 }
@@ -35,6 +36,12 @@ void PlayerMoveScript::UpdateComponent()
 	pos.x += 1;
 
 	entityRef->transform.position = (pos);
+
+	if (App::GetController().CheckButton(XINPUT_GAMEPAD_DPAD_DOWN, false))
+	{
+		entityRef->Destroy();
+	}
+	
 
 }
 

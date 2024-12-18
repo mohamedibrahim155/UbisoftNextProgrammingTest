@@ -62,7 +62,7 @@ void SpriteRenderer::SetColor(const Vector3&  color)
 
 void SpriteRenderer::SetPosition(const Vector3&  position)
 {
-	Vector3 centreScreenVec3 = Vector3(centerScreen);
+	Vector3 centreScreenVec3 = Vector3(centerScreen.x, centerScreen.y, 0);
 
 	spritePosition = centreScreenVec3 + position + spriteOffset;
 

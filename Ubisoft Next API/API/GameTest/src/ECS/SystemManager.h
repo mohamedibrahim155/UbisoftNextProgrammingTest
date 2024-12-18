@@ -10,19 +10,19 @@ public:
 	void RemoveSystem(ISystem* system);
 
 	void AddEntity(Entity* entity);
-	void RemoveEntity(Entity* entity);
-
-	void CleanSystem();
+	void RemoveEntity(EntityID ID);
 
 	void Start();
 	void UpdateSystems(float deltaTime);
 	void Render();
+	void CleanSystem();
 private:
 
 	int systemCount = 0;
-	std::unordered_map<int, ISystem*> listOfSystems;
+	std::unordered_map<int, ISystem*> systemsMap;
 
-	std::vector<Entity*> listOfEntites;
+	std::unordered_map<EntityID,Entity*> entitiesMap;
+	std::vector<Entity*> listOfEntities;
 
 };
 

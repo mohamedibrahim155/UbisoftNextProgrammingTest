@@ -9,37 +9,35 @@ Entity* EntityManager::CreateEntity()
 {
     entityCount++;
     Entity* newEntity = new Entity(entityCount);
+    newEntity->manager = this;
     newEntity->AddComponent(new Transform());
-    listOfEntites[entityCount] = newEntity;
+    entitiesMap[entityCount] = newEntity;
     systemManager->AddEntity(newEntity);
     return  newEntity;
 }
 
-Entity* EntityManager::GetEntityByID(int ID)
+Entity* EntityManager::GetEntityByID(EntityID ID)
 {
-    return  listOfEntites[entityCount];
+    return  entitiesMap[entityCount];
 }
 
-void EntityManager::DestroyEntity(int ID)
+void EntityManager::DestroyEntity(EntityID ID)
 {
     Entity* entity = GetEntityByID(ID);
-
-    entity->Destroy();
-
-    listOfEntites.erase(ID);
-
+    systemManager->RemoveEntity(ID);
+    entitiesMap.erase(ID);
 }
 
 void EntityManager::Clean()
 {
-    std::unordered_map<int, Entity*> ::iterator it;
-    for (it  = listOfEntites.begin(); it != listOfEntites.end() ; ++it)
+    for (auto it = entitiesMap.begin(); it != entitiesMap.end(); )
     {
-        it->second->Destroy();
-        delete it->second;
+        DestroyEntity(it->first);
+        it = entitiesMap.begin();
     }
-
-    listOfEntites.clear();
+    entitiesMap.clear();
+    systemManager->CleanSystem();
+    
 }
 
 void EntityManager::SetSystemManager(SystemManager* manager)

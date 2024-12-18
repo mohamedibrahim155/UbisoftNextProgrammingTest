@@ -8,7 +8,7 @@ class CustomScriptsControllerSystem : public ISystem
 public:
 	CustomScriptsControllerSystem() : ISystem("CustomScriptControllerSystem") {};
 	// Inherited via ISystem
-	void Start() override;
+	void Start(std::vector<Entity*> entities) override;
 	void Update(std::vector<Entity*> entities, float deltaTime) override;
 	void Render(std::vector<Entity*> entities) override;
 	void Cleanups() override;

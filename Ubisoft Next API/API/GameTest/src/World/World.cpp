@@ -29,7 +29,7 @@ World::World()
 
 	std::string filename = ASSET_PATH + "IdleBLUE- 150ms - 32x32.png";
 
-	for (size_t i = 0; i < 1000; i++)
+	for (size_t i = 0; i < 1; i++)
 	{
 		float randomWidth = Random::RandomRange(-(float)APP_VIRTUAL_WIDTH, (float)APP_VIRTUAL_WIDTH);
 		float randomheight = Random::RandomRange(-(float)APP_VIRTUAL_HEIGHT, (float)APP_VIRTUAL_HEIGHT);
@@ -47,6 +47,12 @@ World::World()
 	}
 
 #pragma endregion
+
+
+#pragma region Start
+	systemManager->Start();
+#pragma endregion
+
 }
 
 void World::Update(float deltaTime)
@@ -61,7 +67,6 @@ void World::Render()
 
 void World::Clean()
 {
-	systemManager->CleanSystem();
 	entityManager->Clean();
 
 	delete systemManager;

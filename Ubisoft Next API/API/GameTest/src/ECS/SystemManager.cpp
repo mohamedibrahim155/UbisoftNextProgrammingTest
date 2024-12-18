@@ -4,28 +4,26 @@
 void SystemManager::RegisterSystem(ISystem* system)
 {
     system->systemManager = this;
-	listOfSystems[systemCount] = system;
+	systemsMap[systemCount] = system;
 	systemCount++;
-
-
 }
 
 void SystemManager::RemoveSystem(ISystem* system)
 {
     // TODO: Check if the system removing properly and ordered well
-    for (auto it = listOfSystems.begin(); it != listOfSystems.end(); ++it)
+    for (auto it = systemsMap.begin(); it != systemsMap.end(); ++it)
     {
         if (it->second == system)
         {
             int removeKey = it->first;
-            int lastIndex = listOfSystems.size() - 1;
+            int lastIndex = systemsMap.size() - 1;
 
             if (removeKey != lastIndex)
             {
-                listOfSystems[removeKey] = listOfSystems[lastIndex];; // replacing last to removed index
+                systemsMap[removeKey] = systemsMap[lastIndex];; // replacing last to removed index
             }
 
-            listOfSystems.erase(lastIndex);
+            systemsMap.erase(lastIndex);
             systemCount--;
             return;
         }
@@ -34,59 +32,68 @@ void SystemManager::RemoveSystem(ISystem* system)
 
 void SystemManager::AddEntity(Entity* entity)
 {
-    listOfEntites.push_back(entity);
+    entitiesMap[entity->GetID()] =  entity;
+
+    listOfEntities.push_back(entity);
 }
 
-void SystemManager::RemoveEntity(Entity* entity)
+void SystemManager::RemoveEntity(EntityID ID)
 {
-    std::vector<Entity*>::iterator it = std::find(listOfEntites.begin(), listOfEntites.end(), entity);
+    Entity* removeEntity = entitiesMap[ID];
 
-    if (it != listOfEntites.end())
+    for (const std::pair<int, ISystem*>& system: systemsMap)
     {
-        listOfEntites.erase(it);
+        system.second->RemoveEntity(removeEntity);
     }
+        entitiesMap.erase(ID);
+    
 }
 
 void SystemManager::CleanSystem()
 {
-    for (std::pair<int, ISystem*> system : listOfSystems)
+
+    for (std::pair<EntityID, Entity*> entity:  entitiesMap)
+    {
+        entity.second->CleanUps();
+        delete entity.second;
+    }
+
+    entitiesMap.clear();
+    listOfEntities.clear();
+
+
+
+    for (std::pair<int, ISystem*> system : systemsMap)
     {
         system.second->Cleanups();
 
         delete  system.second;
     }
 
-    listOfSystems.clear();
-
-
-    for (Entity* entity:  listOfEntites)
-    {
-        entity->CleanUps();
-    }
-
-    listOfEntites.clear();
+    systemsMap.clear();
+    
 }
 
 void SystemManager::Start()
 {
-    for (std::pair<int, ISystem*> system : listOfSystems)
+    for (std::pair<int, ISystem*> system : systemsMap)
     {
-        system.second->Start();
+        system.second->Start(listOfEntities);
     }
 }
 
 void SystemManager::UpdateSystems(float deltaTime)
 {
-    for (std::pair<int, ISystem*> system: listOfSystems)
+    for (std::pair<int, ISystem*> system: systemsMap)
     {
-        system.second->Update(listOfEntites, deltaTime);
+        system.second->Update(listOfEntities, deltaTime);
     }
 }
 
 void SystemManager::Render()
 {
-    for (std::pair<int, ISystem*> system : listOfSystems)
+    for (std::pair<int, ISystem*> system : systemsMap)
     {
-        system.second->Render(listOfEntites);
+        system.second->Render(listOfEntities);
     }
 }
