@@ -8,14 +8,16 @@ class Transform :public IComponent
 public:
 
     Transform();
-    Transform(Vector3 position, Vector3 scale);
+    Transform(Vector3 position, Vector2 scale);
     Transform(Vector2 position, Vector2 scale);
 
     Vector3 position;
-    Vector3 scale;
+    Vector2 scale;
 
+    Vector3 GetPosition() const { return position; }
+    void SetPosition(const Vector3& pos) { position = pos; }
 private:
-    void Initialise() override {} ;
+    void Start() override {} ;
     void UpdateComponent() override {};
     void Render() override {};
 

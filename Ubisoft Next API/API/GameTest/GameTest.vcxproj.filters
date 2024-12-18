@@ -35,6 +35,12 @@
     <ClCompile Include="src\ECS\Components\RenderComponent.cpp" />
     <ClCompile Include="src\ECS\Components\Transform.cpp" />
     <ClCompile Include="src\World\World.cpp" />
+    <ClCompile Include="src\ECS\Components\SpriteRenderer.cpp" />
+    <ClCompile Include="src\ECS\EntityManager.cpp" />
+    <ClCompile Include="src\ECS\Systems\CustomScriptsControllerSystem.cpp" />
+    <ClCompile Include="src\ECS\Components\ScriptComponent.cpp" />
+    <ClCompile Include="src\ECS\Components\Scripts\PlayerMoveScript.cpp" />
+    <ClCompile Include="src\ECS\Systems\MovementSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -77,6 +83,12 @@
     <ClInclude Include="src\ECS\Components\RenderComponent.h" />
     <ClInclude Include="src\ECS\Components\Transform.h" />
     <ClInclude Include="src\World\World.h" />
+    <ClInclude Include="src\ECS\Components\SpriteRenderer.h" />
+    <ClInclude Include="src\ECS\EntityManager.h" />
+    <ClInclude Include="src\ECS\Systems\CustomScriptsControllerSystem.h" />
+    <ClInclude Include="src\ECS\Components\ScriptComponent.h" />
+    <ClInclude Include="src\ECS\Components\Scripts\PlayerMoveScript.h" />
+    <ClInclude Include="src\ECS\Systems\MovementSystem.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="API">

@@ -14,6 +14,11 @@ ComponentType IComponent::GetComponentType()
 	return static_cast<ComponentType>(componentID);
 }
 
+Entity* IComponent::GetEntity() const
+{
+	return entityRef;
+}
+
 void IComponent::SetEntity(Entity* entity)
 {
 	entityRef = entity;

@@ -3,6 +3,7 @@
 
 void RenderSystem::Start()
 {
+
 }
 
 void RenderSystem::Update(std::vector<Entity*> entities, float deltaTime)
@@ -12,10 +13,9 @@ void RenderSystem::Update(std::vector<Entity*> entities, float deltaTime)
 	{
 		RenderComponent* renderComp = (RenderComponent*)entity->GetComponent(ComponentType::RENDER_COMPONENT);
 
-		if (renderComp != nullptr)
-		{
-			renderComp->UpdateComponent();
-		}
+		if (renderComp == nullptr) continue;
+		
+		renderComp->UpdateComponent();
 	}
 }
 
@@ -25,10 +25,9 @@ void RenderSystem::Render(std::vector<Entity*> entities)
 	{
 		RenderComponent* renderComp = (RenderComponent*)entity->GetComponent(ComponentType::RENDER_COMPONENT);
 
-		if (renderComp != nullptr)
-		{
-			renderComp->Render();
-		}
+		if (renderComp == nullptr) continue;
+
+		renderComp->Render();
 	}
 }
 

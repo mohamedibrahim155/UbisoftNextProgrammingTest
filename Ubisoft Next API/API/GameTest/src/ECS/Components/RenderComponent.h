@@ -1,32 +1,26 @@
 #pragma once
 #include "../Component.h"
 #include "../App/SimpleSprite.h"
-
-class Entity;
+#include "src/Vector.h"
 
 
 class RenderComponent : public IComponent
 {
 public:
+	RenderComponent(std:: string filename, Vector2 position);
+	RenderComponent(Vector2 position);
 	RenderComponent(std:: string filename);
 
-	~RenderComponent() override;
+	virtual ~RenderComponent() override {};
 	// Inherited via IComponent
-	void Initialise() override;
-	void UpdateComponent() override;
-	void Render() override;
+	virtual void Start() override {};
+	virtual void UpdateComponent() override {};
+	virtual void Render() override {};
 
-	
-	CSimpleSprite* GetSprite();
 
-private:
-
-	CSimpleSprite* sprite;
+protected:
 	std::string fileName;
-
-	
-
-
-
+	Vector2 centerScreen;
+	Vector2 spriteOffset;
 };
 

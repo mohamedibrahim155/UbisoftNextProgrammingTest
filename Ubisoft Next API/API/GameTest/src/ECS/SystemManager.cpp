@@ -3,6 +3,7 @@
 
 void SystemManager::RegisterSystem(ISystem* system)
 {
+    system->systemManager = this;
 	listOfSystems[systemCount] = system;
 	systemCount++;
 

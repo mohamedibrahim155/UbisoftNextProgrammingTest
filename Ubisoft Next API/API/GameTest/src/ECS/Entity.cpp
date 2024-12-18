@@ -1,5 +1,11 @@
 #include "stdafx.h"
 #include "Entity.h"
+#include "Components/SpriteRenderer.h"
+
+Entity::Entity(int ID) : enitityID(ID)
+{
+	objectSprite = nullptr;
+}
 
 Entity::~Entity()
 {
@@ -12,6 +18,10 @@ void Entity::AddComponent(ComponentType type,IComponent* component)
 	{
 		this->transform = *(static_cast<Transform*>(component));
 	}
+	if (component->GetComponentType() == ComponentType::RENDER_COMPONENT)
+	{
+		this->objectSprite = static_cast<SpriteRenderer*>(component);
+	}
 
 	component->SetEntity(this);
 	listOfComponents[type] =  component;
@@ -23,6 +33,10 @@ void Entity::AddComponent(IComponent* component)
 	if (component->GetComponentType() == ComponentType::TRANSFORM_COMPONENT)
 	{
 		this->transform = *(static_cast<Transform*>(component));
+	}
+	if (component->GetComponentType() == ComponentType::RENDER_COMPONENT)
+	{
+		this->objectSprite = static_cast<SpriteRenderer*>(component);
 	}
 
 	component->SetEntity(this);
@@ -44,11 +58,18 @@ bool Entity::RemoveComponent(ComponentType type)
 	if (it != listOfComponents.end())
 	{
 		listOfComponents.erase(type);
+
 		return true;
 	}
 
 	return false;
 
+}
+
+void Entity::Destroy()
+{
+	SetActive(false);
+	CleanUps();
 }
 
 
@@ -66,14 +87,87 @@ std::vector<IComponent*> Entity::GetComponents() const
 
 IComponent* Entity::GetComponent(ComponentType type)
 {
-	
 	return listOfComponents[type];
 }
 
+std::string Entity::GetTag() const
+{
+	return m_Tag;
+}
+
+Vector3 Entity::GetPosition() 
+{
+	float x, y;
+	objectSprite->GetSprite()->GetPosition(x, y);
+
+	Vector3 position = Vector3(x, y, 0);
+	transform.position = position;
+
+	return transform.position;
+}
+
+bool Entity::IsEnabled() const
+{
+	return isActive;
+}
+
+int Entity::GetID() const
+{
+	return enitityID;
+}
+
+void Entity::SetActive(bool isActive)
+{
+	this->isActive = isActive;
+
+	
+	std::vector<IComponent*> componentList = GetComponents();
+
+	for (IComponent* component : componentList)
+	{
+		if (component->isComponentEnabled)
+		{
+			component->SetEnabled(isActive);
+		}
+	}
+
+}
+
+void Entity::SetTag(const std::string& tag)
+{
+	m_Tag = tag;
+}
+
+void Entity::SetID(int ID)
+{
+	this->enitityID = ID;
+}
+
+void Entity::SetPosition(const Vector3& position)
+{
+	transform.position = position;
+
+	if (objectSprite)
+	{
+		objectSprite->SetPosition(transform.position);
+	}
+
+}
+
+void Entity::SetScale(const Vector2& scale)
+{
+	this->transform.scale = scale;
+
+	if (objectSprite)
+	{
+		objectSprite->SetScale(scale);
+	}
+}
+
+
+
 void Entity::CleanUps()
 {
-	
-
 	for (std::pair<ComponentType, IComponent*> item : listOfComponents)
 	{
 		if (item.second)
@@ -81,6 +175,7 @@ void Entity::CleanUps()
 			delete item.second;
 		}
 	}
-
+	
 	listOfComponents.clear();
+
 }

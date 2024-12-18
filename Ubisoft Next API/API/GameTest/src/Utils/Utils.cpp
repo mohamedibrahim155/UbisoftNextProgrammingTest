@@ -58,3 +58,25 @@ void Debug::Log(int value)
 void Debug::Log(float value)
 {
 }
+
+
+
+float MathF::Clamp(float value, float min, float max)
+{
+    return (value < min ? min : (value > max) ? max : value);
+}
+
+float  MathF::Lerp(float a, float b, float t)
+{
+    return a + t * (b - a);
+}
+
+float MathF::Max(float a, float b)
+{
+    return (a > b) ? a : b;
+}
+
+float MathF::Min(float a, float b)
+{
+    return (a < b) ? a : b;
+}

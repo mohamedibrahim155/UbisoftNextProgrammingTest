@@ -1,5 +1,6 @@
 #pragma once
 #include "src/ECS/SystemManager.h"
+#include "src/ECS/EntityManager.h"
 class World
 {
 public:
@@ -14,6 +15,7 @@ public:
 private:
 
 	SystemManager* systemManager;
+	EntityManager* entityManager;
 
 };
 
