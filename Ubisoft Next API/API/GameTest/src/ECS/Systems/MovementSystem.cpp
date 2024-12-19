@@ -17,12 +17,13 @@ void MovementSystem::Update(std::vector<Entity*> entities, float deltaTime)
 		if (transform == nullptr) continue;
 
 
-		Vector3 position = entity->transform.position;
+		Vector3 position = transform->position;
 		Vector2 scale = transform->scale;
 
 		
 
 		entity->SetPosition(position);
+		entity->SetScale(scale);
 	}
 
 	

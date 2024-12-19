@@ -12,6 +12,7 @@ public:
 	virtual void Start() override;
 	virtual void UpdateComponent() override;
 	virtual void Render() override;
+	 int RenderOrder() override;
 
 	 void SetColor(const Vector3&  color);
 	 void SetPosition(const Vector3&  position);

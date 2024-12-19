@@ -62,6 +62,11 @@ void SpriteRenderer::Render()
 	
 }
 
+int SpriteRenderer::RenderOrder()
+{
+	return spriteOrder;
+}
+
 void SpriteRenderer::SetColor(const Vector3&  color)
 {
 	if (sprite == nullptr) return;

@@ -38,21 +38,27 @@ void World::Start()
 
 	std::string filename = ASSET_PATH + "IdleBLUE- 150ms - 32x32.png";
 
-	for (size_t i = 0; i < 5; i++)
+	for (size_t i = 0; i < 1; i++)
 	{
 		float randomWidth = Random::RandomRange(-(float)APP_VIRTUAL_WIDTH, (float)APP_VIRTUAL_WIDTH);
 		float randomheight = Random::RandomRange(-(float)APP_VIRTUAL_HEIGHT, (float)APP_VIRTUAL_HEIGHT);
 		Entity* entity1 = entityManager->CreateEntity();
 		//entity1->AddComponent(new SpriteRenderer(filename, Vector3::Zero(), Vector2::Zero()));
-		entity1->AddComponent(new PlayerMoveScript());
-		entity1->transform.position = Vector3(randomWidth, randomheight, 0);
+		//entity1->AddComponent(new PlayerMoveScript());
+		entity1->transform.position = Vector3(0, 0, 0);
 
 		Entity* entity2 = entityManager->CreateEntity();
-		entity2->AddComponent(new SpriteRenderer(filename, Vector3::Zero(), Vector2::Zero()));
+		entity2->AddComponent(new SpriteRenderer(filename, Vector3::Zero(), Vector2::Zero(),5));
 
 		randomWidth = Random::RandomRange(-(float)(APP_VIRTUAL_WIDTH / 2), (float)(APP_VIRTUAL_WIDTH / 2));
 		randomheight = Random::RandomRange(-(float)(APP_VIRTUAL_HEIGHT / 2), (float)(APP_VIRTUAL_HEIGHT / 2));
-		entity2->transform.position = Vector3(randomWidth, randomheight, 0);
+		entity2->transform.position = Vector3(0, 0, 0);
+
+		Entity* entity3 = entityManager->CreateEntity();
+		entity3->AddComponent(new SpriteRenderer(filename, Vector3::Zero(), Vector2::Zero(),3));
+		((SpriteRenderer*)entity3->GetComponent(ComponentType::RENDER_COMPONENT))->SetColor(Vector3(1,0,0));
+		entity3->transform.scale = Vector2(5, 5);
+		
 	}
 
 #pragma endregion

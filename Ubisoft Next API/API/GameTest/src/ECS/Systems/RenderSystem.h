@@ -14,5 +14,6 @@ public:
 
 private:
 
+	std::vector<std::pair<int, Entity*>> sortedEntities;
 };
 

@@ -16,7 +16,7 @@ public:
 	virtual void Start() override {};
 	virtual void UpdateComponent() override {};
 	virtual void Render() override {};
-
+	virtual int RenderOrder() =0;
 
 protected:
 	std::string fileName;
