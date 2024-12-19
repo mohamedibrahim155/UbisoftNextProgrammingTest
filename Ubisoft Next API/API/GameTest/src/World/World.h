@@ -7,6 +7,7 @@ public:
 	World();
 
 	~World()  = default;
+	 void Start();
 	void Update(float deltaTime);
 	void Render();
 	void Clean();

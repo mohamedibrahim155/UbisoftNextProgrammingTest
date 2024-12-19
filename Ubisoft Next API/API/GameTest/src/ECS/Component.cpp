@@ -26,5 +26,5 @@ void IComponent::SetEntity(Entity* entity)
 
 void IComponent::SetEnabled(bool state)
 {
-	isComponentEnabled = true;
+	isComponentEnabled = state;
 }

@@ -4,12 +4,14 @@
 class SpriteRenderer : public RenderComponent
 {
 public:
+	SpriteRenderer(std::string filename);
 	SpriteRenderer(std::string filename, Vector3 position, Vector2 offset);
 	SpriteRenderer(std::string filename, Vector3 position, Vector2 offset, int order);
-	~SpriteRenderer() override;
-	 void Start() override;
-	 void UpdateComponent() override;
-	 void Render() override;
+	
+	virtual ~SpriteRenderer() override;
+	virtual void Start() override;
+	virtual void UpdateComponent() override;
+	virtual void Render() override;
 
 	 void SetColor(const Vector3&  color);
 	 void SetPosition(const Vector3&  position);
@@ -21,11 +23,13 @@ public:
 	 CSimpleSprite* GetSprite() const;
 
 
-private:
+protected:
 
 	 Vector3 color;
 	 Vector3 spritePosition;
 	 CSimpleSprite* sprite;
 	 int spriteOrder = 0;
+
+	 CSimpleSprite* CreateSprite(std::string filename, int colum, int row);
 };
 

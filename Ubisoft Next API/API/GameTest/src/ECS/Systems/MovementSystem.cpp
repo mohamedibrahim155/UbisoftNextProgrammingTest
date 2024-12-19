@@ -3,6 +3,7 @@
 
 void MovementSystem::Start(std::vector<Entity*> entities)
 {
+	
 }
 
 void MovementSystem::Update(std::vector<Entity*> entities, float deltaTime)
@@ -23,6 +24,8 @@ void MovementSystem::Update(std::vector<Entity*> entities, float deltaTime)
 
 		entity->SetPosition(position);
 	}
+
+	
 }
 
 void MovementSystem::Render(std::vector<Entity*> entities)

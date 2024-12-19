@@ -68,13 +68,16 @@ bool Entity::RemoveComponent(ComponentType type)
 
 void Entity::Destroy()
 {
+	if (isDestroyed) return;
+
 	SetActive(false);
 	isDestroyed = true;
+	CleanUps();
 	if (manager)
 	{
-		manager->DestroyEntity(enitityID);
+		manager->RemoveEntity(enitityID);
 	}
-	CleanUps();
+	
 
 	//delete this;
 }

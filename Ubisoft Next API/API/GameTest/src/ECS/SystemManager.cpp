@@ -39,30 +39,11 @@ void SystemManager::AddEntity(Entity* entity)
 
 void SystemManager::RemoveEntity(EntityID ID)
 {
-    Entity* removeEntity = entitiesMap[ID];
-
-    for (const std::pair<int, ISystem*>& system: systemsMap)
-    {
-        system.second->RemoveEntity(removeEntity);
-    }
-        entitiesMap.erase(ID);
-    
+    entitiesMap.erase(ID);
 }
 
 void SystemManager::CleanSystem()
 {
-
-    for (std::pair<EntityID, Entity*> entity:  entitiesMap)
-    {
-        entity.second->CleanUps();
-        delete entity.second;
-    }
-
-    entitiesMap.clear();
-    listOfEntities.clear();
-
-
-
     for (std::pair<int, ISystem*> system : systemsMap)
     {
         system.second->Cleanups();
@@ -71,7 +52,8 @@ void SystemManager::CleanSystem()
     }
 
     systemsMap.clear();
-    
+    entitiesMap.clear();
+    listOfEntities.clear();
 }
 
 void SystemManager::Start()

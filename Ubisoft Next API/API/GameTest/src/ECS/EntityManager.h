@@ -11,10 +11,11 @@ public:
 	Entity* CreateEntity();
 	Entity* GetEntityByID(EntityID ID);
 
-	void DestroyEntity(EntityID ID);
+	void AddEntity(Entity* entity);
+	void RemoveEntity(EntityID ID);
 	void Clean();
-	void SetSystemManager(SystemManager* manager);
 
+	inline unsigned int GetEntitiesCount() { return entityCount;  }
 private:
 
 	int entityCount = 0;

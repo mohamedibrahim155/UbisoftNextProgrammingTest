@@ -5,7 +5,7 @@
 #include "../src/ECS/Systems/MovementSystem.h"
 #include "../src/ECS/Components/Scripts/PlayerMoveScript.h"
 #include "../src/Utils/Utils.h"
-#define ASSET_PATH std::string(".\\Assets\\")
+
 World::World()
 {
 	systemManager = new SystemManager();
@@ -24,35 +24,42 @@ World::World()
 #pragma endregion
 
 
+
+
+
+
+
+}
+
+void World::Start()
+{
 #pragma region Entities
 
 
 	std::string filename = ASSET_PATH + "IdleBLUE- 150ms - 32x32.png";
 
-	for (size_t i = 0; i < 1; i++)
+	for (size_t i = 0; i < 5; i++)
 	{
 		float randomWidth = Random::RandomRange(-(float)APP_VIRTUAL_WIDTH, (float)APP_VIRTUAL_WIDTH);
 		float randomheight = Random::RandomRange(-(float)APP_VIRTUAL_HEIGHT, (float)APP_VIRTUAL_HEIGHT);
 		Entity* entity1 = entityManager->CreateEntity();
-		entity1->AddComponent(new SpriteRenderer(filename, Vector3::Zero(), Vector2::Zero()));
+		//entity1->AddComponent(new SpriteRenderer(filename, Vector3::Zero(), Vector2::Zero()));
 		entity1->AddComponent(new PlayerMoveScript());
 		entity1->transform.position = Vector3(randomWidth, randomheight, 0);
 
 		Entity* entity2 = entityManager->CreateEntity();
 		entity2->AddComponent(new SpriteRenderer(filename, Vector3::Zero(), Vector2::Zero()));
 
-		randomWidth = Random::RandomRange(-(float)(APP_VIRTUAL_WIDTH/2), (float)(APP_VIRTUAL_WIDTH / 2));
-		randomheight = Random::RandomRange(-(float)(APP_VIRTUAL_HEIGHT/2), (float)(APP_VIRTUAL_HEIGHT/2));
+		randomWidth = Random::RandomRange(-(float)(APP_VIRTUAL_WIDTH / 2), (float)(APP_VIRTUAL_WIDTH / 2));
+		randomheight = Random::RandomRange(-(float)(APP_VIRTUAL_HEIGHT / 2), (float)(APP_VIRTUAL_HEIGHT / 2));
 		entity2->transform.position = Vector3(randomWidth, randomheight, 0);
 	}
 
 #pragma endregion
 
-
-#pragma region Start
+#pragma region SystemStart
 	systemManager->Start();
 #pragma endregion
-
 }
 
 void World::Update(float deltaTime)
@@ -68,6 +75,7 @@ void World::Render()
 void World::Clean()
 {
 	entityManager->Clean();
+	systemManager->CleanSystem();
 
 	delete systemManager;
 	delete entityManager;

@@ -186,6 +186,7 @@
     <ClInclude Include="App\SimpleController.h" />
     <ClInclude Include="App\SimpleSound.h" />
     <ClInclude Include="App\SimpleSprite.h" />
+    <ClInclude Include="src\ECS\Components\SpriteSheetRenderer.h" />
     <ClInclude Include="src\ECS\Systems\MovementSystem.h" />
     <ClInclude Include="src\ECS\Components\Scripts\PlayerMoveScript.h" />
     <ClInclude Include="src\ECS\Components\ScriptComponent.h" />
@@ -215,6 +216,7 @@
     <ClCompile Include="App\SimpleController.cpp" />
     <ClCompile Include="App\SimpleSound.cpp" />
     <ClCompile Include="App\SimpleSprite.cpp" />
+    <ClCompile Include="src\ECS\Components\SpriteSheetRenderer.cpp" />
     <ClCompile Include="src\ECS\Systems\MovementSystem.cpp" />
     <ClCompile Include="src\ECS\Components\Scripts\PlayerMoveScript.cpp" />
     <ClCompile Include="src\ECS\Components\ScriptComponent.cpp" />
@@ -237,7 +239,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="src\Utils\Utils.cpp" />
-    <ClCompile Include="src\ECS\System.cpp" />
     <ClCompile Include="src\ECS\SystemManager.cpp" />
     <ClCompile Include="src\ECS\Components\Transform.cpp" />
     <ClCompile Include="src\World\World.cpp" />

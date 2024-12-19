@@ -71,6 +71,7 @@ void Init()
 	//CSceneManager::GetInstance().Start();
 
 	world = new World();
+	world->Start();
 }
 
 //------------------------------------------------------------------------

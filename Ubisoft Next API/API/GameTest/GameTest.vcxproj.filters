@@ -29,7 +29,6 @@
     <ClCompile Include="src\Utils\Utils.cpp" />
     <ClCompile Include="src\ECS\Entity.cpp" />
     <ClCompile Include="src\ECS\Component.cpp" />
-    <ClCompile Include="src\ECS\System.cpp" />
     <ClCompile Include="src\ECS\SystemManager.cpp" />
     <ClCompile Include="src\ECS\Systems\RenderSystem.cpp" />
     <ClCompile Include="src\ECS\Components\RenderComponent.cpp" />
@@ -41,6 +40,7 @@
     <ClCompile Include="src\ECS\Components\ScriptComponent.cpp" />
     <ClCompile Include="src\ECS\Components\Scripts\PlayerMoveScript.cpp" />
     <ClCompile Include="src\ECS\Systems\MovementSystem.cpp" />
+    <ClCompile Include="src\ECS\Components\SpriteSheetRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -89,6 +89,7 @@
     <ClInclude Include="src\ECS\Components\ScriptComponent.h" />
     <ClInclude Include="src\ECS\Components\Scripts\PlayerMoveScript.h" />
     <ClInclude Include="src\ECS\Systems\MovementSystem.h" />
+    <ClInclude Include="src\ECS\Components\SpriteSheetRenderer.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="API">

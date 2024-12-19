@@ -1,5 +1,7 @@
 #pragma once
 #include "../ScriptComponent.h"
+#include "../SpriteSheetRenderer.h"
+
 
 class PlayerMoveScript :public ScriptComponent
 {
@@ -11,5 +13,6 @@ public:
 	 void UpdateComponent()  override;
 	 void Render() override;
 
+	 SpriteSheetRenderer* spriteSheet;
 };
 

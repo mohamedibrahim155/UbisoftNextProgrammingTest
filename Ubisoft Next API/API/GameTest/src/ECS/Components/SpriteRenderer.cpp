@@ -4,27 +4,36 @@
 #include "../src/Utils/Utils.h"
 
 
-SpriteRenderer::SpriteRenderer(std::string filename, Vector3 position, Vector2 offset) : RenderComponent(filename)
+
+
+SpriteRenderer::SpriteRenderer(std::string filename) : RenderComponent(filename)
+{
+	spriteOffset = Vector2::Zero();
+	spritePosition = Vector3::Zero();
+}
+
+SpriteRenderer::SpriteRenderer(std::string filename, Vector3 position, Vector2 offset) : 
+	RenderComponent(filename)
 
 
 {
-	sprite = App::CreateSprite(filename.c_str(), 1, 1);
+	sprite = CreateSprite(filename,1,1);
 	spriteOffset = offset;
-	spritePosition = position;
-	//sprite->SetPosition(centerScreen.x + position.x + spriteOffset.x, centerScreen.y + position.y + spriteOffset.y);
-	SetPosition(spritePosition);
+	spritePosition = position + offset;
+	spriteOrder = 0;
+	SetPosition(position + offset);
 }
 
 SpriteRenderer::SpriteRenderer(std::string filename, Vector3 position, Vector2 offset, int order) : 
 	RenderComponent(filename)
 
 {
-	sprite = App::CreateSprite(filename.c_str(), 1, 1);
+	sprite = CreateSprite(filename, 1, 1);
 	spriteOffset = offset;
 	spritePosition = position + offset;
 	spriteOrder = order;
 
-	SetPosition(spritePosition);
+	SetPosition(position + offset);
 //	sprite->SetPosition(centerScreen.x + position.x + spriteOffset.x, centerScreen.y + position.y + spriteOffset.y);
 }
 SpriteRenderer::~SpriteRenderer()
@@ -62,11 +71,12 @@ void SpriteRenderer::SetColor(const Vector3&  color)
 
 void SpriteRenderer::SetPosition(const Vector3&  position)
 {
-	Vector3 centreScreenVec3 = Vector3(centerScreen.x, centerScreen.y, 0);
+	Vector3 adjustedPosition = Vector3(centerScreen.x, centerScreen.y, 0);
 
-	spritePosition = centreScreenVec3 + position + spriteOffset;
+	adjustedPosition +=  (position + spriteOffset);
+	//spritePosition = adjustedPosition + position + spriteOffset;
 
-	sprite->SetPosition(spritePosition.x, spritePosition.y);
+	sprite->SetPosition(adjustedPosition.x, adjustedPosition.y);
 }
 
 void SpriteRenderer::SetScale(const Vector2& scale)
@@ -93,4 +103,9 @@ Vector3 SpriteRenderer::GetColor() const
 CSimpleSprite* SpriteRenderer::GetSprite() const
 {
 	return sprite;
+}
+
+CSimpleSprite* SpriteRenderer::CreateSprite(std::string filename, int column, int rows)
+{
+	return App::CreateSprite(filename.c_str(), column, rows);
 }

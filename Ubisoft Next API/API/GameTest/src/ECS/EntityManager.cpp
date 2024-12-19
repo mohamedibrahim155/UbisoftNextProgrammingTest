@@ -3,16 +3,15 @@
 
 EntityManager::EntityManager(SystemManager* manager) : systemManager(manager)
 {
+    entityCount = 0;
 }
 
 Entity* EntityManager::CreateEntity()
 {
     entityCount++;
     Entity* newEntity = new Entity(entityCount);
-    newEntity->manager = this;
     newEntity->AddComponent(new Transform());
-    entitiesMap[entityCount] = newEntity;
-    systemManager->AddEntity(newEntity);
+    AddEntity(newEntity);
     return  newEntity;
 }
 
@@ -21,26 +20,33 @@ Entity* EntityManager::GetEntityByID(EntityID ID)
     return  entitiesMap[entityCount];
 }
 
-void EntityManager::DestroyEntity(EntityID ID)
+void EntityManager::AddEntity( Entity* entity)
 {
-    Entity* entity = GetEntityByID(ID);
+    entity->manager = this;
+
+    entitiesMap[entity->GetID()] = entity;
+
+    systemManager->AddEntity(entity);
+}
+
+void EntityManager::RemoveEntity(EntityID ID)
+{
     systemManager->RemoveEntity(ID);
+
+    delete entitiesMap[ID];
+
     entitiesMap.erase(ID);
+
+    entityCount = (entityCount < 0) ? 0 : --entityCount;
 }
 
 void EntityManager::Clean()
 {
-    for (auto it = entitiesMap.begin(); it != entitiesMap.end(); )
+    for ( auto it = entitiesMap.begin(); it != entitiesMap.end(); )
     {
-        DestroyEntity(it->first);
+        RemoveEntity(it->first);
         it = entitiesMap.begin();
     }
-    entitiesMap.clear();
-    systemManager->CleanSystem();
-    
-}
 
-void EntityManager::SetSystemManager(SystemManager* manager)
-{
-    this->systemManager = systemManager;
+    entitiesMap.clear();
 }
