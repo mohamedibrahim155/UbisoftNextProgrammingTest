@@ -47,4 +47,5 @@ void RenderSystem::Render(std::vector<Entity*> entities)
 
 void RenderSystem::Cleanups()
 {
+	sortedEntities.clear();
 }

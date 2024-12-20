@@ -9,32 +9,25 @@
 SpriteRenderer::SpriteRenderer(std::string filename) : RenderComponent(filename)
 {
 	spriteOffset = Vector2::Zero();
-	spritePosition = Vector3::Zero();
 }
 
-SpriteRenderer::SpriteRenderer(std::string filename, Vector3 position, Vector2 offset) : 
+SpriteRenderer::SpriteRenderer(std::string filename, Vector2 offset) : 
 	RenderComponent(filename)
 
 
 {
-	sprite = CreateSprite(filename,1,1);
 	spriteOffset = offset;
-	spritePosition = position + offset;
 	spriteOrder = 0;
-	SetPosition(position + offset);
+	sprite = CreateSprite(filename,1,1);
 }
 
-SpriteRenderer::SpriteRenderer(std::string filename, Vector3 position, Vector2 offset, int order) : 
+SpriteRenderer::SpriteRenderer(std::string filename, Vector2 offset, int order) : 
 	RenderComponent(filename)
 
 {
-	sprite = CreateSprite(filename, 1, 1);
 	spriteOffset = offset;
-	spritePosition = position + offset;
 	spriteOrder = order;
-
-	SetPosition(position + offset);
-//	sprite->SetPosition(centerScreen.x + position.x + spriteOffset.x, centerScreen.y + position.y + spriteOffset.y);
+	sprite = CreateSprite(filename, 1, 1);
 }
 SpriteRenderer::~SpriteRenderer()
 {
@@ -79,9 +72,13 @@ void SpriteRenderer::SetPosition(const Vector3&  position)
 	Vector3 adjustedPosition = Vector3(centerScreen.x, centerScreen.y, 0);
 
 	adjustedPosition +=  (position + spriteOffset);
-	//spritePosition = adjustedPosition + position + spriteOffset;
 
 	sprite->SetPosition(adjustedPosition.x, adjustedPosition.y);
+}
+
+void SpriteRenderer::SetOffset(const Vector2& offset)
+{
+	this->spriteOffset = offset;
 }
 
 void SpriteRenderer::SetScale(const Vector2& scale)

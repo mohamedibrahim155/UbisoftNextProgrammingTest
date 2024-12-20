@@ -186,6 +186,11 @@
     <ClInclude Include="App\SimpleController.h" />
     <ClInclude Include="App\SimpleSound.h" />
     <ClInclude Include="App\SimpleSprite.h" />
+    <ClInclude Include="src\ECS\Components\Collider\CircleCollider.h" />
+    <ClInclude Include="src\ECS\Systems\Physics\PhysicsSystem.h" />
+    <ClInclude Include="src\ECS\Components\Rigidbody\RigidBody.h" />
+    <ClInclude Include="src\ECS\Components\Collider\BoxCollider.h" />
+    <ClInclude Include="src\ECS\Components\Collider\Collider.h" />
     <ClInclude Include="src\ECS\Components\SpriteSheetRenderer.h" />
     <ClInclude Include="src\ECS\Systems\MovementSystem.h" />
     <ClInclude Include="src\ECS\Components\Scripts\PlayerMoveScript.h" />
@@ -216,6 +221,11 @@
     <ClCompile Include="App\SimpleController.cpp" />
     <ClCompile Include="App\SimpleSound.cpp" />
     <ClCompile Include="App\SimpleSprite.cpp" />
+    <ClCompile Include="src\ECS\Components\Collider\CircleCollider.cpp" />
+    <ClCompile Include="src\ECS\Systems\Physics\PhysicsSystem.cpp" />
+    <ClCompile Include="src\ECS\Components\Rigidbody\RigidBody.cpp" />
+    <ClCompile Include="src\ECS\Components\Collider\BoxCollider.cpp" />
+    <ClCompile Include="src\ECS\Components\Collider\Collider.cpp" />
     <ClCompile Include="src\ECS\Components\SpriteSheetRenderer.cpp" />
     <ClCompile Include="src\ECS\Systems\MovementSystem.cpp" />
     <ClCompile Include="src\ECS\Components\Scripts\PlayerMoveScript.cpp" />

@@ -457,7 +457,7 @@ is at the end, use `ma_sound_at_end()`. Looping of a sound can be controlled wit
 
 2. Building
 ===========
-miniaudio should work cleanly out of the box without the need to download or install any
+miniaudio should work cleanly out of the mBox without the need to download or install any
 dependencies. See below for platform-specific details.
 
 Note that GCC and Clang require `-msse2`, `-mavx2`, etc. for SIMD optimizations.
@@ -479,7 +479,7 @@ symbol for `ActivateAudioInterfaceAsync()`.
 ------------------
 The macOS build should compile cleanly without the need to download any dependencies nor link to
 any libraries or frameworks. The iOS build needs to be compiled as Objective-C and will need to
-link the relevant frameworks but should compile cleanly out of the box with Xcode. Compiling
+link the relevant frameworks but should compile cleanly out of the mBox with Xcode. Compiling
 through the command line requires linking to `-lpthread` and `-lm`.
 
 Due to the way miniaudio links to frameworks at runtime, your application may not pass Apple's
@@ -524,7 +524,7 @@ ARM.
 
 2.5. Android
 ------------
-AAudio is the highest priority backend on Android. This should work out of the box without needing
+AAudio is the highest priority backend on Android. This should work out of the mBox without needing
 any kind of compiler configuration. Support for AAudio starts with Android 8 which means older
 versions will fall back to OpenSL|ES which requires API level 16+.
 
@@ -535,7 +535,7 @@ you'll need to disable run-time linking with `MA_NO_RUNTIME_LINKING` and link wi
 
 2.6. Emscripten
 ---------------
-The Emscripten build emits Web Audio JavaScript directly and should compile cleanly out of the box.
+The Emscripten build emits Web Audio JavaScript directly and should compile cleanly out of the mBox.
 You cannot use `-std=c*` compiler flags, nor `-ansi`.
 
 You can enable the use of AudioWorkets by defining `MA_ENABLE_AUDIO_WORKLETS` and then compiling

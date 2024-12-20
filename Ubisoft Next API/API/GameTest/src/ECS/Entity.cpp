@@ -5,6 +5,8 @@
 Entity::Entity(EntityID ID) : enitityID(ID)
 {
 	objectSprite = nullptr;
+
+	AddComponent(new Transform());
 }
 
 Entity::~Entity()

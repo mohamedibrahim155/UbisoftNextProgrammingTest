@@ -5,8 +5,8 @@ class SpriteRenderer : public RenderComponent
 {
 public:
 	SpriteRenderer(std::string filename);
-	SpriteRenderer(std::string filename, Vector3 position, Vector2 offset);
-	SpriteRenderer(std::string filename, Vector3 position, Vector2 offset, int order);
+	SpriteRenderer(std::string filename, Vector2 offset);
+	SpriteRenderer(std::string filename, Vector2 offset, int order);
 	
 	virtual ~SpriteRenderer() override;
 	virtual void Start() override;
@@ -16,6 +16,7 @@ public:
 
 	 void SetColor(const Vector3&  color);
 	 void SetPosition(const Vector3&  position);
+	 void SetOffset(const Vector2& offset);
 	 void SetScale(const Vector2&  scale);
 	 void SetOrder(int order);
 
@@ -27,7 +28,6 @@ public:
 protected:
 
 	 Vector3 color;
-	 Vector3 spritePosition;
 	 CSimpleSprite* sprite;
 	 int spriteOrder = 0;
 

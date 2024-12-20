@@ -6,18 +6,14 @@ SpriteSheetRenderer::SpriteSheetRenderer(std::string filename, int column, int r
 	: SpriteRenderer(filename)
 {
 	this->sprite = CreateSprite(filename, column, row);
-
-	SetPosition(spritePosition + spriteOffset);
 }
 
 SpriteSheetRenderer::SpriteSheetRenderer(std::string filename, int column, int row, int spriteOrder)
 	: SpriteRenderer(filename)
 {
-	this->sprite = CreateSprite(filename, column, row);
-
 	this->spriteOrder = spriteOrder;
 
-	SetPosition(spritePosition + spriteOffset);
+	this->sprite = CreateSprite(filename, column, row);
 }
 
 SpriteSheetRenderer::~SpriteSheetRenderer()

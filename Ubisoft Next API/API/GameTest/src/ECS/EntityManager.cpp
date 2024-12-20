@@ -10,7 +10,7 @@ Entity* EntityManager::CreateEntity()
 {
     entityCount++;
     Entity* newEntity = new Entity(entityCount);
-    newEntity->AddComponent(new Transform());
+    //newEntity->AddComponent(new Transform());
     AddEntity(newEntity);
     return  newEntity;
 }

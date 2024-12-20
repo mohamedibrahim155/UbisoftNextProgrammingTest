@@ -14,7 +14,7 @@ PlayerMoveScript::~PlayerMoveScript()
 void PlayerMoveScript::Start()
 {
 	
-	entityRef->AddComponent(new SpriteSheetRenderer(ASSET_PATH + "IdleBLUE- 150ms - 32x32.png",6,1));
+	//entityRef->AddComponent(new SpriteSheetRenderer(ASSET_PATH + "IdleBLUE- 150ms - 32x32.png",6,1));
 
 	spriteSheet = (SpriteSheetRenderer*)entityRef->GetComponent(ComponentType::RENDER_COMPONENT);
 
@@ -34,7 +34,7 @@ void PlayerMoveScript::UpdateComponent()
 	if (App::GetController().CheckButton(XINPUT_GAMEPAD_DPAD_DOWN, false))
 	{
 		
-		
+		//entityRef->Destroy();
 			spriteSheet->SetAnimation(0);
 		
 	}
