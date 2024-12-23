@@ -46,6 +46,7 @@
     <ClCompile Include="src\ECS\Components\Rigidbody\RigidBody.cpp" />
     <ClCompile Include="src\ECS\Systems\Physics\PhysicsSystem.cpp" />
     <ClCompile Include="src\ECS\Components\Collider\CircleCollider.cpp" />
+    <ClCompile Include="src\Utils\PhysicsUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -100,6 +101,7 @@
     <ClInclude Include="src\ECS\Components\Rigidbody\RigidBody.h" />
     <ClInclude Include="src\ECS\Systems\Physics\PhysicsSystem.h" />
     <ClInclude Include="src\ECS\Components\Collider\CircleCollider.h" />
+    <ClInclude Include="src\Utils\PhysicsUtils.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="API">

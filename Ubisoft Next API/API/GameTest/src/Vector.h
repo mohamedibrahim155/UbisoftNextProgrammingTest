@@ -18,8 +18,18 @@ struct Vector2
 	float Dot(const Vector2& other) const {
 		return x * other.x + y * other.y;
 	}
+
+
+	 static float Dot(const Vector2& lhs, const Vector2& rhs) 
+	{
+		return lhs.x * rhs.x + lhs.y * rhs.y;
+	}
+
 	float Magnitude() const {
 		return std::sqrt(x * x + y * y);
+	}
+	float LengthSquared() const {
+		return this->Dot(*this);
 	}
 	Vector2 Normalize() 
 	{
@@ -73,6 +83,21 @@ struct Vector2
 			x = other.x;
 			y = other.y;
 		}
+		return *this;
+	}
+
+
+	Vector2& operator+=(const Vector2& other) {
+		
+		this->x += other.x;
+		this->y += other.y;
+		return *this;
+	}
+
+	Vector2& operator-=(const Vector2& other) {
+
+		this->x -= other.x;
+		this->y -= other.y;
 		return *this;
 	}
 

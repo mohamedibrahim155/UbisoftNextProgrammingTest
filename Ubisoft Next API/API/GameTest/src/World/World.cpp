@@ -6,7 +6,7 @@
 #include "../src/ECS/Systems/Physics/PhysicsSystem.h"
 #include "../src/ECS/Components/Scripts/PlayerMoveScript.h"
 #include "../src/Utils/Utils.h"
-
+#include "../src/Utils/PhysicsUtils.h"
 World::World()
 {
 	systemManager = new SystemManager();
@@ -21,8 +21,8 @@ World::World()
 	ISystem* physicsSystem = new PhysicsSystem();
 
 	systemManager->RegisterSystem(customScriptSystem);
-	systemManager->RegisterSystem(movementSystem);
 	systemManager->RegisterSystem(physicsSystem);
+	systemManager->RegisterSystem(movementSystem);
 	systemManager->RegisterSystem(renderSystem);
 #pragma endregion
 
@@ -63,16 +63,30 @@ void World::Start()
 		entity3->transform.scale = Vector2(5, 5);*/
 
 
+
+		Entity* entity3 = entityManager->CreateEntity();
+		entity3->AddComponent(new SpriteRenderer(filename, Vector2::Zero(), 3));
+
+		SpriteRenderer* sprite = (SpriteRenderer*)entity3->GetComponent(ComponentType::RENDER_COMPONENT);
+		sprite->SetColor(1, 0, 0);
+		entity3->AddComponent(new BoxCollider(sprite->GetSprite()->GetWidth(), sprite->GetSprite()->GetHeight(), &entity3->transform));
+		entity3->AddComponent(new CircleCollider(sprite->GetSprite()->GetWidth(), sprite->GetSprite()->GetHeight(),0.5f, &entity3->transform));
+		entity3->AddComponent(new RigidBody(eBodyType::STATIC));
+		entity3->transform.scale = Vector2(1, 1); 
+		entity3->transform.position = Vector2(0, -300); 
+
+
 		Entity* entity4 = entityManager->CreateEntity();
 		entity4->AddComponent(new SpriteSheetRenderer(filename,6,1));
-		entity4->AddComponent(new PlayerMoveScript());
+		//entity4->AddComponent(new PlayerMoveScript());
 
-		SpriteRenderer* sprite = (SpriteRenderer*)entity4->GetComponent(ComponentType::RENDER_COMPONENT);
+		SpriteRenderer* sprite2 = (SpriteRenderer*)entity4->GetComponent(ComponentType::RENDER_COMPONENT);
 
-		//entity4->AddComponent(new BoxCollider(sprite->GetSprite()->GetWidth(), sprite->GetSprite()->GetHeight(), &entity4->transform));
-		entity4->AddComponent(new CircleCollider(sprite->GetSprite()->GetWidth(), sprite->GetSprite()->GetHeight(), entity4->transform.scale.x, &entity4->transform));
+		//entity4->AddComponent(new BoxCollider(sprite2->GetSprite()->GetWidth(), sprite2->GetSprite()->GetHeight(), &entity4->transform));
+		entity4->AddComponent(new RigidBody(eBodyType::DYNAMIC));
+		entity4->AddComponent(new CircleCollider(sprite2->GetSprite()->GetWidth(), sprite->GetSprite()->GetHeight(), entity4->transform.scale.x, &entity4->transform));
 		entity4->transform.position = Vector3(0, 0, 0);
-		entity4->transform.scale = Vector2(3, 1);
+		entity4->transform.scale = Vector2(3, 3);
 		
 	}
 

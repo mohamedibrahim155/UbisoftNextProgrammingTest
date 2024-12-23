@@ -67,6 +67,12 @@ void SpriteRenderer::SetColor(const Vector3&  color)
 	sprite->SetColor(color.x, color.y, color.y);
 }
 
+void SpriteRenderer::SetColor(const float& r, const float& g, const float& b)
+{
+	if (sprite == nullptr) return;
+	sprite->SetColor(r, g, b);
+}
+
 void SpriteRenderer::SetPosition(const Vector3&  position)
 {
 	Vector3 adjustedPosition = Vector3(centerScreen.x, centerScreen.y, 0);

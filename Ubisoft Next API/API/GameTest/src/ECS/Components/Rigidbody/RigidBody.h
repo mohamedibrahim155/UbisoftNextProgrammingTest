@@ -28,7 +28,9 @@ public:
     float GetMass() const { return  mass; };
 
 
-    Vector2 velocity;
+    Vector2 velocity{ 0.0f, 0.0f };
+    Vector2 force{ 0.0,0.0 };
+
 protected:
     eBodyType bodyType = eBodyType::STATIC;
     float mass = 1;
