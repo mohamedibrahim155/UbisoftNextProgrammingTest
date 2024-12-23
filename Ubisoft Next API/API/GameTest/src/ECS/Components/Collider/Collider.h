@@ -1,6 +1,8 @@
 #pragma once
-#include "../src/ECS/Component.h"
+#include "../App/app.h"
 #include "../src/ECS/Components/Transform.h"
+#include "../src/ECS/Components/SpriteRenderer.h"
+
 enum class eShape
 {
 	BOX,
@@ -37,10 +39,9 @@ struct SCircle
 class Collider :  public  IComponent
 {
 public:
-	
-	Collider(eShape type, Transform* transform);
+	Collider(eShape type);
 	~Collider() = default ;
-	virtual void Start() {};
+	virtual void Start();
 	virtual void UpdateComponent() {};
 	virtual void Render() {};
 
@@ -50,16 +51,19 @@ public:
 
 	bool IsTrigger() const { return isTrigger; };
 
-	void SetTrigger(bool trigger) { isTrigger = trigger; };
+	void SetTrigger(bool trigger);
 
 protected:
 
-	eShape shape;
 	bool isTrigger = false;
-	Transform* transform;
-	Vector2  offset;
+	eShape shape;
 
+	Transform* transform;
+	SpriteRenderer* spriteRenderer;
+
+	Vector2  offset;
 	Vector2 center;
+	Vector2 mScale{ 1,1 };
 
 };
 

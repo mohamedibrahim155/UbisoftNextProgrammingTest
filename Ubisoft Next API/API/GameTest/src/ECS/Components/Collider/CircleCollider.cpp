@@ -1,25 +1,19 @@
 #include "stdafx.h"
 #include "CircleCollider.h"
-#include "../src/ECS/Entity.h"
 
-
-CircleCollider::CircleCollider(float radius , Transform* transform)
-    : Collider(eShape::CIRCLE, transform)
+CircleCollider::CircleCollider() : Collider(eShape::CIRCLE)
 {
-    this->radius = radius;
-
-    CalculateShape();
+    m_Circle.centre = { center.x, center.y };
+    m_Circle.radius = 1;
 }
 
-CircleCollider::CircleCollider(float width, float height, float radius, Transform* transform)
-    : Collider(eShape::CIRCLE, transform)
+CircleCollider::CircleCollider(float radius) : Collider(eShape::CIRCLE)
 {
-    this->radius = radius;
-    this->width = width;
-    this->height = height;
+    m_Circle.centre = { center.x, center.y };
+    this->m_Circle.radius = radius;
 
-    CalculateShape();
 }
+
 
 
 
@@ -29,13 +23,16 @@ SCircle CircleCollider::GetCircle()
 {
     SCircle circle = m_Circle;
 
+    circle.radius *= mScale.x;
 
     if (transform)
     {
         circle.centre.x += transform->position.x;
         circle.centre.y += transform->position.y;
-        circle.radius *= transform->scale.x;
+        circle.radius   *= transform->scale.x;
     }
+
+    circle.centre = circle.centre + offset;
 
     return circle;
 }
@@ -46,8 +43,8 @@ SBox CircleCollider::GetBounds()
 
     if (transform)
     {
-        box.minimum = { transform->position.x - radius, transform->position.y - radius };
-        box.maximum = { transform->position.x + radius, transform->position.y + radius };
+        box.minimum = { transform->position.x - m_Circle.radius, transform->position.y - m_Circle.radius };
+        box.maximum = { transform->position.x + m_Circle.radius, transform->position.y + m_Circle.radius };
 
         box.minimum.x *= transform->scale.x;
         box.minimum.y *= transform->scale.y;
@@ -63,21 +60,23 @@ SBox CircleCollider::GetBounds()
 
 void CircleCollider::CalculateShape()
 {
-
-   
-    if (transform !=  nullptr)
+    if (spriteRenderer)
     {
-        this->m_Circle.centre  = Vector2(transform->position.x + center.x, transform->position.y + center.y);
+        width = spriteRenderer->GetSprite()->GetWidth();
+        height = spriteRenderer->GetSprite()->GetHeight();
     }
-    float h = this->height;
-    float w = this->width;
+
+    if (transform)
+    {
+        m_Circle.centre = Vector2(center.x,center.y);
+    }
+
+    float h = height;
+    float w = width;
 
     float radius = h;
 
-
     radius = (w > h ? w * 0.5f : radius * 0.5f);
-
-    
 
     this->m_Circle.radius = radius;
 
@@ -105,6 +104,11 @@ void CircleCollider::DrawCircle(float cx, float cy, float radius, int segments, 
 
   
 
+}
+
+void CircleCollider::Start()
+{
+    Collider::Start();
 }
 
 void CircleCollider::Render()

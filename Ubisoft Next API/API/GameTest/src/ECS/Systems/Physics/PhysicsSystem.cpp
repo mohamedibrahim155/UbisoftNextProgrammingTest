@@ -5,11 +5,30 @@
 #include "../src/Utils/PhysicsUtils.h"
 void PhysicsSystem::Start(std::vector<Entity*> entities)
 {
+#pragma region ColliderShapeCalculation
+
+
+	for (Entity* entity : entities)
+	{
+		Collider* collider = (Collider*)entity->GetComponent(ComponentType::COLLIDER_COMPONENT);
+
+		if (collider == nullptr)  continue;
+
+		if (!collider->isStartInvoked)
+		{
+			collider->Start();
+			collider->isStartInvoked = true;
+		}
+	}
+#pragma endregion
+
+
 	for (Entity* entity : entities)
 	{
 		RigidBody* rigidbody = (RigidBody*)entity->GetComponent(ComponentType::PHYSICS_COMPONENT);
-
+		
 		if (rigidbody == nullptr)  continue;
+
 
 		if (rigidbody->GetbodyType() == eBodyType::STATIC)
 		{
@@ -71,6 +90,7 @@ void PhysicsSystem::UpdateComponents(std::vector<Entity*> entities, float deltat
 		Collider* collider = (Collider*)entity->GetComponent(ComponentType::COLLIDER_COMPONENT);
 		
 		if (!rb || !transform) continue;
+		if (!rb->isComponentEnabled || !collider->isComponentEnabled) continue;
 		if (rb->GetbodyType() == eBodyType::STATIC) continue;
 
 
@@ -98,13 +118,17 @@ void PhysicsSystem::UpdateComponents(std::vector<Entity*> entities, float deltat
 			Collider* otherColldier = (Collider*)otherEntity->GetComponent(ComponentType::COLLIDER_COMPONENT);
 
 			if (!otherColldier || !otherTransform || !collider) continue;
-
+			if (!otherColldier->isComponentEnabled || !collider->isComponentEnabled) continue;
 
 			// Check Collision
 
 			if (Physics::CheckCollision(collider, otherColldier))
 			{
-
+				if (collider->IsTrigger() || otherColldier->IsTrigger())
+				{
+					// Triggered
+					continue;
+				}
 
 				Physics::ResolveCollision(rb, otherRB, transform, otherTransform);
 			}

@@ -1,13 +1,10 @@
 #include "stdafx.h"
 #include "BoxCollider.h"
-#include "App/app.h"
-BoxCollider::BoxCollider(float width, float height, Transform* transform)
-	: Collider(eShape::BOX, transform)
-{
-	this->height = height;
-	this->width = width;
 
-	CalculateShape();
+BoxCollider::BoxCollider() : Collider(eShape::BOX)
+{
+	mBox.minimum = { -1, -1 };
+	mBox.maximum = { 1, 1 };
 }
 
 
@@ -19,6 +16,14 @@ SBox BoxCollider::GetBounds()
 
 void BoxCollider::CalculateShape()
 {
+
+
+	if (spriteRenderer)
+	{
+		width = spriteRenderer->GetSprite()->GetWidth();
+		height = spriteRenderer->GetSprite()->GetHeight();
+	}
+
 	float extendX = width * 0.5f;
 	float extendY = height * 0.5f;
 
@@ -30,6 +35,12 @@ void BoxCollider::CalculateShape()
 SBox BoxCollider::GetBox()
 {
 	SBox box = this->mBox;
+
+	box.minimum.x *= mScale.x;
+	box.minimum.y *= mScale.y;
+
+	box.maximum.x *= mScale.x;
+	box.maximum.y *= mScale.y;
 
 	if (transform)
 	{
@@ -52,6 +63,12 @@ SBox BoxCollider::GetBox()
 
 
 	return box;
+}
+
+
+void BoxCollider::Start()
+{
+	Collider::Start();
 }
 
 void BoxCollider::Render()

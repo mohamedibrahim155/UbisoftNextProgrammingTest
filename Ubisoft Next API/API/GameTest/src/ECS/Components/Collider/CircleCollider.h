@@ -4,21 +4,21 @@ class CircleCollider :
     public Collider
 {
 public:
-    CircleCollider(float radius, Transform* transform);
-    CircleCollider(float width, float height,float radius, Transform* transform);
+    CircleCollider();
+    CircleCollider(float radius);
+
     ~CircleCollider() override {};
 
-     void Start() override {};
+     void Start() override;
      void UpdateComponent() override {};
      void Render()  override;
-     void SetRadius(float radius) { this->radius = radius; };
+     void SetRadius(float radius) { m_Circle.radius = radius; };
 
-     float GetRadius() const { return radius; };
+     float GetRadius() const { return m_Circle.radius; };
 
      SCircle GetCircle();
 protected:
 
-    float radius;
     float width;
     float height;
 

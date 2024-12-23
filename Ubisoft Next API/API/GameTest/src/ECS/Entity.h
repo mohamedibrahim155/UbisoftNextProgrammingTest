@@ -42,6 +42,8 @@ public:
 
 
 	Transform transform;
+	SpriteRenderer* m_sprite;
+
 	EntityManager* manager;
 	bool isDestroyed = false;
 private:
@@ -52,6 +54,5 @@ private:
 	std::string m_Tag = "Unkown";
 	std::unordered_map<ComponentType,IComponent*> listOfComponents;
 
-	SpriteRenderer* objectSprite;
 };
 

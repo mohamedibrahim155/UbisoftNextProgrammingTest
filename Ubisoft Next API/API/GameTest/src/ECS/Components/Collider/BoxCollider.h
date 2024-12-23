@@ -4,12 +4,12 @@ class BoxCollider :
     public Collider
 {
 public:
-    BoxCollider(float width, float height, Transform* transform);
+    BoxCollider();
 
     ~BoxCollider() = default;
 
     // Inherited via Collider
-    virtual void Start() {};
+    virtual void Start();
     virtual void UpdateComponent() {};
     virtual void Render();
 
@@ -17,6 +17,8 @@ public:
     void CalculateShape() override;
 
     SBox GetBox();
+
+
 
 protected:
     

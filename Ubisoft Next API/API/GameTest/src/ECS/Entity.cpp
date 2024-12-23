@@ -4,7 +4,7 @@
 #include"../src/ECS/EntityManager.h"
 Entity::Entity(EntityID ID) : enitityID(ID)
 {
-	objectSprite = nullptr;
+	m_sprite = nullptr;
 
 	AddComponent(new Transform());
 }
@@ -22,7 +22,7 @@ void Entity::AddComponent(ComponentType type,IComponent* component)
 	}
 	if (component->GetComponentType() == ComponentType::RENDER_COMPONENT)
 	{
-		this->objectSprite = static_cast<SpriteRenderer*>(component);
+		this->m_sprite = static_cast<SpriteRenderer*>(component);
 	}
 
 	component->SetEntity(this);
@@ -38,7 +38,7 @@ void Entity::AddComponent(IComponent* component)
 	}
 	if (component->GetComponentType() == ComponentType::RENDER_COMPONENT)
 	{
-		this->objectSprite = static_cast<SpriteRenderer*>(component);
+		this->m_sprite = static_cast<SpriteRenderer*>(component);
 	}
 
 	component->SetEntity(this);
@@ -110,7 +110,8 @@ std::string Entity::GetTag() const
 Vector3 Entity::GetPosition() 
 {
 	float x, y;
-	objectSprite->GetSprite()->GetPosition(x, y);
+
+	m_sprite->GetSprite()->GetPosition(x, y);
 
 	Vector3 position = Vector3(x, y, 0);
 	transform.position = position;
@@ -160,9 +161,9 @@ void Entity::SetPosition(const Vector3& position)
 {
 	transform.position = position;
 
-	if (objectSprite)
+	if (m_sprite)
 	{
-		objectSprite->SetPosition(transform.position);
+		m_sprite->SetPosition(transform.position);
 	}
 
 }
@@ -171,9 +172,9 @@ void Entity::SetScale(const Vector2& scale)
 {
 	this->transform.scale = scale;
 
-	if (objectSprite)
+	if (m_sprite)
 	{
-		objectSprite->SetScale(scale);
+		m_sprite->SetScale(scale);
 	}
 }
 
