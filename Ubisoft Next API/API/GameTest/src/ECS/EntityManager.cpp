@@ -15,9 +15,17 @@ Entity* EntityManager::CreateEntity()
     return  newEntity;
 }
 
+Entity* EntityManager::CreateEntityFromCopy(Entity* entity)
+{
+    entityCount++;
+    Entity* newEntity = new Entity(*entity,entityCount);
+    AddEntity(newEntity);
+    return newEntity;
+}
+
 Entity* EntityManager::GetEntityByID(EntityID ID)
 {
-    return  entitiesMap[entityCount];
+    return  entitiesMap[ID];
 }
 
 void EntityManager::AddEntity( Entity* entity)
@@ -37,7 +45,6 @@ void EntityManager::RemoveEntity(EntityID ID)
 
     entitiesMap.erase(ID);
 
-    entityCount = (entityCount < 0) ? 0 : --entityCount;
 }
 
 void EntityManager::Clean()

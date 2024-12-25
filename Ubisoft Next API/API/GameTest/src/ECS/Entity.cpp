@@ -2,11 +2,33 @@
 #include "Entity.h"
 #include "Components/SpriteRenderer.h"
 #include"../src/ECS/EntityManager.h"
+#include "Components/Collider/Collider.h"
 Entity::Entity(EntityID ID) : enitityID(ID)
 {
 	m_sprite = nullptr;
 
 	AddComponent(new Transform());
+}
+
+Entity::Entity(const Entity& otherEntity, EntityID ID)
+{
+
+	auto components = otherEntity.GetComponents();
+	for (IComponent* component: components)
+	{
+		AddComponent(component->GetComponentType(), component->Clone());
+	}
+	
+	isActive = otherEntity.isActive;
+	m_Tag = otherEntity.m_Tag + "_copy";
+	enitityID = ID;
+	if (otherEntity.manager)
+	{
+		manager = otherEntity.manager;
+		
+	}
+
+
 }
 
 Entity::~Entity()
@@ -16,33 +38,56 @@ Entity::~Entity()
 
 void Entity::AddComponent(ComponentType type,IComponent* component)
 {
-	if (type == ComponentType::TRANSFORM_COMPONENT)
+	component->SetEntity(this);
+	listOfComponents[type] = component;
+
+	//Intial References
+	switch (component->GetComponentType())
 	{
-		this->transform = *(static_cast<Transform*>(component));
-	}
-	if (component->GetComponentType() == ComponentType::RENDER_COMPONENT)
-	{
-		this->m_sprite = static_cast<SpriteRenderer*>(component);
+	case ComponentType::TRANSFORM_COMPONENT:
+		transform = *(dynamic_cast<Transform*>(component));
+		break;
+
+	case ComponentType::RENDER_COMPONENT:
+		m_sprite = dynamic_cast<SpriteRenderer*>(component);
+		break;
+	case ComponentType::COLLIDER_COMPONENT:
+
+		Collider* collider = dynamic_cast<Collider*>(component);
+
+		collider->Init();
+		break;
 	}
 
-	component->SetEntity(this);
-	listOfComponents[type] =  component;
+	
 
 }
 
 void Entity::AddComponent(IComponent* component)
 {
-	if (component->GetComponentType() == ComponentType::TRANSFORM_COMPONENT)
-	{
-		this->transform = *(static_cast<Transform*>(component));
-	}
-	if (component->GetComponentType() == ComponentType::RENDER_COMPONENT)
-	{
-		this->m_sprite = static_cast<SpriteRenderer*>(component);
-	}
 
 	component->SetEntity(this);
 	listOfComponents[component->GetComponentType()] = component;
+
+
+	//Intial References
+	switch (component->GetComponentType())
+	{
+	case ComponentType::TRANSFORM_COMPONENT:
+		transform = *(dynamic_cast<Transform*>(component));
+		break;
+
+	case ComponentType::RENDER_COMPONENT:
+		m_sprite = dynamic_cast<SpriteRenderer*>(component);
+		break;
+
+	case ComponentType::COLLIDER_COMPONENT:
+
+		Collider* collider = dynamic_cast<Collider*>(component);
+
+		collider->Init();
+		break;
+	}
 }
 
 void Entity::AddComponents(std::vector<IComponent*> components)

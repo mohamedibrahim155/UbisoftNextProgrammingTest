@@ -4,30 +4,12 @@
 void SystemManager::RegisterSystem(ISystem* system)
 {
     system->systemManager = this;
-	systemsMap[systemCount] = system;
-	systemCount++;
+    systemsMap[system->systemType] = system;
 }
 
 void SystemManager::RemoveSystem(ISystem* system)
 {
-    // TODO: Check if the system removing properly and ordered well
-    for (auto it = systemsMap.begin(); it != systemsMap.end(); ++it)
-    {
-        if (it->second == system)
-        {
-            int removeKey = it->first;
-            int lastIndex = systemsMap.size() - 1;
-
-            if (removeKey != lastIndex)
-            {
-                systemsMap[removeKey] = systemsMap[lastIndex];; // replacing last to removed index
-            }
-
-            systemsMap.erase(lastIndex);
-            systemCount--;
-            return;
-        }
-    }
+    systemsMap.erase(system->systemType);
 }
 
 void SystemManager::AddEntity(Entity* entity)
@@ -44,7 +26,7 @@ void SystemManager::RemoveEntity(EntityID ID)
 
 void SystemManager::CleanSystem()
 {
-    for (std::pair<int, ISystem*> system : systemsMap)
+    for (std::pair<eSystemType, ISystem*> system : systemsMap)
     {
         system.second->Cleanups();
 
@@ -56,9 +38,19 @@ void SystemManager::CleanSystem()
     listOfEntities.clear();
 }
 
+ISystem* SystemManager::GetSystem(eSystemType type)
+{
+    return systemsMap[type];
+}
+
+std::vector<Entity*> SystemManager::GetEntities() const
+{
+    return listOfEntities;
+}
+
 void SystemManager::Start()
 {
-    for (std::pair<int, ISystem*> system : systemsMap)
+    for (std::pair<eSystemType, ISystem*> system : systemsMap)
     {
         system.second->Start(listOfEntities);
     }
@@ -66,7 +58,7 @@ void SystemManager::Start()
 
 void SystemManager::UpdateSystems(float deltaTime)
 {
-    for (std::pair<int, ISystem*> system: systemsMap)
+    for (std::pair<eSystemType, ISystem*> system: systemsMap)
     {
         system.second->Update(listOfEntities, deltaTime);
     }
@@ -74,7 +66,7 @@ void SystemManager::UpdateSystems(float deltaTime)
 
 void SystemManager::Render()
 {
-    for (std::pair<int, ISystem*> system : systemsMap)
+    for (std::pair<eSystemType, ISystem*> system : systemsMap)
     {
         system.second->Render(listOfEntities);
     }

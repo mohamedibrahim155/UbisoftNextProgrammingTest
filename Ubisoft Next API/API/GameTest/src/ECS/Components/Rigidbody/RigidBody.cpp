@@ -7,4 +7,14 @@ RigidBody::RigidBody(const eBodyType& type) :
 	this->bodyType = type;
 }
 
+RigidBody::RigidBody(const RigidBody& other) : IComponent(ComponentType::PHYSICS_COMPONENT)
+{
+	this->bodyType = other.bodyType;
+}
+
+RigidBody* RigidBody::Clone() const
+{
+	return new RigidBody(*this);
+}
+
 

@@ -9,5 +9,8 @@ public:
 	virtual void Start() {};
 	virtual void UpdateComponent() {} ;
 	virtual void Render() {};
+
+	// Inherited via IComponent
+	virtual ScriptComponent* Clone() const override;
 };
 

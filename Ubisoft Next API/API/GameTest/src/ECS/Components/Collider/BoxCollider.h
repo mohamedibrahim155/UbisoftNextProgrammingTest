@@ -9,9 +9,10 @@ public:
     ~BoxCollider() = default;
 
     // Inherited via Collider
-    virtual void Start();
+    virtual void Start() {};
     virtual void UpdateComponent() {};
     virtual void Render();
+    BoxCollider* Clone() const override;
 
     SBox GetBounds() override;
     void CalculateShape() override;
@@ -28,5 +29,8 @@ protected:
     SBox mBox;
     
    
+
+   
+
 };
 

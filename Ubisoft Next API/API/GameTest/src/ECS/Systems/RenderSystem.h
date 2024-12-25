@@ -6,7 +6,7 @@
 class RenderSystem : public ISystem
 {
 public:
-	RenderSystem() : ISystem("RenderSystem") {};
+	RenderSystem() : ISystem("RenderSystem",  eSystemType::RENDER_SYSTEM) {};
 	 void Start(std::vector<Entity*> entities) override;
 	 void Update(std::vector<Entity*> entities, float deltaTime) override ;
 	 void Render(std::vector<Entity*> entities) override;

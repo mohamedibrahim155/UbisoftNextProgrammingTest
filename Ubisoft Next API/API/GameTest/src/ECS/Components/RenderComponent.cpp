@@ -14,6 +14,7 @@ RenderComponent::RenderComponent(std::string filename, Vector2 position) :
 	spriteOffset = position;
 
 }
+
 RenderComponent::RenderComponent(Vector2 offsetPosition) :IComponent(ComponentType::RENDER_COMPONENT)
 {
 	centerScreen = Vector2(APP_VIRTUAL_WIDTH / 2, APP_VIRTUAL_HEIGHT / 2);

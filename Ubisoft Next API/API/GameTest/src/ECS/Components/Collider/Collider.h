@@ -36,14 +36,29 @@ struct SCircle
 	{};
 };
 
+struct SLine
+{
+	Vector2 startPoint;
+	Vector2 endPoint;
+	SLine() = default;
+
+	SLine(const Vector2& startPoint, const Vector2& endPoint) :
+		startPoint(startPoint), endPoint(endPoint)
+	{};
+
+
+};
+
 class Collider :  public  IComponent
 {
 public:
 	Collider(eShape type);
-	~Collider() = default ;
-	virtual void Start();
+	~Collider() override = default ;
+	virtual void Start() {};
+	virtual void Init();
 	virtual void UpdateComponent() {};
 	virtual void Render() {};
+	virtual Collider* Clone() const override =0;
 
 	virtual eShape GetShapeType() const { return shape; };
 	virtual SBox GetBounds() = 0;
@@ -64,6 +79,9 @@ protected:
 	Vector2  offset;
 	Vector2 center;
 	Vector2 mScale{ 1,1 };
+
+
+
 
 };
 

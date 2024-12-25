@@ -1,11 +1,20 @@
 #pragma once
 #include "Entity.h"
 class SystemManager;
+
+enum class eSystemType
+{
+	UNKNOWN,
+	CUSTOMSCRIPT_SYSTEM,
+	MOVEMENT_SYSTEM,
+	PHYSICS_SYSTEM,
+	RENDER_SYSTEM,
+};
 class ISystem   
 {
 public:
 
-	ISystem(std::string  name) : name(name) {};
+	ISystem(std::string  name, eSystemType type) : name(name), systemType(type) {};
 	virtual ~ISystem() = default;
 	virtual void Start(std::vector<Entity*> entities)=0;
 	virtual void Update(std::vector<Entity*> entities,float deltaTime) = 0;
@@ -14,6 +23,7 @@ public:
 
 	SystemManager* systemManager;
 	std::string name;
+	eSystemType systemType;
 
 };
 

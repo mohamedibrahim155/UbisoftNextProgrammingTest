@@ -2,7 +2,7 @@
 #include "Components/Transform.h"
 #include<unordered_map>
 #include <string>
-
+#include "../src/Events/Event.h"
 class SpriteRenderer;
 class EntityManager;
 using EntityID = int;
@@ -13,6 +13,7 @@ public:
 	
 
 	Entity(EntityID ID);
+	Entity(const Entity& otherEntity , EntityID ID);
 	virtual ~Entity();
 
 
@@ -45,7 +46,12 @@ public:
 	SpriteRenderer* m_sprite;
 
 	EntityManager* manager;
+
+
 	bool isDestroyed = false;
+
+	CEvent OnColliderInit;
+
 private:
 
 	bool isActive = true;
@@ -53,6 +59,8 @@ private:
 
 	std::string m_Tag = "Unkown";
 	std::unordered_map<ComponentType,IComponent*> listOfComponents;
+
+
 
 };
 

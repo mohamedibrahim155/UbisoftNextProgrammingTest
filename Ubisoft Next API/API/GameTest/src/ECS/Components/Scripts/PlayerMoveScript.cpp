@@ -3,6 +3,7 @@
 #include "../src/ECS/Entity.h"
 #include "../../Components/SpriteRenderer.h"
 #include "../App/app.h"
+#include "../src/ECS/EntityManager.h"
 PlayerMoveScript::PlayerMoveScript() : ScriptComponent()
 {
 }
@@ -27,15 +28,16 @@ void PlayerMoveScript::UpdateComponent()
 {
 	Vector3 pos = entityRef->transform.position;
 
-	pos.x += 1;
+	pos.x += 1.0f;
 
 	entityRef->transform.position = (pos);
 
-	if (App::GetController().CheckButton(XINPUT_GAMEPAD_DPAD_DOWN, false))
+	if (App::GetController().CheckButton(XINPUT_GAMEPAD_DPAD_DOWN, true))
 	{
 		
 		//entityRef->Destroy();
 			spriteSheet->SetAnimation(0);
+
 		
 	}
 	else
@@ -50,4 +52,9 @@ void PlayerMoveScript::UpdateComponent()
 
 void PlayerMoveScript::Render()
 {
+}
+
+PlayerMoveScript* PlayerMoveScript::Clone() const
+{
+	return new PlayerMoveScript();
 }

@@ -2,21 +2,20 @@
 #include "../../System.h"
 #include "../../Components/Collider/BoxCollider.h"
 #include "../../Components/Collider/CircleCollider.h"
+#include "../../Components/Collider/LineCollider.h"
 #define GRAVITY (-9.81)
 class PhysicsSystem : public ISystem
 {
 public:
-	PhysicsSystem() : ISystem("PhysicsSystem") {};
+	PhysicsSystem() : ISystem("PhysicsSystem", eSystemType::PHYSICS_SYSTEM) {};
 	// Inherited via ISystem
+	~PhysicsSystem() override = default;
 	void Start(std::vector<Entity*> entities) override;
 	void Update(std::vector<Entity*> entities, float deltaTime) override;
 	void Render(std::vector<Entity*> entities) override;
 	void Cleanups() override;
 
 private:
-
-	std::vector<Entity*> listOfStaticObjects;
-	std::vector<Entity*> listOfDynamicsObjects;
 
 	void UpdatePhysics(std::vector<Entity*> entities ,float deltatime);
 	void UpdateComponents(std::vector<Entity*> entities, float deltatime);

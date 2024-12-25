@@ -9,6 +9,7 @@ public:
 	EntityManager(SystemManager* manager);
 	~EntityManager() = default;
 	Entity* CreateEntity();
+	Entity* CreateEntityFromCopy(Entity* entity);
 	Entity* GetEntityByID(EntityID ID);
 
 	void AddEntity(Entity* entity);
@@ -16,10 +17,13 @@ public:
 	void Clean();
 
 	inline unsigned int GetEntitiesCount() { return entityCount;  }
+	inline SystemManager* GetSystemManager() { return systemManager; }
 private:
 
 	int entityCount = 0;
 	std::unordered_map <EntityID, Entity*> entitiesMap;
+	std::vector<Entity*> listOfEntites;
+
 
 	SystemManager* systemManager;
 };

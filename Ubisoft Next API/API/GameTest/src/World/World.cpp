@@ -69,25 +69,29 @@ void World::Start()
 
 		SpriteRenderer* sprite = (SpriteRenderer*)entity3->GetComponent(ComponentType::RENDER_COMPONENT);
 		sprite->SetColor(1, 0, 0);
-		entity3->AddComponent(new BoxCollider());
+		//entity3->AddComponent(new BoxCollider());
 		entity3->AddComponent(new CircleCollider());
 		entity3->AddComponent(new RigidBody(eBodyType::STATIC));
 		//entity3->AddComponent(new PlayerMoveScript());
-		entity3->transform.scale = Vector2(2, 2); 
-	//	entity3->transform.position = Vector2(0, 0); 
+		entity3->transform.scale = Vector2(1, 1); 
+		entity3->transform.position = Vector2(0, -250); 
+		/*entity3->AddComponent(
+			new LineCollider(
+			{ entity3->transform.position.x , entity3->transform.position.y },
+			{ entity3->transform.position.x + 100, entity3->transform.position.y }));*/
 
 
-		//Entity* entity4 = entityManager->CreateEntity();
-		//entity4->AddComponent(new SpriteSheetRenderer(filename,6,1));
-		////entity4->AddComponent(new PlayerMoveScript());
+		Entity* entity4 = entityManager->CreateEntity();
+		entity4->AddComponent(new SpriteSheetRenderer(filename,6,1));
+		entity4->AddComponent(new PlayerMoveScript());
 
-		//SpriteRenderer* sprite2 = (SpriteRenderer*)entity4->GetComponent(ComponentType::RENDER_COMPONENT);
+		SpriteRenderer* sprite2 = (SpriteRenderer*)entity4->GetComponent(ComponentType::RENDER_COMPONENT);
 
-		////entity4->AddComponent(new BoxCollider());
-		//entity4->AddComponent(new RigidBody(eBodyType::DYNAMIC));
+		entity4->AddComponent(new BoxCollider());
+		entity4->AddComponent(new RigidBody(eBodyType::DYNAMIC));
 		//entity4->AddComponent(new CircleCollider());
-		//entity4->transform.position = Vector3(0, 0, 0);
-		//entity4->transform.scale = Vector2(1, 1);
+		entity4->transform.position = Vector3(0, 0, 0);
+		entity4->transform.scale = Vector2(1, 1);
 	}
 
 #pragma endregion

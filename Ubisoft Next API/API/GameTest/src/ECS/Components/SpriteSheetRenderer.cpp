@@ -3,10 +3,16 @@
 #include "RenderComponent.h"
 #include "App/app.h"
 SpriteSheetRenderer::SpriteSheetRenderer(std::string filename, int column, int row) 
-	: SpriteRenderer(filename)
+	: SpriteRenderer(filename), 
+	column(column),
+	row(row)
 {
 	this->sprite = CreateSprite(filename, column, row);
 }
+
+
+
+
 
 SpriteSheetRenderer::SpriteSheetRenderer(std::string filename, int column, int row, int spriteOrder)
 	: SpriteRenderer(filename)
@@ -33,6 +39,11 @@ void SpriteSheetRenderer::UpdateComponent()
 void SpriteSheetRenderer::Render()
 {
 	SpriteRenderer::Render();
+}
+
+SpriteSheetRenderer* SpriteSheetRenderer::Clone() const
+{
+	return new SpriteSheetRenderer(this->fileName,this->column, this->row);
 }
 
 void SpriteSheetRenderer::SetAnimation(int ID, bool playfromBeginning)

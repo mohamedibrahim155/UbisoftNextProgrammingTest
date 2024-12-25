@@ -12,7 +12,7 @@ Collider::Collider(eShape type) : IComponent(ComponentType::COLLIDER_COMPONENT)
 	center.y = APP_VIRTUAL_HEIGHT * 0.5f;
 }
 
-void Collider::Start()
+void Collider::Init()
 {
 	transform = &entityRef->transform;
 	spriteRenderer = entityRef->m_sprite;
@@ -26,4 +26,6 @@ void Collider::SetTrigger(bool trigger)
 {
 	isTrigger = trigger;
 }
+
+
 

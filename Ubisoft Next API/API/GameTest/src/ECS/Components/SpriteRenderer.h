@@ -8,11 +8,14 @@ public:
 	SpriteRenderer(std::string filename, Vector2 offset);
 	SpriteRenderer(std::string filename, Vector2 offset, int order);
 	
+	// Inherited via RenderComponent
 	virtual ~SpriteRenderer() override;
 	virtual void Start() override;
 	virtual void UpdateComponent() override;
 	virtual void Render() override;
 	 int RenderOrder() override;
+
+	 virtual SpriteRenderer* Clone() const override;
 
 	 void SetColor(const Vector3&  color);
 	 void SetColor(const float& r, const float& g, const float& b);
@@ -24,6 +27,7 @@ public:
 	 int GetSpriteOrder() const;
 	 Vector3 GetColor() const;
 	 CSimpleSprite* GetSprite() const;
+	 std::string GetFileName() const;
 
 
 protected:
@@ -33,5 +37,7 @@ protected:
 	 int spriteOrder = 0;
 
 	 CSimpleSprite* CreateSprite(std::string filename, int colum, int row);
+
+	
 };
 

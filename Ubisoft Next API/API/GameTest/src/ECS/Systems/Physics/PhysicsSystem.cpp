@@ -5,45 +5,13 @@
 #include "../src/Utils/PhysicsUtils.h"
 void PhysicsSystem::Start(std::vector<Entity*> entities)
 {
-#pragma region ColliderShapeCalculation
 
-
-	for (Entity* entity : entities)
-	{
-		Collider* collider = (Collider*)entity->GetComponent(ComponentType::COLLIDER_COMPONENT);
-
-		if (collider == nullptr)  continue;
-
-		if (!collider->isStartInvoked)
-		{
-			collider->Start();
-			collider->isStartInvoked = true;
-		}
-	}
-#pragma endregion
-
-
-	for (Entity* entity : entities)
-	{
-		RigidBody* rigidbody = (RigidBody*)entity->GetComponent(ComponentType::PHYSICS_COMPONENT);
-		
-		if (rigidbody == nullptr)  continue;
-
-
-		if (rigidbody->GetbodyType() == eBodyType::STATIC)
-		{
-			listOfStaticObjects.push_back(entity);
-		}
-		else
-		{
-			listOfDynamicsObjects.push_back(entity);
-		}
-	}
 }
 
 void PhysicsSystem::Update(std::vector<Entity*> entities, float deltaTime)
 {
-	UpdateComponents(entities,deltaTime);
+
+	UpdateComponents(entities, deltaTime);
 }
 
 void PhysicsSystem::Render(std::vector<Entity*> entities)
@@ -65,11 +33,14 @@ void PhysicsSystem::Cleanups()
 {
 }
 
+
+
+
 void PhysicsSystem::UpdatePhysics(std::vector<Entity*> entities , float deltatime)
 {
 	timer += deltatime;
 
-	if (timer > FIXED_TIMESTEP)
+	if (timer >= FIXED_TIMESTEP)
 	{
 		UpdateComponents(entities,FIXED_TIMESTEP);
 		timer = 0;
@@ -135,6 +106,8 @@ void PhysicsSystem::UpdateComponents(std::vector<Entity*> entities, float deltat
 		}
 
 
-		rb->force = { 0.0f, 0.0f };
+		//rb->force = { 0.0f, 0.0f };
 	}
 }
+
+

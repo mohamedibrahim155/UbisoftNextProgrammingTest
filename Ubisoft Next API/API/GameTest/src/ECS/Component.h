@@ -24,6 +24,7 @@ public:
 	virtual void Start() = 0;
 	virtual void UpdateComponent() = 0;
 	virtual void Render() = 0;
+	virtual IComponent* Clone() const = 0;
 
 	void SetEntity(Entity* entity);
 	void SetEnabled(bool state);
@@ -33,6 +34,8 @@ public:
 	int componentID;
 	bool isComponentEnabled = true;
 	bool isStartInvoked = false;
+
+
 
 
 protected:

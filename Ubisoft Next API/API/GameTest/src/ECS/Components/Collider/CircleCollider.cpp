@@ -14,6 +14,11 @@ CircleCollider::CircleCollider(float radius) : Collider(eShape::CIRCLE)
 
 }
 
+CircleCollider::CircleCollider(const CircleCollider& other) : Collider(eShape::CIRCLE)
+{
+    this->m_Circle = other.m_Circle;
+}
+
 
 
 
@@ -106,10 +111,11 @@ void CircleCollider::DrawCircle(float cx, float cy, float radius, int segments, 
 
 }
 
-void CircleCollider::Start()
+CircleCollider* CircleCollider::Clone() const
 {
-    Collider::Start();
+    return new CircleCollider(*this);
 }
+
 
 void CircleCollider::Render()
 {

@@ -14,5 +14,8 @@ public:
 	 void Render() override;
 
 	 SpriteSheetRenderer* spriteSheet;
+
+	 // Inherited via ScriptComponent
+	 PlayerMoveScript* Clone() const override;
 };
 

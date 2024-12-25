@@ -16,10 +16,12 @@ public:
 	void UpdateSystems(float deltaTime);
 	void Render();
 	void CleanSystem();
+
+	ISystem* GetSystem(eSystemType type);
+	std::vector<Entity*> GetEntities() const;
 private:
 
-	int systemCount = 0;
-	std::unordered_map<int, ISystem*> systemsMap;
+	std::unordered_map<eSystemType, ISystem*> systemsMap;
 
 	std::unordered_map<EntityID,Entity*> entitiesMap;
 	std::vector<Entity*> listOfEntities;

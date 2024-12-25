@@ -65,11 +65,13 @@ SBox BoxCollider::GetBox()
 	return box;
 }
 
-
-void BoxCollider::Start()
+BoxCollider* BoxCollider::Clone() const
 {
-	Collider::Start();
+	return new BoxCollider();
 }
+
+
+
 
 void BoxCollider::Render()
 {

@@ -8,6 +8,7 @@ class RenderComponent : public IComponent
 {
 public:
 	RenderComponent(std:: string filename, Vector2 position);
+
 	RenderComponent(Vector2 position);
 	RenderComponent(std:: string filename);
 
@@ -18,9 +19,14 @@ public:
 	virtual void Render() override {};
 	virtual int RenderOrder() =0;
 
+	// Inherited via IComponent
+	virtual RenderComponent* Clone() const = 0;
+
 protected:
 	std::string fileName;
 	Vector2 centerScreen;
 	Vector2 spriteOffset;
+
+	
 };
 

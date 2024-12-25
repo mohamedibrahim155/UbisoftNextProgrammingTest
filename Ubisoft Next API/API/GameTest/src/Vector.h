@@ -15,10 +15,6 @@ struct Vector2
 		this->y = y;
 	}
 
-	float Dot(const Vector2& other) const {
-		return x * other.x + y * other.y;
-	}
-
 
 	 static float Dot(const Vector2& lhs, const Vector2& rhs) 
 	{
@@ -29,7 +25,7 @@ struct Vector2
 		return std::sqrt(x * x + y * y);
 	}
 	float LengthSquared() const {
-		return this->Dot(*this);
+		return Dot(*this, *this);
 	}
 	Vector2 Normalize() 
 	{
@@ -99,6 +95,10 @@ struct Vector2
 		this->x -= other.x;
 		this->y -= other.y;
 		return *this;
+	}
+
+	static float Cross(const Vector2& current, const Vector2& other) {
+		return current.x * other.y - current.y * other.x;
 	}
 
 };

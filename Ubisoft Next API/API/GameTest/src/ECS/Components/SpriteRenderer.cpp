@@ -113,7 +113,17 @@ CSimpleSprite* SpriteRenderer::GetSprite() const
 	return sprite;
 }
 
+std::string SpriteRenderer::GetFileName() const
+{
+	return fileName;
+}
+
 CSimpleSprite* SpriteRenderer::CreateSprite(std::string filename, int column, int rows)
 {
 	return App::CreateSprite(filename.c_str(), column, rows);
+}
+
+SpriteRenderer* SpriteRenderer::Clone() const
+{
+	return new SpriteRenderer(this->fileName,this->spriteOffset);
 }

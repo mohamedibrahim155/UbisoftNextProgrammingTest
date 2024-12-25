@@ -6,7 +6,7 @@
 class CustomScriptsControllerSystem : public ISystem
 {
 public:
-	CustomScriptsControllerSystem() : ISystem("CustomScriptControllerSystem") {};
+	CustomScriptsControllerSystem() : ISystem("CustomScriptControllerSystem", eSystemType::CUSTOMSCRIPT_SYSTEM) {};
 	// Inherited via ISystem
 	void Start(std::vector<Entity*> entities) override;
 	void Update(std::vector<Entity*> entities, float deltaTime) override;
@@ -16,7 +16,6 @@ public:
 	std::vector<ScriptComponent*> GetScripts() const;
 
 private:
-	std::vector<ScriptComponent*> listOfScripts;
 
 };
 

@@ -6,12 +6,15 @@ class CircleCollider :
 public:
     CircleCollider();
     CircleCollider(float radius);
+    CircleCollider(const CircleCollider& other);
 
     ~CircleCollider() override {};
 
-     void Start() override;
+    // Inherited via Collider
+    void Start() override {};
      void UpdateComponent() override {};
      void Render()  override;
+     CircleCollider* Clone() const override;
      void SetRadius(float radius) { m_Circle.radius = radius; };
 
      float GetRadius() const { return m_Circle.radius; };
@@ -30,5 +33,7 @@ protected:
 
     
     void DrawCircle(float cx, float cy, float radius, int segments, const Vector3& color);
+
+ 
 };
 
