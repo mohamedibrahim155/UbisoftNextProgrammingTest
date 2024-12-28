@@ -51,7 +51,7 @@ public:
 
 	bool isDestroyed = false;
 
-	CEvent OnColliderInit;
+	CEvent<> OnDestroyed;
 
 private:
 

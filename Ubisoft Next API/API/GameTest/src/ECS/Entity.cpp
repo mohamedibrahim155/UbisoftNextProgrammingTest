@@ -117,6 +117,7 @@ void Entity::Destroy()
 {
 	if (isDestroyed) return;
 
+	OnDestroyed.Invoke();
 	SetActive(false);
 	isDestroyed = true;
 	CleanUps();

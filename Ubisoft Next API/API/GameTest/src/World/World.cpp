@@ -103,6 +103,12 @@ void World::Start()
 		//entity4->AddComponent(new CircleCollider());
 		entity4->transform.position = Vector3(randomWidth+10/2, randomheight+10/2, 0);
 		entity4->transform.scale = Vector2(1, 1);
+
+
+		entity4->OnDestroyed.Subscribe([]() 
+			{
+				printf("Deleted");
+			});
 	}
 
 #pragma endregion

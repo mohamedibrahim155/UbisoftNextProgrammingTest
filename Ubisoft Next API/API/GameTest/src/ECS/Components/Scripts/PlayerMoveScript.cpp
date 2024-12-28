@@ -26,16 +26,17 @@ void PlayerMoveScript::Start()
 
 void PlayerMoveScript::UpdateComponent()
 {
-	Vector3 pos = entityRef->transform.position;
+	//if (entityRef->isDestroyed) return;
+	//Vector3 pos = entityRef->transform.position;
 
-	pos.x += 1.0f;
+	//pos.x += 1.0f;
 
-	float rotation = entityRef->transform.rotation;
+	//float rotation = entityRef->transform.rotation;
 
 	if (App::GetController().CheckButton(XINPUT_GAMEPAD_DPAD_DOWN, false))
 	{
 		
-		//entityRef->Destroy();
+		entityRef->Destroy();
 			//spriteSheet->SetAnimation(0);
 
 
@@ -46,7 +47,8 @@ void PlayerMoveScript::UpdateComponent()
 		//spriteSheet->SetAnimation(-1);
 	}
 
-	entityRef->transform.position = (pos);
+
+	//entityRef->transform.position = (pos);
 	
 
 }

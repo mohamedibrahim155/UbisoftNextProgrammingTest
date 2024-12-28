@@ -3,50 +3,28 @@
 #include <unordered_map>
 #include<string>
 
+template <typename... Args>
 class CEvent
 {
 
 public:
-	template <typename... Args>
-	using EVENT = std::function<void(Args...)>;
+    using EVENT = std::function<void(Args...)>;
 
-    template <typename... Args>
-    void Subscribe(std::string eventName, EVENT<Args...> callback)
-    {
-        m_listOfEvents[eventName] = [callback](void* args) {
-            InvokeCallback<Args...>(callback, args);
-            };
-    }
-    void UnSubscribe(std::string eventName)
-    {
-        m_listOfEvents.erase(eventName);
-    }
-    void UnSubscribeAllEvents()
-    {
-        m_listOfEvents.clear();
+    void Subscribe(EVENT callback) {
+        m_callbacks.push_back(std::move(callback));
     }
 
-    template <typename... Args>
-    void Invoke(std::string eventName, Args... args)
-    {
-        auto it = m_listOfEvents.find(eventName);
-        if (it != m_listOfEvents.end())
+    void Invoke(Args... args) {
+        for (auto& callback : m_callbacks) 
         {
-            it->second((void*)&args);
+            if (callback)
+            {
+                callback(args...);
+            }
         }
     }
 
 private:
-
-    std::unordered_map<std::string, std::function<void(void*)>> m_listOfEvents;
-
-    // Helper to unpack the arguments and call the callback
-    template <typename... Args>
-    static void InvokeCallback(std::function<void(Args...)>& callback, void* args)
-    {
-        
-        callback(*reinterpret_cast<std::tuple<Args...>*>(args));
-    }
-
+    std::vector<EVENT> m_callbacks;
 };
 
