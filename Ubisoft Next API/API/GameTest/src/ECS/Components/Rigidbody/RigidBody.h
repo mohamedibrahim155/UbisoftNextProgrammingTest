@@ -31,10 +31,11 @@ public:
 
     Vector2 velocity{ 0.0f, 0.0f };
     Vector2 force{ 0.0,0.0 };
+    float bounciness = 0;
 
 protected:
     eBodyType bodyType = eBodyType::STATIC;
-    float mass = 1;
+    float mass = 10;
     float gravityScale = 1;
 
 

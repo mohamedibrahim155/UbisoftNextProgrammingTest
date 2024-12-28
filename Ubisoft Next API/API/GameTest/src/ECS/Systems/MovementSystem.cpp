@@ -18,11 +18,13 @@ void MovementSystem::Update(std::vector<Entity*> entities, float deltaTime)
 
 
 		Vector3 position = transform->position;
+		float rotation = transform->rotation;
 		Vector2 scale = transform->scale;
 
 		
 
 		entity->SetPosition(position);
+		entity->SetRotation(rotation);
 		entity->SetScale(scale);
 	}
 

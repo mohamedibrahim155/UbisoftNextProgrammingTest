@@ -29,6 +29,7 @@ public:
 	void SetTag(const std::string& tag);
 	void SetID(int ID);
 	void SetPosition(const Vector3& position);
+	void SetRotation(const float& rotationY);
 	void SetScale(const Vector2& scale);
 	
 	//Getters

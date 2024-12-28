@@ -74,11 +74,8 @@ void PhysicsSystem::UpdateComponents(std::vector<Entity*> entities, float deltat
 
 		rb->velocity += acceleration * deltatime;
 
-
-		// Setting to object
-		transform->position += rb->velocity * deltatime;
-
-
+		collisionNormals.clear();
+		collisionPoints.clear();
 
 		for (Entity* otherEntity : entities)
 		{
@@ -86,27 +83,66 @@ void PhysicsSystem::UpdateComponents(std::vector<Entity*> entities, float deltat
 
 			Transform* otherTransform = &otherEntity->transform;
 			RigidBody* otherRB = (RigidBody*)otherEntity->GetComponent(ComponentType::PHYSICS_COMPONENT);
-			Collider* otherColldier = (Collider*)otherEntity->GetComponent(ComponentType::COLLIDER_COMPONENT);
+			Collider* otherCollider = (Collider*)otherEntity->GetComponent(ComponentType::COLLIDER_COMPONENT);
 
-			if (!otherColldier || !otherTransform || !collider) continue;
-			if (!otherColldier->isComponentEnabled || !collider->isComponentEnabled) continue;
+			if (!otherCollider || !otherTransform || !collider) continue;
+			if (!otherCollider->isComponentEnabled || !collider->isComponentEnabled) continue;
 
-			// Check Collision
 
-			if (Physics::CheckCollision(collider, otherColldier))
+			std::vector<Vector2> perObjectCollisions;
+			std::vector<Vector2> perObjectNormals;
+			if (Physics::CheckCollision(collider, otherCollider, perObjectCollisions, perObjectNormals))
 			{
-				if (collider->IsTrigger() || otherColldier->IsTrigger())
+				if (collider->IsTrigger() || otherCollider->IsTrigger())
 				{
-					// Triggered
 					continue;
 				}
 
-				Physics::ResolveCollision(rb, otherRB, transform, otherTransform);
+				collisionPoints.insert(collisionPoints.end(), perObjectCollisions.begin(), perObjectCollisions.end());
+				collisionNormals.insert(collisionNormals.end(), perObjectNormals.begin(), perObjectNormals.end());
+
 			}
+			
+			
+		}
+		if (!collisionNormals.empty())
+		{
+			Vector2 normal = Vector2::Zero();
+
+			for (int i = 0; i < collisionNormals.size(); i++)
+			{
+				normal += collisionNormals[i].Normalize();
+			}
+
+			normal = normal / (float)(collisionNormals.size());
+
+			Vector2 incident = rb->velocity;
+
+			float dotProduct = Vector2::Dot(incident, normal);
+
+			if (dotProduct < 0)
+			{
+				normal = normal * -1;
+
+				dotProduct = -dotProduct;
+			}
+
+			float bounciness = 0.1f;
+
+			Vector2 refllected = Vector2::Reflect(incident, normal);
+
+			if (refllected.Magnitude() > 0.0001f)
+			{
+				rb->velocity = refllected * rb->bounciness;
+			}
+			else
+			{
+				rb->velocity = Vector2::Zero();
+			}
+
 		}
 
-
-		//rb->force = { 0.0f, 0.0f };
+		transform->position += rb->velocity * deltatime;
 	}
 }
 

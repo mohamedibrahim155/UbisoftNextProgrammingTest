@@ -20,6 +20,7 @@ public:
 	 void SetColor(const Vector3&  color);
 	 void SetColor(const float& r, const float& g, const float& b);
 	 void SetPosition(const Vector3&  position);
+	 void SetRotation(const float& rotationY);
 	 void SetOffset(const Vector2& offset);
 	 void SetScale(const Vector2&  scale);
 	 void SetOrder(int order);

@@ -3,143 +3,165 @@
 #include "../src/ECS/Components/Collider/CircleCollider.h"
 #include "../src/ECS/Components/Collider/BoxCollider.h"
 #include "../src/ECS/Components/Collider/LineCollider.h"
-bool Physics::CheckCollision(Collider* colliderA, Collider* colliderB)
+bool Physics::CheckCollision(Collider* colliderA, Collider* colliderB, std::vector<Vector2>& collisionPt, std::vector<Vector2>& collisionNormal)
 {
-
-	switch (colliderA->GetShapeType())
+	// Checking AABB collision 
+	if (BoxVsBox(&colliderA->GetBounds(), &colliderB->GetBounds(), collisionPt, collisionNormal))
 	{
+		switch (colliderA->GetShapeType())
+		{
 
 #pragma region CircleVS
 
-	
-	case eShape::CIRCLE :
 
-		
-		switch (colliderB->GetShapeType())
-		{
 		case eShape::CIRCLE:
 
-			return CircleVsCircle(&dynamic_cast<CircleCollider*>(colliderA)->GetCircle(),
-				&dynamic_cast<CircleCollider*>(colliderB)->GetCircle());
 
-		case eShape::BOX:
+			switch (colliderB->GetShapeType())
+			{
+			case eShape::CIRCLE:
 
-			return CircleVsBox(&dynamic_cast<CircleCollider*>(colliderA)->GetCircle(),
-				&dynamic_cast<BoxCollider*>(colliderB)->GetBox());
+				return CircleVsCircle(&dynamic_cast<CircleCollider*>(colliderA)->GetCircle(),
+					&dynamic_cast<CircleCollider*>(colliderB)->GetCircle(), collisionPt,collisionNormal);
+
+			case eShape::BOX:
+
+				return CircleVsBox(&dynamic_cast<CircleCollider*>(colliderA)->GetCircle(),
+					&dynamic_cast<BoxCollider*>(colliderB)->GetBox(),true ,collisionPt, collisionNormal);
 
 
-		case eShape::LINE:
+			case eShape::LINE:
 
-			return LineVsCircle(&dynamic_cast<LineCollider*>(colliderB)->GetLine(),
-				&dynamic_cast<CircleCollider*>(colliderA)->GetCircle());
-		}
+				return LineVsCircle(&dynamic_cast<LineCollider*>(colliderB)->GetLine(),
+					&dynamic_cast<CircleCollider*>(colliderA)->GetCircle());
+			}
 
-		break;
-     #pragma endregion
+			break;
+#pragma endregion
 
 #pragma region BoxVS
-	case eShape::BOX:
-
-		switch (colliderB->GetShapeType())
-		{
-
-		case eShape::CIRCLE:
-			return CircleVsBox(&dynamic_cast<CircleCollider*>(colliderB)->GetCircle(),
-				&dynamic_cast<BoxCollider*>(colliderA)->GetBox());
-
 		case eShape::BOX:
 
-			return BoxVsBox(&dynamic_cast<BoxCollider*>(colliderA)->GetBox(), 
-				&dynamic_cast<BoxCollider*>(colliderB)->GetBox());
+			switch (colliderB->GetShapeType())
+			{
+
+			case eShape::CIRCLE:
+				return CircleVsBox(&dynamic_cast<CircleCollider*>(colliderB)->GetCircle(),
+					&dynamic_cast<BoxCollider*>(colliderA)->GetBox(), false, collisionPt, collisionNormal);
+
+			case eShape::BOX:
+
+				return BoxVsBox(&dynamic_cast<BoxCollider*>(colliderA)->GetBox(),
+					&dynamic_cast<BoxCollider*>(colliderB)->GetBox(), collisionPt, collisionNormal);
 
 
-		case eShape::LINE:
-			return LineVsBox(&dynamic_cast<LineCollider*>(colliderB)->GetLine(),
-				&dynamic_cast<BoxCollider*>(colliderA)->GetBox());
-		}
+			case eShape::LINE:
+				return LineVsBox(&dynamic_cast<LineCollider*>(colliderB)->GetLine(),
+					&dynamic_cast<BoxCollider*>(colliderA)->GetBox());
+			}
 
-		break;
+			break;
 
 #pragma endregion
 
 #pragma region LineVs
 
-	case eShape::LINE:
-
-		switch (colliderB->GetShapeType())
-		{
-
-
-		case eShape::CIRCLE:
-
-
-			return LineVsCircle(&dynamic_cast<LineCollider*>(colliderA)->GetLine(), 
-				&dynamic_cast<CircleCollider*>(colliderB)->GetCircle());
-
-		case eShape::BOX:
-
-			return LineVsBox(&dynamic_cast<LineCollider*>(colliderA)->GetLine(),
-				&dynamic_cast<BoxCollider*>(colliderB)->GetBox());
-
-
 		case eShape::LINE:
 
-			return LineVsLine(&dynamic_cast<LineCollider*>(colliderA)->GetLine(),
-				&dynamic_cast<LineCollider*>(colliderB)->GetLine());
-		}
+			switch (colliderB->GetShapeType())
+			{
 
-		break;
+
+			case eShape::CIRCLE:
+
+
+				return LineVsCircle(&dynamic_cast<LineCollider*>(colliderA)->GetLine(),
+					&dynamic_cast<CircleCollider*>(colliderB)->GetCircle());
+
+			case eShape::BOX:
+
+				return LineVsBox(&dynamic_cast<LineCollider*>(colliderA)->GetLine(),
+					&dynamic_cast<BoxCollider*>(colliderB)->GetBox());
+
+
+			case eShape::LINE:
+
+				return LineVsLine(&dynamic_cast<LineCollider*>(colliderA)->GetLine(),
+					&dynamic_cast<LineCollider*>(colliderB)->GetLine());
+			}
+
+			break;
 #pragma endregion
 
+		}
+
 	}
-	/*if (colliderA->GetShapeType() == eShape::CIRCLE && colliderB->GetShapeType() == eShape::CIRCLE)
-	{
-		CircleCollider* circleA = (CircleCollider*)colliderA;
-		CircleCollider* circleB = (CircleCollider*)colliderB;
-
-
-		return CircleVSCirce(&circleA->GetCircle(), &circleB->GetCircle());
-	}
-
-	if (colliderA->GetShapeType() == eShape::BOX && colliderB->GetShapeType() ==eShape::BOX)
-	{
-		BoxCollider* boxA = (BoxCollider*)colliderA;
-		BoxCollider* boxB = (BoxCollider*)colliderB;
-
-		return BoxVsBox(&boxA->GetBox(), &boxB->GetBox());
-	}*/
-
 
 	return false;
 }
 
-bool Physics::CircleVsCircle(SCircle* circleA, SCircle* circleB)
+bool Physics::CircleVsCircle(SCircle* circleA, SCircle* circleB, std::vector<Vector2>& collisionPt, std::vector<Vector2>& collisionNormal)
 {
 	float radius = circleA->radius + circleB->radius;
 
-	Vector2 diff = circleA->centre - circleB->centre;
+	Vector2 diff = circleB->centre - circleA->centre;
 	float dot = diff.x * diff.x + diff.y * diff.y;
 
-	return dot <= radius * radius;
+	Vector2 collisionNr;
+	Vector2 collisionPnt;
+
+	if (dot <= radius *  radius)
+	{
+		if (dot != 0)
+		{
+			collisionNr = diff.Normalize();
+		}
+		else
+		{
+			collisionNr = Vector2::One().Normalize();
+		}
+
+
+		collisionPnt = circleA->centre + (collisionNr * circleA->radius);
+
+		collisionPt.push_back(collisionPnt);
+		collisionNormal.push_back(collisionNr);
+
+		return true;
+	}
+
+	return false;
 }
 
-bool Physics::BoxVsBox(SBox* boxA, SBox* boxB)
+bool Physics::BoxVsBox(SBox* boxA, SBox* boxB, std::vector<Vector2>& collisionPt, std::vector<Vector2>& collisionNormal)
 {
-	bool overlapX = boxA->maximum.x >= boxB->minimum.x && boxA->minimum.x <= boxB->maximum.x;
-	bool overlapY = boxA->maximum.y >= boxB->minimum.y && boxA->minimum.y <= boxB->maximum.y;
+	if (boxA->maximum[0] <  boxB->minimum[0] || boxA->minimum[0] > boxB->maximum[0]) return false;
+	if (boxA->maximum[1] <  boxB->minimum[1] || boxA->minimum[1] > boxB->maximum[1]) return false;
 
-	return overlapX && overlapY;
+	SBox instersectionAABB;
+
+	for (int i = 0; i < 2; i++)
+	{
+		instersectionAABB.minimum[i] = MathF::Max(boxA->minimum[i], boxB->minimum[i]);
+
+		instersectionAABB.maximum[i] = MathF::Min(boxA->maximum[i], boxB->maximum[i]);
+	}
+	Vector2 collisionpt = instersectionAABB.GetCenter();
+
+	collisionPt.push_back(collisionpt);
+
+	Vector2 centerA = boxA->GetCenter();
+	Vector2 centerB = boxB->GetCenter();
+
+	Vector2 collisionNr = centerA - centerB;
+
+	collisionNr = collisionNr.Normalize();
+
+	collisionNormal.push_back(collisionNr);
+	return true;
 }
 
-void Physics::ResolveCollision(RigidBody* bodyA, RigidBody* bodyB, Transform* a, Transform* b)
-{
-	
 
-
-	bodyA->velocity = { 0,0 };
-
-
-}
 
 bool Physics::LineVsLine(SLine* lineA, SLine* lineB)
 {
@@ -212,21 +234,39 @@ bool Physics::LineVsBox(SLine* line, SBox* box)
 	return false;
 }
 
-bool Physics::CircleVsBox(SCircle* circle, SBox* box)
+bool Physics::CircleVsBox(SCircle* circle, SBox* box , bool isCircle, std::vector<Vector2>& collisionPt, std::vector<Vector2>& collisionNormal)
 {
 
-	Vector2 closestPoint =
+
+	float sqDist =  SqDistPointAABB(circle->centre, box);
+
+	float sqRadius = circle->radius * circle->radius;
+
+
+	if (sqDist <= sqRadius)
 	{
-	  MathF::Max(box->minimum.x, MathF::Min(circle->centre.x, box->maximum.x)),
-	  MathF::Max(box->minimum.y, MathF::Min(circle->centre.y, box->maximum.y))
-	};
+		Vector2 collisionPoint = ClosestPtAABB(circle->centre, box);
 
+		Vector2 collisionNr = Vector2::Zero();
 
-	Vector2 circleToClosest = closestPoint - circle->centre;
+		if (isCircle)
+		{
+			collisionNr = collisionPoint - circle->centre;
+		}
+		else
+		{
+			collisionNr = collisionPoint - box->GetCenter();
 
-	float distanceSquared = circleToClosest.LengthSquared();
+			collisionNr = collisionNr.Normalize();
+		}
 
-	return distanceSquared <= (circle->radius * circle->radius);;
+		collisionPt.push_back(collisionPoint);
+		collisionNormal.push_back(collisionNr);
+
+		return true;
+	}
+
+	return false;
 }
 
 bool Physics::Raycast(Collider* colliderToCheck, Vector2 startpoint, Vector2 direction, float distance)
@@ -249,3 +289,43 @@ bool Physics::Raycast(Collider* colliderToCheck, Vector2 startpoint, Vector2 dir
 
 	return false;
 }
+
+
+
+
+float Physics::SqDistPointAABB(Vector2 point,  SBox* b)
+{
+	float sqDist = 0;
+
+	for (int i = 0; i < 2; i++)
+	{
+		float p = point[i];
+
+		if (p < b->minimum[i])
+		{
+			sqDist += (b->minimum[i] - p) * (b->minimum[i] - p);
+		}
+		if (p > b->maximum[i])
+		{
+			sqDist += (p - b->maximum[i]) * (p - b->maximum[i]);
+		}
+
+	}
+
+	return sqDist;
+}
+
+const Vector2& Physics::ClosestPtAABB(Vector2& point, SBox* b)
+{
+	Vector2 q;
+
+	for (int i = 0; i < 2; i++) {
+		float v = point[i];
+		if (v < b->minimum[i]) v = b->minimum[i]; // v = max(v, b.min[i])
+		if (v > b->maximum[i]) v = b->maximum[i]; // v = min(v, b.max[i])
+		q[i] = v;
+	}
+	return q;
+}
+
+

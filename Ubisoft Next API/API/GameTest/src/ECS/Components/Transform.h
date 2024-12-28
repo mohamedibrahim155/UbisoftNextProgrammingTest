@@ -16,6 +16,7 @@ public:
     Transform* Clone() const override;
 
     Vector3 position;
+    float rotation;
     Vector2 scale;
 
     Vector3 GetPosition() const { return position; }

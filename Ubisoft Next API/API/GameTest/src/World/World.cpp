@@ -41,7 +41,18 @@ void World::Start()
 
 	std::string filename = ASSET_PATH + "IdleBLUE- 150ms - 32x32.png";
 
-	for (size_t i = 0; i < 1; i++)
+	Entity* entity3 = entityManager->CreateEntity();
+	entity3->AddComponent(new SpriteRenderer(filename, Vector2::Zero(), 3));
+
+	SpriteRenderer* sprite = (SpriteRenderer*)entity3->GetComponent(ComponentType::RENDER_COMPONENT);
+	sprite->SetColor(1, 0, 0);
+	entity3->AddComponent(new BoxCollider());
+	//entity3->AddComponent(new CircleCollider());
+	entity3->AddComponent(new RigidBody(eBodyType::STATIC));
+	//entity3->AddComponent(new PlayerMoveScript());
+	entity3->transform.scale = Vector2(2, 1);
+	entity3->transform.position = Vector2(0, -250);
+	for (size_t i = 0; i < 10; i++)
 	{
 		float randomWidth = Random::RandomRange(-(float)APP_VIRTUAL_WIDTH, (float)APP_VIRTUAL_WIDTH);
 		float randomheight = Random::RandomRange(-(float)APP_VIRTUAL_HEIGHT, (float)APP_VIRTUAL_HEIGHT);
@@ -64,17 +75,17 @@ void World::Start()
 
 
 
-		Entity* entity3 = entityManager->CreateEntity();
-		entity3->AddComponent(new SpriteRenderer(filename, Vector2::Zero(), 3));
+		//Entity* entity3 = entityManager->CreateEntity();
+		//entity3->AddComponent(new SpriteRenderer(filename, Vector2::Zero(), 3));
 
-		SpriteRenderer* sprite = (SpriteRenderer*)entity3->GetComponent(ComponentType::RENDER_COMPONENT);
-		sprite->SetColor(1, 0, 0);
-		//entity3->AddComponent(new BoxCollider());
-		entity3->AddComponent(new CircleCollider());
-		entity3->AddComponent(new RigidBody(eBodyType::STATIC));
-		//entity3->AddComponent(new PlayerMoveScript());
-		entity3->transform.scale = Vector2(1, 1); 
-		entity3->transform.position = Vector2(0, -250); 
+		//SpriteRenderer* sprite = (SpriteRenderer*)entity3->GetComponent(ComponentType::RENDER_COMPONENT);
+		//sprite->SetColor(1, 0, 0);
+		////entity3->AddComponent(new BoxCollider());
+		//entity3->AddComponent(new CircleCollider());
+		//entity3->AddComponent(new RigidBody(eBodyType::STATIC));
+		////entity3->AddComponent(new PlayerMoveScript());
+		//entity3->transform.scale = Vector2(1, 1); 
+		//entity3->transform.position = Vector2(0, -250); 
 		/*entity3->AddComponent(
 			new LineCollider(
 			{ entity3->transform.position.x , entity3->transform.position.y },
@@ -90,7 +101,7 @@ void World::Start()
 		entity4->AddComponent(new BoxCollider());
 		entity4->AddComponent(new RigidBody(eBodyType::DYNAMIC));
 		//entity4->AddComponent(new CircleCollider());
-		entity4->transform.position = Vector3(0, 0, 0);
+		entity4->transform.position = Vector3(randomWidth+10/2, randomheight+10/2, 0);
 		entity4->transform.scale = Vector2(1, 1);
 	}
 

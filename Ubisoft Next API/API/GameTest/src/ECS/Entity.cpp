@@ -213,6 +213,17 @@ void Entity::SetPosition(const Vector3& position)
 
 }
 
+void Entity::SetRotation(const float& rotationY)
+{
+	transform.rotation = rotationY;
+
+	if (m_sprite)
+	{
+		m_sprite->SetRotation(transform.rotation);
+	}
+
+}
+
 void Entity::SetScale(const Vector2& scale)
 {
 	this->transform.scale = scale;

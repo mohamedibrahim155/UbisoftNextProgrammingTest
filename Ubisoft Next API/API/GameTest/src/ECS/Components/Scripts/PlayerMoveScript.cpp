@@ -30,22 +30,23 @@ void PlayerMoveScript::UpdateComponent()
 
 	pos.x += 1.0f;
 
-	entityRef->transform.position = (pos);
+	float rotation = entityRef->transform.rotation;
 
-	if (App::GetController().CheckButton(XINPUT_GAMEPAD_DPAD_DOWN, true))
+	if (App::GetController().CheckButton(XINPUT_GAMEPAD_DPAD_DOWN, false))
 	{
 		
 		//entityRef->Destroy();
-			spriteSheet->SetAnimation(0);
+			//spriteSheet->SetAnimation(0);
+
 
 		
 	}
 	else
 	{
-		spriteSheet->SetAnimation(-1);
+		//spriteSheet->SetAnimation(-1);
 	}
 
-
+	entityRef->transform.position = (pos);
 	
 
 }

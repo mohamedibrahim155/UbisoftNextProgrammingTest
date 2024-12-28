@@ -1,6 +1,8 @@
 #pragma once
 #include <cmath>
 
+
+struct  Vector3;
 struct Vector2
 {
 	float x =0;
@@ -8,6 +10,12 @@ struct Vector2
 
 
 	Vector2() : x(0), y(0) {}
+
+	//Vector2(const Vector3& other)
+	//{
+	//	this->x = other.x;
+	//	this->y = other.y;
+	//}
 
 	Vector2(float x, float y)
 	{
@@ -47,6 +55,7 @@ struct Vector2
 		return { 1,1 };
 	}
 
+
 	static Vector2 Right()
 	{
 		return { 1,0 };
@@ -55,6 +64,13 @@ struct Vector2
 	static Vector2 Up() 
 	{
 		return { 0,1 };
+	}
+
+	static Vector2 Reflect(Vector2& incident, Vector2& normal) {
+		// Ensure the normal is normalized before calculation
+		Vector2 norm = normal.Normalize();
+		float dotProduct = Vector2::Dot(incident, norm);
+		return incident - norm * (2.0f * dotProduct);
 	}
 
 	Vector2 operator+(const Vector2& other) const {
@@ -99,6 +115,19 @@ struct Vector2
 
 	static float Cross(const Vector2& current, const Vector2& other) {
 		return current.x * other.y - current.y * other.x;
+	}
+
+	float& operator[](int index) {
+		if (index == 0) return x;
+		if (index == 1) return y;
+		throw std::out_of_range("Index out of range for Vector2");
+	}
+
+	// Const access by index
+	const float& operator[](int index) const {
+		if (index == 0) return x;
+		if (index == 1) return y;
+		throw std::out_of_range("Index out of range for Vector2");
 	}
 
 };
@@ -196,5 +225,11 @@ struct  Vector3
 		return *this;
 	}
 
+	Vector3& operator-=(const Vector3& other) {
+		this->x -= other.x;
+		this->y -= other.y;
+		this->z -= other.z;
+		return *this;
+	}
 
 };

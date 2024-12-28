@@ -21,6 +21,14 @@ struct  SBox
 		: minimum(minimum), maximum(maximum)
 	{};
 
+	Vector2 GetCenter()
+	{
+		float centerX = (minimum.x + maximum.x) * 0.5f;
+		float centerY = (minimum.y + maximum.y) * 0.5f;
+
+		return Vector2(centerX, centerY);
+	}
+
 
 };
 
@@ -46,7 +54,12 @@ struct SLine
 		startPoint(startPoint), endPoint(endPoint)
 	{};
 
+	Vector2 Getcenter()
+	{
+		Vector2 midpoint = (startPoint + endPoint) * 0.5f;
 
+		return midpoint;
+	}
 };
 
 class Collider :  public  IComponent

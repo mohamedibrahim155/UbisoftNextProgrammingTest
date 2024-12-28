@@ -22,5 +22,8 @@ private:
 
 	const float FIXED_TIMESTEP = 1 /60;
 	float timer = 0;
+
+	std::vector<Vector2> collisionPoints;
+	std::vector<Vector2> collisionNormals;
 };
 

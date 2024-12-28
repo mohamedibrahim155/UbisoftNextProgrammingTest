@@ -82,6 +82,11 @@ void SpriteRenderer::SetPosition(const Vector3&  position)
 	sprite->SetPosition(adjustedPosition.x, adjustedPosition.y);
 }
 
+void SpriteRenderer::SetRotation(const float& rotationY)
+{
+	sprite->SetAngle(rotationY);
+}
+
 void SpriteRenderer::SetOffset(const Vector2& offset)
 {
 	this->spriteOffset = offset;
