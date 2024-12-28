@@ -3,6 +3,7 @@
 #include "../System.h"
 #include "../Components/RenderComponent.h"
 #include "../Components/SpriteRenderer.h"
+#include "../Components/UI/TextRenderer.h"
 class RenderSystem : public ISystem
 {
 public:

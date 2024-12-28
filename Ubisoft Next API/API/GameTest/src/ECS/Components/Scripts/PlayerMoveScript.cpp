@@ -15,9 +15,9 @@ PlayerMoveScript::~PlayerMoveScript()
 void PlayerMoveScript::Start()
 {
 	
-	//entityRef->AddComponent(new SpriteSheetRenderer(ASSET_PATH + "IdleBLUE- 150ms - 32x32.png",6,1));
+	//gameObject->AddComponent(new SpriteSheetRenderer(ASSET_PATH + "IdleBLUE- 150ms - 32x32.png",6,1));
 
-	spriteSheet = (SpriteSheetRenderer*)entityRef->GetComponent(ComponentType::RENDER_COMPONENT);
+	spriteSheet = (SpriteSheetRenderer*)gameObject->GetComponent(ComponentType::RENDER_COMPONENT);
 
 
 	const float speed = 1.0f / 15.0f;
@@ -26,17 +26,17 @@ void PlayerMoveScript::Start()
 
 void PlayerMoveScript::UpdateComponent()
 {
-	//if (entityRef->isDestroyed) return;
-	//Vector3 pos = entityRef->transform.position;
+	//if (gameObject->isDestroyed) return;
+	//Vector3 pos = gameObject->transform.position;
 
 	//pos.x += 1.0f;
 
-	//float rotation = entityRef->transform.rotation;
+	//float rotation = gameObject->transform.rotation;
 
 	if (App::GetController().CheckButton(XINPUT_GAMEPAD_DPAD_DOWN, false))
 	{
 		
-		entityRef->Destroy();
+		gameObject->Destroy();
 			//spriteSheet->SetAnimation(0);
 
 
@@ -48,7 +48,7 @@ void PlayerMoveScript::UpdateComponent()
 	}
 
 
-	//entityRef->transform.position = (pos);
+	//gameObject->transform.position = (pos);
 	
 
 }

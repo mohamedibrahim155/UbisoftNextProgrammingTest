@@ -113,6 +113,16 @@ struct Vector2
 		return *this;
 	}
 
+	bool operator!=(const Vector2& other)
+	{
+		return !(x == other.x && y == other.y);
+	}
+
+	bool operator==(const Vector2& other)
+	{
+		return (x == other.x && y == other.y);
+	}
+
 	static float Cross(const Vector2& current, const Vector2& other) {
 		return current.x * other.y - current.y * other.x;
 	}
@@ -129,6 +139,7 @@ struct Vector2
 		if (index == 1) return y;
 		throw std::out_of_range("Index out of range for Vector2");
 	}
+
 
 };
 

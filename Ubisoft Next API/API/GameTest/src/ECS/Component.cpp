@@ -5,7 +5,7 @@
 IComponent::IComponent(ComponentType type)
 {
 	componentID = (int)type;
-	entityRef = nullptr;
+	gameObject = nullptr;
 	isComponentEnabled = true;
 }
 
@@ -16,12 +16,12 @@ ComponentType IComponent::GetComponentType()
 
 Entity* IComponent::GetEntity() const
 {
-	return entityRef;
+	return gameObject;
 }
 
 void IComponent::SetEntity(Entity* entity)
 {
-	entityRef = entity;
+	gameObject = entity;
 }
 
 void IComponent::SetEnabled(bool state)

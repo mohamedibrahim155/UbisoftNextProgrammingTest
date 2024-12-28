@@ -9,7 +9,8 @@ enum class ComponentType
 	SCRIPT_COMPONENT = 2,
 	PHYSICS_COMPONENT = 3,
 	COLLIDER_COMPONENT = 4,
-	RENDER_COMPONENT =5,
+	UI_COMPONENT =5,
+	RENDER_COMPONENT =6,
 };
 
 class Entity;
@@ -39,6 +40,6 @@ public:
 
 
 protected:
-	Entity* entityRef;
+	Entity* gameObject;
 };
 

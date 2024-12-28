@@ -25,7 +25,7 @@ public:
 protected:
 	std::string fileName;
 	Vector2 centerScreen;
-	Vector2 spriteOffset;
+	Vector2 offset;
 
 	
 };

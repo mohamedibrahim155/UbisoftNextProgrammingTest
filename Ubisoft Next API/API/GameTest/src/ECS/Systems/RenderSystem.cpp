@@ -3,7 +3,21 @@
 
 void RenderSystem::Start(std::vector<Entity*> entities)
 {
-	
+	for (Entity* entity : entities)
+	{
+		if (!entity->IsActive() || entity->isDestroyed) continue;
+		{
+			RenderComponent* renderComp = (RenderComponent*)entity->GetComponent(ComponentType::RENDER_COMPONENT);
+			
+			if (renderComp == nullptr) continue;
+
+			if (renderComp->isComponentEnabled && !renderComp->isStartInvoked)
+			{
+				renderComp->Start();
+				renderComp->isStartInvoked = true;
+			}
+		}
+	}
 }
 
 void RenderSystem::Update(std::vector<Entity*> entities, float deltaTime)

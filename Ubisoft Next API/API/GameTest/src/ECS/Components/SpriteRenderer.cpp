@@ -8,7 +8,7 @@
 
 SpriteRenderer::SpriteRenderer(std::string filename) : RenderComponent(filename)
 {
-	spriteOffset = Vector2::Zero();
+	offset = Vector2::Zero();
 }
 
 SpriteRenderer::SpriteRenderer(std::string filename, Vector2 offset) : 
@@ -16,7 +16,7 @@ SpriteRenderer::SpriteRenderer(std::string filename, Vector2 offset) :
 
 
 {
-	spriteOffset = offset;
+	offset = offset;
 	spriteOrder = 0;
 	sprite = CreateSprite(filename,1,1);
 }
@@ -25,7 +25,7 @@ SpriteRenderer::SpriteRenderer(std::string filename, Vector2 offset, int order) 
 	RenderComponent(filename)
 
 {
-	spriteOffset = offset;
+	offset = offset;
 	spriteOrder = order;
 	sprite = CreateSprite(filename, 1, 1);
 }
@@ -77,7 +77,7 @@ void SpriteRenderer::SetPosition(const Vector3&  position)
 {
 	Vector3 adjustedPosition = Vector3(centerScreen.x, centerScreen.y, 0);
 
-	adjustedPosition +=  (position + spriteOffset);
+	adjustedPosition +=  (position + offset);
 
 	sprite->SetPosition(adjustedPosition.x, adjustedPosition.y);
 }
@@ -89,7 +89,7 @@ void SpriteRenderer::SetRotation(const float& rotationY)
 
 void SpriteRenderer::SetOffset(const Vector2& offset)
 {
-	this->spriteOffset = offset;
+	this->offset = offset;
 }
 
 void SpriteRenderer::SetScale(const Vector2& scale)
@@ -130,5 +130,5 @@ CSimpleSprite* SpriteRenderer::CreateSprite(std::string filename, int column, in
 
 SpriteRenderer* SpriteRenderer::Clone() const
 {
-	return new SpriteRenderer(this->fileName,this->spriteOffset);
+	return new SpriteRenderer(this->fileName,this->offset);
 }

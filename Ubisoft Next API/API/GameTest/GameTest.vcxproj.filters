@@ -48,6 +48,8 @@
     <ClCompile Include="src\ECS\Components\Collider\CircleCollider.cpp" />
     <ClCompile Include="src\Utils\PhysicsUtils.cpp" />
     <ClCompile Include="src\ECS\Components\Collider\LineCollider.cpp" />
+    <ClCompile Include="src\ECS\Components\UI\TextRenderer.cpp" />
+    <ClCompile Include="src\ECS\Components\UI\ButtonRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -104,6 +106,8 @@
     <ClInclude Include="src\ECS\Components\Collider\CircleCollider.h" />
     <ClInclude Include="src\Utils\PhysicsUtils.h" />
     <ClInclude Include="src\ECS\Components\Collider\LineCollider.h" />
+    <ClInclude Include="src\ECS\Components\UI\TextRenderer.h" />
+    <ClInclude Include="src\ECS\Components\UI\ButtonRenderer.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="API">

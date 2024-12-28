@@ -14,8 +14,8 @@ Collider::Collider(eShape type) : IComponent(ComponentType::COLLIDER_COMPONENT)
 
 void Collider::Init()
 {
-	transform = &entityRef->transform;
-	spriteRenderer = entityRef->m_sprite;
+	transform = &gameObject->transform;
+	spriteRenderer = gameObject->m_sprite;
 
 	CalculateShape();
 }

@@ -186,6 +186,7 @@
     <ClInclude Include="App\SimpleController.h" />
     <ClInclude Include="App\SimpleSound.h" />
     <ClInclude Include="App\SimpleSprite.h" />
+    <ClInclude Include="src\ECS\Components\UI\ButtonRenderer.h" />
     <ClInclude Include="src\ECS\Components\Collider\LineCollider.h" />
     <ClInclude Include="src\Utils\PhysicsUtils.h" />
     <ClInclude Include="src\ECS\Components\Collider\CircleCollider.h" />
@@ -216,6 +217,7 @@
     <ClInclude Include="src\Utils\Utils.h" />
     <ClInclude Include="src\ECS\Components\Transform.h" />
     <ClInclude Include="src\World\World.h" />
+    <ClInclude Include="src\ECS\Components\UI\TextRenderer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="App\app.cpp" />
@@ -223,6 +225,7 @@
     <ClCompile Include="App\SimpleController.cpp" />
     <ClCompile Include="App\SimpleSound.cpp" />
     <ClCompile Include="App\SimpleSprite.cpp" />
+    <ClCompile Include="src\ECS\Components\UI\ButtonRenderer.cpp" />
     <ClCompile Include="src\ECS\Components\Collider\LineCollider.cpp" />
     <ClCompile Include="src\Utils\PhysicsUtils.cpp" />
     <ClCompile Include="src\ECS\Components\Collider\CircleCollider.cpp" />
@@ -256,6 +259,7 @@
     <ClCompile Include="src\ECS\SystemManager.cpp" />
     <ClCompile Include="src\ECS\Components\Transform.cpp" />
     <ClCompile Include="src\World\World.cpp" />
+    <ClCompile Include="src\ECS\Components\UI\TextRenderer.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
