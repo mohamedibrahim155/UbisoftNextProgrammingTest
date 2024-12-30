@@ -10,9 +10,9 @@ public:
 	PhysicsSystem() : ISystem("PhysicsSystem", eSystemType::PHYSICS_SYSTEM) {};
 	// Inherited via ISystem
 	~PhysicsSystem() override = default;
-	void Start(std::vector<Entity*> entities) override;
+	void start(std::vector<Entity*> entities) override;
 	void Update(std::vector<Entity*> entities, float deltaTime) override;
-	void Render(std::vector<Entity*> entities) override;
+	void render(std::vector<Entity*> entities) override;
 	void Cleanups() override;
 
 private:

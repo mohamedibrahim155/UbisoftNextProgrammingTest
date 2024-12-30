@@ -28,22 +28,22 @@ SpriteSheetRenderer::~SpriteSheetRenderer()
 {
 }
 
-void SpriteSheetRenderer::Start()
+void SpriteSheetRenderer::start()
 {
-	SpriteRenderer::Start();
+	SpriteRenderer::start();
 }
 
-void SpriteSheetRenderer::UpdateComponent()
+void SpriteSheetRenderer::updateComponent()
 {
-	SpriteRenderer::UpdateComponent();
+	SpriteRenderer::updateComponent();
 }
 
-void SpriteSheetRenderer::Render()
+void SpriteSheetRenderer::render()
 {
-	SpriteRenderer::Render();
+	SpriteRenderer::render();
 }
 
-SpriteSheetRenderer* SpriteSheetRenderer::Clone() const
+SpriteSheetRenderer* SpriteSheetRenderer::clone() const
 {
 	return new SpriteSheetRenderer(this->fileName,this->column, this->row);
 }

@@ -11,10 +11,10 @@ public:
     ~CircleCollider() override {};
 
     // Inherited via Collider
-    void Start() override {};
-     void UpdateComponent() override {};
-     void Render()  override;
-     CircleCollider* Clone() const override;
+    void start() override {};
+     void updateComponent() override {};
+     void render()  override;
+     CircleCollider* clone() const override;
      void SetRadius(float radius) { m_Circle.radius = radius; };
 
      float GetRadius() const { return m_Circle.radius; };

@@ -1,10 +1,9 @@
 #include "stdafx.h"
 #include "PlayerMoveScript.h"
 #include "../src/ECS/Entity.h"
-#include "../../Components/SpriteRenderer.h"
 #include "../App/app.h"
 #include "../src/ECS/EntityManager.h"
-PlayerMoveScript::PlayerMoveScript() : ScriptComponent()
+PlayerMoveScript::PlayerMoveScript() : ScriptComponentBase()
 {
 }
 
@@ -12,7 +11,7 @@ PlayerMoveScript::~PlayerMoveScript()
 {
 }
 
-void PlayerMoveScript::Start()
+void PlayerMoveScript::start()
 {
 	
 	//gameObject->AddComponent(new SpriteSheetRenderer(ASSET_PATH + "IdleBLUE- 150ms - 32x32.png",6,1));
@@ -24,7 +23,7 @@ void PlayerMoveScript::Start()
 	spriteSheet->CreateAnimation(0, speed, { 0,1,2,3,4,5,6 });
 }
 
-void PlayerMoveScript::UpdateComponent()
+void PlayerMoveScript::updateComponent()
 {
 	//if (gameObject->isDestroyed) return;
 	//Vector3 pos = gameObject->transform.position;
@@ -53,11 +52,11 @@ void PlayerMoveScript::UpdateComponent()
 
 }
 
-void PlayerMoveScript::Render()
+void PlayerMoveScript::render()
 {
 }
 
-PlayerMoveScript* PlayerMoveScript::Clone() const
+PlayerMoveScript* PlayerMoveScript::clone() const
 {
 	return new PlayerMoveScript();
 }

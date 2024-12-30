@@ -16,10 +16,10 @@ public:
 
 
     // Inherited via IComponent
-    void Start() override {};
-    void UpdateComponent() override {};
-    void Render() override {};
-    RigidBody* Clone() const override;
+    void start() override {};
+    void updateComponent() override {};
+    void render() override {};
+    RigidBody* clone() const override;
 
     void SetBodyType(const eBodyType& type) { this->bodyType = type; };
     void SetGravity(const float& gravity) { this->gravityScale = gravity; };

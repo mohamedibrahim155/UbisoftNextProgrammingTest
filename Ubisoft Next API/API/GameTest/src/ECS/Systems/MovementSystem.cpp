@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "MovementSystem.h"
 
-void MovementSystem::Start(std::vector<Entity*> entities)
+void MovementSystem::start(std::vector<Entity*> entities)
 {
 	
 }
@@ -31,7 +31,7 @@ void MovementSystem::Update(std::vector<Entity*> entities, float deltaTime)
 	
 }
 
-void MovementSystem::Render(std::vector<Entity*> entities)
+void MovementSystem::render(std::vector<Entity*> entities)
 {
 }
 

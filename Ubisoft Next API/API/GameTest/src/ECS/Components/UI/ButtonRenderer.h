@@ -1,7 +1,7 @@
 #pragma once
 #include "../src/ECS/Component.h"
 #include "../src/Events/Event.h"
-#include "../src/ECS/Components/RenderComponent.h"
+#include "../src/ECS/Components/Renders/SpriteRenderer.h"
 #include "../Collider/BoxCollider.h"
 #include "../Collider/CircleCollider.h"
 class ButtonRenderer : public SpriteRenderer
@@ -11,11 +11,11 @@ public:
 	 ~ButtonRenderer() override = default;
 
 	 // Inherited via RenderComponent
-	void Start() override;
-	void UpdateComponent() override;
-	void Render() override;
+	void start() override;
+	void updateComponent() override;
+	void render() override;
 	int RenderOrder() override;
-	ButtonRenderer* Clone() const override;
+	ButtonRenderer* clone() const override;
 
 	//Events listeners
 	void AddListenersOnButtonPress(const std::function<void()>& callback);

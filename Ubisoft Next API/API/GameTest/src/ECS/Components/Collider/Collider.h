@@ -1,7 +1,7 @@
 #pragma once
 #include "../App/app.h"
 #include "../src/ECS/Components/Transform.h"
-#include "../src/ECS/Components/SpriteRenderer.h"
+#include "../src/ECS/Components/Renders/SpriteRenderer.h"
 
 enum class eShape
 {
@@ -67,11 +67,11 @@ class Collider :  public  IComponent
 public:
 	Collider(eShape type);
 	~Collider() override = default ;
-	virtual void Start() {};
+	virtual void start() {};
 	virtual void Init();
-	virtual void UpdateComponent() {};
-	virtual void Render() {};
-	virtual Collider* Clone() const override =0;
+	virtual void updateComponent() {};
+	virtual void render() {};
+	virtual Collider* clone() const override =0;
 
 	virtual eShape GetShapeType() const { return shape; };
 	virtual SBox GetBounds() = 0;

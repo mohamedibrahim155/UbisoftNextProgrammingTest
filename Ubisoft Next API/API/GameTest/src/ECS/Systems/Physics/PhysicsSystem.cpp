@@ -1,9 +1,7 @@
 #include "stdafx.h"
 #include "PhysicsSystem.h"
-//#include "../../Components/Rigidbody/RigidBody.h"
-//#include "../../Components/Collider/Collider.h"
 #include "../src/Utils/PhysicsUtils.h"
-void PhysicsSystem::Start(std::vector<Entity*> entities)
+void PhysicsSystem::start(std::vector<Entity*> entities)
 {
 
 }
@@ -14,7 +12,7 @@ void PhysicsSystem::Update(std::vector<Entity*> entities, float deltaTime)
 	UpdateComponents(entities, deltaTime);
 }
 
-void PhysicsSystem::Render(std::vector<Entity*> entities)
+void PhysicsSystem::render(std::vector<Entity*> entities)
 {
 	for (Entity* entity : entities)
 	{
@@ -25,7 +23,7 @@ void PhysicsSystem::Render(std::vector<Entity*> entities)
 		if (collider == nullptr) continue;
 
 
-		collider->Render();
+		collider->render();
 	}
 }
 

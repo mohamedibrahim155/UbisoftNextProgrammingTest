@@ -1,21 +1,21 @@
 #pragma once
-#include "../ScriptComponent.h"
-#include "../SpriteSheetRenderer.h"
+#include "ScriptComponent.h"
+#include "../src/ECS/Components/Renders/SpriteSheetRenderer.h"
 
 
-class PlayerMoveScript :public ScriptComponent
+class PlayerMoveScript :public ScriptComponentBase
 {
 public:
 	PlayerMoveScript();
     ~PlayerMoveScript() override ;
 	// Inherited via IComponent
-	 void Start() override;
-	 void UpdateComponent()  override;
-	 void Render() override;
+	 void start() override;
+	 void updateComponent()  override;
+	 void render() override;
 
 	 SpriteSheetRenderer* spriteSheet;
 
 	 // Inherited via ScriptComponent
-	 PlayerMoveScript* Clone() const override;
+	 PlayerMoveScript* clone() const override;
 };
 

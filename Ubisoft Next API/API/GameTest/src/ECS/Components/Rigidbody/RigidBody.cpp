@@ -12,7 +12,7 @@ RigidBody::RigidBody(const RigidBody& other) : IComponent(ComponentType::PHYSICS
 	this->bodyType = other.bodyType;
 }
 
-RigidBody* RigidBody::Clone() const
+RigidBody* RigidBody::clone() const
 {
 	return new RigidBody(*this);
 }

@@ -34,13 +34,13 @@ TextRenderer::TextRenderer(std::string message, const Vector2& offset, const Vec
 
 
 
-void TextRenderer::Start()
+void TextRenderer::start()
 {
     Vector3 messagepos = Vector3(gameObject->transform.position + centerScreen + offset);
     messagePosition = Vector2(messagepos.x, messagepos.y);
 }
 
-void TextRenderer::UpdateComponent()
+void TextRenderer::updateComponent()
 {
     if (!isComponentEnabled) return;
 
@@ -48,7 +48,7 @@ void TextRenderer::UpdateComponent()
     messagePosition = Vector2(updatedPosition.x, updatedPosition.y);
 }
 
-void TextRenderer::Render()
+void TextRenderer::render()
 {
     if (!isComponentEnabled) return;
     if (message.empty()) return;
@@ -56,7 +56,7 @@ void TextRenderer::Render()
     App::Print(messagePosition.x, messagePosition.y, message.c_str(), color.x, color.y, color.z,(void*)fontStyle);
 }
 
-TextRenderer* TextRenderer::Clone() const
+TextRenderer* TextRenderer::clone() const
 {
     return new TextRenderer(message);
 }

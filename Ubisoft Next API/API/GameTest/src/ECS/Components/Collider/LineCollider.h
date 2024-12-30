@@ -8,11 +8,11 @@ public:
 	~LineCollider() override = default;
 
 	// Inherited via Collider
-	void Start() override {};
-	void UpdateComponent() override {};
-	void Render() override;
+	void start() override {};
+	void updateComponent() override {};
+	void render() override;
 	void CalculateShape() override;
-	LineCollider* Clone() const override;
+	LineCollider* clone() const override;
 
 	SLine GetLine();
 	void SetLine(const Vector2& startpoint, const Vector2& endpoint);

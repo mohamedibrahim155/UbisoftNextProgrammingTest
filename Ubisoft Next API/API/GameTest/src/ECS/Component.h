@@ -21,10 +21,10 @@ public:
 	IComponent(ComponentType type);
 	virtual ~IComponent() = default;
 	
-	virtual void Start() = 0;
-	virtual void UpdateComponent() = 0;
-	virtual void Render() = 0;
-	virtual IComponent* Clone() const = 0;
+	virtual void start() = 0;
+	virtual void updateComponent() = 0;
+	virtual void render() = 0;
+	virtual IComponent* clone() const = 0;
 
 	void SetEntity(Entity* entity);
 	void SetEnabled(bool state);

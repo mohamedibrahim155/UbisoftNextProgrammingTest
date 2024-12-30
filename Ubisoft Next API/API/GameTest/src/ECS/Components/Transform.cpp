@@ -25,7 +25,7 @@ Transform::Transform(Vector2 position, Vector2 scale) : IComponent(ComponentType
 	this->scale = scale;
 }
 
-Transform* Transform::Clone() const
+Transform* Transform::clone() const
 {
 	return new Transform(*this);
 }

@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Entity.h"
-#include "Components/SpriteRenderer.h"
+#include "Components/Renders/SpriteRenderer.h"
 #include"../src/ECS/EntityManager.h"
 #include "Components/Collider/Collider.h"
 Entity::Entity(EntityID ID) : enitityID(ID)
@@ -16,7 +16,7 @@ Entity::Entity(const Entity& otherEntity, EntityID ID)
 	auto components = otherEntity.GetComponents();
 	for (IComponent* component: components)
 	{
-		AddComponent(component->GetComponentType(), component->Clone());
+		AddComponent(component->GetComponentType(), component->clone());
 	}
 	
 	isActive = otherEntity.isActive;

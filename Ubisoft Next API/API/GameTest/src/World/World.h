@@ -7,9 +7,9 @@ public:
 	World();
 
 	~World()  = default;
-	 void Start();
+	 void start();
 	void Update(float deltaTime);
-	void Render();
+	void render();
 	void Clean();
 
 

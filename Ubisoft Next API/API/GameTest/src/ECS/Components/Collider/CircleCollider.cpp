@@ -111,13 +111,13 @@ void CircleCollider::DrawCircle(float cx, float cy, float radius, int segments, 
 
 }
 
-CircleCollider* CircleCollider::Clone() const
+CircleCollider* CircleCollider::clone() const
 {
     return new CircleCollider(*this);
 }
 
 
-void CircleCollider::Render()
+void CircleCollider::render()
 {
     SCircle circle = GetCircle();
 

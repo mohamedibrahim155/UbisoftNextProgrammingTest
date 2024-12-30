@@ -48,11 +48,11 @@ std::vector<Entity*> SystemManager::GetEntities() const
     return listOfEntities;
 }
 
-void SystemManager::Start()
+void SystemManager::start()
 {
     for (std::pair<eSystemType, ISystem*> system : systemsMap)
     {
-        system.second->Start(listOfEntities);
+        system.second->start(listOfEntities);
     }
 }
 
@@ -64,10 +64,10 @@ void SystemManager::UpdateSystems(float deltaTime)
     }
 }
 
-void SystemManager::Render()
+void SystemManager::render()
 {
     for (std::pair<eSystemType, ISystem*> system : systemsMap)
     {
-        system.second->Render(listOfEntities);
+        system.second->render(listOfEntities);
     }
 }

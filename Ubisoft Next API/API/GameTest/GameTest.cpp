@@ -71,7 +71,7 @@ void Init()
 	//CSceneManager::GetInstance().Start();
 
 	world = new World();
-	world->Start();
+	world->start();
 }
 
 //------------------------------------------------------------------------
@@ -205,7 +205,7 @@ void Render()
 #pragma endregion
 	//CSceneManager::GetInstance().Render();
 
-	world->Render();
+	world->render();
 }
 //------------------------------------------------------------------------
 // Add your shutdown code here. Called when the APP_QUIT_KEY is pressed.

@@ -25,22 +25,20 @@
       <Filter>API\third_party\miniaudio</Filter>
     </ClCompile>
     <ClCompile Include="src\Timer\Timer.cpp" />
-    <ClCompile Include="src\Events\Event.cpp" />
     <ClCompile Include="src\Utils\Utils.cpp" />
     <ClCompile Include="src\ECS\Entity.cpp" />
     <ClCompile Include="src\ECS\Component.cpp" />
     <ClCompile Include="src\ECS\SystemManager.cpp" />
     <ClCompile Include="src\ECS\Systems\RenderSystem.cpp" />
-    <ClCompile Include="src\ECS\Components\RenderComponent.cpp" />
+    <ClCompile Include="src\ECS\Components\Renders\RenderComponent.cpp" />
     <ClCompile Include="src\ECS\Components\Transform.cpp" />
     <ClCompile Include="src\World\World.cpp" />
-    <ClCompile Include="src\ECS\Components\SpriteRenderer.cpp" />
+    <ClCompile Include="src\ECS\Components\Renders\SpriteRenderer.cpp" />
     <ClCompile Include="src\ECS\EntityManager.cpp" />
     <ClCompile Include="src\ECS\Systems\CustomScriptsControllerSystem.cpp" />
-    <ClCompile Include="src\ECS\Components\ScriptComponent.cpp" />
     <ClCompile Include="src\ECS\Components\Scripts\PlayerMoveScript.cpp" />
     <ClCompile Include="src\ECS\Systems\MovementSystem.cpp" />
-    <ClCompile Include="src\ECS\Components\SpriteSheetRenderer.cpp" />
+    <ClCompile Include="src\ECS\Components\Renders\SpriteSheetRenderer.cpp" />
     <ClCompile Include="src\ECS\Components\Collider\Collider.cpp" />
     <ClCompile Include="src\ECS\Components\Collider\BoxCollider.cpp" />
     <ClCompile Include="src\ECS\Components\Rigidbody\RigidBody.cpp" />
@@ -89,16 +87,16 @@
     <ClInclude Include="src\ECS\System.h" />
     <ClInclude Include="src\ECS\SystemManager.h" />
     <ClInclude Include="src\ECS\Systems\RenderSystem.h" />
-    <ClInclude Include="src\ECS\Components\RenderComponent.h" />
+    <ClInclude Include="src\ECS\Components\Renders\RenderComponent.h" />
     <ClInclude Include="src\ECS\Components\Transform.h" />
     <ClInclude Include="src\World\World.h" />
-    <ClInclude Include="src\ECS\Components\SpriteRenderer.h" />
+    <ClInclude Include="src\ECS\Components\Renders\SpriteRenderer.h" />
     <ClInclude Include="src\ECS\EntityManager.h" />
     <ClInclude Include="src\ECS\Systems\CustomScriptsControllerSystem.h" />
-    <ClInclude Include="src\ECS\Components\ScriptComponent.h" />
+    <ClInclude Include="src\ECS\Components\Scripts\ScriptComponent.h" />
     <ClInclude Include="src\ECS\Components\Scripts\PlayerMoveScript.h" />
     <ClInclude Include="src\ECS\Systems\MovementSystem.h" />
-    <ClInclude Include="src\ECS\Components\SpriteSheetRenderer.h" />
+    <ClInclude Include="src\ECS\Components\Renders\SpriteSheetRenderer.h" />
     <ClInclude Include="src\ECS\Components\Collider\Collider.h" />
     <ClInclude Include="src\ECS\Components\Collider\BoxCollider.h" />
     <ClInclude Include="src\ECS\Components\Rigidbody\RigidBody.h" />

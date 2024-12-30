@@ -31,14 +31,14 @@ SBox LineCollider::GetBounds()
 	return box;
 }
 
-LineCollider* LineCollider::Clone() const
+LineCollider* LineCollider::clone() const
 {
 	return new LineCollider(this->m_line.startPoint, this->m_line.endPoint);
 }
 
 
 
-void LineCollider::Render()
+void LineCollider::render()
 {
 
 	SLine line = GetLine();

@@ -76,7 +76,7 @@ SBox BoxCollider::GetBox()
 	return box;
 }
 
-BoxCollider* BoxCollider::Clone() const
+BoxCollider* BoxCollider::clone() const
 {
 	return new BoxCollider();
 }
@@ -84,7 +84,7 @@ BoxCollider* BoxCollider::Clone() const
 
 
 
-void BoxCollider::Render()
+void BoxCollider::render()
 {
 	SBox box = GetBox();
 

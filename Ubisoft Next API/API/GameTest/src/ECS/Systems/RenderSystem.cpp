@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "RenderSystem.h"
 
-void RenderSystem::Start(std::vector<Entity*> entities)
+void RenderSystem::start(std::vector<Entity*> entities)
 {
 	for (Entity* entity : entities)
 	{
@@ -14,7 +14,7 @@ void RenderSystem::Start(std::vector<Entity*> entities)
 
 			if (renderComp->isComponentEnabled && !renderComp->isStartInvoked)
 			{
-				renderComp->Start();
+				renderComp->start();
 				renderComp->isStartInvoked = true;
 			}
 		}
@@ -30,7 +30,7 @@ void RenderSystem::Start(std::vector<Entity*> entities)
 
 		if (buttonRender->isComponentEnabled && !buttonRender->isStartInvoked)
 		{
-			buttonRender->Start();
+			buttonRender->start();
 			buttonRender->isStartInvoked = true;
 		}
 	}
@@ -52,7 +52,7 @@ void RenderSystem::Update(std::vector<Entity*> entities, float deltaTime)
 
 		sortedEntities.emplace_back(renderComp->RenderOrder(), entity);
 
-		renderComp->UpdateComponent();
+		renderComp->updateComponent();
 	}
 
 	std::sort(sortedEntities.begin(), sortedEntities.end(),
@@ -69,11 +69,11 @@ void RenderSystem::Update(std::vector<Entity*> entities, float deltaTime)
 
 		if (buttonRender == nullptr) continue;
 
-		buttonRender->UpdateComponent();
+		buttonRender->updateComponent();
 	}
 }
 
-void RenderSystem::Render(std::vector<Entity*> entities)
+void RenderSystem::render(std::vector<Entity*> entities)
 {
 	for (const auto& pair : sortedEntities)
 	{
@@ -85,7 +85,7 @@ void RenderSystem::Render(std::vector<Entity*> entities)
 		if (renderComp == nullptr) continue;
 		if (renderComp->IsUI()) continue;
 
-		renderComp->Render();
+		renderComp->render();
 	}
 
 	for (Entity* entity : entities)
@@ -96,7 +96,7 @@ void RenderSystem::Render(std::vector<Entity*> entities)
 
 		if (buttonRender == nullptr) continue;
 
-		buttonRender->Render();
+		buttonRender->render();
 	}
 }
 

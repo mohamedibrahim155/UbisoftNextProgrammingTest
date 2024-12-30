@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "CustomScriptsControllerSystem.h"
 
-void CustomScriptsControllerSystem::Start(std::vector<Entity*> entities)
+void CustomScriptsControllerSystem::start(std::vector<Entity*> entities)
 {
 }
 
@@ -10,23 +10,23 @@ void CustomScriptsControllerSystem::Update(std::vector<Entity*> entities, float 
 	for (Entity* entity :  entities)
 	{
 		if (!entity->IsActive() || entity->isDestroyed) continue;
-		ScriptComponent* scriptComponent = (ScriptComponent*)entity->GetComponent(ComponentType::SCRIPT_COMPONENT);
+		ScriptComponentBase* scriptComponent = (ScriptComponentBase*)entity->GetComponent(ComponentType::SCRIPT_COMPONENT);
 
 		if (scriptComponent == nullptr) continue;
 
 		if (!scriptComponent->isStartInvoked)
 		{
-			scriptComponent->Start();
+			scriptComponent->start();
 			scriptComponent->isStartInvoked = true;
 			continue;
 		}
 
 
-		scriptComponent->UpdateComponent();
+		scriptComponent->updateComponent();
 	}
 }
 
-void CustomScriptsControllerSystem::Render(std::vector<Entity*> entities)
+void CustomScriptsControllerSystem::render(std::vector<Entity*> entities)
 {
 }
 
@@ -34,7 +34,7 @@ void CustomScriptsControllerSystem::Cleanups()
 {
 }
 
-std::vector<ScriptComponent*> CustomScriptsControllerSystem::GetScripts() const
+std::vector<ScriptComponentBase*> CustomScriptsControllerSystem::GetScripts() const
 {
-	return std::vector<ScriptComponent*>();
+	return std::vector<ScriptComponentBase*>();
 }

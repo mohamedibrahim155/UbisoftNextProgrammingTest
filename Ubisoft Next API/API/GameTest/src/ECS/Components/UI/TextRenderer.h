@@ -1,5 +1,5 @@
 #pragma once
-#include "../RenderComponent.h"
+#include "../Renders/RenderComponent.h"
 
 enum eFontType
 {
@@ -33,10 +33,10 @@ public:
 	~TextRenderer() override = default;
 
 	// Inherited via RenderComponent
-	void Start() override;
-	void UpdateComponent() override;
-	void Render() override;
-	TextRenderer* Clone() const override;
+	void start() override;
+	void updateComponent() override;
+	void render() override;
+	TextRenderer* clone() const override;
 	int RenderOrder() override;
 
 	void SetText(const std::string& message);

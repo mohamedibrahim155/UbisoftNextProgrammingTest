@@ -34,7 +34,7 @@ World::World()
 
 }
 
-void World::Start()
+void World::start()
 {
 #pragma region Entities
 
@@ -112,7 +112,7 @@ void World::Start()
 #pragma endregion
 
 #pragma region SystemStart
-	systemManager->Start();
+	systemManager->start();
 #pragma endregion
 }
 
@@ -121,9 +121,9 @@ void World::Update(float deltaTime)
 	systemManager->UpdateSystems(deltaTime);
 }
 
-void World::Render()
+void World::render()
 {
-	systemManager->Render();
+	systemManager->render();
 }
 
 void World::Clean()

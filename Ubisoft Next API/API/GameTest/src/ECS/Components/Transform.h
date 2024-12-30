@@ -13,7 +13,7 @@ public:
     Transform(Vector2 position, Vector2 scale);
 
     // Inherited via IComponent
-    Transform* Clone() const override;
+    Transform* clone() const override;
 
     Vector3 position;
     float rotation;
@@ -22,9 +22,9 @@ public:
     Vector3 GetPosition() const { return position; }
     void SetPosition(const Vector3& pos) { position = pos; }
 private:
-    void Start() override {} ;
-    void UpdateComponent() override {};
-    void Render() override {};
+    void start() override {} ;
+    void updateComponent() override {};
+    void render() override {};
 
 
   

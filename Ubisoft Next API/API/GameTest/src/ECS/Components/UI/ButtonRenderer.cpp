@@ -16,12 +16,12 @@ ButtonRenderer::ButtonRenderer(std::string filename) :
 
 
 
-void ButtonRenderer::Start()
+void ButtonRenderer::start()
 {
     gameObject->AddComponent(boxCollider);
 }
 
-void ButtonRenderer::UpdateComponent()
+void ButtonRenderer::updateComponent()
 {
     if (!isComponentEnabled) return;
 
@@ -64,16 +64,16 @@ void ButtonRenderer::UpdateComponent()
 #pragma endregion
 
     // Update Sprite
-    SpriteRenderer::UpdateComponent();
+    SpriteRenderer::updateComponent();
 
 }
 
-void ButtonRenderer::Render()
+void ButtonRenderer::render()
 {
     if (!isComponentEnabled) return;
 
     // Render Sprite
-    SpriteRenderer::Render();
+    SpriteRenderer::render();
 
 
 
@@ -84,7 +84,7 @@ void ButtonRenderer::Render()
 
     if (boxCollider && boxCollider->isComponentEnabled)
     {
-        boxCollider->Render();
+        boxCollider->render();
     }
 
 
@@ -92,7 +92,7 @@ void ButtonRenderer::Render()
 
 }
 
-ButtonRenderer* ButtonRenderer::Clone() const
+ButtonRenderer* ButtonRenderer::clone() const
 {
     return new ButtonRenderer(this->fileName);
 }

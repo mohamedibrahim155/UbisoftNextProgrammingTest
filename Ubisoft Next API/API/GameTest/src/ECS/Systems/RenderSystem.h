@@ -1,17 +1,17 @@
 #pragma once
 
 #include "../System.h"
-#include "../Components/RenderComponent.h"
-#include "../Components/SpriteRenderer.h"
+#include "../Components/Renders/SpriteRenderer.h"
+#include "../Components/Renders/SpriteSheetRenderer.h"
 #include "../Components/UI/TextRenderer.h"
 #include "../Components/UI/ButtonRenderer.h"
 class RenderSystem : public ISystem
 {
 public:
 	RenderSystem() : ISystem("RenderSystem",  eSystemType::RENDER_SYSTEM) {};
-	 void Start(std::vector<Entity*> entities) override;
+	 void start(std::vector<Entity*> entities) override;
 	 void Update(std::vector<Entity*> entities, float deltaTime) override ;
-	 void Render(std::vector<Entity*> entities) override;
+	 void render(std::vector<Entity*> entities) override;
 	 void Cleanups() override;
 
 private:

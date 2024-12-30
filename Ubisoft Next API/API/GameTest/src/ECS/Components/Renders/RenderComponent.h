@@ -1,9 +1,9 @@
 #pragma once
-#include "../Component.h"
+#include "../../Component.h"
 #include "../App/SimpleSprite.h"
 #include "src/Vector.h"
 
-
+ //Base Class to Render components in Scene
 class RenderComponent : public IComponent
 {
 public:
@@ -14,13 +14,11 @@ public:
 
 	virtual ~RenderComponent() override {};
 	// Inherited via IComponent
-	virtual void Start() override {};
-	virtual void UpdateComponent() override {};
-	virtual void Render() override {};
+	virtual void start() override {};
+	virtual void updateComponent() override {};
+	virtual void render() override {};
 	virtual int RenderOrder() =0;
-
-	// Inherited via IComponent
-	virtual RenderComponent* Clone() const = 0;
+	virtual RenderComponent* clone() const = 0;
 
 protected:
 	std::string fileName;

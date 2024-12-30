@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "RenderComponent.h"
-#include "../../Timer/Timer.h"
+#include "../../../Timer/Timer.h"
 #include "../App/app.h"
 #include "../src/ECS/Entity.h"
 

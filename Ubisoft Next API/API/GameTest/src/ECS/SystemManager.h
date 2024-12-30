@@ -12,9 +12,9 @@ public:
 	void AddEntity(Entity* entity);
 	void RemoveEntity(EntityID ID);
 
-	void Start();
+	void start();
 	void UpdateSystems(float deltaTime);
-	void Render();
+	void render();
 	void CleanSystem();
 
 	ISystem* GetSystem(eSystemType type);

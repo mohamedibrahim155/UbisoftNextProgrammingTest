@@ -37,12 +37,12 @@ SpriteRenderer::~SpriteRenderer()
 	delete sprite;
 }
 
-void SpriteRenderer::Start()
+void SpriteRenderer::start()
 {
 
 }
 
-void SpriteRenderer::UpdateComponent()
+void SpriteRenderer::updateComponent()
 {
 	if (!isComponentEnabled) return;
 
@@ -50,7 +50,7 @@ void SpriteRenderer::UpdateComponent()
 
 }
 
-void SpriteRenderer::Render()
+void SpriteRenderer::render()
 {
 	if (!isComponentEnabled) return;
 
@@ -131,7 +131,7 @@ CSimpleSprite* SpriteRenderer::CreateSprite(std::string filename, int column, in
 	return App::CreateSprite(filename.c_str(), column, rows);
 }
 
-SpriteRenderer* SpriteRenderer::Clone() const
+SpriteRenderer* SpriteRenderer::clone() const
 {
 	return new SpriteRenderer(this->fileName,this->offset);
 }
