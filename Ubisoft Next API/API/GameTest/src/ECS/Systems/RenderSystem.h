@@ -4,6 +4,7 @@
 #include "../Components/RenderComponent.h"
 #include "../Components/SpriteRenderer.h"
 #include "../Components/UI/TextRenderer.h"
+#include "../Components/UI/ButtonRenderer.h"
 class RenderSystem : public ISystem
 {
 public:
@@ -16,5 +17,13 @@ public:
 private:
 
 	std::vector<std::pair<int, Entity*>> sortedEntities;
+
+	/*
+	TODO : 
+	add List of Sprite Renders
+	add List of UI's renders
+		
+
+	*/
 };
 

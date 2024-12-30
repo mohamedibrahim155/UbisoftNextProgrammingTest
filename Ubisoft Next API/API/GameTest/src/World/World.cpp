@@ -56,40 +56,6 @@ void World::Start()
 	{
 		float randomWidth = Random::RandomRange(-(float)APP_VIRTUAL_WIDTH, (float)APP_VIRTUAL_WIDTH);
 		float randomheight = Random::RandomRange(-(float)APP_VIRTUAL_HEIGHT, (float)APP_VIRTUAL_HEIGHT);
-		/*Entity* entity1 = entityManager->CreateEntity();
-		entity1->AddComponent(new SpriteRenderer(filename, Vector2::Zero()));
-		entity1->AddComponent(new PlayerMoveScript());
-		entity1->transform.position = Vector3(0, 0, 0);
-
-		Entity* entity2 = entityManager->CreateEntity();
-		entity2->AddComponent(new SpriteRenderer(filename, Vector2::Zero(),5));
-
-		randomWidth = Random::RandomRange(-(float)(APP_VIRTUAL_WIDTH / 2), (float)(APP_VIRTUAL_WIDTH / 2));
-		randomheight = Random::RandomRange(-(float)(APP_VIRTUAL_HEIGHT / 2), (float)(APP_VIRTUAL_HEIGHT / 2));
-		entity2->transform.position = Vector3(0, 0, 0);
-
-		Entity* entity3 = entityManager->CreateEntity();
-		entity3->AddComponent(new SpriteRenderer(filename, Vector2::Zero(),3));
-		((SpriteRenderer*)entity3->GetComponent(ComponentType::RENDER_COMPONENT))->SetColor(Vector3(1,0,0));
-		entity3->transform.scale = Vector2(5, 5);*/
-
-
-
-		//Entity* entity3 = entityManager->CreateEntity();
-		//entity3->AddComponent(new SpriteRenderer(filename, Vector2::Zero(), 3));
-
-		//SpriteRenderer* sprite = (SpriteRenderer*)entity3->GetComponent(ComponentType::RENDER_COMPONENT);
-		//sprite->SetColor(1, 0, 0);
-		////entity3->AddComponent(new BoxCollider());
-		//entity3->AddComponent(new CircleCollider());
-		//entity3->AddComponent(new RigidBody(eBodyType::STATIC));
-		////entity3->AddComponent(new PlayerMoveScript());
-		//entity3->transform.scale = Vector2(1, 1); 
-		//entity3->transform.position = Vector2(0, -250); 
-		/*entity3->AddComponent(
-			new LineCollider(
-			{ entity3->transform.position.x , entity3->transform.position.y },
-			{ entity3->transform.position.x + 100, entity3->transform.position.y }));*/
 
 
 		Entity* entity4 = entityManager->CreateEntity();
@@ -103,13 +69,45 @@ void World::Start()
 		//entity4->AddComponent(new CircleCollider());
 		entity4->transform.position = Vector3(randomWidth+10/2, randomheight+10/2, 0);
 		entity4->transform.scale = Vector2(1, 1);
-
-
-		entity4->OnDestroyed.Subscribe([]() 
-			{
-				printf("Deleted");
-			});
 	}
+
+	Entity* enttity5 = entityManager->CreateEntity();
+	enttity5->AddComponent(new TextRenderer("Hello world"));
+	enttity5->transform.position = Vector3(0,-2,0);
+
+	Entity* buttonRender = entityManager->CreateEntity();
+	buttonRender->AddComponent(new ButtonRenderer(ASSET_PATH + "Default\\square-rounded-512.png"));
+	buttonRender->transform.position = Vector3(0, -50, 0);
+	buttonRender->transform.scale = Vector2(0.3f,0.3f);
+
+	ButtonRenderer* button = dynamic_cast<ButtonRenderer*>(buttonRender->GetComponent(ComponentType::RENDER_COMPONENT));
+
+	button->AddListenersOnButtonPress([&]()
+		{ 
+				Entity* firstEntity = entityManager->GetEntityByID(1);
+
+				SpriteRenderer* spriteEn = (SpriteRenderer*)firstEntity->GetComponent(ComponentType::RENDER_COMPONENT);
+
+				spriteEn->SetColor(1, 0.5f, 0);
+			});
+
+	button->AddListenersOnButtonHover([&]()
+			{
+				Entity* firstEntity2 = entityManager->GetEntityByID(1);
+
+				SpriteRenderer* spriteEn2 = (SpriteRenderer*)firstEntity2->GetComponent(ComponentType::RENDER_COMPONENT);
+
+				spriteEn2->SetColor(0, 0, 1);
+			});
+
+	button->AddListenersOnButtonHoverExit([&]()
+		{
+			Entity* firstEntity3 = entityManager->GetEntityByID(1);
+
+			SpriteRenderer* spriteEn3 = (SpriteRenderer*)firstEntity3->GetComponent(ComponentType::RENDER_COMPONENT);
+
+			spriteEn3->SetColor(1, 1, 1);
+		});
 
 #pragma endregion
 

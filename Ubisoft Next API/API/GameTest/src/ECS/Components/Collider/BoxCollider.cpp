@@ -7,6 +7,17 @@ BoxCollider::BoxCollider() : Collider(eShape::BOX)
 	mBox.maximum = { 1, 1 };
 }
 
+BoxCollider::BoxCollider(SpriteRenderer* spriteRenderer)
+	: Collider(eShape::BOX)
+{
+
+	this->spriteRenderer = spriteRenderer;
+	mBox.minimum = { -1, -1 };
+	mBox.maximum = { 1, 1 };
+
+	CalculateShape();
+}
+
 
 
 SBox BoxCollider::GetBounds()

@@ -86,8 +86,8 @@ protected:
 	bool isTrigger = false;
 	eShape shape;
 
-	Transform* transform;
-	SpriteRenderer* spriteRenderer;
+	Transform* transform = nullptr;
+	SpriteRenderer* spriteRenderer = nullptr;
 
 	Vector2  offset;
 	Vector2 center;

@@ -20,14 +20,13 @@ Entity::Entity(const Entity& otherEntity, EntityID ID)
 	}
 	
 	isActive = otherEntity.isActive;
-	m_Tag = otherEntity.m_Tag + "_copy";
+	tag = otherEntity.tag + "_copy";
 	enitityID = ID;
 	if (otherEntity.manager)
 	{
 		manager = otherEntity.manager;
 		
 	}
-
 
 }
 
@@ -51,6 +50,7 @@ void Entity::AddComponent(ComponentType type,IComponent* component)
 	case ComponentType::RENDER_COMPONENT:
 		m_sprite = dynamic_cast<SpriteRenderer*>(component);
 		break;
+
 	case ComponentType::COLLIDER_COMPONENT:
 
 		Collider* collider = dynamic_cast<Collider*>(component);
@@ -85,6 +85,7 @@ void Entity::AddComponent(IComponent* component)
 
 		Collider* collider = dynamic_cast<Collider*>(component);
 
+		//Calculates the colliders bounds based on sprite width and height
 		collider->Init();
 		break;
 	}
@@ -150,7 +151,7 @@ IComponent* Entity::GetComponent(ComponentType type)
 
 std::string Entity::GetTag() const
 {
-	return m_Tag;
+	return tag;
 }
 
 Vector3 Entity::GetPosition() 
@@ -195,7 +196,7 @@ void Entity::SetActive(bool isActive)
 
 void Entity::SetTag(const std::string& tag)
 {
-	m_Tag = tag;
+	this->tag = tag;
 }
 
 void Entity::SetID(int ID)

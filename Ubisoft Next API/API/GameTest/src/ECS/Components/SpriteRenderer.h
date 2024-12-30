@@ -4,7 +4,7 @@
 class SpriteRenderer : public RenderComponent
 {
 public:
-	SpriteRenderer(std::string filename);
+	SpriteRenderer(std::string filename, bool createSprite = false);
 	SpriteRenderer(std::string filename, Vector2 offset);
 	SpriteRenderer(std::string filename, Vector2 offset, int order);
 	

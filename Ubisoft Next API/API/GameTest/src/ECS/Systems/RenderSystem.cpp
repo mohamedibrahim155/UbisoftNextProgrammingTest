@@ -10,12 +10,28 @@ void RenderSystem::Start(std::vector<Entity*> entities)
 			RenderComponent* renderComp = (RenderComponent*)entity->GetComponent(ComponentType::RENDER_COMPONENT);
 			
 			if (renderComp == nullptr) continue;
+			if (renderComp->IsUI()) continue;
 
 			if (renderComp->isComponentEnabled && !renderComp->isStartInvoked)
 			{
 				renderComp->Start();
 				renderComp->isStartInvoked = true;
 			}
+		}
+	}
+
+	for (Entity* entity : entities)
+	{
+		if (!entity->IsActive() || entity->isDestroyed) continue;
+
+		ButtonRenderer* buttonRender= (ButtonRenderer*)entity->GetComponent(ComponentType::RENDER_COMPONENT);
+
+		if (buttonRender == nullptr) continue;
+
+		if (buttonRender->isComponentEnabled && !buttonRender->isStartInvoked)
+		{
+			buttonRender->Start();
+			buttonRender->isStartInvoked = true;
 		}
 	}
 }
@@ -31,6 +47,7 @@ void RenderSystem::Update(std::vector<Entity*> entities, float deltaTime)
 		RenderComponent* renderComp = (RenderComponent*)entity->GetComponent(ComponentType::RENDER_COMPONENT);
 
 		if (renderComp == nullptr) continue;
+		if (renderComp->IsUI()) continue;
 
 
 		sortedEntities.emplace_back(renderComp->RenderOrder(), entity);
@@ -42,6 +59,18 @@ void RenderSystem::Update(std::vector<Entity*> entities, float deltaTime)
 		[](const std::pair<int, Entity*>& a, const std::pair<int, Entity*>& b) {
 			return a.first < b.first; // Ascending order of renderOrder
 		});
+
+
+	for (Entity* entity : entities)
+	{
+		if (!entity->IsActive() || entity->isDestroyed) continue;
+
+		ButtonRenderer* buttonRender = (ButtonRenderer*)entity->GetComponent(ComponentType::RENDER_COMPONENT);
+
+		if (buttonRender == nullptr) continue;
+
+		buttonRender->UpdateComponent();
+	}
 }
 
 void RenderSystem::Render(std::vector<Entity*> entities)
@@ -54,8 +83,20 @@ void RenderSystem::Render(std::vector<Entity*> entities)
 		RenderComponent* renderComp = (RenderComponent*)entity->GetComponent(ComponentType::RENDER_COMPONENT);
 
 		if (renderComp == nullptr) continue;
+		if (renderComp->IsUI()) continue;
 
 		renderComp->Render();
+	}
+
+	for (Entity* entity : entities)
+	{
+		if (!entity->IsActive() || entity->isDestroyed) continue;
+
+		ButtonRenderer* buttonRender = (ButtonRenderer*)entity->GetComponent(ComponentType::RENDER_COMPONENT);
+
+		if (buttonRender == nullptr) continue;
+
+		buttonRender->Render();
 	}
 }
 

@@ -6,17 +6,20 @@
 
 
 
-SpriteRenderer::SpriteRenderer(std::string filename) : RenderComponent(filename)
+SpriteRenderer::SpriteRenderer(std::string filename, bool createSprite) : RenderComponent(filename)
 {
 	offset = Vector2::Zero();
-}
 
-SpriteRenderer::SpriteRenderer(std::string filename, Vector2 offset) : 
+	if (createSprite)
+		sprite = CreateSprite(filename, 1, 1);
+
+}
+SpriteRenderer::SpriteRenderer(std::string filename, Vector2 offset) :
 	RenderComponent(filename)
 
 
 {
-	offset = offset;
+	this->offset = offset;
 	spriteOrder = 0;
 	sprite = CreateSprite(filename,1,1);
 }
@@ -25,7 +28,7 @@ SpriteRenderer::SpriteRenderer(std::string filename, Vector2 offset, int order) 
 	RenderComponent(filename)
 
 {
-	offset = offset;
+	this->offset = offset;
 	spriteOrder = order;
 	sprite = CreateSprite(filename, 1, 1);
 }

@@ -9,8 +9,7 @@ enum class ComponentType
 	SCRIPT_COMPONENT = 2,
 	PHYSICS_COMPONENT = 3,
 	COLLIDER_COMPONENT = 4,
-	UI_COMPONENT =5,
-	RENDER_COMPONENT =6,
+	RENDER_COMPONENT =5,
 };
 
 class Entity;
@@ -29,17 +28,25 @@ public:
 
 	void SetEntity(Entity* entity);
 	void SetEnabled(bool state);
+	void SetUI(bool isUI);
+
+	bool IsUI() const { return isUI; }
 	ComponentType GetComponentType();
 	Entity* GetEntity() const;
+
 
 	int componentID;
 	bool isComponentEnabled = true;
 	bool isStartInvoked = false;
+	
 
 
 
 
 protected:
 	Entity* gameObject;
+	bool isUI = false;
+
+	Vector3 debugColor{ 0,1,0 };
 };
 

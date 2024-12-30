@@ -28,3 +28,8 @@ void IComponent::SetEnabled(bool state)
 {
 	isComponentEnabled = state;
 }
+
+void IComponent::SetUI(bool isUI)
+{
+	this->isUI = isUI;
+}

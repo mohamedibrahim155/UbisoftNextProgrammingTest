@@ -5,6 +5,7 @@ class BoxCollider :
 {
 public:
     BoxCollider();
+    BoxCollider(SpriteRenderer* spriteRenderer);
 
     ~BoxCollider() = default;
 

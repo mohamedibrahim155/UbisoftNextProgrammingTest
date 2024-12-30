@@ -58,7 +58,7 @@ private:
 	bool isActive = true;
 	EntityID enitityID;
 
-	std::string m_Tag = "Unkown";
+	std::string tag = "Unkown";
 	std::unordered_map<ComponentType,IComponent*> listOfComponents;
 
 

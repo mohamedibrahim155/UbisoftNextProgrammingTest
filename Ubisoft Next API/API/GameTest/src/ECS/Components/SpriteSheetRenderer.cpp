@@ -15,7 +15,9 @@ SpriteSheetRenderer::SpriteSheetRenderer(std::string filename, int column, int r
 
 
 SpriteSheetRenderer::SpriteSheetRenderer(std::string filename, int column, int row, int spriteOrder)
-	: SpriteRenderer(filename)
+	: SpriteRenderer(filename) ,
+	column(column),
+	row(row)
 {
 	this->spriteOrder = spriteOrder;
 

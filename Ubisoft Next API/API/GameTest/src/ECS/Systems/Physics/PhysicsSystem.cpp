@@ -87,7 +87,7 @@ void PhysicsSystem::UpdateComponents(std::vector<Entity*> entities, float deltat
 
 			if (!otherCollider || !otherTransform || !collider) continue;
 			if (!otherCollider->isComponentEnabled || !collider->isComponentEnabled) continue;
-
+			if (otherCollider->IsUI() || collider->IsUI()) continue;
 
 			std::vector<Vector2> perObjectCollisions;
 			std::vector<Vector2> perObjectNormals;
