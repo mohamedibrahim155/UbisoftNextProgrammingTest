@@ -14,13 +14,13 @@ public:
 	void start() override;
 	void updateComponent() override;
 	void render() override;
-	int RenderOrder() override;
+	int renderOrder() override;
 	ButtonRenderer* clone() const override;
 
 	//Events listeners
-	void AddListenersOnButtonPress(const std::function<void()>& callback);
-	void AddListenersOnButtonHover(const std::function<void()>& callback);
-	void AddListenersOnButtonHoverExit(const std::function<void()>& callback);
+	void addListenersOnButtonPress(const std::function<void()>& callback);
+	void addListenersOnButtonHover(const std::function<void()>& callback);
+	void addListenersOnButtonHoverExit(const std::function<void()>& callback);
 private:
 
 	bool isOnHover = false;
@@ -36,7 +36,7 @@ private:
 
 
 
-	Vector2 GetMousePosition();
+	Vector2 getMousePosition();
 
 	void DrawCircle(float cx, float cy, float radius, int segments, const Vector3& color);
 

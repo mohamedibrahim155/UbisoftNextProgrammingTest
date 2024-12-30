@@ -7,7 +7,7 @@ SpriteSheetRenderer::SpriteSheetRenderer(std::string filename, int column, int r
 	column(column),
 	row(row)
 {
-	this->sprite = CreateSprite(filename, column, row);
+	this->sprite = createSprite(filename, column, row);
 }
 
 
@@ -21,7 +21,7 @@ SpriteSheetRenderer::SpriteSheetRenderer(std::string filename, int column, int r
 {
 	this->spriteOrder = spriteOrder;
 
-	this->sprite = CreateSprite(filename, column, row);
+	this->sprite = createSprite(filename, column, row);
 }
 
 SpriteSheetRenderer::~SpriteSheetRenderer()
@@ -48,12 +48,12 @@ SpriteSheetRenderer* SpriteSheetRenderer::clone() const
 	return new SpriteSheetRenderer(this->fileName,this->column, this->row);
 }
 
-void SpriteSheetRenderer::SetAnimation(int ID, bool playfromBeginning)
+void SpriteSheetRenderer::setAnimation(int ID, bool playfromBeginning)
 {
 	sprite->SetAnimation(ID, playfromBeginning);
 }
 
-void SpriteSheetRenderer::CreateAnimation(unsigned int ID, float speed, const std::vector<int>& frames)
+void SpriteSheetRenderer::createAnimation(unsigned int ID, float speed, const std::vector<int>& frames)
 {
 	sprite->CreateAnimation(ID, speed, frames);
 }

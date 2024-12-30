@@ -20,7 +20,7 @@ void Collider::Init()
 	{
 		spriteRenderer = gameObject->m_sprite;
 	}
-	CalculateShape();
+	calculateShape();
 }
 
 

@@ -10,8 +10,8 @@ public:
 	virtual void updateComponent() override;
 	virtual void render() override;
 	virtual SpriteSheetRenderer* clone() const override;
-	void SetAnimation(int ID, bool playfromBegining = false);
-	void CreateAnimation(unsigned int ID, float speed, const std::vector<int>& frames);
+	void setAnimation(int ID, bool playfromBegining = false);
+	void createAnimation(unsigned int ID, float speed, const std::vector<int>& frames);
 
 protected:
 

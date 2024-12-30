@@ -7,9 +7,9 @@ LineCollider::LineCollider(const Vector2& startpoint, const Vector2& endpoint) :
 	m_line.endPoint = endpoint + center;
 }
 
-SBox LineCollider::GetBounds()
+SBox LineCollider::getBounds()
 {
-	SLine line = GetLine();
+	SLine line = getLine();
 
 
 	SBox box;
@@ -41,7 +41,7 @@ LineCollider* LineCollider::clone() const
 void LineCollider::render()
 {
 
-	SLine line = GetLine();
+	SLine line = getLine();
 
 
 
@@ -49,12 +49,12 @@ void LineCollider::render()
 	App::DrawLine(line.startPoint.x, line.startPoint.y, line.endPoint.x, line.endPoint.y, color.x, color.y, color.z);
 }
 
-void LineCollider::CalculateShape()
+void LineCollider::calculateShape()
 {
 
 }
 
-SLine LineCollider::GetLine()
+SLine LineCollider::getLine()
 {
 	SLine line = m_line;
 
@@ -71,7 +71,7 @@ SLine LineCollider::GetLine()
 	return line;
 }
 
-void LineCollider::SetLine(const Vector2& startpoint, const Vector2& endpoint)
+void LineCollider::setLine(const Vector2& startpoint, const Vector2& endpoint)
 {
 	m_line.startPoint = startpoint;
 	m_line.endPoint = endpoint;

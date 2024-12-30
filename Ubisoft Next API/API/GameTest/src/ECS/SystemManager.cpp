@@ -1,34 +1,34 @@
 #include "stdafx.h"
 #include "SystemManager.h"
 
-void SystemManager::RegisterSystem(ISystem* system)
+void SystemManager::registerSystem(ISystem* system)
 {
     system->systemManager = this;
     systemsMap[system->systemType] = system;
 }
 
-void SystemManager::RemoveSystem(ISystem* system)
+void SystemManager::removeSystem(ISystem* system)
 {
     systemsMap.erase(system->systemType);
 }
 
-void SystemManager::AddEntity(Entity* entity)
+void SystemManager::addEntity(Entity* entity)
 {
-    entitiesMap[entity->GetID()] =  entity;
+    entitiesMap[entity->getID()] =  entity;
 
     listOfEntities.push_back(entity);
 }
 
-void SystemManager::RemoveEntity(EntityID ID)
+void SystemManager::removeEntity(EntityID ID)
 {
     entitiesMap.erase(ID);
 }
 
-void SystemManager::CleanSystem()
+void SystemManager::cleanSystem()
 {
     for (std::pair<eSystemType, ISystem*> system : systemsMap)
     {
-        system.second->Cleanups();
+        system.second->cleanups();
 
         delete  system.second;
     }
@@ -38,12 +38,12 @@ void SystemManager::CleanSystem()
     listOfEntities.clear();
 }
 
-ISystem* SystemManager::GetSystem(eSystemType type)
+ISystem* SystemManager::getSystem(eSystemType type)
 {
     return systemsMap[type];
 }
 
-std::vector<Entity*> SystemManager::GetEntities() const
+std::vector<Entity*> SystemManager::getEntities() const
 {
     return listOfEntities;
 }
@@ -56,11 +56,11 @@ void SystemManager::start()
     }
 }
 
-void SystemManager::UpdateSystems(float deltaTime)
+void SystemManager::updateSystems(float deltaTime)
 {
     for (std::pair<eSystemType, ISystem*> system: systemsMap)
     {
-        system.second->Update(listOfEntities, deltaTime);
+        system.second->update(listOfEntities, deltaTime);
     }
 }
 

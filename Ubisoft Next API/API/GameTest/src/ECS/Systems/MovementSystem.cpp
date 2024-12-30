@@ -6,7 +6,7 @@ void MovementSystem::start(std::vector<Entity*> entities)
 	
 }
 
-void MovementSystem::Update(std::vector<Entity*> entities, float deltaTime)
+void MovementSystem::update(std::vector<Entity*> entities, float deltaTime)
 {
 	for (Entity* entity : entities)
 	{
@@ -23,9 +23,9 @@ void MovementSystem::Update(std::vector<Entity*> entities, float deltaTime)
 
 		
 
-		entity->SetPosition(position);
-		entity->SetRotation(rotation);
-		entity->SetScale(scale);
+		entity->setPosition(position);
+		entity->setRotation(rotation);
+		entity->setScale(scale);
 	}
 
 	
@@ -35,6 +35,6 @@ void MovementSystem::render(std::vector<Entity*> entities)
 {
 }
 
-void MovementSystem::Cleanups()
+void MovementSystem::cleanups()
 {
 }

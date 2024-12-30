@@ -24,7 +24,7 @@ CircleCollider::CircleCollider(const CircleCollider& other) : Collider(eShape::C
 
 
 
-SCircle CircleCollider::GetCircle()
+SCircle CircleCollider::getCircle()
 {
     SCircle circle = m_Circle;
 
@@ -42,7 +42,7 @@ SCircle CircleCollider::GetCircle()
     return circle;
 }
 
-SBox CircleCollider::GetBounds()
+SBox CircleCollider::getBounds()
 {
     SBox box;
 
@@ -63,12 +63,12 @@ SBox CircleCollider::GetBounds()
     return box;
 }
 
-void CircleCollider::CalculateShape()
+void CircleCollider::calculateShape()
 {
     if (spriteRenderer)
     {
-        width = spriteRenderer->GetSprite()->GetWidth();
-        height = spriteRenderer->GetSprite()->GetHeight();
+        width = spriteRenderer->getSprite()->GetWidth();
+        height = spriteRenderer->getSprite()->GetHeight();
     }
 
     if (transform)
@@ -119,7 +119,7 @@ CircleCollider* CircleCollider::clone() const
 
 void CircleCollider::render()
 {
-    SCircle circle = GetCircle();
+    SCircle circle = getCircle();
 
      const Vector3 color = Vector3(0, 1, 0);
 

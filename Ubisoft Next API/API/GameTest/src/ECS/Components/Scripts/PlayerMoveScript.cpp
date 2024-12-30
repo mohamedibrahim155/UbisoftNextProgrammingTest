@@ -20,7 +20,7 @@ void PlayerMoveScript::start()
 
 
 	const float speed = 1.0f / 15.0f;
-	spriteSheet->CreateAnimation(0, speed, { 0,1,2,3,4,5,6 });
+	spriteSheet->createAnimation(0, speed, { 0,1,2,3,4,5,6 });
 }
 
 void PlayerMoveScript::updateComponent()

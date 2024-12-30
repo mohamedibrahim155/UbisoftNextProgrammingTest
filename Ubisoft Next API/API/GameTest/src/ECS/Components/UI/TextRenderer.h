@@ -37,15 +37,15 @@ public:
 	void updateComponent() override;
 	void render() override;
 	TextRenderer* clone() const override;
-	int RenderOrder() override;
+	int renderOrder() override;
 
-	void SetText(const std::string& message);
-	void SetColor(float r, float g, float b);
-	void SetFont(eFontType type);
+	void setText(const std::string& message);
+	void setColor(float r, float g, float b);
+	void setFont(eFontType type);
 
 
-	inline  std::string GetText()    const { return message; };
-	inline  Vector3     GetColor()   const { return color; };
+	inline  std::string getText()    const { return message; };
+	inline  Vector3     getColor()   const { return color; };
 private:
 
 	std::string message;

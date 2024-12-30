@@ -9,11 +9,11 @@ public:
 	CustomScriptsControllerSystem() : ISystem("CustomScriptControllerSystem", eSystemType::CUSTOMSCRIPT_SYSTEM) {};
 	// Inherited via ISystem
 	void start(std::vector<Entity*> entities) override;
-	void Update(std::vector<Entity*> entities, float deltaTime) override;
+	void update(std::vector<Entity*> entities, float deltaTime) override;
 	void render(std::vector<Entity*> entities) override;
-	void Cleanups() override;
+	void cleanups() override;
 
-	std::vector<ScriptComponentBase*> GetScripts() const;
+	std::vector<ScriptComponentBase*> getScripts() const;
 
 private:
 

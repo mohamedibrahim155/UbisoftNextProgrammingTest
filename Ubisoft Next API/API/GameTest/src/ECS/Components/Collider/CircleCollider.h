@@ -15,11 +15,11 @@ public:
      void updateComponent() override {};
      void render()  override;
      CircleCollider* clone() const override;
-     void SetRadius(float radius) { m_Circle.radius = radius; };
+     void setRadius(float radius) { m_Circle.radius = radius; };
 
-     float GetRadius() const { return m_Circle.radius; };
+     float getRadius() const { return m_Circle.radius; };
 
-     SCircle GetCircle();
+     SCircle getCircle();
 protected:
 
     float width;
@@ -28,8 +28,8 @@ protected:
     SCircle m_Circle;
 
     // Inherited via Collider
-    SBox GetBounds() override;
-    void CalculateShape() override;
+    SBox getBounds() override;
+    void calculateShape() override;
 
     
     void DrawCircle(float cx, float cy, float radius, int segments, const Vector3& color);

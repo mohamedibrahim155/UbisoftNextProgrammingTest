@@ -6,40 +6,40 @@ EntityManager::EntityManager(SystemManager* manager) : systemManager(manager)
     entityCount = 0;
 }
 
-Entity* EntityManager::CreateEntity()
+Entity* EntityManager::createEntity()
 {
     entityCount++;
     Entity* newEntity = new Entity(entityCount);
     //newEntity->AddComponent(new Transform());
-    AddEntity(newEntity);
+    addEntity(newEntity);
     return  newEntity;
 }
 
-Entity* EntityManager::CreateEntityFromCopy(Entity* entity)
+Entity* EntityManager::createEntityFromCopy(Entity* entity)
 {
     entityCount++;
     Entity* newEntity = new Entity(*entity,entityCount);
-    AddEntity(newEntity);
+    addEntity(newEntity);
     return newEntity;
 }
 
-Entity* EntityManager::GetEntityByID(EntityID ID)
+Entity* EntityManager::getEntityByID(EntityID ID)
 {
     return  entitiesMap[ID];
 }
 
-void EntityManager::AddEntity( Entity* entity)
+void EntityManager::addEntity( Entity* entity)
 {
     entity->manager = this;
 
-    entitiesMap[entity->GetID()] = entity;
+    entitiesMap[entity->getID()] = entity;
 
-    systemManager->AddEntity(entity);
+    systemManager->addEntity(entity);
 }
 
-void EntityManager::RemoveEntity(EntityID ID)
+void EntityManager::removeEntity(EntityID ID)
 {
-    systemManager->RemoveEntity(ID);
+    systemManager->removeEntity(ID);
 
     delete entitiesMap[ID];
 
@@ -47,11 +47,11 @@ void EntityManager::RemoveEntity(EntityID ID)
 
 }
 
-void EntityManager::Clean()
+void EntityManager::clean()
 {
     for ( auto it = entitiesMap.begin(); it != entitiesMap.end(); )
     {
-        RemoveEntity(it->first);
+        removeEntity(it->first);
         it = entitiesMap.begin();
     }
 

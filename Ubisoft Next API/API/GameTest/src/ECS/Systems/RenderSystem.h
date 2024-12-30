@@ -10,9 +10,9 @@ class RenderSystem : public ISystem
 public:
 	RenderSystem() : ISystem("RenderSystem",  eSystemType::RENDER_SYSTEM) {};
 	 void start(std::vector<Entity*> entities) override;
-	 void Update(std::vector<Entity*> entities, float deltaTime) override ;
+	 void update(std::vector<Entity*> entities, float deltaTime) override ;
 	 void render(std::vector<Entity*> entities) override;
-	 void Cleanups() override;
+	 void cleanups() override;
 
 private:
 

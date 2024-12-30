@@ -8,16 +8,16 @@ public:
 
 	EntityManager(SystemManager* manager);
 	~EntityManager() = default;
-	Entity* CreateEntity();
-	Entity* CreateEntityFromCopy(Entity* entity);
-	Entity* GetEntityByID(EntityID ID);
+	Entity* createEntity();
+	Entity* createEntityFromCopy(Entity* entity);
+	Entity* getEntityByID(EntityID ID);
 
-	void AddEntity(Entity* entity);
-	void RemoveEntity(EntityID ID);
-	void Clean();
+	void addEntity(Entity* entity);
+	void removeEntity(EntityID ID);
+	void clean();
 
-	inline unsigned int GetEntitiesCount() { return entityCount;  }
-	inline SystemManager* GetSystemManager() { return systemManager; }
+	inline unsigned int getEntitiesCount() { return entityCount;  }
+	inline SystemManager* getSystemManager() { return systemManager; }
 private:
 
 	int entityCount = 0;

@@ -15,24 +15,24 @@ BoxCollider::BoxCollider(SpriteRenderer* spriteRenderer)
 	mBox.minimum = { -1, -1 };
 	mBox.maximum = { 1, 1 };
 
-	CalculateShape();
+	calculateShape();
 }
 
 
 
-SBox BoxCollider::GetBounds()
+SBox BoxCollider::getBounds()
 {
-	return GetBox();
+	return getBox();
 }
 
-void BoxCollider::CalculateShape()
+void BoxCollider::calculateShape()
 {
 
 
 	if (spriteRenderer)
 	{
-		width = spriteRenderer->GetSprite()->GetWidth();
-		height = spriteRenderer->GetSprite()->GetHeight();
+		width = spriteRenderer->getSprite()->GetWidth();
+		height = spriteRenderer->getSprite()->GetHeight();
 	}
 
 	float extendX = width * 0.5f;
@@ -43,7 +43,7 @@ void BoxCollider::CalculateShape()
 
 }
 
-SBox BoxCollider::GetBox()
+SBox BoxCollider::getBox()
 {
 	SBox box = this->mBox;
 
@@ -86,7 +86,7 @@ BoxCollider* BoxCollider::clone() const
 
 void BoxCollider::render()
 {
-	SBox box = GetBox();
+	SBox box = getBox();
 
 	float topLeftX = box.minimum.x;
 	float topLeftY = box.maximum.y;

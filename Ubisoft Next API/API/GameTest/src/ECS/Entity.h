@@ -17,27 +17,27 @@ public:
 	virtual ~Entity();
 
 
-	void AddComponent(ComponentType type,IComponent* component);
-	void AddComponent(IComponent* component);
-	void AddComponents(std::vector<IComponent*> components);
-	bool RemoveComponent(ComponentType type);
+	void addComponent(ComponentType type,IComponent* component);
+	void addComponent(IComponent* component);
+	void addComponents(std::vector<IComponent*> components);
+	bool removeComponent(ComponentType type);
 	void Destroy();
-	void CleanUps();
+	void cleanUps();
 
 	//Setters
-	void SetActive(bool isActive);
-	void SetTag(const std::string& tag);
-	void SetID(int ID);
-	void SetPosition(const Vector3& position);
-	void SetRotation(const float& rotationY);
-	void SetScale(const Vector2& scale);
+	void setActive(bool isActive);
+	void setTag(const std::string& tag);
+	void setID(int ID);
+	void setPosition(const Vector3& position);
+	void setRotation(const float& rotationY);
+	void setScale(const Vector2& scale);
 	
 	//Getters
 	bool IsActive() const;
-	int GetID() const;
-	std::string GetTag() const;
+	int getID() const;
+	std::string getTag() const;
 
-	Vector3 GetPosition();
+	Vector3 getPosition();
 
 	IComponent* GetComponent(ComponentType type);
 	std::vector<IComponent*> GetComponents() const;

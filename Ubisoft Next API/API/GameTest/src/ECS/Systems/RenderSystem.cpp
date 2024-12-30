@@ -36,7 +36,7 @@ void RenderSystem::start(std::vector<Entity*> entities)
 	}
 }
 
-void RenderSystem::Update(std::vector<Entity*> entities, float deltaTime)
+void RenderSystem::update(std::vector<Entity*> entities, float deltaTime)
 {
 	sortedEntities.clear();
 
@@ -50,7 +50,7 @@ void RenderSystem::Update(std::vector<Entity*> entities, float deltaTime)
 		if (renderComp->IsUI()) continue;
 
 
-		sortedEntities.emplace_back(renderComp->RenderOrder(), entity);
+		sortedEntities.emplace_back(renderComp->renderOrder(), entity);
 
 		renderComp->updateComponent();
 	}
@@ -100,7 +100,7 @@ void RenderSystem::render(std::vector<Entity*> entities)
 	}
 }
 
-void RenderSystem::Cleanups()
+void RenderSystem::cleanups()
 {
 	sortedEntities.clear();
 }

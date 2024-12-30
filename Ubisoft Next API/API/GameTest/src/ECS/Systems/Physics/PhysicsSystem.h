@@ -11,14 +11,14 @@ public:
 	// Inherited via ISystem
 	~PhysicsSystem() override = default;
 	void start(std::vector<Entity*> entities) override;
-	void Update(std::vector<Entity*> entities, float deltaTime) override;
+	void update(std::vector<Entity*> entities, float deltaTime) override;
 	void render(std::vector<Entity*> entities) override;
-	void Cleanups() override;
+	void cleanups() override;
 
 private:
 
-	void UpdatePhysics(std::vector<Entity*> entities ,float deltatime);
-	void UpdateComponents(std::vector<Entity*> entities, float deltatime);
+	void updatePhysics(std::vector<Entity*> entities ,float deltatime);
+	void updateComponents(std::vector<Entity*> entities, float deltatime);
 
 	const float FIXED_TIMESTEP = 1 /60;
 	float timer = 0;

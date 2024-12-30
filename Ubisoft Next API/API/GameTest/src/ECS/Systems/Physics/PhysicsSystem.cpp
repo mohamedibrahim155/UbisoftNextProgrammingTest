@@ -6,10 +6,10 @@ void PhysicsSystem::start(std::vector<Entity*> entities)
 
 }
 
-void PhysicsSystem::Update(std::vector<Entity*> entities, float deltaTime)
+void PhysicsSystem::update(std::vector<Entity*> entities, float deltaTime)
 {
 
-	UpdateComponents(entities, deltaTime);
+	updateComponents(entities, deltaTime);
 }
 
 void PhysicsSystem::render(std::vector<Entity*> entities)
@@ -27,25 +27,25 @@ void PhysicsSystem::render(std::vector<Entity*> entities)
 	}
 }
 
-void PhysicsSystem::Cleanups()
+void PhysicsSystem::cleanups()
 {
 }
 
 
 
 
-void PhysicsSystem::UpdatePhysics(std::vector<Entity*> entities , float deltatime)
+void PhysicsSystem::updatePhysics(std::vector<Entity*> entities , float deltatime)
 {
 	timer += deltatime;
 
 	if (timer >= FIXED_TIMESTEP)
 	{
-		UpdateComponents(entities,FIXED_TIMESTEP);
+		updateComponents(entities,FIXED_TIMESTEP);
 		timer = 0;
 	}
 }
 
-void PhysicsSystem::UpdateComponents(std::vector<Entity*> entities, float deltatime)
+void PhysicsSystem::updateComponents(std::vector<Entity*> entities, float deltatime)
 {
 
 	for (Entity* entity : entities)

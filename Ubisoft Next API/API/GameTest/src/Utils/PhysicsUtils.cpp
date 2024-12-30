@@ -6,7 +6,7 @@
 bool Physics::CheckCollision(Collider* colliderA, Collider* colliderB, std::vector<Vector2>& collisionPt, std::vector<Vector2>& collisionNormal)
 {
 	// Checking AABB collision 
-	if (BoxVsBox(&colliderA->GetBounds(), &colliderB->GetBounds(), collisionPt, collisionNormal))
+	if (BoxVsBox(&colliderA->getBounds(), &colliderB->getBounds(), collisionPt, collisionNormal))
 	{
 		switch (colliderA->GetShapeType())
 		{
@@ -21,19 +21,19 @@ bool Physics::CheckCollision(Collider* colliderA, Collider* colliderB, std::vect
 			{
 			case eShape::CIRCLE:
 
-				return CircleVsCircle(&dynamic_cast<CircleCollider*>(colliderA)->GetCircle(),
-					&dynamic_cast<CircleCollider*>(colliderB)->GetCircle(), collisionPt,collisionNormal);
+				return CircleVsCircle(&dynamic_cast<CircleCollider*>(colliderA)->getCircle(),
+					&dynamic_cast<CircleCollider*>(colliderB)->getCircle(), collisionPt,collisionNormal);
 
 			case eShape::BOX:
 
-				return CircleVsBox(&dynamic_cast<CircleCollider*>(colliderA)->GetCircle(),
-					&dynamic_cast<BoxCollider*>(colliderB)->GetBox(),true ,collisionPt, collisionNormal);
+				return CircleVsBox(&dynamic_cast<CircleCollider*>(colliderA)->getCircle(),
+					&dynamic_cast<BoxCollider*>(colliderB)->getBox(),true ,collisionPt, collisionNormal);
 
 
 			case eShape::LINE:
 
-				return LineVsCircle(&dynamic_cast<LineCollider*>(colliderB)->GetLine(),
-					&dynamic_cast<CircleCollider*>(colliderA)->GetCircle());
+				return LineVsCircle(&dynamic_cast<LineCollider*>(colliderB)->getLine(),
+					&dynamic_cast<CircleCollider*>(colliderA)->getCircle());
 			}
 
 			break;
@@ -46,18 +46,18 @@ bool Physics::CheckCollision(Collider* colliderA, Collider* colliderB, std::vect
 			{
 
 			case eShape::CIRCLE:
-				return CircleVsBox(&dynamic_cast<CircleCollider*>(colliderB)->GetCircle(),
-					&dynamic_cast<BoxCollider*>(colliderA)->GetBox(), false, collisionPt, collisionNormal);
+				return CircleVsBox(&dynamic_cast<CircleCollider*>(colliderB)->getCircle(),
+					&dynamic_cast<BoxCollider*>(colliderA)->getBox(), false, collisionPt, collisionNormal);
 
 			case eShape::BOX:
 
-				return BoxVsBox(&dynamic_cast<BoxCollider*>(colliderA)->GetBox(),
-					&dynamic_cast<BoxCollider*>(colliderB)->GetBox(), collisionPt, collisionNormal);
+				return BoxVsBox(&dynamic_cast<BoxCollider*>(colliderA)->getBox(),
+					&dynamic_cast<BoxCollider*>(colliderB)->getBox(), collisionPt, collisionNormal);
 
 
 			case eShape::LINE:
-				return LineVsBox(&dynamic_cast<LineCollider*>(colliderB)->GetLine(),
-					&dynamic_cast<BoxCollider*>(colliderA)->GetBox());
+				return LineVsBox(&dynamic_cast<LineCollider*>(colliderB)->getLine(),
+					&dynamic_cast<BoxCollider*>(colliderA)->getBox());
 			}
 
 			break;
@@ -75,19 +75,19 @@ bool Physics::CheckCollision(Collider* colliderA, Collider* colliderB, std::vect
 			case eShape::CIRCLE:
 
 
-				return LineVsCircle(&dynamic_cast<LineCollider*>(colliderA)->GetLine(),
-					&dynamic_cast<CircleCollider*>(colliderB)->GetCircle());
+				return LineVsCircle(&dynamic_cast<LineCollider*>(colliderA)->getLine(),
+					&dynamic_cast<CircleCollider*>(colliderB)->getCircle());
 
 			case eShape::BOX:
 
-				return LineVsBox(&dynamic_cast<LineCollider*>(colliderA)->GetLine(),
-					&dynamic_cast<BoxCollider*>(colliderB)->GetBox());
+				return LineVsBox(&dynamic_cast<LineCollider*>(colliderA)->getLine(),
+					&dynamic_cast<BoxCollider*>(colliderB)->getBox());
 
 
 			case eShape::LINE:
 
-				return LineVsLine(&dynamic_cast<LineCollider*>(colliderA)->GetLine(),
-					&dynamic_cast<LineCollider*>(colliderB)->GetLine());
+				return LineVsLine(&dynamic_cast<LineCollider*>(colliderA)->getLine(),
+					&dynamic_cast<LineCollider*>(colliderB)->getLine());
 			}
 
 			break;
@@ -279,11 +279,11 @@ bool Physics::Raycast(Collider* colliderToCheck, Vector2 startpoint, Vector2 dir
 	switch (colliderToCheck->GetShapeType())
 	{
 	case eShape::BOX: 
-		return LineVsBox(&line, &dynamic_cast<BoxCollider*>(colliderToCheck)->GetBox());
+		return LineVsBox(&line, &dynamic_cast<BoxCollider*>(colliderToCheck)->getBox());
 	case eShape::CIRCLE:
-		return LineVsCircle(&line, &dynamic_cast<CircleCollider*>(colliderToCheck)->GetCircle());
+		return LineVsCircle(&line, &dynamic_cast<CircleCollider*>(colliderToCheck)->getCircle());
 	case eShape::LINE:
-		return LineVsLine(&line, &dynamic_cast<LineCollider*>(colliderToCheck)->GetLine());
+		return LineVsLine(&line, &dynamic_cast<LineCollider*>(colliderToCheck)->getLine());
 	}
 
 

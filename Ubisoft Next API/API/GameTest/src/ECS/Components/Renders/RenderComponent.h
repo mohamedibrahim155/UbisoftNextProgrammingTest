@@ -17,7 +17,7 @@ public:
 	virtual void start() override {};
 	virtual void updateComponent() override {};
 	virtual void render() override {};
-	virtual int RenderOrder() =0;
+	virtual int renderOrder() =0;
 	virtual RenderComponent* clone() const = 0;
 
 protected:

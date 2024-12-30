@@ -6,19 +6,19 @@ class SystemManager
 
 public:
 
-	void RegisterSystem(ISystem* system);
-	void RemoveSystem(ISystem* system);
+	void registerSystem(ISystem* system);
+	void removeSystem(ISystem* system);
 
-	void AddEntity(Entity* entity);
-	void RemoveEntity(EntityID ID);
+	void addEntity(Entity* entity);
+	void removeEntity(EntityID ID);
 
 	void start();
-	void UpdateSystems(float deltaTime);
+	void updateSystems(float deltaTime);
 	void render();
-	void CleanSystem();
+	void cleanSystem();
 
-	ISystem* GetSystem(eSystemType type);
-	std::vector<Entity*> GetEntities() const;
+	ISystem* getSystem(eSystemType type);
+	std::vector<Entity*> getEntities() const;
 private:
 
 	std::unordered_map<eSystemType, ISystem*> systemsMap;

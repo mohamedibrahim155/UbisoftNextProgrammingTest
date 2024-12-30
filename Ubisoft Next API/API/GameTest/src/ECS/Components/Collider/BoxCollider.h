@@ -15,10 +15,10 @@ public:
     virtual void render();
     BoxCollider* clone() const override;
 
-    SBox GetBounds() override;
-    void CalculateShape() override;
+    SBox getBounds() override;
+    void calculateShape() override;
 
-    SBox GetBox();
+    SBox getBox();
 
 
 

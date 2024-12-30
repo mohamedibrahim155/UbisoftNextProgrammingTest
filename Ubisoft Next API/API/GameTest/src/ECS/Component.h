@@ -26,13 +26,13 @@ public:
 	virtual void render() = 0;
 	virtual IComponent* clone() const = 0;
 
-	void SetEntity(Entity* entity);
-	void SetEnabled(bool state);
-	void SetUI(bool isUI);
+	void setEntity(Entity* entity);
+	void setEnabled(bool state);
+	void setUI(bool isUI);
 
 	bool IsUI() const { return isUI; }
-	ComponentType GetComponentType();
-	Entity* GetEntity() const;
+	ComponentType getComponentType();
+	Entity* getEntity() const;
 
 
 	int componentID;

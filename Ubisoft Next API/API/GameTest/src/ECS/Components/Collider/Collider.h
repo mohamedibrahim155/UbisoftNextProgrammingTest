@@ -74,8 +74,8 @@ public:
 	virtual Collider* clone() const override =0;
 
 	virtual eShape GetShapeType() const { return shape; };
-	virtual SBox GetBounds() = 0;
-	virtual void CalculateShape() = 0;
+	virtual SBox getBounds() = 0;
+	virtual void calculateShape() = 0;
 
 	bool IsTrigger() const { return isTrigger; };
 

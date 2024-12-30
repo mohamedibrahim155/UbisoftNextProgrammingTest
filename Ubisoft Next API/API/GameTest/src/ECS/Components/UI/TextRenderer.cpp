@@ -6,9 +6,9 @@ TextRenderer::TextRenderer(std::string message, const Vector2& offset)
 {
     this->message = message;
 
-    SetUI(true);
+    setUI(true);
 
-    SetFont(BITMAP_HELVETICA_18);
+    setFont(BITMAP_HELVETICA_18);
 }
 
 TextRenderer::TextRenderer(std::string message, const Vector2& offset, const Vector3& color)
@@ -17,9 +17,9 @@ TextRenderer::TextRenderer(std::string message, const Vector2& offset, const Vec
     this->message = message;
     this->color = color;
 
-    SetUI(true);
+    setUI(true);
 
-    SetFont(BITMAP_HELVETICA_18);
+    setFont(BITMAP_HELVETICA_18);
 }
 
 TextRenderer::TextRenderer(std::string message, const Vector2& offset, const Vector3& Color, eFontType fontType)
@@ -28,8 +28,8 @@ TextRenderer::TextRenderer(std::string message, const Vector2& offset, const Vec
     this->message = message;
     this->color = color;
 
-    SetUI(true);
-    SetFont(fontType);
+    setUI(true);
+    setFont(fontType);
 }
 
 
@@ -61,19 +61,19 @@ TextRenderer* TextRenderer::clone() const
     return new TextRenderer(message);
 }
 
-void TextRenderer::SetText(const std::string& message)
+void TextRenderer::setText(const std::string& message)
 {
     this->message = message;
 }
 
 
 
-void TextRenderer::SetColor(float r, float g, float b)
+void TextRenderer::setColor(float r, float g, float b)
 {
     color = Vector3(r, g, b);
 }
 
-void TextRenderer::SetFont(eFontType type)
+void TextRenderer::setFont(eFontType type)
 {
 
     switch (type)
@@ -114,7 +114,7 @@ void TextRenderer::SetFont(eFontType type)
     }
 }
 
-int TextRenderer::RenderOrder()
+int TextRenderer::renderOrder()
 {
     return 0;
 }

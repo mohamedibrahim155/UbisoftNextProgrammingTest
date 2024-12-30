@@ -11,18 +11,18 @@ public:
 	void start() override {};
 	void updateComponent() override {};
 	void render() override;
-	void CalculateShape() override;
+	void calculateShape() override;
 	LineCollider* clone() const override;
 
-	SLine GetLine();
-	void SetLine(const Vector2& startpoint, const Vector2& endpoint);
+	SLine getLine();
+	void setLine(const Vector2& startpoint, const Vector2& endpoint);
 private:
 
 	SLine m_line;
 	
 
 	// Inherited via Collider
-	SBox GetBounds() override;
+	SBox getBounds() override;
 
 
 

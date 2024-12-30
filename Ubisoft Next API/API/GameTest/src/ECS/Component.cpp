@@ -9,27 +9,27 @@ IComponent::IComponent(ComponentType type)
 	isComponentEnabled = true;
 }
 
-ComponentType IComponent::GetComponentType()
+ComponentType IComponent::getComponentType()
 {
 	return static_cast<ComponentType>(componentID);
 }
 
-Entity* IComponent::GetEntity() const
+Entity* IComponent::getEntity() const
 {
 	return gameObject;
 }
 
-void IComponent::SetEntity(Entity* entity)
+void IComponent::setEntity(Entity* entity)
 {
 	gameObject = entity;
 }
 
-void IComponent::SetEnabled(bool state)
+void IComponent::setEnabled(bool state)
 {
 	isComponentEnabled = state;
 }
 
-void IComponent::SetUI(bool isUI)
+void IComponent::setUI(bool isUI)
 {
 	this->isUI = isUI;
 }

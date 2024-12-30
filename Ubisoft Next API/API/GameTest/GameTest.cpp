@@ -159,7 +159,7 @@ void Update(const float deltaTime)
 
 	//CSceneManager::GetInstance().Update();
 
-	world->Update(deltaTime / 1000);
+	world->update(deltaTime / 1000);
 }
 
 //------------------------------------------------------------------------
@@ -226,6 +226,6 @@ void Shutdown()
 	/*CSceneManager::GetInstance().CleanScene();
 	CEntityManager::GetInstance().Clean();*/
 
-	world->Clean();
+	world->clean();
 	
 }

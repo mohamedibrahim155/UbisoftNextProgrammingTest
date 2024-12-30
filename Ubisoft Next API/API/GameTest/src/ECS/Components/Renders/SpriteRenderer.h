@@ -13,22 +13,22 @@ public:
 	virtual void start() override;
 	virtual void updateComponent() override;
 	virtual void render() override;
-	 int RenderOrder() override;
+	 int renderOrder() override;
 
 	 virtual SpriteRenderer* clone() const override;
 
-	 void SetColor(const Vector3&  color);
-	 void SetColor(const float& r, const float& g, const float& b);
-	 void SetPosition(const Vector3&  position);
-	 void SetRotation(const float& rotationY);
-	 void SetOffset(const Vector2& offset);
-	 void SetScale(const Vector2&  scale);
-	 void SetOrder(int order);
+	 void setColor(const Vector3&  color);
+	 void setColor(const float& r, const float& g, const float& b);
+	 void setPosition(const Vector3&  position);
+	 void setRotation(const float& rotationY);
+	 void setOffset(const Vector2& offset);
+	 void setScale(const Vector2&  scale);
+	 void setOrder(int order);
 
-	 int GetSpriteOrder() const;
-	 Vector3 GetColor() const;
-	 CSimpleSprite* GetSprite() const;
-	 std::string GetFileName() const;
+	 int getSpriteOrder() const;
+	 Vector3 getColor() const;
+	 CSimpleSprite* getSprite() const;
+	 std::string getFileName() const;
 
 
 protected:
@@ -37,7 +37,7 @@ protected:
 	 CSimpleSprite* sprite;
 	 int spriteOrder = 0;
 
-	 CSimpleSprite* CreateSprite(std::string filename, int colum, int row);
+	 CSimpleSprite* createSprite(std::string filename, int colum, int row);
 
 	
 };

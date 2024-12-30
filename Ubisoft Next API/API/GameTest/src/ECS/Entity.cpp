@@ -7,7 +7,7 @@ Entity::Entity(EntityID ID) : enitityID(ID)
 {
 	m_sprite = nullptr;
 
-	AddComponent(new Transform());
+	addComponent(new Transform());
 }
 
 Entity::Entity(const Entity& otherEntity, EntityID ID)
@@ -16,7 +16,7 @@ Entity::Entity(const Entity& otherEntity, EntityID ID)
 	auto components = otherEntity.GetComponents();
 	for (IComponent* component: components)
 	{
-		AddComponent(component->GetComponentType(), component->clone());
+		addComponent(component->getComponentType(), component->clone());
 	}
 	
 	isActive = otherEntity.isActive;
@@ -32,16 +32,16 @@ Entity::Entity(const Entity& otherEntity, EntityID ID)
 
 Entity::~Entity()
 {
-	CleanUps();
+	cleanUps();
 }
 
-void Entity::AddComponent(ComponentType type,IComponent* component)
+void Entity::addComponent(ComponentType type,IComponent* component)
 {
-	component->SetEntity(this);
+	component->setEntity(this);
 	listOfComponents[type] = component;
 
 	//Intial References
-	switch (component->GetComponentType())
+	switch (component->getComponentType())
 	{
 	case ComponentType::TRANSFORM_COMPONENT:
 		transform = *(dynamic_cast<Transform*>(component));
@@ -63,15 +63,15 @@ void Entity::AddComponent(ComponentType type,IComponent* component)
 
 }
 
-void Entity::AddComponent(IComponent* component)
+void Entity::addComponent(IComponent* component)
 {
 
-	component->SetEntity(this);
-	listOfComponents[component->GetComponentType()] = component;
+	component->setEntity(this);
+	listOfComponents[component->getComponentType()] = component;
 
 
 	//Intial References
-	switch (component->GetComponentType())
+	switch (component->getComponentType())
 	{
 	case ComponentType::TRANSFORM_COMPONENT:
 		transform = *(dynamic_cast<Transform*>(component));
@@ -91,15 +91,15 @@ void Entity::AddComponent(IComponent* component)
 	}
 }
 
-void Entity::AddComponents(std::vector<IComponent*> components)
+void Entity::addComponents(std::vector<IComponent*> components)
 {
 	for (IComponent* component :  components)
 	{
-		AddComponent(component->GetComponentType(), component);
+		addComponent(component->getComponentType(), component);
 	}
 }
 
-bool Entity::RemoveComponent(ComponentType type)
+bool Entity::removeComponent(ComponentType type)
 {
 	std::unordered_map<ComponentType, IComponent*> ::iterator it = listOfComponents.find(type);
 	
@@ -119,12 +119,12 @@ void Entity::Destroy()
 	if (isDestroyed) return;
 
 	OnDestroyed.Invoke();
-	SetActive(false);
+	setActive(false);
 	isDestroyed = true;
-	CleanUps();
+	cleanUps();
 	if (manager)
 	{
-		manager->RemoveEntity(enitityID);
+		manager->removeEntity(enitityID);
 	}
 	
 
@@ -149,16 +149,16 @@ IComponent* Entity::GetComponent(ComponentType type)
 	return listOfComponents[type];
 }
 
-std::string Entity::GetTag() const
+std::string Entity::getTag() const
 {
 	return tag;
 }
 
-Vector3 Entity::GetPosition() 
+Vector3 Entity::getPosition() 
 {
 	float x, y;
 
-	m_sprite->GetSprite()->GetPosition(x, y);
+	m_sprite->getSprite()->GetPosition(x, y);
 
 	Vector3 position = Vector3(x, y, 0);
 	transform.position = position;
@@ -171,13 +171,13 @@ bool Entity::IsActive() const
 	return isActive;
 }
 
-int Entity::GetID() const
+int Entity::getID() const
 {
 	return enitityID;
 }
 
 
-void Entity::SetActive(bool isActive)
+void Entity::setActive(bool isActive)
 {
 	this->isActive = isActive;
 
@@ -188,57 +188,57 @@ void Entity::SetActive(bool isActive)
 	{
 		if (component->isComponentEnabled)
 		{
-			component->SetEnabled(isActive);
+			component->setEnabled(isActive);
 		}
 	}
 
 }
 
-void Entity::SetTag(const std::string& tag)
+void Entity::setTag(const std::string& tag)
 {
 	this->tag = tag;
 }
 
-void Entity::SetID(int ID)
+void Entity::setID(int ID)
 {
 	this->enitityID = ID;
 }
 
-void Entity::SetPosition(const Vector3& position)
+void Entity::setPosition(const Vector3& position)
 {
 	transform.position = position;
 
 	if (m_sprite)
 	{
-		m_sprite->SetPosition(transform.position);
+		m_sprite->setPosition(transform.position);
 	}
 
 }
 
-void Entity::SetRotation(const float& rotationY)
+void Entity::setRotation(const float& rotationY)
 {
 	transform.rotation = rotationY;
 
 	if (m_sprite)
 	{
-		m_sprite->SetRotation(transform.rotation);
+		m_sprite->setRotation(transform.rotation);
 	}
 
 }
 
-void Entity::SetScale(const Vector2& scale)
+void Entity::setScale(const Vector2& scale)
 {
 	this->transform.scale = scale;
 
 	if (m_sprite)
 	{
-		m_sprite->SetScale(scale);
+		m_sprite->setScale(scale);
 	}
 }
 
 
 
-void Entity::CleanUps()
+void Entity::cleanUps()
 {
 	for (std::pair<ComponentType, IComponent*> item : listOfComponents)
 	{

@@ -5,7 +5,7 @@ void CustomScriptsControllerSystem::start(std::vector<Entity*> entities)
 {
 }
 
-void CustomScriptsControllerSystem::Update(std::vector<Entity*> entities, float deltaTime)
+void CustomScriptsControllerSystem::update(std::vector<Entity*> entities, float deltaTime)
 {
 	for (Entity* entity :  entities)
 	{
@@ -30,11 +30,11 @@ void CustomScriptsControllerSystem::render(std::vector<Entity*> entities)
 {
 }
 
-void CustomScriptsControllerSystem::Cleanups()
+void CustomScriptsControllerSystem::cleanups()
 {
 }
 
-std::vector<ScriptComponentBase*> CustomScriptsControllerSystem::GetScripts() const
+std::vector<ScriptComponentBase*> CustomScriptsControllerSystem::getScripts() const
 {
 	return std::vector<ScriptComponentBase*>();
 }

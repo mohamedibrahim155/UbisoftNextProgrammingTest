@@ -5,12 +5,12 @@
 ButtonRenderer::ButtonRenderer(std::string filename) : 
     SpriteRenderer(filename,true)
 {
-    SetUI(true);
+    setUI(true);
 
     boxCollider = new BoxCollider(this);
-    boxCollider->SetUI(true);
+    boxCollider->setUI(true);
 
-    mousCircle = { GetMousePosition(), 5.0f };
+    mousCircle = { getMousePosition(), 5.0f };
 
 }
 
@@ -18,7 +18,7 @@ ButtonRenderer::ButtonRenderer(std::string filename) :
 
 void ButtonRenderer::start()
 {
-    gameObject->AddComponent(boxCollider);
+    gameObject->addComponent(boxCollider);
 }
 
 void ButtonRenderer::updateComponent()
@@ -28,7 +28,7 @@ void ButtonRenderer::updateComponent()
 #pragma region ButtonValidate
 
     // Update mouse position circle
-    mousCircle.centre = GetMousePosition();
+    mousCircle.centre = getMousePosition();
 
 
 
@@ -36,7 +36,7 @@ void ButtonRenderer::updateComponent()
 
     //Checks Button Collision for ButtonPress
     std::vector<Vector2> collisionPnt, collisionNormal;
-    if (Physics::CircleVsBox(&mousCircle, &boxCollider->GetBox(), true, collisionPnt, collisionNormal))
+    if (Physics::CircleVsBox(&mousCircle, &boxCollider->getBox(), true, collisionPnt, collisionNormal))
     {
 
         if (!isOnHover)
@@ -98,22 +98,22 @@ ButtonRenderer* ButtonRenderer::clone() const
 }
 
 
-void ButtonRenderer::AddListenersOnButtonPress(const std::function<void()>& callback)
+void ButtonRenderer::addListenersOnButtonPress(const std::function<void()>& callback)
 {
     OnButtonClick.Subscribe(callback);
 }
 
-void ButtonRenderer::AddListenersOnButtonHover(const std::function<void()>& callback)
+void ButtonRenderer::addListenersOnButtonHover(const std::function<void()>& callback)
 {
     OnButtonHover.Subscribe(callback);
 }
 
-void ButtonRenderer::AddListenersOnButtonHoverExit(const std::function<void()>& callback)
+void ButtonRenderer::addListenersOnButtonHoverExit(const std::function<void()>& callback)
 {
     OnButtonHoverExit.Subscribe(callback);
 }
 
-Vector2 ButtonRenderer::GetMousePosition()
+Vector2 ButtonRenderer::getMousePosition()
 {
     float x, y;
 
@@ -147,7 +147,7 @@ void ButtonRenderer::DrawCircle(float cx, float cy, float radius, int segments, 
 
 }
 
-int ButtonRenderer::RenderOrder()
+int ButtonRenderer::renderOrder()
 {
     return 0;
 }

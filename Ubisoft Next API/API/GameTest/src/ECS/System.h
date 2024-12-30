@@ -17,9 +17,9 @@ public:
 	ISystem(std::string  name, eSystemType type) : name(name), systemType(type) {};
 	virtual ~ISystem() = default;
 	virtual void start(std::vector<Entity*> entities)=0;
-	virtual void Update(std::vector<Entity*> entities,float deltaTime) = 0;
+	virtual void update(std::vector<Entity*> entities,float deltaTime) = 0;
 	virtual void render(std::vector<Entity*> entities) =0;
-	virtual void Cleanups() =0;
+	virtual void cleanups() =0;
 
 	SystemManager* systemManager;
 	std::string name;
