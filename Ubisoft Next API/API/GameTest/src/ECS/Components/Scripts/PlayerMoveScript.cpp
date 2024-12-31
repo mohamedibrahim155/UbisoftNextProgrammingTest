@@ -32,10 +32,20 @@ void PlayerMoveScript::updateComponent()
 
 	//float rotation = gameObject->transform.rotation;
 
-	if (App::GetController().CheckButton(XINPUT_GAMEPAD_DPAD_DOWN, false))
+	if (App::GetController().CheckButton(XINPUT_GAMEPAD_DPAD_DOWN, true))
 	{
 		
-		gameObject->Destroy();
+		//gameObject->Destroy();
+
+
+		Entity* entity = gameObject->manager->getEntityByID(1);
+
+		if (entity)
+		{
+			entity->Destroy();
+		}
+		
+
 			//spriteSheet->SetAnimation(0);
 
 

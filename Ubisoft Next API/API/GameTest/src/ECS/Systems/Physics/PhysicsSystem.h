@@ -20,7 +20,7 @@ private:
 	void updatePhysics(std::vector<Entity*> entities ,float deltatime);
 	void updateComponents(std::vector<Entity*> entities, float deltatime);
 
-	const float FIXED_TIMESTEP = 1 /60;
+	const float FIXED_TIMESTEP = 1.0f / 60.0f;
 	float timer = 0;
 
 	std::vector<Vector2> collisionPoints;

@@ -189,6 +189,8 @@ void Entity::setActive(bool isActive)
 
 	for (IComponent* component : componentList)
 	{
+		if (!component) continue;
+
 		if (component->isComponentEnabled)
 		{
 			component->setEnabled(isActive);

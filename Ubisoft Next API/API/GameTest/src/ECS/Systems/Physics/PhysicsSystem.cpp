@@ -9,7 +9,7 @@ void PhysicsSystem::start(std::vector<Entity*> entities)
 void PhysicsSystem::update(std::vector<Entity*> entities, float deltaTime)
 {
 
-	updateComponents(entities, deltaTime);
+	updatePhysics(entities, deltaTime);
 }
 
 void PhysicsSystem::render(std::vector<Entity*> entities)
@@ -55,7 +55,7 @@ void PhysicsSystem::updateComponents(std::vector<Entity*> entities, float deltat
 
 
 		Transform* transform = &entity->transform;
-		RigidBody* rb = (RigidBody*)entity->GetComponent(ComponentType::PHYSICS_COMPONENT);
+		RigidBody* rb = static_cast<RigidBody*>(entity->GetComponent(ComponentType::PHYSICS_COMPONENT));
 		Collider* collider = (Collider*)entity->GetComponent(ComponentType::COLLIDER_COMPONENT);
 		
 		if (!rb || !transform) continue;
@@ -79,8 +79,11 @@ void PhysicsSystem::updateComponents(std::vector<Entity*> entities, float deltat
 		{
 			if (entity == otherEntity) continue;
 
+
+			if (!otherEntity->IsActive() || otherEntity->isDestroyed) continue;
+
 			Transform* otherTransform = &otherEntity->transform;
-			RigidBody* otherRB = (RigidBody*)otherEntity->GetComponent(ComponentType::PHYSICS_COMPONENT);
+			RigidBody* otherRB = static_cast<RigidBody*>(otherEntity->GetComponent(ComponentType::PHYSICS_COMPONENT));
 			Collider* otherCollider = (Collider*)otherEntity->GetComponent(ComponentType::COLLIDER_COMPONENT);
 
 			if (!otherCollider || !otherTransform || !collider) continue;

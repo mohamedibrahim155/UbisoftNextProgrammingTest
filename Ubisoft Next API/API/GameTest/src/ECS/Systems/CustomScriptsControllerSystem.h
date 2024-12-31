@@ -17,5 +17,10 @@ public:
 
 private:
 
+	void addScript(Entity* entity);
+	void removeScript(Entity* entity);
+
+	std::vector<std::pair<Entity*,ScriptComponentBase*>> listofScripts;
+
 };
 

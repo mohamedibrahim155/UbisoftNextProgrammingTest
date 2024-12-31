@@ -51,25 +51,26 @@ void World::start()
 	entity3->addComponent(new RigidBody(eBodyType::STATIC));
 	//entity3->AddComponent(new PlayerMoveScript());
 	entity3->transform.scale = Vector2(2, 1);
+	entity3->setTag("Sprite1");
 	entity3->transform.position = Vector2(0, -250);
-	//for (size_t i = 0; i < 10; i++)
-	//{
-	//	float randomWidth = Random::RandomRange(-(float)APP_VIRTUAL_WIDTH, (float)APP_VIRTUAL_WIDTH);
-	//	float randomheight = Random::RandomRange(-(float)APP_VIRTUAL_HEIGHT, (float)APP_VIRTUAL_HEIGHT);
+	for (size_t i = 0; i < 1; i++)
+	{
+		float randomWidth = Random::RandomRange(-(float)APP_VIRTUAL_WIDTH, (float)APP_VIRTUAL_WIDTH);
+		float randomheight = Random::RandomRange(-(float)APP_VIRTUAL_HEIGHT, (float)APP_VIRTUAL_HEIGHT);
 
 
-	//	Entity* entity4 = entityManager->createEntity();
-	//	entity4->addComponent(new SpriteSheetRenderer(filename,6,1));
-	//	entity4->addComponent(new PlayerMoveScript());
+		Entity* entity4 = entityManager->createEntity();
+		entity4->addComponent(new SpriteSheetRenderer(filename,6,1));
+		entity4->addComponent(new PlayerMoveScript());
 
-	//	SpriteRenderer* sprite2 = (SpriteRenderer*)entity4->GetComponent(ComponentType::RENDER_COMPONENT);
+		SpriteRenderer* sprite2 = (SpriteRenderer*)entity4->GetComponent(ComponentType::RENDER_COMPONENT);
 
-	//	entity4->addComponent(new BoxCollider());
-	//	entity4->addComponent(new RigidBody(eBodyType::DYNAMIC));
-	//	//entity4->AddComponent(new CircleCollider());
-	//	entity4->transform.position = Vector3(randomWidth+10/2, randomheight+10/2, 0);
-	//	entity4->transform.scale = Vector2(1, 1);
-	//}
+		entity4->addComponent(new BoxCollider());
+		entity4->addComponent(new RigidBody(eBodyType::DYNAMIC));
+		//entity4->AddComponent(new CircleCollider());
+		entity4->transform.position = Vector3(randomWidth+10/2, randomheight+10/2, 0);
+		entity4->transform.scale = Vector2(1, 1);
+	}
 
 	Entity* enttity5 = entityManager-> createEntity();
 	enttity5->addComponent(new TextRenderer("Hello world"));
@@ -106,7 +107,7 @@ void World::start()
 				spriteEn2->setColor(0, 1, 1);
 			});
 
-	button->addListenersOnButtonHoverExit([&]()
+	button->addListenersOnButtonHoverExit([this]()
 		{
 			Entity* firstEntity3 = entityManager->getEntityByID(1);
 
