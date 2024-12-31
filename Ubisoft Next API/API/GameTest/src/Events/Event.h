@@ -10,11 +10,13 @@ class CEvent
 public:
     using EVENT = std::function<void(Args...)>;
 
-    void Subscribe(EVENT callback) {
+    void Subscribe(EVENT callback) 
+    {
         m_callbacks.push_back(std::move(callback));
     }
 
-    void Invoke(Args... args) {
+    void Invoke(Args... args) 
+    {
         for (auto& callback : m_callbacks) 
         {
             if (callback)
@@ -22,6 +24,11 @@ public:
                 callback(args...);
             }
         }
+    }
+
+    void clear()
+    {
+        m_callbacks.clear();
     }
 
 private:

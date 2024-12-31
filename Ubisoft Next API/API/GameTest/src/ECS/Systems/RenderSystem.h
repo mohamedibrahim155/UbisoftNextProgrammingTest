@@ -5,6 +5,20 @@
 #include "../Components/Renders/SpriteSheetRenderer.h"
 #include "../Components/UI/TextRenderer.h"
 #include "../Components/UI/ButtonRenderer.h"
+
+
+struct RenderEntity
+{
+public:
+	EntityID ID;
+	Entity* entity;
+	RenderComponent* component;
+
+	RenderEntity() = default;
+
+	RenderEntity(EntityID ID,Entity* entity, RenderComponent* component)
+		: ID(ID),entity(entity), component(component){}
+};
 class RenderSystem : public ISystem
 {
 public:
@@ -14,9 +28,11 @@ public:
 	 void render(std::vector<Entity*> entities) override;
 	 void cleanups() override;
 
+
+	
+
 private:
 
-	std::vector<std::pair<int, Entity*>> sortedEntities;
 
 	/*
 	TODO : 
@@ -25,5 +41,14 @@ private:
 		
 
 	*/
+	void removeEntityFromRenders(Entity* entity);
+	void addEntityToRenders(Entity* entity);
+
+	void SubscribeEvents();
+	void HandleOnEntityAdded(Entity* entity);
+
+	std::vector<std::pair<int, RenderEntity*>> sortedSprites;
+	std::vector<RenderEntity*> listOfUIRenderer;
+	std::vector<RenderEntity*> listOfSpriteRenderers;
 };
 

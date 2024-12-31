@@ -17,10 +17,14 @@ void SystemManager::addEntity(Entity* entity)
     entitiesMap[entity->getID()] =  entity;
 
     listOfEntities.push_back(entity);
+
+    OnEntityAdded.Invoke(entity);
 }
 
 void SystemManager::removeEntity(EntityID ID)
 {
+    OnEntityRemoved.Invoke(entitiesMap[ID]);
+
     entitiesMap.erase(ID);
 }
 
@@ -36,11 +40,18 @@ void SystemManager::cleanSystem()
     systemsMap.clear();
     entitiesMap.clear();
     listOfEntities.clear();
+    OnEntityAdded.clear();
+    OnEntityRemoved.clear();
 }
 
 ISystem* SystemManager::getSystem(eSystemType type)
 {
     return systemsMap[type];
+}
+
+Entity* SystemManager::getEntityByID(EntityID ID)
+{
+    return entitiesMap[ID];
 }
 
 std::vector<Entity*> SystemManager::getEntities() const

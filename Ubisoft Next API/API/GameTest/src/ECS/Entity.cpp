@@ -59,7 +59,7 @@ void Entity::addComponent(ComponentType type,IComponent* component)
 		break;
 	}
 
-	
+	OnComponentAdded.Invoke(component);
 
 }
 
@@ -89,6 +89,9 @@ void Entity::addComponent(IComponent* component)
 		collider->Init();
 		break;
 	}
+
+	//Triggers component ADDED
+	OnComponentAdded.Invoke(component);
 }
 
 void Entity::addComponents(std::vector<IComponent*> components)

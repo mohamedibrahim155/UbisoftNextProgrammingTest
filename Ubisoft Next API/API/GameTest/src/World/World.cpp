@@ -52,24 +52,24 @@ void World::start()
 	//entity3->AddComponent(new PlayerMoveScript());
 	entity3->transform.scale = Vector2(2, 1);
 	entity3->transform.position = Vector2(0, -250);
-	for (size_t i = 0; i < 10; i++)
-	{
-		float randomWidth = Random::RandomRange(-(float)APP_VIRTUAL_WIDTH, (float)APP_VIRTUAL_WIDTH);
-		float randomheight = Random::RandomRange(-(float)APP_VIRTUAL_HEIGHT, (float)APP_VIRTUAL_HEIGHT);
+	//for (size_t i = 0; i < 10; i++)
+	//{
+	//	float randomWidth = Random::RandomRange(-(float)APP_VIRTUAL_WIDTH, (float)APP_VIRTUAL_WIDTH);
+	//	float randomheight = Random::RandomRange(-(float)APP_VIRTUAL_HEIGHT, (float)APP_VIRTUAL_HEIGHT);
 
 
-		Entity* entity4 = entityManager->createEntity();
-		entity4->addComponent(new SpriteSheetRenderer(filename,6,1));
-		entity4->addComponent(new PlayerMoveScript());
+	//	Entity* entity4 = entityManager->createEntity();
+	//	entity4->addComponent(new SpriteSheetRenderer(filename,6,1));
+	//	entity4->addComponent(new PlayerMoveScript());
 
-		SpriteRenderer* sprite2 = (SpriteRenderer*)entity4->GetComponent(ComponentType::RENDER_COMPONENT);
+	//	SpriteRenderer* sprite2 = (SpriteRenderer*)entity4->GetComponent(ComponentType::RENDER_COMPONENT);
 
-		entity4->addComponent(new BoxCollider());
-		entity4->addComponent(new RigidBody(eBodyType::DYNAMIC));
-		//entity4->AddComponent(new CircleCollider());
-		entity4->transform.position = Vector3(randomWidth+10/2, randomheight+10/2, 0);
-		entity4->transform.scale = Vector2(1, 1);
-	}
+	//	entity4->addComponent(new BoxCollider());
+	//	entity4->addComponent(new RigidBody(eBodyType::DYNAMIC));
+	//	//entity4->AddComponent(new CircleCollider());
+	//	entity4->transform.position = Vector3(randomWidth+10/2, randomheight+10/2, 0);
+	//	entity4->transform.scale = Vector2(1, 1);
+	//}
 
 	Entity* enttity5 = entityManager-> createEntity();
 	enttity5->addComponent(new TextRenderer("Hello world"));
@@ -84,20 +84,26 @@ void World::start()
 
 	button->addListenersOnButtonPress([&]()
 		{ 
-				Entity* firstEntity = entityManager->getEntityByID(1);
+				Entity* firstEntity = entityManager->createEntity();
 
-				SpriteRenderer* spriteEn = (SpriteRenderer*)firstEntity->GetComponent(ComponentType::RENDER_COMPONENT);
+				float randomWidth = Random::RandomRange(-(float)APP_VIRTUAL_WIDTH, (float)APP_VIRTUAL_WIDTH);
+				float randomheight = Random::RandomRange(-(float)APP_VIRTUAL_HEIGHT, (float)APP_VIRTUAL_HEIGHT);
+				firstEntity->addComponent(new SpriteSheetRenderer(ASSET_PATH + "IdleBLUE- 150ms - 32x32.png", 6, 1));
+				firstEntity->addComponent(new RigidBody(eBodyType::DYNAMIC));
+				firstEntity->addComponent(new CircleCollider());
+				firstEntity->transform.position = Vector3(randomWidth / 2, randomWidth / 2, 0);
 
-				spriteEn->setColor(1, 0.5f, 0);
+
+
 			});
 
-	button->addListenersOnButtonHover([&]()
+	button->addListenersOnButtonHover([this]()
 			{
-				Entity* firstEntity2 = entityManager->getEntityByID(1);
+				Entity* entity3 = entityManager->getEntityByID(1);
 
-				SpriteRenderer* spriteEn2 = (SpriteRenderer*)firstEntity2->GetComponent(ComponentType::RENDER_COMPONENT);
+				SpriteRenderer* spriteEn2 = (SpriteRenderer*)entity3->GetComponent(ComponentType::RENDER_COMPONENT);
 
-				spriteEn2->setColor(0, 0, 1);
+				spriteEn2->setColor(0, 1, 1);
 			});
 
 	button->addListenersOnButtonHoverExit([&]()

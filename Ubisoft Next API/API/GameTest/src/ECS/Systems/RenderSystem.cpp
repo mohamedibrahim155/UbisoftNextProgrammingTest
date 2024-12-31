@@ -1,106 +1,167 @@
 #include "stdafx.h"
 #include "RenderSystem.h"
-
+#include "../SystemManager.h"
 void RenderSystem::start(std::vector<Entity*> entities)
 {
-	for (Entity* entity : entities)
-	{
-		if (!entity->IsActive() || entity->isDestroyed) continue;
-		{
-			RenderComponent* renderComp = (RenderComponent*)entity->GetComponent(ComponentType::RENDER_COMPONENT);
-			
-			if (renderComp == nullptr) continue;
-			if (renderComp->IsUI()) continue;
-
-			if (renderComp->isComponentEnabled && !renderComp->isStartInvoked)
-			{
-				renderComp->start();
-				renderComp->isStartInvoked = true;
-			}
-		}
-	}
 
 	for (Entity* entity : entities)
 	{
 		if (!entity->IsActive() || entity->isDestroyed) continue;
-
-		ButtonRenderer* buttonRender= (ButtonRenderer*)entity->GetComponent(ComponentType::RENDER_COMPONENT);
-
-		if (buttonRender == nullptr) continue;
-
-		if (buttonRender->isComponentEnabled && !buttonRender->isStartInvoked)
 		{
-			buttonRender->start();
-			buttonRender->isStartInvoked = true;
+			addEntityToRenders(entity);
 		}
 	}
+
+	SubscribeEvents();
 }
 
 void RenderSystem::update(std::vector<Entity*> entities, float deltaTime)
 {
-	sortedEntities.clear();
+	
 
-	for (Entity* entity : entities)
+
+	//Updates UI
+	for (RenderEntity* renderEntity : listOfUIRenderer)
 	{
-		if (!entity->IsActive() || entity->isDestroyed) continue;
+		if (!renderEntity->entity->IsActive() || renderEntity->entity->isDestroyed) continue;
 
-		RenderComponent* renderComp = (RenderComponent*)entity->GetComponent(ComponentType::RENDER_COMPONENT);
-
-		if (renderComp == nullptr) continue;
-		if (renderComp->IsUI()) continue;
-
-
-		sortedEntities.emplace_back(renderComp->renderOrder(), entity);
-
-		renderComp->updateComponent();
+		renderEntity->component->updateComponent();
 	}
 
-	std::sort(sortedEntities.begin(), sortedEntities.end(),
-		[](const std::pair<int, Entity*>& a, const std::pair<int, Entity*>& b) {
+
+	sortedSprites.clear();
+	// updates sprites
+	for (RenderEntity* renderEntity : listOfSpriteRenderers )
+	{
+		if (!renderEntity->entity->IsActive() || renderEntity->entity->isDestroyed) continue;
+
+		sortedSprites.emplace_back(renderEntity->component->renderOrder(), renderEntity);
+
+		renderEntity->component->updateComponent();
+	}
+
+	std::sort(sortedSprites.begin(), sortedSprites.end(),
+		[](const std::pair<int, RenderEntity*>& a, const std::pair<int, RenderEntity*>& b) {
 			return a.first < b.first; // Ascending order of renderOrder
 		});
 
-
-	for (Entity* entity : entities)
-	{
-		if (!entity->IsActive() || entity->isDestroyed) continue;
-
-		ButtonRenderer* buttonRender = (ButtonRenderer*)entity->GetComponent(ComponentType::RENDER_COMPONENT);
-
-		if (buttonRender == nullptr) continue;
-
-		buttonRender->updateComponent();
-	}
+	
 }
 
 void RenderSystem::render(std::vector<Entity*> entities)
 {
-	for (const auto& pair : sortedEntities)
+	
+	// Renders UI's
+	for (RenderEntity* renderEntity : listOfUIRenderer)
 	{
-		Entity* entity = pair.second;
+		if (!renderEntity->entity->IsActive() || renderEntity->entity->isDestroyed) continue;
 
-		if (!entity->IsActive() || entity->isDestroyed) continue;
-		RenderComponent* renderComp = (RenderComponent*)entity->GetComponent(ComponentType::RENDER_COMPONENT);
+		
 
-		if (renderComp == nullptr) continue;
-		if (renderComp->IsUI()) continue;
-
-		renderComp->render();
+		renderEntity->component->render();
 	}
 
-	for (Entity* entity : entities)
+	// Renders sprites
+	for (const auto& pair : sortedSprites)
 	{
-		if (!entity->IsActive() || entity->isDestroyed) continue;
+		RenderEntity* renderEntity = pair.second;
+		RenderComponent* renderComp = renderEntity->component;
 
-		ButtonRenderer* buttonRender = (ButtonRenderer*)entity->GetComponent(ComponentType::RENDER_COMPONENT);
+		if (!renderEntity->entity->IsActive() || renderEntity->entity->isDestroyed) continue;
+	//	RenderComponent* renderComp = (RenderComponent*)entity->GetComponent(ComponentType::RENDER_COMPONENT);
 
-		if (buttonRender == nullptr) continue;
+		if (renderComp == nullptr) continue;
 
-		buttonRender->render();
+		renderComp->render();
 	}
 }
 
 void RenderSystem::cleanups()
 {
-	sortedEntities.clear();
+	sortedSprites.clear();
+	listOfSpriteRenderers.clear();
+	listOfUIRenderer.clear();
 }
+
+void RenderSystem::SubscribeEvents()
+{
+	// If Instantiated on runtime, subscribing when ADDED
+	systemManager->OnEntityAdded.Subscribe([this](Entity* entity)
+		{
+			//Subscribing when the relvant component added to this entity
+			HandleOnEntityAdded(entity);
+			
+
+		});
+
+	systemManager->OnEntityRemoved.Subscribe([&](Entity* entity)
+		{
+			removeEntityFromRenders(entity);
+		});
+}
+
+void RenderSystem::HandleOnEntityAdded(Entity* entity)
+{
+	entity->OnComponentAdded.Subscribe([this, entity](IComponent* component)
+		{
+			if (component->getComponentType() == ComponentType::RENDER_COMPONENT)
+			{
+				addEntityToRenders(entity);
+			}
+		});
+}
+
+void RenderSystem::removeEntityFromRenders(Entity* entity)
+{
+	//Removes UI's
+	for (auto it = listOfUIRenderer.begin(); it != listOfUIRenderer.end(); ++it)
+	{
+		if ((*it)->ID == entity->getID())
+		{
+			delete* it; 
+			listOfUIRenderer.erase(it); 
+			return;
+		}
+	}
+
+	// Removes Sprite 
+	for (auto it = listOfSpriteRenderers.begin(); it != listOfSpriteRenderers.end(); ++it)
+	{
+		if ((*it)->ID == entity->getID())
+		{
+			delete* it;
+			listOfSpriteRenderers.erase(it);
+			return;
+		}
+	}
+
+
+}
+
+void RenderSystem::addEntityToRenders(Entity* entity)
+{
+	RenderComponent* renderComp = (RenderComponent*)entity->GetComponent(ComponentType::RENDER_COMPONENT);
+
+	if (!renderComp) return;
+
+	RenderEntity* renderEntity = new  RenderEntity(entity->getID(), entity, renderComp);
+
+	if (renderComp->IsUI())
+	{
+		listOfUIRenderer.push_back(renderEntity);
+	}
+	else
+	{
+		listOfSpriteRenderers.push_back(renderEntity);
+	}
+
+	if (!renderComp->isStartInvoked)
+	{
+		renderComp->start();
+		renderComp->isStartInvoked = true;
+	}
+}
+
+
+
+

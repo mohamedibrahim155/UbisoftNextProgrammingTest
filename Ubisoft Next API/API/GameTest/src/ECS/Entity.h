@@ -52,6 +52,7 @@ public:
 	bool isDestroyed = false;
 
 	CEvent<> OnDestroyed;
+	CEvent<IComponent*> OnComponentAdded;
 
 private:
 

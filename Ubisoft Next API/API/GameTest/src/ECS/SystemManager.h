@@ -1,6 +1,7 @@
 #pragma once
 #include <unordered_map>
 #include "System.h"
+#include "../Events/Event.h"
 class SystemManager
 {
 
@@ -17,8 +18,14 @@ public:
 	void render();
 	void cleanSystem();
 
-	ISystem* getSystem(eSystemType type);
+	Entity* getEntityByID(EntityID ID);
 	std::vector<Entity*> getEntities() const;
+	ISystem* getSystem(eSystemType type);
+
+
+	CEvent<Entity*> OnEntityAdded;
+	CEvent<Entity*> OnEntityRemoved;
+
 private:
 
 	std::unordered_map<eSystemType, ISystem*> systemsMap;
