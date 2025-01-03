@@ -3,7 +3,7 @@
 #include "Components/Renders/SpriteRenderer.h"
 #include"../src/ECS/EntityManager.h"
 #include "Components/Collider/Collider.h"
-Entity::Entity(EntityID ID) : enitityID(ID)
+Entity::Entity(EntityID ID) : m_entityID(ID)
 {
 	m_sprite = nullptr;
 
@@ -19,12 +19,12 @@ Entity::Entity(const Entity& otherEntity, EntityID ID)
 		addComponent(component->getComponentType(), component->clone());
 	}
 	
-	isActive = otherEntity.isActive;
-	tag = otherEntity.tag + "_copy";
-	enitityID = ID;
-	if (otherEntity.manager)
+	m_isActive = otherEntity.m_isActive;
+	m_tag = otherEntity.m_tag + "_copy";
+	m_entityID = ID;
+	if (otherEntity.m_entityManager)
 	{
-		manager = otherEntity.manager;
+		m_entityManager = otherEntity.m_entityManager;
 		
 	}
 
@@ -38,7 +38,7 @@ Entity::~Entity()
 void Entity::addComponent(ComponentType type,IComponent* component)
 {
 	component->setEntity(this);
-	listOfComponents[type] = component;
+	m_listOfComponents[type] = component;
 
 	//Intial References
 	switch (component->getComponentType())
@@ -67,7 +67,7 @@ void Entity::addComponent(IComponent* component)
 {
 
 	component->setEntity(this);
-	listOfComponents[component->getComponentType()] = component;
+	m_listOfComponents[component->getComponentType()] = component;
 
 
 	//Intial References
@@ -104,11 +104,11 @@ void Entity::addComponents(std::vector<IComponent*> components)
 
 bool Entity::removeComponent(ComponentType type)
 {
-	std::unordered_map<ComponentType, IComponent*> ::iterator it = listOfComponents.find(type);
+	std::unordered_map<ComponentType, IComponent*> ::iterator it = m_listOfComponents.find(type);
 	
-	if (it != listOfComponents.end())
+	if (it != m_listOfComponents.end())
 	{
-		listOfComponents.erase(type);
+		m_listOfComponents.erase(type);
 
 		return true;
 	}
@@ -125,9 +125,9 @@ void Entity::Destroy()
 	setActive(false);
 	isDestroyed = true;
 	cleanUps();
-	if (manager)
+	if (m_entityManager)
 	{
-		manager->removeEntity(enitityID);
+		m_entityManager->removeEntity(m_entityID);
 	}
 	
 
@@ -140,7 +140,7 @@ std::vector<IComponent*> Entity::GetComponents() const
 {
 	std::vector<IComponent*> components;
 
-	for (std::pair<ComponentType, IComponent*> item : listOfComponents)
+	for (std::pair<ComponentType, IComponent*> item : m_listOfComponents)
 	{
 		components.push_back(item.second);
 	}
@@ -149,12 +149,12 @@ std::vector<IComponent*> Entity::GetComponents() const
 
 IComponent* Entity::GetComponent(ComponentType type)
 {
-	return listOfComponents[type];
+	return m_listOfComponents[type];
 }
 
 std::string Entity::getTag() const
 {
-	return tag;
+	return m_tag;
 }
 
 Vector3 Entity::getPosition() 
@@ -171,18 +171,18 @@ Vector3 Entity::getPosition()
 
 bool Entity::IsActive() const
 {
-	return isActive;
+	return m_isActive;
 }
 
 int Entity::getID() const
 {
-	return enitityID;
+	return m_entityID;
 }
 
 
 void Entity::setActive(bool isActive)
 {
-	this->isActive = isActive;
+	this->m_isActive = isActive;
 
 	
 	std::vector<IComponent*> componentList = GetComponents();
@@ -191,7 +191,7 @@ void Entity::setActive(bool isActive)
 	{
 		if (!component) continue;
 
-		if (component->isComponentEnabled)
+		if (component->m_isEnabled)
 		{
 			component->setEnabled(isActive);
 		}
@@ -201,12 +201,12 @@ void Entity::setActive(bool isActive)
 
 void Entity::setTag(const std::string& tag)
 {
-	this->tag = tag;
+	this->m_tag = tag;
 }
 
 void Entity::setID(int ID)
 {
-	this->enitityID = ID;
+	this->m_entityID = ID;
 }
 
 void Entity::setPosition(const Vector3& position)
@@ -245,7 +245,7 @@ void Entity::setScale(const Vector2& scale)
 
 void Entity::cleanUps()
 {
-	for (std::pair<ComponentType, IComponent*> item : listOfComponents)
+	for (std::pair<ComponentType, IComponent*> item : m_listOfComponents)
 	{
 		if (item.second)
 		{
@@ -253,6 +253,6 @@ void Entity::cleanUps()
 		}
 	}
 	
-	listOfComponents.clear();
+	m_listOfComponents.clear();
 
 }

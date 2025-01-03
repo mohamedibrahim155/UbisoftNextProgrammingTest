@@ -33,9 +33,9 @@ public:
 
 protected:
 
-	 Vector3 color;
-	 CSimpleSprite* sprite;
-	 int spriteOrder = 0;
+	 Vector3 m_color;
+	 CSimpleSprite* m_sprite;
+	 int m_spriteOrder = 0;
 
 	 CSimpleSprite* createSprite(std::string filename, int colum, int row);
 

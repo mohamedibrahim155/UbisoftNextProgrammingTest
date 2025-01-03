@@ -16,15 +16,15 @@ public:
 	void removeEntity(EntityID ID);
 	void clean();
 
-	inline unsigned int getEntitiesCount() { return entityCount;  }
-	inline SystemManager* getSystemManager() { return systemManager; }
+	inline unsigned int getEntitiesCount() { return m_entityCount;  }
+	inline SystemManager* getSystemManager() { return m_systemManager; }
 private:
 
-	int entityCount = 0;
-	std::unordered_map <EntityID, Entity*> entitiesMap;
-	std::vector<Entity*> listOfEntites;
+	int m_entityCount = 0;
+	std::unordered_map <EntityID, Entity*> m_entitiesMap;
+	std::vector<Entity*> m_listOfEntites;
 
 
-	SystemManager* systemManager;
+	SystemManager* m_systemManager;
 };
 

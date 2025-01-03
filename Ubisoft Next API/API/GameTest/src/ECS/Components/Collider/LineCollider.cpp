@@ -3,8 +3,8 @@
 
 LineCollider::LineCollider(const Vector2& startpoint, const Vector2& endpoint) : Collider(eShape::LINE)
 {
-	m_line.startPoint = startpoint + center;
-	m_line.endPoint = endpoint + center;
+	m_line.startPoint = startpoint + m_center;
+	m_line.endPoint = endpoint + m_center;
 }
 
 SBox LineCollider::getBounds()
@@ -17,15 +17,15 @@ SBox LineCollider::getBounds()
 	box.minimum = line.startPoint;
 	box.maximum = line.endPoint;
 
-	box.minimum.x *= mScale.x;
-	box.minimum.y *= mScale.y;
+	box.minimum.x *= m_scale.x;
+	box.minimum.y *= m_scale.y;
 
-	box.maximum.x *= mScale.x;
-	box.maximum.y *= mScale.y;
+	box.maximum.x *= m_scale.x;
+	box.maximum.y *= m_scale.y;
 
 
-	box.minimum = box.minimum + offset;
-	box.maximum = box.maximum + offset;
+	box.minimum = box.minimum + m_offset;
+	box.maximum = box.maximum + m_offset;
 
 
 	return box;
@@ -58,14 +58,14 @@ SLine LineCollider::getLine()
 {
 	SLine line = m_line;
 
-	line.startPoint.x *= mScale.x;
-	line.startPoint.y *= mScale.y;
+	line.startPoint.x *= m_scale.x;
+	line.startPoint.y *= m_scale.y;
 
-	line.endPoint.x *= mScale.x;
-	line.endPoint.y *= mScale.y;
+	line.endPoint.x *= m_scale.x;
+	line.endPoint.y *= m_scale.y;
 
-	line.startPoint = line.startPoint + offset;
-	line.endPoint = line.endPoint + offset;
+	line.startPoint = line.startPoint + m_offset;
+	line.endPoint = line.endPoint + m_offset;
 
 
 	return line;

@@ -3,82 +3,82 @@
 
 void SystemManager::registerSystem(ISystem* system)
 {
-    system->systemManager = this;
-    systemsMap[system->systemType] = system;
+    system->m_systemManager = this;
+    m_systemsMap[system->m_systemType] = system;
 }
 
 void SystemManager::removeSystem(ISystem* system)
 {
-    systemsMap.erase(system->systemType);
+    m_systemsMap.erase(system->m_systemType);
 }
 
 void SystemManager::addEntity(Entity* entity)
 {
-    entitiesMap[entity->getID()] =  entity;
+    m_entitiesMap[entity->getID()] =  entity;
 
-    listOfEntities.push_back(entity);
+    m_listOfEntities.push_back(entity);
 
     OnEntityAdded.Invoke(entity);
 }
 
 void SystemManager::removeEntity(EntityID ID)
 {
-    OnEntityRemoved.Invoke(entitiesMap[ID]);
+    OnEntityRemoved.Invoke(m_entitiesMap[ID]);
 
-    entitiesMap.erase(ID);
+    m_entitiesMap.erase(ID);
 }
 
 void SystemManager::cleanSystem()
 {
-    for (std::pair<eSystemType, ISystem*> system : systemsMap)
+    for (std::pair<eSystemType, ISystem*> system : m_systemsMap)
     {
         system.second->cleanups();
 
         delete  system.second;
     }
 
-    systemsMap.clear();
-    entitiesMap.clear();
-    listOfEntities.clear();
+    m_systemsMap.clear();
+    m_entitiesMap.clear();
+    m_listOfEntities.clear();
     OnEntityAdded.clear();
     OnEntityRemoved.clear();
 }
 
 ISystem* SystemManager::getSystem(eSystemType type)
 {
-    return systemsMap[type];
+    return m_systemsMap[type];
 }
 
 Entity* SystemManager::getEntityByID(EntityID ID)
 {
-    return entitiesMap[ID];
+    return m_entitiesMap[ID];
 }
 
 std::vector<Entity*> SystemManager::getEntities() const
 {
-    return listOfEntities;
+    return m_listOfEntities;
 }
 
 void SystemManager::start()
 {
-    for (std::pair<eSystemType, ISystem*> system : systemsMap)
+    for (std::pair<eSystemType, ISystem*> system : m_systemsMap)
     {
-        system.second->start(listOfEntities);
+        system.second->start(m_listOfEntities);
     }
 }
 
 void SystemManager::updateSystems(float deltaTime)
 {
-    for (std::pair<eSystemType, ISystem*> system: systemsMap)
+    for (std::pair<eSystemType, ISystem*> system: m_systemsMap)
     {
-        system.second->update(listOfEntities, deltaTime);
+        system.second->update(m_listOfEntities, deltaTime);
     }
 }
 
 void SystemManager::render()
 {
-    for (std::pair<eSystemType, ISystem*> system : systemsMap)
+    for (std::pair<eSystemType, ISystem*> system : m_systemsMap)
     {
-        system.second->render(listOfEntities);
+        system.second->render(m_listOfEntities);
     }
 }

@@ -24,7 +24,7 @@ void PhysicsSystem::start(std::vector<Entity*> entities)
 
 void PhysicsSystem::subscribeEvents()
 {
-	systemManager->OnEntityAdded.Subscribe([this](Entity* entity)
+	m_systemManager->OnEntityAdded.Subscribe([this](Entity* entity)
 		{
 			entity->OnComponentAdded.Subscribe([this, entity](IComponent* component)
 				{
@@ -32,7 +32,7 @@ void PhysicsSystem::subscribeEvents()
 				});
 		});
 
-	systemManager->OnEntityRemoved.Subscribe([this](Entity* entity)
+	m_systemManager->OnEntityRemoved.Subscribe([this](Entity* entity)
 		{
 			removePhysicsObject(entity);
 		});

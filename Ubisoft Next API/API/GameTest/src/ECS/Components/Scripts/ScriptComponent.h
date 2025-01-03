@@ -1,10 +1,10 @@
 #pragma once
 #include "../../Component.h"
-class ScriptComponentBase :  public IComponent
+class BaseScriptComponent :  public IComponent
 {
 public:
-	ScriptComponentBase() : IComponent(ComponentType::SCRIPT_COMPONENT){};
-	virtual ~ScriptComponentBase() {};
+	BaseScriptComponent() : IComponent(ComponentType::SCRIPT_COMPONENT){};
+	virtual ~BaseScriptComponent() {};
 
 	// Inherited via IComponent
 	virtual void start() {};
@@ -12,9 +12,9 @@ public:
 	virtual void render() {};
 
 	// Inherited via IComponent
-	virtual ScriptComponentBase* clone() const override
+	virtual BaseScriptComponent* clone() const override
 	{
-		return new ScriptComponentBase();
+		return new BaseScriptComponent();
 	};
 };
 

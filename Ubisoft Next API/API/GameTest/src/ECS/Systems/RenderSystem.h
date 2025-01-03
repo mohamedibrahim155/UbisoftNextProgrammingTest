@@ -47,8 +47,8 @@ private:
 	void SubscribeEvents();
 	void HandleOnEntityAdded(Entity* entity);
 
-	std::vector<std::pair<int, RenderEntity*>> sortedSprites;
-	std::vector<RenderEntity*> listOfUIRenderer;
-	std::vector<RenderEntity*> listOfSpriteRenderers;
+	std::vector<std::pair<int, RenderEntity*>> m_sortedSprites;
+	std::vector<RenderEntity*> m_listOfUIRenderer;
+	std::vector<RenderEntity*> m_listOfSpriteRenderers;
 };
 

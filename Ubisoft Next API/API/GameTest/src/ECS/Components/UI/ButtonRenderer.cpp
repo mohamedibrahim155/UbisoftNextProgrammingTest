@@ -23,7 +23,7 @@ void ButtonRenderer::start()
 
 void ButtonRenderer::updateComponent()
 {
-    if (!isComponentEnabled) return;
+    if (!m_isEnabled) return;
 
 #pragma region ButtonValidate
 
@@ -70,7 +70,7 @@ void ButtonRenderer::updateComponent()
 
 void ButtonRenderer::render()
 {
-    if (!isComponentEnabled) return;
+    if (!m_isEnabled) return;
 
     // Render Sprite
     SpriteRenderer::render();
@@ -78,11 +78,11 @@ void ButtonRenderer::render()
 
 
     // Draw Mouse Circle
-    DrawCircle(mousCircle.centre.x, mousCircle.centre.y, mousCircle.radius, 36, debugColor);
+    DrawCircle(mousCircle.centre.x, mousCircle.centre.y, mousCircle.radius, 36, m_debugColor);
     
     // Render BoxCollider if enabled
 
-    if (boxCollider && boxCollider->isComponentEnabled)
+    if (boxCollider && boxCollider->m_isEnabled)
     {
         boxCollider->render();
     }
@@ -94,7 +94,7 @@ void ButtonRenderer::render()
 
 ButtonRenderer* ButtonRenderer::clone() const
 {
-    return new ButtonRenderer(this->fileName);
+    return new ButtonRenderer(this->m_fileName);
 }
 
 

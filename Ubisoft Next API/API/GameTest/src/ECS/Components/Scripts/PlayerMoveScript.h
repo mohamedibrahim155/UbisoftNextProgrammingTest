@@ -3,7 +3,7 @@
 #include "../src/ECS/Components/Renders/SpriteSheetRenderer.h"
 
 
-class PlayerMoveScript :public ScriptComponentBase
+class PlayerMoveScript :public BaseScriptComponent
 {
 public:
 	PlayerMoveScript();
@@ -13,7 +13,7 @@ public:
 	 void updateComponent()  override;
 	 void render() override;
 
-	 SpriteSheetRenderer* spriteSheet;
+	 SpriteSheetRenderer* m_spriteSheet;
 
 	 // Inherited via ScriptComponent
 	 PlayerMoveScript* clone() const override;

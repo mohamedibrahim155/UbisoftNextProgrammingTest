@@ -21,7 +21,7 @@ void RenderSystem::update(std::vector<Entity*> entities, float deltaTime)
 
 
 	//Updates UI
-	for (RenderEntity* renderEntity : listOfUIRenderer)
+	for (RenderEntity* renderEntity : m_listOfUIRenderer)
 	{
 		if (!renderEntity->entity->IsActive() || renderEntity->entity->isDestroyed) continue;
 
@@ -29,18 +29,18 @@ void RenderSystem::update(std::vector<Entity*> entities, float deltaTime)
 	}
 
 
-	sortedSprites.clear();
+	m_sortedSprites.clear();
 	// updates sprites
-	for (RenderEntity* renderEntity : listOfSpriteRenderers )
+	for (RenderEntity* renderEntity : m_listOfSpriteRenderers )
 	{
 		if (!renderEntity->entity->IsActive() || renderEntity->entity->isDestroyed) continue;
 
-		sortedSprites.emplace_back(renderEntity->component->renderOrder(), renderEntity);
+		m_sortedSprites.emplace_back(renderEntity->component->renderOrder(), renderEntity);
 
 		renderEntity->component->updateComponent();
 	}
 
-	std::sort(sortedSprites.begin(), sortedSprites.end(),
+	std::sort(m_sortedSprites.begin(), m_sortedSprites.end(),
 		[](const std::pair<int, RenderEntity*>& a, const std::pair<int, RenderEntity*>& b) {
 			return a.first < b.first; // Ascending order of renderOrder
 		});
@@ -52,7 +52,7 @@ void RenderSystem::render(std::vector<Entity*> entities)
 {
 	
 	// Renders UI's
-	for (RenderEntity* renderEntity : listOfUIRenderer)
+	for (RenderEntity* renderEntity : m_listOfUIRenderer)
 	{
 		if (!renderEntity->entity->IsActive() || renderEntity->entity->isDestroyed) continue;
 
@@ -62,7 +62,7 @@ void RenderSystem::render(std::vector<Entity*> entities)
 	}
 
 	// Renders sprites
-	for (const auto& pair : sortedSprites)
+	for (const auto& pair : m_sortedSprites)
 	{
 		RenderEntity* renderEntity = pair.second;
 		RenderComponent* renderComp = renderEntity->component;
@@ -78,15 +78,15 @@ void RenderSystem::render(std::vector<Entity*> entities)
 
 void RenderSystem::cleanups()
 {
-	sortedSprites.clear();
-	listOfSpriteRenderers.clear();
-	listOfUIRenderer.clear();
+	m_sortedSprites.clear();
+	m_listOfSpriteRenderers.clear();
+	m_listOfUIRenderer.clear();
 }
 
 void RenderSystem::SubscribeEvents()
 {
 	// If Instantiated on runtime, subscribing when ADDED
-	systemManager->OnEntityAdded.Subscribe([this](Entity* entity)
+	m_systemManager->OnEntityAdded.Subscribe([this](Entity* entity)
 		{
 			//Subscribing when the relvant component added to this entity
 			HandleOnEntityAdded(entity);
@@ -94,7 +94,7 @@ void RenderSystem::SubscribeEvents()
 
 		});
 
-	systemManager->OnEntityRemoved.Subscribe([&](Entity* entity)
+	m_systemManager->OnEntityRemoved.Subscribe([&](Entity* entity)
 		{
 			removeEntityFromRenders(entity);
 		});
@@ -114,23 +114,23 @@ void RenderSystem::HandleOnEntityAdded(Entity* entity)
 void RenderSystem::removeEntityFromRenders(Entity* entity)
 {
 	//Removes UI's
-	for (auto it = listOfUIRenderer.begin(); it != listOfUIRenderer.end(); ++it)
+	for (auto it = m_listOfUIRenderer.begin(); it != m_listOfUIRenderer.end(); ++it)
 	{
 		if ((*it)->ID == entity->getID())
 		{
 			delete* it; 
-			listOfUIRenderer.erase(it); 
+			m_listOfUIRenderer.erase(it); 
 			return;
 		}
 	}
 
 	// Removes Sprite 
-	for (auto it = listOfSpriteRenderers.begin(); it != listOfSpriteRenderers.end(); ++it)
+	for (auto it = m_listOfSpriteRenderers.begin(); it != m_listOfSpriteRenderers.end(); ++it)
 	{
 		if ((*it)->ID == entity->getID())
 		{
 			delete* it;
-			listOfSpriteRenderers.erase(it);
+			m_listOfSpriteRenderers.erase(it);
 			return;
 		}
 	}
@@ -148,17 +148,17 @@ void RenderSystem::addEntityToRenders(Entity* entity)
 
 	if (renderComp->IsUI())
 	{
-		listOfUIRenderer.push_back(renderEntity);
+		m_listOfUIRenderer.push_back(renderEntity);
 	}
 	else
 	{
-		listOfSpriteRenderers.push_back(renderEntity);
+		m_listOfSpriteRenderers.push_back(renderEntity);
 	}
 
-	if (!renderComp->isStartInvoked)
+	if (!renderComp->m_isStartInvoked)
 	{
 		renderComp->start();
-		renderComp->isStartInvoked = true;
+		renderComp->m_isStartInvoked = true;
 	}
 }
 

@@ -46,7 +46,7 @@ public:
 	Transform transform;
 	SpriteRenderer* m_sprite;
 
-	EntityManager* manager;
+	EntityManager* m_entityManager;
 
 
 	bool isDestroyed = false;
@@ -56,11 +56,11 @@ public:
 
 private:
 
-	bool isActive = true;
-	EntityID enitityID;
+	bool m_isActive = true;
+	EntityID m_entityID;
 
-	std::string tag = "Unkown";
-	std::unordered_map<ComponentType,IComponent*> listOfComponents;
+	std::string m_tag = "Unkown";
+	std::unordered_map<ComponentType,IComponent*> m_listOfComponents;
 
 
 

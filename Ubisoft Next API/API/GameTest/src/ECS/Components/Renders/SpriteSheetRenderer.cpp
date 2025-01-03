@@ -4,10 +4,10 @@
 #include "App/app.h"
 SpriteSheetRenderer::SpriteSheetRenderer(std::string filename, int column, int row) 
 	: SpriteRenderer(filename), 
-	column(column),
-	row(row)
+	m_column(column),
+	m_row(row)
 {
-	this->sprite = createSprite(filename, column, row);
+	this->m_sprite = createSprite(filename, column, row);
 }
 
 
@@ -16,12 +16,12 @@ SpriteSheetRenderer::SpriteSheetRenderer(std::string filename, int column, int r
 
 SpriteSheetRenderer::SpriteSheetRenderer(std::string filename, int column, int row, int spriteOrder)
 	: SpriteRenderer(filename) ,
-	column(column),
-	row(row)
+	m_column(column),
+	m_row(row)
 {
-	this->spriteOrder = spriteOrder;
+	this->m_spriteOrder = spriteOrder;
 
-	this->sprite = createSprite(filename, column, row);
+	this->m_sprite = createSprite(filename, column, row);
 }
 
 SpriteSheetRenderer::~SpriteSheetRenderer()
@@ -45,17 +45,17 @@ void SpriteSheetRenderer::render()
 
 SpriteSheetRenderer* SpriteSheetRenderer::clone() const
 {
-	return new SpriteSheetRenderer(this->fileName,this->column, this->row);
+	return new SpriteSheetRenderer(this->m_fileName,this->m_column, this->m_row);
 }
 
 void SpriteSheetRenderer::setAnimation(int ID, bool playfromBeginning)
 {
-	sprite->SetAnimation(ID, playfromBeginning);
+	m_sprite->SetAnimation(ID, playfromBeginning);
 }
 
 void SpriteSheetRenderer::createAnimation(unsigned int ID, float speed, const std::vector<int>& frames)
 {
-	sprite->CreateAnimation(ID, speed, frames);
+	m_sprite->CreateAnimation(ID, speed, frames);
 }
 
 

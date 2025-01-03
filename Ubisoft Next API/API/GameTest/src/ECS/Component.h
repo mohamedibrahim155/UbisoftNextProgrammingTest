@@ -30,23 +30,22 @@ public:
 	void setEnabled(bool state);
 	void setUI(bool isUI);
 
-	bool IsUI() const { return isUI; }
+	bool IsUI() const { return m_isUI; }
 	ComponentType getComponentType();
 	Entity* getEntity() const;
 
 
 	int componentID;
-	bool isComponentEnabled = true;
-	bool isStartInvoked = false;
+	bool m_isEnabled = true;
+	bool m_isStartInvoked = false;
 	
 
 
 
 
 protected:
+	bool m_isUI = false;
 	Entity* gameObject;
-	bool isUI = false;
-
-	Vector3 debugColor{ 0,1,0 };
+	Vector3 m_debugColor{ 0,1,0 };
 };
 

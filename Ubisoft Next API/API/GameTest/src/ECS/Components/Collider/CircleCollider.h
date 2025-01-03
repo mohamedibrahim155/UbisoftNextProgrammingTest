@@ -15,17 +15,17 @@ public:
      void updateComponent() override {};
      void render()  override;
      CircleCollider* clone() const override;
-     void setRadius(float radius) { m_Circle.radius = radius; };
+     void setRadius(float radius) { m_circle.radius = radius; };
 
-     float getRadius() const { return m_Circle.radius; };
+     float getRadius() const { return m_circle.radius; };
 
      SCircle getCircle();
 protected:
 
-    float width;
-    float height;
+    float m_width;
+    float m_height;
 
-    SCircle m_Circle;
+    SCircle m_circle;
 
     // Inherited via Collider
     SBox getBounds() override;

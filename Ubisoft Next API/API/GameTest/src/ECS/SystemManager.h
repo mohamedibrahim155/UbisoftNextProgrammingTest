@@ -28,10 +28,10 @@ public:
 
 private:
 
-	std::unordered_map<eSystemType, ISystem*> systemsMap;
+	std::unordered_map<eSystemType, ISystem*> m_systemsMap;
 
-	std::unordered_map<EntityID,Entity*> entitiesMap;
-	std::vector<Entity*> listOfEntities;
+	std::unordered_map<EntityID,Entity*> m_entitiesMap;
+	std::vector<Entity*> m_listOfEntities;
 
 };
 

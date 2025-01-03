@@ -8,10 +8,10 @@
 
 SpriteRenderer::SpriteRenderer(std::string filename, bool createSprite) : RenderComponent(filename)
 {
-	offset = Vector2::Zero();
+	m_offset = Vector2::Zero();
 
 	if (createSprite)
-		sprite = this->createSprite(filename, 1, 1);
+		m_sprite = this->createSprite(filename, 1, 1);
 
 }
 SpriteRenderer::SpriteRenderer(std::string filename, Vector2 offset) :
@@ -19,22 +19,22 @@ SpriteRenderer::SpriteRenderer(std::string filename, Vector2 offset) :
 
 
 {
-	this->offset = offset;
-	spriteOrder = 0;
-	sprite = createSprite(filename,1,1);
+	this->m_offset = offset;
+	m_spriteOrder = 0;
+	m_sprite = createSprite(filename,1,1);
 }
 
 SpriteRenderer::SpriteRenderer(std::string filename, Vector2 offset, int order) : 
 	RenderComponent(filename)
 
 {
-	this->offset = offset;
-	spriteOrder = order;
-	sprite = createSprite(filename, 1, 1);
+	this->m_offset = offset;
+	m_spriteOrder = order;
+	m_sprite = createSprite(filename, 1, 1);
 }
 SpriteRenderer::~SpriteRenderer()
 {
-	delete sprite;
+	delete m_sprite;
 }
 
 void SpriteRenderer::start()
@@ -44,86 +44,86 @@ void SpriteRenderer::start()
 
 void SpriteRenderer::updateComponent()
 {
-	if (!isComponentEnabled) return;
+	if (!m_isEnabled) return;
 
-	sprite->Update(Timer::GetInstance().deltaTime * 1000);
+	m_sprite->Update(Timer::GetInstance().deltaTime * 1000);
 
 }
 
 void SpriteRenderer::render()
 {
-	if (!isComponentEnabled) return;
+	if (!m_isEnabled) return;
 
-	sprite->Draw();
+	m_sprite->Draw();
 	
 }
 
 int SpriteRenderer::renderOrder()
 {
-	return spriteOrder;
+	return m_spriteOrder;
 }
 
 void SpriteRenderer::setColor(const Vector3&  color)
 {
-	if (sprite == nullptr) return;
+	if (m_sprite == nullptr) return;
 
-	sprite->SetColor(color.x, color.y, color.y);
+	m_sprite->SetColor(color.x, color.y, color.y);
 }
 
 void SpriteRenderer::setColor(const float& r, const float& g, const float& b)
 {
-	if (sprite == nullptr) return;
-	sprite->SetColor(r, g, b);
+	if (m_sprite == nullptr) return;
+	m_sprite->SetColor(r, g, b);
 }
 
 void SpriteRenderer::setPosition(const Vector3&  position)
 {
-	Vector3 adjustedPosition = Vector3(centerScreen.x, centerScreen.y, 0);
+	Vector3 adjustedPosition = Vector3(m_centerScreen.x, m_centerScreen.y, 0);
 
-	adjustedPosition +=  (position + offset);
+	adjustedPosition +=  (position + m_offset);
 
-	sprite->SetPosition(adjustedPosition.x, adjustedPosition.y);
+	m_sprite->SetPosition(adjustedPosition.x, adjustedPosition.y);
 }
 
 void SpriteRenderer::setRotation(const float& rotationY)
 {
-	sprite->SetAngle(rotationY);
+	m_sprite->SetAngle(rotationY);
 }
 
 void SpriteRenderer::setOffset(const Vector2& offset)
 {
-	this->offset = offset;
+	this->m_offset = offset;
 }
 
 void SpriteRenderer::setScale(const Vector2& scale)
 {
 	float max = MathF::Max(scale.x, scale.y);
-	sprite->SetScale(max);
+	m_sprite->SetScale(max);
 }
 
 void SpriteRenderer::setOrder(int order)
 {
-	spriteOrder = order;
+	m_spriteOrder = order;
 }
 
 int SpriteRenderer::getSpriteOrder() const
 {
-	return spriteOrder;
+	return m_spriteOrder;
 }
 
 Vector3 SpriteRenderer::getColor() const
 {
-	return color;
+	return m_color;
 }
 
 CSimpleSprite* SpriteRenderer::getSprite() const
 {
-	return sprite;
+	return m_sprite;
 }
 
 std::string SpriteRenderer::getFileName() const
 {
-	return fileName;
+	return m_fileName;
 }
 
 CSimpleSprite* SpriteRenderer::createSprite(std::string filename, int column, int rows)
@@ -133,5 +133,5 @@ CSimpleSprite* SpriteRenderer::createSprite(std::string filename, int column, in
 
 SpriteRenderer* SpriteRenderer::clone() const
 {
-	return new SpriteRenderer(this->fileName,this->offset);
+	return new SpriteRenderer(this->m_fileName,this->m_offset);
 }

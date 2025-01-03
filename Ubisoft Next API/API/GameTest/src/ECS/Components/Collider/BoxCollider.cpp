@@ -3,8 +3,8 @@
 
 BoxCollider::BoxCollider() : Collider(eShape::BOX)
 {
-	mBox.minimum = { -1, -1 };
-	mBox.maximum = { 1, 1 };
+	m_box.minimum = { -1, -1 };
+	m_box.maximum = { 1, 1 };
 }
 
 BoxCollider::BoxCollider(SpriteRenderer* spriteRenderer)
@@ -12,8 +12,8 @@ BoxCollider::BoxCollider(SpriteRenderer* spriteRenderer)
 {
 
 	this->spriteRenderer = spriteRenderer;
-	mBox.minimum = { -1, -1 };
-	mBox.maximum = { 1, 1 };
+	m_box.minimum = { -1, -1 };
+	m_box.maximum = { 1, 1 };
 
 	calculateShape();
 }
@@ -31,27 +31,27 @@ void BoxCollider::calculateShape()
 
 	if (spriteRenderer)
 	{
-		width = spriteRenderer->getSprite()->GetWidth();
-		height = spriteRenderer->getSprite()->GetHeight();
+		m_width = spriteRenderer->getSprite()->GetWidth();
+		m_height = spriteRenderer->getSprite()->GetHeight();
 	}
 
-	float extendX = width * 0.5f;
-	float extendY = height * 0.5f;
+	float extendX = m_width * 0.5f;
+	float extendY = m_height * 0.5f;
 
-	mBox.minimum = { -extendX, -extendY };
-	mBox.maximum = { extendX, extendY };
+	m_box.minimum = { -extendX, -extendY };
+	m_box.maximum = { extendX, extendY };
 
 }
 
 SBox BoxCollider::getBox()
 {
-	SBox box = this->mBox;
+	SBox box = this->m_box;
 
-	box.minimum.x *= mScale.x;
-	box.minimum.y *= mScale.y;
+	box.minimum.x *= m_scale.x;
+	box.minimum.y *= m_scale.y;
 
-	box.maximum.x *= mScale.x;
-	box.maximum.y *= mScale.y;
+	box.maximum.x *= m_scale.x;
+	box.maximum.y *= m_scale.y;
 
 	if (transform)
 	{
@@ -62,15 +62,15 @@ SBox BoxCollider::getBox()
 		box.maximum.y *= transform->scale.y;
 		
 		
-		box.minimum.x += transform->position.x  + center.x;
-		box.minimum.y += transform->position.y  + center.y;
+		box.minimum.x += transform->position.x  + m_center.x;
+		box.minimum.y += transform->position.y  + m_center.y;
 		
-		box.maximum.x += transform->position.x + center.x;
-		box.maximum.y += transform->position.y + center.y;
+		box.maximum.x += transform->position.x + m_center.x;
+		box.maximum.y += transform->position.y + m_center.y;
 	}
 
-	box.minimum = box.minimum + offset;
-	box.maximum = box.maximum + offset;
+	box.minimum = box.minimum + m_offset;
+	box.maximum = box.maximum + m_offset;
 
 
 	return box;

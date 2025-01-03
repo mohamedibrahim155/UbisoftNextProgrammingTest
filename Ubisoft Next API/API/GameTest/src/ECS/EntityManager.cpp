@@ -1,59 +1,58 @@
 #include "stdafx.h"
 #include "EntityManager.h"
 
-EntityManager::EntityManager(SystemManager* manager) : systemManager(manager)
+EntityManager::EntityManager(SystemManager* manager) : m_systemManager(manager)
 {
-    entityCount = 0;
+    m_entityCount = 0;
 }
 
 Entity* EntityManager::createEntity()
 {
-    entityCount++;
-    Entity* newEntity = new Entity(entityCount);
-    //newEntity->AddComponent(new Transform());
+    m_entityCount++;
+    Entity* newEntity = new Entity(m_entityCount);
     addEntity(newEntity);
     return  newEntity;
 }
 
 Entity* EntityManager::createEntityFromCopy(Entity* entity)
 {
-    entityCount++;
-    Entity* newEntity = new Entity(*entity,entityCount);
+    m_entityCount++;
+    Entity* newEntity = new Entity(*entity,m_entityCount);
     addEntity(newEntity);
     return newEntity;
 }
 
 Entity* EntityManager::getEntityByID(EntityID ID)
 {
-    return  entitiesMap[ID];
+    return  m_entitiesMap[ID];
 }
 
 void EntityManager::addEntity( Entity* entity)
 {
-    entity->manager = this;
+    entity->m_entityManager = this;
 
-    entitiesMap[entity->getID()] = entity;
+    m_entitiesMap[entity->getID()] = entity;
 
-    systemManager->addEntity(entity);
+    m_systemManager->addEntity(entity);
 }
 
 void EntityManager::removeEntity(EntityID ID)
 {
-    systemManager->removeEntity(ID);
+    m_systemManager->removeEntity(ID);
 
-    delete entitiesMap[ID];
+    delete m_entitiesMap[ID];
 
-    entitiesMap.erase(ID);
+    m_entitiesMap.erase(ID);
 
 }
 
 void EntityManager::clean()
 {
-    for ( auto it = entitiesMap.begin(); it != entitiesMap.end(); )
+    for ( auto it = m_entitiesMap.begin(); it != m_entitiesMap.end(); )
     {
         removeEntity(it->first);
-        it = entitiesMap.begin();
+        it = m_entitiesMap.begin();
     }
 
-    entitiesMap.clear();
+    m_entitiesMap.clear();
 }

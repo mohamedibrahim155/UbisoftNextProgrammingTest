@@ -13,14 +13,14 @@ public:
 	void render(std::vector<Entity*> entities) override;
 	void cleanups() override;
 
-	std::vector<ScriptComponentBase*> getScripts() const;
+	std::vector<BaseScriptComponent*> getScripts() const;
 
 private:
 
 	void addScript(Entity* entity);
 	void removeScript(Entity* entity);
 
-	std::vector<std::pair<Entity*,ScriptComponentBase*>> listofScripts;
+	std::vector<std::pair<Entity*,BaseScriptComponent*>> m_listofScripts;
 
 };
 

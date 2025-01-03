@@ -6,7 +6,7 @@ IComponent::IComponent(ComponentType type)
 {
 	componentID = (int)type;
 	gameObject = nullptr;
-	isComponentEnabled = true;
+	m_isEnabled = true;
 }
 
 ComponentType IComponent::getComponentType()
@@ -26,10 +26,10 @@ void IComponent::setEntity(Entity* entity)
 
 void IComponent::setEnabled(bool state)
 {
-	isComponentEnabled = state;
+	m_isEnabled = state;
 }
 
 void IComponent::setUI(bool isUI)
 {
-	this->isUI = isUI;
+	this->m_isUI = isUI;
 }

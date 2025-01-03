@@ -21,9 +21,9 @@ public:
 	virtual RenderComponent* clone() const = 0;
 
 protected:
-	std::string fileName;
-	Vector2 centerScreen;
-	Vector2 offset;
+	std::string m_fileName;
+	Vector2 m_centerScreen;
+	Vector2 m_offset;
 
 	
 };

@@ -73,25 +73,25 @@ public:
 	virtual void render() {};
 	virtual Collider* clone() const override =0;
 
-	virtual eShape GetShapeType() const { return shape; };
+	virtual eShape GetShapeType() const { return m_shape; };
 	virtual SBox getBounds() = 0;
 	virtual void calculateShape() = 0;
 
-	bool IsTrigger() const { return isTrigger; };
+	bool IsTrigger() const { return m_isTrigger; };
 
 	void SetTrigger(bool trigger);
 
 protected:
 
-	bool isTrigger = false;
-	eShape shape;
+	bool m_isTrigger = false;
+	eShape m_shape;
 
 	Transform* transform = nullptr;
 	SpriteRenderer* spriteRenderer = nullptr;
 
-	Vector2  offset;
-	Vector2 center;
-	Vector2 mScale{ 1,1 };
+	Vector2  m_offset;
+	Vector2 m_center;
+	Vector2 m_scale{ 1,1 };
 
 
 

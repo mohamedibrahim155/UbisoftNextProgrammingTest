@@ -6,25 +6,25 @@
 
 RenderComponent::RenderComponent(std::string filename, Vector2 position) : 
 	IComponent(ComponentType::RENDER_COMPONENT), 
-    fileName(filename)
+    m_fileName(filename)
 {
 
-	centerScreen = Vector2(APP_VIRTUAL_WIDTH / 2, APP_VIRTUAL_HEIGHT / 2);
+	m_centerScreen = Vector2(APP_VIRTUAL_WIDTH / 2, APP_VIRTUAL_HEIGHT / 2);
 
-	offset = position;
+	m_offset = position;
 
 }
 
 RenderComponent::RenderComponent(Vector2 offsetPosition) :IComponent(ComponentType::RENDER_COMPONENT)
 {
-	centerScreen = Vector2(APP_VIRTUAL_WIDTH / 2, APP_VIRTUAL_HEIGHT / 2);
-	offset = offsetPosition;
+	m_centerScreen = Vector2(APP_VIRTUAL_WIDTH / 2, APP_VIRTUAL_HEIGHT / 2);
+	m_offset = offsetPosition;
 }
 RenderComponent::RenderComponent( std::string filename) : 
 	IComponent(ComponentType::RENDER_COMPONENT), 
-    fileName(filename)
+    m_fileName(filename)
 {
-	centerScreen = Vector2(APP_VIRTUAL_WIDTH / 2, APP_VIRTUAL_HEIGHT / 2);
+	m_centerScreen = Vector2(APP_VIRTUAL_WIDTH / 2, APP_VIRTUAL_HEIGHT / 2);
 
 }
 

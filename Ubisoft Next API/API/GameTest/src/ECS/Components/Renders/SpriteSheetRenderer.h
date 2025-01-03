@@ -15,8 +15,8 @@ public:
 
 protected:
 
-	int column;
-	int row;
+	int m_column;
+	int m_row;
 
 };
 

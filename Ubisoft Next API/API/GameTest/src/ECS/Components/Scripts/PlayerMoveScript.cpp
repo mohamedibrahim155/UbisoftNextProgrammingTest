@@ -4,7 +4,7 @@
 #include "../App/app.h"
 #include "../src/ECS/EntityManager.h"
 #include "../src/Utils/PhysicsUtils.h"
-PlayerMoveScript::PlayerMoveScript() : ScriptComponentBase()
+PlayerMoveScript::PlayerMoveScript() : BaseScriptComponent()
 {
 }
 
@@ -17,11 +17,11 @@ void PlayerMoveScript::start()
 	
 	//gameObject->AddComponent(new SpriteSheetRenderer(ASSET_PATH + "IdleBLUE- 150ms - 32x32.png",6,1));
 
-	spriteSheet = (SpriteSheetRenderer*)gameObject->GetComponent(ComponentType::RENDER_COMPONENT);
+	m_spriteSheet = (SpriteSheetRenderer*)gameObject->GetComponent(ComponentType::RENDER_COMPONENT);
 
 
 	const float speed = 1.0f / 15.0f;
-	spriteSheet->createAnimation(0, speed, { 0,1,2,3,4,5,6 });
+	m_spriteSheet->createAnimation(0, speed, { 0,1,2,3,4,5,6 });
 }
 
 void PlayerMoveScript::updateComponent()

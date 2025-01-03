@@ -9,7 +9,7 @@ void CustomScriptsControllerSystem::start(std::vector<Entity*> entities)
 	}
 
 
-	systemManager->OnEntityAdded.Subscribe([this](Entity* entity)
+	m_systemManager->OnEntityAdded.Subscribe([this](Entity* entity)
 		{
 			entity->OnComponentAdded.Subscribe([this, entity](IComponent* component)
 				{
@@ -19,7 +19,7 @@ void CustomScriptsControllerSystem::start(std::vector<Entity*> entities)
 		});
 
 
-	systemManager->OnEntityRemoved.Subscribe([this](Entity* entity)
+	m_systemManager->OnEntityRemoved.Subscribe([this](Entity* entity)
 		{
 			removeScript(entity);
 		});
@@ -29,19 +29,19 @@ void CustomScriptsControllerSystem::update(std::vector<Entity*> entities, float 
 {
 
 
-	for (const std::pair<Entity*,ScriptComponentBase*>&  scriptEntity:  listofScripts)
+	for (const std::pair<Entity*,BaseScriptComponent*>&  scriptEntity:  m_listofScripts)
 	{
 		Entity* entity = scriptEntity.first;
-		ScriptComponentBase* scriptComponent = scriptEntity.second;
+		BaseScriptComponent* scriptComponent = scriptEntity.second;
 
 		if (!entity->IsActive() || entity->isDestroyed) continue;
 
-		if (!scriptComponent->isComponentEnabled) continue;
+		if (!scriptComponent->m_isEnabled) continue;
 
-		if (!scriptComponent->isStartInvoked)
+		if (!scriptComponent->m_isStartInvoked)
 		{
 			scriptComponent->start();
-			scriptComponent->isStartInvoked = true;
+			scriptComponent->m_isStartInvoked = true;
 			continue;
 		}
 
@@ -53,14 +53,14 @@ void CustomScriptsControllerSystem::update(std::vector<Entity*> entities, float 
 
 void CustomScriptsControllerSystem::render(std::vector<Entity*> entities)
 {
-	for (const std::pair<Entity*, ScriptComponentBase*>& scriptEntity : listofScripts)
+	for (const std::pair<Entity*, BaseScriptComponent*>& scriptEntity : m_listofScripts)
 	{
 		Entity* entity = scriptEntity.first;
-		ScriptComponentBase* scriptComponent = scriptEntity.second;
+		BaseScriptComponent* scriptComponent = scriptEntity.second;
 
 		if (!entity->IsActive() || entity->isDestroyed) continue;
 
-		if (!scriptComponent->isComponentEnabled) continue;
+		if (!scriptComponent->m_isEnabled) continue;
 
 		scriptComponent->render();
 
@@ -69,31 +69,31 @@ void CustomScriptsControllerSystem::render(std::vector<Entity*> entities)
 
 void CustomScriptsControllerSystem::cleanups()
 {
-	listofScripts.clear();
+	m_listofScripts.clear();
 }
 
-std::vector<ScriptComponentBase*> CustomScriptsControllerSystem::getScripts() const
+std::vector<BaseScriptComponent*> CustomScriptsControllerSystem::getScripts() const
 {
-	return std::vector<ScriptComponentBase*>();
+	return std::vector<BaseScriptComponent*>();
 }
 
 void CustomScriptsControllerSystem::addScript(Entity* entity)
 {
-	ScriptComponentBase* script = (ScriptComponentBase*)entity->GetComponent(ComponentType::SCRIPT_COMPONENT);
+	BaseScriptComponent* script = (BaseScriptComponent*)entity->GetComponent(ComponentType::SCRIPT_COMPONENT);
 
 	if (!script) return;
 
-	listofScripts.emplace_back(entity,script);
+	m_listofScripts.emplace_back(entity,script);
 }
 
 void CustomScriptsControllerSystem::removeScript(Entity* entity)
 {
 
-	for (auto it = listofScripts.begin(); it != listofScripts.end(); ++it)
+	for (auto it = m_listofScripts.begin(); it != m_listofScripts.end(); ++it)
 	{
 		if ( it->first->getID() == entity->getID())
 		{
-			listofScripts.erase(it);
+			m_listofScripts.erase(it);
 			return;
 		}
 	}

@@ -36,21 +36,21 @@ TextRenderer::TextRenderer(std::string message, const Vector2& offset, const Vec
 
 void TextRenderer::start()
 {
-    Vector3 messagepos = Vector3(gameObject->transform.position + centerScreen + offset);
+    Vector3 messagepos = Vector3(gameObject->transform.position + m_centerScreen + m_offset);
     messagePosition = Vector2(messagepos.x, messagepos.y);
 }
 
 void TextRenderer::updateComponent()
 {
-    if (!isComponentEnabled) return;
+    if (!m_isEnabled) return;
 
-    Vector3 updatedPosition = Vector3(gameObject->transform.position + centerScreen + offset);
+    Vector3 updatedPosition = Vector3(gameObject->transform.position + m_centerScreen + m_offset);
     messagePosition = Vector2(updatedPosition.x, updatedPosition.y);
 }
 
 void TextRenderer::render()
 {
-    if (!isComponentEnabled) return;
+    if (!m_isEnabled) return;
     if (message.empty()) return;
 
     App::Print(messagePosition.x, messagePosition.y, message.c_str(), color.x, color.y, color.z,(void*)fontStyle);

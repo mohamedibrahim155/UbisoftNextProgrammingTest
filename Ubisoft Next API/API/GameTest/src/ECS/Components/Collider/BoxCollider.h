@@ -24,10 +24,10 @@ public:
 
 protected:
     
-    float width;
-    float height;
+    float m_width;
+    float m_height;
 
-    SBox mBox;
+    SBox m_box;
     
    
 
