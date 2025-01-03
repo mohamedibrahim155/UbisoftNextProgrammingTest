@@ -3,6 +3,7 @@
 #include "../src/ECS/Entity.h"
 #include "../App/app.h"
 #include "../src/ECS/EntityManager.h"
+#include "../src/Utils/PhysicsUtils.h"
 PlayerMoveScript::PlayerMoveScript() : ScriptComponentBase()
 {
 }
@@ -26,24 +27,31 @@ void PlayerMoveScript::start()
 void PlayerMoveScript::updateComponent()
 {
 	//if (gameObject->isDestroyed) return;
-	//Vector3 pos = gameObject->transform.position;
+	/*Vector3 pos = gameObject->transform.position;
 
-	//pos.x += 1.0f;
+	pos.x += 1.0f;*/
 
 	//float rotation = gameObject->transform.rotation;
 
-	if (App::GetController().CheckButton(XINPUT_GAMEPAD_DPAD_DOWN, true))
+	if (App::GetController().CheckButton(XINPUT_GAMEPAD_DPAD_DOWN, false))
 	{
 		
 		//gameObject->Destroy();
 
 
-		Entity* entity = gameObject->manager->getEntityByID(1);
+		//Entity* entity = gameObject;
 
-		if (entity)
-		{
-			entity->Destroy();
-		}
+		//Vector3 pos = gameObject->transform.position;
+
+	 //   pos.x += 10.0f;
+
+		//if (entity)
+		//{
+		//	entity->transform.position.x+= -1.0f;
+		//}
+		//
+
+
 		
 
 			//spriteSheet->SetAnimation(0);

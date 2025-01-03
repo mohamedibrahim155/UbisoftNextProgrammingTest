@@ -40,5 +40,7 @@ private:
 
 	void DrawCircle(float cx, float cy, float radius, int segments, const Vector3& color);
 
+	bool IsMousePressed(const int mouseKey);
+    std::unordered_map<int, bool> previousMouseKeyStates;
 };
 

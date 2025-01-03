@@ -11,7 +11,11 @@ void CustomScriptsControllerSystem::start(std::vector<Entity*> entities)
 
 	systemManager->OnEntityAdded.Subscribe([this](Entity* entity)
 		{
-			addScript(entity);
+			entity->OnComponentAdded.Subscribe([this, entity](IComponent* component)
+				{
+					addScript(entity);
+				});
+			
 		});
 
 

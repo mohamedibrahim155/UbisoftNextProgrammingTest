@@ -38,14 +38,23 @@ struct Vector2
 	Vector2 Normalize() 
 	{
 		float magnitude = Magnitude();
-		if (magnitude != 0.0f)
+		if (magnitude > 1e-6f) 
 		{
-			x /= magnitude;
-			y /= magnitude;
+			return Vector2(x / magnitude, y / magnitude);
 		}
-		return Vector2(x, y);
+		return Vector2::Zero();
 	}
+	static Vector2 Normalize(const Vector2 other)\
+	{
+		float magnitude = other.Magnitude();
 
+		if (magnitude > 1e-6f)
+		{
+			return Vector2(other.x / magnitude, other.y / magnitude);
+		}
+
+		return Vector2::Zero();
+	}
 	static Vector2 Zero()
 	{
 		return { 0,0 };
@@ -67,8 +76,7 @@ struct Vector2
 	}
 
 	static Vector2 Reflect(Vector2& incident, Vector2& normal) {
-		// Ensure the normal is normalized before calculation
-		Vector2 norm = normal.Normalize();
+		Vector2 norm = normal;
 		float dotProduct = Vector2::Dot(incident, norm);
 		return incident - norm * (2.0f * dotProduct);
 	}
@@ -110,6 +118,13 @@ struct Vector2
 
 		this->x -= other.x;
 		this->y -= other.y;
+		return *this;
+	}
+
+	Vector2& operator*=(const  float& value) {
+
+		this->x *= value;
+		this->y *= value;
 		return *this;
 	}
 

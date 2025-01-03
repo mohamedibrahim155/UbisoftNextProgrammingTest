@@ -1,9 +1,41 @@
 #include "stdafx.h"
 #include "PhysicsSystem.h"
 #include "../src/Utils/PhysicsUtils.h"
+#include "../../SystemManager.h"
+#include <algorithm>
+
+std::vector<Collider*> PhysicsSystem::listOfColliders;
+
+std::vector<Collider*> PhysicsSystem::getWorldColliders()
+{
+	return listOfColliders;
+}
 void PhysicsSystem::start(std::vector<Entity*> entities)
 {
+	listOfColliders.clear();
 
+	for ( Entity* entity : entities )
+	{
+		addPhysicsObject(entity);
+	}
+
+	subscribeEvents();
+}
+
+void PhysicsSystem::subscribeEvents()
+{
+	systemManager->OnEntityAdded.Subscribe([this](Entity* entity)
+		{
+			entity->OnComponentAdded.Subscribe([this, entity](IComponent* component)
+				{
+					addPhysicsObject(entity);
+				});
+		});
+
+	systemManager->OnEntityRemoved.Subscribe([this](Entity* entity)
+		{
+			removePhysicsObject(entity);
+		});
 }
 
 void PhysicsSystem::update(std::vector<Entity*> entities, float deltaTime)
@@ -14,23 +46,29 @@ void PhysicsSystem::update(std::vector<Entity*> entities, float deltaTime)
 
 void PhysicsSystem::render(std::vector<Entity*> entities)
 {
-	for (Entity* entity : entities)
+	
+	for (const std::pair<EntityID, PhysicsEntity>& object : staticObjectsMap)
 	{
-		if (!entity->IsActive() || entity->isDestroyed) continue;
-
-		Collider* collider = (Collider*)entity->GetComponent(ComponentType::COLLIDER_COMPONENT);
-
-		if (collider == nullptr) continue;
-
-
-		collider->render();
+		if (object.second.collider != nullptr)
+		{
+			object.second.collider->render();
+		}
+	}
+	for (const std::pair<EntityID, PhysicsEntity>& object : physicsObjectsMap)
+	{
+		if (object.second.collider != nullptr)
+		{
+			object.second.collider->render();
+		}
 	}
 }
 
 void PhysicsSystem::cleanups()
 {
+	staticObjectsMap.clear();
+	physicsObjectsMap.clear();
+	listOfColliders.clear();
 }
-
 
 
 
@@ -47,104 +85,144 @@ void PhysicsSystem::updatePhysics(std::vector<Entity*> entities , float deltatim
 
 void PhysicsSystem::updateComponents(std::vector<Entity*> entities, float deltatime)
 {
-
-	for (Entity* entity : entities)
-	{
-
-		if (!entity->IsActive() || entity->isDestroyed) continue;
-
-
-		Transform* transform = &entity->transform;
-		RigidBody* rb = static_cast<RigidBody*>(entity->GetComponent(ComponentType::PHYSICS_COMPONENT));
-		Collider* collider = (Collider*)entity->GetComponent(ComponentType::COLLIDER_COMPONENT);
-		
-		if (!rb || !transform) continue;
-		if (!rb->isComponentEnabled || !collider->isComponentEnabled) continue;
-		if (rb->GetbodyType() == eBodyType::STATIC) continue;
-
-
-		
-		float gravityAcceleration = GRAVITY * rb->GetGravityScale();
-
-		Vector2 acceleration = rb->force / rb->GetMass();
-
-		acceleration.y += gravityAcceleration;
-
-		rb->velocity += acceleration * deltatime;
-
-		collisionNormals.clear();
-		collisionPoints.clear();
-
-		for (Entity* otherEntity : entities)
+		for (auto& physicsObject : physicsObjectsMap)
 		{
-			if (entity == otherEntity) continue;
+			Entity* entity = physicsObject.second.entity;
+
+			if (!entity || !entity->IsActive() || entity->isDestroyed) continue;
+
+			Transform* transform = &entity->transform;
+			RigidBody* rb = physicsObject.second.rb;
+			Collider* collider = physicsObject.second.collider;
+
+			if (rb->GetbodyType() == eBodyType::STATIC) continue;
+
+			if (!transform || !rb || !collider) continue;
 
 
-			if (!otherEntity->IsActive() || otherEntity->isDestroyed) continue;
+			Vector2 acceleration = rb->force / rb->GetMass();
+			acceleration.y += GRAVITY * rb->GetGravityScale();
+			rb->velocity += acceleration * deltatime;
 
-			Transform* otherTransform = &otherEntity->transform;
-			RigidBody* otherRB = static_cast<RigidBody*>(otherEntity->GetComponent(ComponentType::PHYSICS_COMPONENT));
-			Collider* otherCollider = (Collider*)otherEntity->GetComponent(ComponentType::COLLIDER_COMPONENT);
 
-			if (!otherCollider || !otherTransform || !collider) continue;
-			if (!otherCollider->isComponentEnabled || !collider->isComponentEnabled) continue;
-			if (otherCollider->IsUI() || collider->IsUI()) continue;
+			collisionNormals.clear();
+			collisionPoints.clear();
 
-			std::vector<Vector2> perObjectCollisions;
-			std::vector<Vector2> perObjectNormals;
-			if (Physics::CheckCollision(collider, otherCollider, perObjectCollisions, perObjectNormals))
+			//StaticObjects collisions
+			for ( const std::pair<EntityID, PhysicsEntity>&  staticObj : staticObjectsMap) 
 			{
-				if (collider->IsTrigger() || otherCollider->IsTrigger())
+				Collider* otherCollider = staticObj.second.collider;
+
+				if (otherCollider->IsUI() || collider->IsUI()) continue;
+
+				if (Physics::CheckCollision(collider, otherCollider, collisionPoints, collisionNormals))
 				{
-					continue;
+					if (collider->IsTrigger()  || otherCollider->IsTrigger())
+					{
+						continue;
+					}
+					resolveCollisions(rb, collisionNormals);
 				}
-
-				collisionPoints.insert(collisionPoints.end(), perObjectCollisions.begin(), perObjectCollisions.end());
-				collisionNormals.insert(collisionNormals.end(), perObjectNormals.begin(), perObjectNormals.end());
-
 			}
-			
-			
-		}
-		if (!collisionNormals.empty())
-		{
-			Vector2 normal = Vector2::Zero();
 
-			for (int i = 0; i < collisionNormals.size(); i++)
+			//DynamicObjects
+			for (const std::pair<EntityID, PhysicsEntity>&  otherObj : physicsObjectsMap)
 			{
-				normal += collisionNormals[i].Normalize();
+
+				if (physicsObject.first == otherObj.first) continue;
+
+				Collider* otherCollider = otherObj.second.collider;
+				
+				if (otherCollider->IsUI() || collider->IsUI()) continue;
+
+				if (Physics::CheckCollision(collider, otherCollider, collisionPoints, collisionNormals))
+				{
+					
+					if (collider->IsTrigger() || otherCollider->IsTrigger())
+					{
+						continue;
+					}
+
+					resolveCollisions(rb, collisionNormals);
+				}
 			}
 
-			normal = normal / (float)(collisionNormals.size());
-
-			Vector2 incident = rb->velocity;
-
-			float dotProduct = Vector2::Dot(incident, normal);
-
-			if (dotProduct < 0)
-			{
-				normal = normal * -1;
-
-				dotProduct = -dotProduct;
-			}
-
-			float bounciness = 0.1f;
-
-			Vector2 refllected = Vector2::Reflect(incident, normal);
-
-			if (refllected.Magnitude() > 0.0001f)
-			{
-				rb->velocity = refllected * rb->bounciness;
-			}
-			else
-			{
-				rb->velocity = Vector2::Zero();
-			}
-
+			// Update position
+			transform->position += rb->velocity * deltatime;
 		}
 
-		transform->position += rb->velocity * deltatime;
+		
+}
+
+
+void PhysicsSystem::addPhysicsObject(Entity* entity)
+{
+	Collider* collider = (Collider*)entity->GetComponent(ComponentType::COLLIDER_COMPONENT);
+	RigidBody* rb = (RigidBody*)entity->GetComponent(ComponentType::PHYSICS_COMPONENT);
+	
+	if (!rb && !collider) return;
+
+
+	EntityID id = entity->getID();
+	PhysicsEntity physicsEntity{ entity, collider, rb };
+
+	if (rb && rb->GetbodyType() == eBodyType::STATIC)
+	{
+		staticObjectsMap[id] = physicsEntity;
 	}
+	else
+	{
+		physicsObjectsMap[id] = physicsEntity;
+	}
+
+
+	if (collider) 
+		listOfColliders.push_back(collider);
+
+}
+
+void PhysicsSystem::removePhysicsObject(Entity* entity)
+{
+	removeStaticObject(entity);
+	removeDynamicObject(entity);
+}
+
+void PhysicsSystem::removeDynamicObject(Entity* entity)
+{
+
+	physicsObjectsMap.erase(entity->getID());
+	
+}
+
+void PhysicsSystem::removeStaticObject(Entity* entity)
+{
+	staticObjectsMap.erase(entity->getID());
+}
+
+
+void PhysicsSystem::resolveCollisions(RigidBody* rb, std::vector<Vector2>& collisionNormals)
+{
+	if (collisionNormals.empty()) return;
+
+	Vector2 normal = computeNormals(collisionNormals);
+
+	Vector2 incident = rb->velocity;
+	float dotProduct = Vector2::Dot(incident, normal);
+
+	rb->velocity = (dotProduct < 0) ? 
+		  Vector2::Reflect(incident, normal) * -rb->bounciness : Vector2::Zero();
+}
+
+Vector2 PhysicsSystem::computeNormals(std::vector<Vector2>& collisionNormals)
+{
+	Vector2 normal = Vector2::Zero();
+	for (const auto& n : collisionNormals)
+	{
+		normal += Vector2::Normalize(n);
+	}
+	normal = normal / static_cast<float>(collisionNormals.size());
+
+	return normal;
 }
 
 

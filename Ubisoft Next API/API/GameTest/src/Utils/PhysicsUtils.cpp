@@ -3,6 +3,7 @@
 #include "../src/ECS/Components/Collider/CircleCollider.h"
 #include "../src/ECS/Components/Collider/BoxCollider.h"
 #include "../src/ECS/Components/Collider/LineCollider.h"
+#include "../src/ECS/Systems/Physics/PhysicsSystem.h"
 bool Physics::CheckCollision(Collider* colliderA, Collider* colliderB, std::vector<Vector2>& collisionPt, std::vector<Vector2>& collisionNormal)
 {
 	// Checking AABB collision 
@@ -163,7 +164,7 @@ bool Physics::BoxVsBox(SBox* boxA, SBox* boxB, std::vector<Vector2>& collisionPt
 
 
 
-bool Physics::LineVsLine(SLine* lineA, SLine* lineB)
+bool Physics::LineVsLine(SLine* lineA, SLine* lineB, Vector2& intersectionPoint)
 {
 
 
@@ -187,11 +188,18 @@ bool Physics::LineVsLine(SLine* lineA, SLine* lineB)
 
 	
 	// Checks if t and u are within [0, 1]
-	return  (t >= 0.0f && t <= 1.0f && u >= 0.0f && u <= 1.0f);
+
+	if (t >= 0.0f && t <= 1.0f && u >= 0.0f && u <= 1.0f)
+	{
+		intersectionPoint = lineA->startPoint + (AB * t); // Intersection point
+		return true;
+	}
+
+	return  false;
 
 }
 
-bool Physics::LineVsCircle(SLine* line, SCircle* circle)
+bool Physics::LineVsCircle(SLine* line, SCircle* circle, Vector2& hitPoint)
 {
 
 	Vector2 dir = line->endPoint - line->startPoint;
@@ -210,11 +218,20 @@ bool Physics::LineVsCircle(SLine* line, SCircle* circle)
 
 	float distanceSquared = circleToClosest.LengthSquared();
 
-	return (distanceSquared <= circle->radius * circle->radius);
+	if (distanceSquared <= circle->radius * circle->radius)
+	{
+		float distance = sqrt(distanceSquared);
+		Vector2 intersectionDirection = circleToClosest.Normalize();
+		hitPoint = closestPoint - intersectionDirection * (distance - circle->radius);
+
+		return true;
+	}
+
+	return false;
 	
 }
 
-bool Physics::LineVsBox(SLine* line, SBox* box)
+bool Physics::LineVsBox(SLine* line, SBox* box, Vector2& intersectionPoint)
 {
 	SLine edges[4] = {
 	   SLine(box->minimum, Vector2(box->maximum.x, box->minimum.y)), // Bottom edge
@@ -223,15 +240,26 @@ bool Physics::LineVsBox(SLine* line, SBox* box)
 	   SLine(Vector2(box->minimum.x, box->maximum.y), box->minimum)  // Left edge
 	};
 
+	float nearestT = FLT_MAX;
+	bool hit = false;
 	// Check intersection with each edge
 	for (int i = 0; i < 4; i++)
 	{
-		if (LineVsLine(line, &edges[i])) 
-			return true;
-	
+		Vector2 tempHitPoint;
+		if (LineVsLine(line, &edges[i], tempHitPoint))
+		{
+			float t = (tempHitPoint - line->startPoint).Magnitude(); // Distance along ray
+			if (t < nearestT)
+			{
+				nearestT = t;
+				intersectionPoint = tempHitPoint;
+				hit = true;
+			}
+
+		}
 	}
 
-	return false;
+	return hit;
 }
 
 bool Physics::CircleVsBox(SCircle* circle, SBox* box , bool isCircle, std::vector<Vector2>& collisionPt, std::vector<Vector2>& collisionNormal)
@@ -269,25 +297,64 @@ bool Physics::CircleVsBox(SCircle* circle, SBox* box , bool isCircle, std::vecto
 	return false;
 }
 
-bool Physics::Raycast(Collider* colliderToCheck, Vector2 startpoint, Vector2 direction, float distance)
+bool Physics::Raycast(Vector2 startpoint, Vector2 direction, float distance, RaycastHit& hitInfo)
 {
-	if (!colliderToCheck) return false;
+	std::vector<Collider*> worldColliders = PhysicsSystem::getWorldColliders();
+
+	if (worldColliders.empty()) return false;
+	bool hit = false;
 
 	SLine line = { startpoint,  startpoint + (direction * distance) };
 
-
-	switch (colliderToCheck->GetShapeType())
+	for (Collider* collider : worldColliders)
 	{
-	case eShape::BOX: 
-		return LineVsBox(&line, &dynamic_cast<BoxCollider*>(colliderToCheck)->getBox());
-	case eShape::CIRCLE:
-		return LineVsCircle(&line, &dynamic_cast<CircleCollider*>(colliderToCheck)->getCircle());
-	case eShape::LINE:
-		return LineVsLine(&line, &dynamic_cast<LineCollider*>(colliderToCheck)->getLine());
+		Vector2 tempHitPoint;
+		switch (collider->GetShapeType())
+		{
+		case eShape::BOX:
+			if (LineVsBox(&line, &dynamic_cast<BoxCollider*>(collider)->getBox(), tempHitPoint))
+			{
+				float dist = (tempHitPoint - startpoint).Magnitude();
+				
+				if (!hit || dist < hitInfo.hitDistance)
+				{
+					hitInfo.hitDistance = dist;
+					hitInfo.hitPoint = tempHitPoint;
+					hitInfo.collider = collider;
+					hit = true;
+				}
+			}
+			
+			break;
+		case eShape::CIRCLE:
+			if (LineVsCircle(&line, &dynamic_cast<CircleCollider*>(collider)->getCircle(), tempHitPoint))
+			{
+				float dist = (tempHitPoint - startpoint).Magnitude();
+				if (!hit || dist < hitInfo.hitDistance)
+				{
+					hitInfo.hitDistance = dist;
+					hitInfo.hitPoint = tempHitPoint;
+					hitInfo.collider = collider;
+					hit = true;
+				}
+			}
+			break;
+		case eShape::LINE:
+			if (LineVsLine(&line, &dynamic_cast<LineCollider*>(collider)->getLine(), tempHitPoint)) {
+				float dist = (tempHitPoint - startpoint).Magnitude();
+				if (!hit || dist < hitInfo.hitDistance)
+				{
+					hitInfo.hitDistance = dist;
+					hitInfo.hitPoint = tempHitPoint;
+					hitInfo.collider = collider;
+					hit = true;
+				}
+			}
+			break;
+		}
 	}
-
-
-	return false;
+	
+	return hit;
 }
 
 

@@ -44,7 +44,7 @@ void ButtonRenderer::updateComponent()
             OnButtonHover.Invoke();
         }
 
-        if (App::IsKeyPressed(MOUSEEVENTF_LEFTDOWN) ||  (App::GetController().CheckButton(XINPUT_GAMEPAD_DPAD_UP, true)))
+        if (IsMousePressed(VK_LBUTTON) || (App::GetController().CheckButton(XINPUT_GAMEPAD_DPAD_UP, true)))
         {
             OnButtonClick.Invoke();
         }
@@ -145,6 +145,16 @@ void ButtonRenderer::DrawCircle(float cx, float cy, float radius, int segments, 
         App::DrawLine(x1, y1, x2, y2, color.x, color.y, color.z);
     }
 
+}
+
+bool ButtonRenderer::IsMousePressed(const int mouseKey)
+{
+    bool isPressed = App::IsKeyPressed(mouseKey);
+
+    bool wasPressed = previousMouseKeyStates[mouseKey];
+    previousMouseKeyStates[mouseKey] = isPressed;
+
+    return isPressed && !wasPressed;
 }
 
 int ButtonRenderer::renderOrder()
