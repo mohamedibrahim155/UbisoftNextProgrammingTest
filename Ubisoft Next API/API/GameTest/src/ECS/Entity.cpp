@@ -117,7 +117,7 @@ bool Entity::removeComponent(ComponentType type)
 
 }
 
-void Entity::Destroy()
+void Entity::Destroy(bool isManagerCall)
 {
 	if (isDestroyed) return;
 
@@ -125,7 +125,7 @@ void Entity::Destroy()
 	setActive(false);
 	isDestroyed = true;
 	cleanUps();
-	if (m_entityManager)
+	if (m_entityManager && !isManagerCall)
 	{
 		m_entityManager->removeEntity(m_entityID);
 	}

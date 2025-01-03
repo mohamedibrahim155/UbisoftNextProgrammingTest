@@ -95,9 +95,9 @@ void PhysicsSystem::updateComponents(std::vector<Entity*> entities, float deltat
 			RigidBody* rb = physicsObject.second.rb;
 			Collider* collider = physicsObject.second.collider;
 
+			if (!transform || !rb || !collider) continue;
 			if (rb->GetbodyType() == eBodyType::STATIC) continue;
 
-			if (!transform || !rb || !collider) continue;
 
 
 			Vector2 acceleration = rb->force / rb->GetMass();

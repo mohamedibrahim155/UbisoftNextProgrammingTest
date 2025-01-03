@@ -40,6 +40,8 @@ void EntityManager::removeEntity(EntityID ID)
 {
     m_systemManager->removeEntity(ID);
 
+    m_entitiesMap[ID]->Destroy(true);
+
     delete m_entitiesMap[ID];
 
     m_entitiesMap.erase(ID);

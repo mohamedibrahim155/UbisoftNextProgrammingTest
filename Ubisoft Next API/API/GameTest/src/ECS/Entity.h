@@ -21,7 +21,7 @@ public:
 	void addComponent(IComponent* component);
 	void addComponents(std::vector<IComponent*> components);
 	bool removeComponent(ComponentType type);
-	void Destroy();
+	void Destroy(bool ismanagerCall = false);
 	void cleanUps();
 
 	//Setters
