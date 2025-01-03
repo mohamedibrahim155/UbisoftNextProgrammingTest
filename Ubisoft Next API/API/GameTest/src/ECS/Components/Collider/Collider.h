@@ -66,11 +66,12 @@ class Collider :  public  IComponent
 {
 public:
 	Collider(eShape type);
-	~Collider() override = default ;
+	virtual ~Collider() override = default;
 	virtual void start() {};
 	virtual void Init();
 	virtual void updateComponent() {};
 	virtual void render() {};
+	virtual void cleanUp() override {};
 	virtual Collider* clone() const override =0;
 
 	virtual eShape GetShapeType() const { return m_shape; };

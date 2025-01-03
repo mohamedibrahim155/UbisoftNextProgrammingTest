@@ -5,6 +5,7 @@ void CustomScriptsControllerSystem::start(std::vector<Entity*> entities)
 {
 	for (Entity* entity : entities)
 	{
+		if (!entity->IsActive() || entity->isDestroyed)continue;
 		addScript(entity);
 	}
 
@@ -13,6 +14,7 @@ void CustomScriptsControllerSystem::start(std::vector<Entity*> entities)
 		{
 			entity->OnComponentAdded.Subscribe([this, entity](IComponent* component)
 				{
+					if (!entity->IsActive() || entity->isDestroyed) return;
 					addScript(entity);
 				});
 			
@@ -79,11 +81,14 @@ std::vector<BaseScriptComponent*> CustomScriptsControllerSystem::getScripts() co
 
 void CustomScriptsControllerSystem::addScript(Entity* entity)
 {
-	BaseScriptComponent* script = (BaseScriptComponent*)entity->GetComponent(ComponentType::SCRIPT_COMPONENT);
+	BaseScriptComponent* script = (BaseScriptComponent*)entity->getComponent(ComponentType::SCRIPT_COMPONENT);
 
 	if (!script) return;
 
-	m_listofScripts.emplace_back(entity,script);
+	if (!ContainsScript(entity->getID()))
+	{
+		m_listofScripts.emplace_back(entity, script);
+	}
 }
 
 void CustomScriptsControllerSystem::removeScript(Entity* entity)
@@ -97,4 +102,14 @@ void CustomScriptsControllerSystem::removeScript(Entity* entity)
 			return;
 		}
 	}
+}
+
+bool CustomScriptsControllerSystem::ContainsScript(EntityID id)
+{
+	for (std::pair < Entity*, BaseScriptComponent*> item :  m_listofScripts)
+	{
+		if (item.first->getID() == id);
+		return true;
+	}
+	return false;
 }

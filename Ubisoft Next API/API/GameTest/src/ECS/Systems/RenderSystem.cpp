@@ -140,7 +140,7 @@ void RenderSystem::removeEntityFromRenders(Entity* entity)
 
 void RenderSystem::addEntityToRenders(Entity* entity)
 {
-	RenderComponent* renderComp = (RenderComponent*)entity->GetComponent(ComponentType::RENDER_COMPONENT);
+	RenderComponent* renderComp = (RenderComponent*)entity->getComponent(ComponentType::RENDER_COMPONENT);
 
 	if (!renderComp) return;
 

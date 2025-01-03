@@ -3,6 +3,7 @@
 #include "Components/Renders/SpriteRenderer.h"
 #include"../src/ECS/EntityManager.h"
 #include "Components/Collider/Collider.h"
+#include "../src/ECS/Components/UI/ButtonRenderer.h"
 Entity::Entity(EntityID ID) : m_entityID(ID)
 {
 	m_sprite = nullptr;
@@ -13,7 +14,7 @@ Entity::Entity(EntityID ID) : m_entityID(ID)
 Entity::Entity(const Entity& otherEntity, EntityID ID)
 {
 
-	auto components = otherEntity.GetComponents();
+	auto components = otherEntity.getComponents();
 	for (IComponent* component: components)
 	{
 		addComponent(component->getComponentType(), component->clone());
@@ -136,7 +137,7 @@ void Entity::Destroy(bool isManagerCall)
 
 
 
-std::vector<IComponent*> Entity::GetComponents() const
+std::vector<IComponent*> Entity::getComponents() const
 {
 	std::vector<IComponent*> components;
 
@@ -147,7 +148,7 @@ std::vector<IComponent*> Entity::GetComponents() const
 	return components;
 }
 
-IComponent* Entity::GetComponent(ComponentType type)
+IComponent* Entity::getComponent(ComponentType type)
 {
 	return m_listOfComponents[type];
 }
@@ -185,7 +186,7 @@ void Entity::setActive(bool isActive)
 	this->m_isActive = isActive;
 
 	
-	std::vector<IComponent*> componentList = GetComponents();
+	std::vector<IComponent*> componentList = getComponents();
 
 	for (IComponent* component : componentList)
 	{
@@ -209,6 +210,10 @@ void Entity::setID(int ID)
 	this->m_entityID = ID;
 }
 
+/// <summary>
+/// Sets position of Sprite
+/// </summary>
+/// <param name="scale"> rotation degree</param>
 void Entity::setPosition(const Vector3& position)
 {
 	transform.position = position;
@@ -219,7 +224,10 @@ void Entity::setPosition(const Vector3& position)
 	}
 
 }
-
+/// <summary>
+/// Sets rotation of Sprite
+/// </summary>
+/// <param name="scale"> rotation degree</param>
 void Entity::setRotation(const float& rotationY)
 {
 	transform.rotation = rotationY;
@@ -230,10 +238,13 @@ void Entity::setRotation(const float& rotationY)
 	}
 
 }
-
+/// <summary>
+/// Set scale of sprite
+/// </summary>
+/// <param name="scale"> size of scale</param>
 void Entity::setScale(const Vector2& scale)
 {
-	this->transform.scale = scale;
+	transform.scale = scale;
 
 	if (m_sprite)
 	{
@@ -245,10 +256,12 @@ void Entity::setScale(const Vector2& scale)
 
 void Entity::cleanUps()
 {
+	// Cleaning Components attached to this gameobject
 	for (std::pair<ComponentType, IComponent*> item : m_listOfComponents)
 	{
 		if (item.second)
 		{
+			item.second->cleanUp();
 			delete item.second;
 		}
 	}

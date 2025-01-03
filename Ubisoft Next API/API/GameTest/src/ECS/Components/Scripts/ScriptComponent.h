@@ -10,6 +10,7 @@ public:
 	virtual void start() {};
 	virtual void updateComponent() {};
 	virtual void render() {};
+	virtual void cleanUp() override {};
 
 	// Inherited via IComponent
 	virtual BaseScriptComponent* clone() const override

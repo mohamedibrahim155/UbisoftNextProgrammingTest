@@ -4,6 +4,8 @@
 #include "../App/app.h"
 #include "../src/ECS/EntityManager.h"
 #include "../src/Utils/PhysicsUtils.h"
+#include "../src/SceneManger/Scenes/Level2.h"
+#include "../src/SceneManger/SceneManager.h"
 PlayerMoveScript::PlayerMoveScript() : BaseScriptComponent()
 {
 }
@@ -17,7 +19,7 @@ void PlayerMoveScript::start()
 	
 	//gameObject->AddComponent(new SpriteSheetRenderer(ASSET_PATH + "IdleBLUE- 150ms - 32x32.png",6,1));
 
-	m_spriteSheet = (SpriteSheetRenderer*)gameObject->GetComponent(ComponentType::RENDER_COMPONENT);
+	m_spriteSheet = (SpriteSheetRenderer*)gameObject->getComponent(ComponentType::RENDER_COMPONENT);
 
 
 	const float speed = 1.0f / 15.0f;
@@ -56,12 +58,21 @@ void PlayerMoveScript::updateComponent()
 
 			//spriteSheet->SetAnimation(0);
 
-
+		
 		
 	}
 	else
 	{
 		//spriteSheet->SetAnimation(-1);
+	}
+
+	if (App::GetController().CheckButton(XINPUT_GAMEPAD_DPAD_RIGHT, false))
+	{
+		LevelManager::GetInstance().ChangeScene(SCENE_2);
+	}
+	if (App::GetController().CheckButton(XINPUT_GAMEPAD_DPAD_LEFT, false))
+	{
+		LevelManager::GetInstance().ChangeScene(SCENE_1);
 	}
 
 

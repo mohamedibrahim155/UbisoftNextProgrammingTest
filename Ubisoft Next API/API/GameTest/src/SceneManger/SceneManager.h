@@ -1,19 +1,17 @@
 #pragma once
 #include "BaseScene.h"
 #include <unordered_map>
-
-class   CSceneManager
+#include "../src/ECS/EntityManager.h"
+#include "../src/ECS/SystemManager.h"
+class   LevelManager
 {
 public:
-	static CSceneManager& GetInstance();
+	static LevelManager& GetInstance();
 
-	void AddScene(eScene sceneEnum, CBaseScene* scene);
-	void RemoveScene(eScene sceneEnum);
-
-
-	void Start();
-	void Update();
-	void Render();
+	void AddLevel(eScene sceneEnum, CBaseScene* scene);
+	void RemoveLevel(eScene sceneEnum);
+	void SetManagers(SystemManager* m_systemManager, EntityManager* m_entityManager);
+	void Init();
 	void CleanScene();
 	void ChangeScene(eScene changeScene);
 
@@ -28,6 +26,9 @@ private:
 	std::string m_currentSceneName = "Untitled";
 
 	CBaseScene* m_currentScene;
+
+	SystemManager* m_systemManager;
+	EntityManager* m_entityManager;
 
 
 };

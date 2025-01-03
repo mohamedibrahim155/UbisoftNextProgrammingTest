@@ -34,6 +34,8 @@ TextRenderer::TextRenderer(std::string message, const Vector2& offset, const Vec
 
 
 
+
+
 void TextRenderer::start()
 {
     Vector3 messagepos = Vector3(gameObject->transform.position + m_centerScreen + m_offset);

@@ -17,6 +17,7 @@ public:
 	virtual void start() override {};
 	virtual void updateComponent() override {};
 	virtual void render() override {};
+	virtual void cleanUp() override {};
 	virtual int renderOrder() =0;
 	virtual RenderComponent* clone() const = 0;
 

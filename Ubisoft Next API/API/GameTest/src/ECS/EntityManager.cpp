@@ -57,4 +57,5 @@ void EntityManager::clean()
     }
 
     m_entitiesMap.clear();
+    m_entityCount = 0;
 }

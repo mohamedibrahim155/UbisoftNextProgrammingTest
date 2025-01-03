@@ -19,6 +19,7 @@ private:
 
 	void addScript(Entity* entity);
 	void removeScript(Entity* entity);
+	bool ContainsScript(EntityID id);
 
 	std::vector<std::pair<Entity*,BaseScriptComponent*>> m_listofScripts;
 

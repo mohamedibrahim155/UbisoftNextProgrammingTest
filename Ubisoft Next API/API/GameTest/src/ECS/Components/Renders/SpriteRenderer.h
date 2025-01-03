@@ -13,6 +13,7 @@ public:
 	virtual void start() override;
 	virtual void updateComponent() override;
 	virtual void render() override;
+	virtual void cleanUp() override {};
 	 int renderOrder() override;
 
 	 virtual SpriteRenderer* clone() const override;

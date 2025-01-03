@@ -188,6 +188,10 @@
     <ClInclude Include="App\SimpleSprite.h" />
     <ClInclude Include="src\ECS\Components\UI\ButtonRenderer.h" />
     <ClInclude Include="src\ECS\Components\Collider\LineCollider.h" />
+    <ClInclude Include="src\SceneManger\BaseScene.h" />
+    <ClInclude Include="src\SceneManger\SceneManager.h" />
+    <ClInclude Include="src\SceneManger\Scenes\Level1.h" />
+    <ClInclude Include="src\SceneManger\Scenes\Level2.h" />
     <ClInclude Include="src\Utils\PhysicsUtils.h" />
     <ClInclude Include="src\ECS\Components\Collider\CircleCollider.h" />
     <ClInclude Include="src\ECS\Systems\Physics\PhysicsSystem.h" />
@@ -227,6 +231,10 @@
     <ClCompile Include="App\SimpleSprite.cpp" />
     <ClCompile Include="src\ECS\Components\UI\ButtonRenderer.cpp" />
     <ClCompile Include="src\ECS\Components\Collider\LineCollider.cpp" />
+    <ClCompile Include="src\SceneManger\BaseScene.cpp" />
+    <ClCompile Include="src\SceneManger\SceneManager.cpp" />
+    <ClCompile Include="src\SceneManger\Scenes\Level1.cpp" />
+    <ClCompile Include="src\SceneManger\Scenes\Level2.cpp" />
     <ClCompile Include="src\Utils\PhysicsUtils.cpp" />
     <ClCompile Include="src\ECS\Components\Collider\CircleCollider.cpp" />
     <ClCompile Include="src\ECS\Systems\Physics\PhysicsSystem.cpp" />

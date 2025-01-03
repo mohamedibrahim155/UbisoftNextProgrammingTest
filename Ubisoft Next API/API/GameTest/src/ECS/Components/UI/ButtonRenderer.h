@@ -14,6 +14,7 @@ public:
 	void start() override;
 	void updateComponent() override;
 	void render() override;
+	void cleanUp() override;
 	int renderOrder() override;
 	ButtonRenderer* clone() const override;
 
@@ -21,6 +22,7 @@ public:
 	void addListenersOnButtonPress(const std::function<void()>& callback);
 	void addListenersOnButtonHover(const std::function<void()>& callback);
 	void addListenersOnButtonHoverExit(const std::function<void()>& callback);
+	void cleanEvents();
 private:
 
 	bool isOnHover = false;

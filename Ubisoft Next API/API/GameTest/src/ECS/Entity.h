@@ -39,8 +39,8 @@ public:
 
 	Vector3 getPosition();
 
-	IComponent* GetComponent(ComponentType type);
-	std::vector<IComponent*> GetComponents() const;
+	IComponent* getComponent(ComponentType type);
+	std::vector<IComponent*> getComponents() const;
 
 
 	Transform transform;

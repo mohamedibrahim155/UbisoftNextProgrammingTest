@@ -15,17 +15,16 @@ public:
     // Inherited via IComponent
     Transform* clone() const override;
 
+    // Transform Data
     Vector3 position;
     float rotation;
     Vector2 scale;
 
-    Vector3 GetPosition() const { return position; }
-    void SetPosition(const Vector3& pos) { position = pos; }
 private:
     void start() override {} ;
     void updateComponent() override {};
     void render() override {};
-
+    void cleanUp() override {};
 
   
 

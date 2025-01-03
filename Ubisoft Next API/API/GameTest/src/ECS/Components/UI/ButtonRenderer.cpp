@@ -16,6 +16,10 @@ ButtonRenderer::ButtonRenderer(std::string filename) :
 
 
 
+
+
+
+
 void ButtonRenderer::start()
 {
     gameObject->addComponent(boxCollider);
@@ -92,6 +96,11 @@ void ButtonRenderer::render()
 
 }
 
+void ButtonRenderer::cleanUp()
+{
+    cleanEvents();
+}
+
 ButtonRenderer* ButtonRenderer::clone() const
 {
     return new ButtonRenderer(this->m_fileName);
@@ -111,6 +120,13 @@ void ButtonRenderer::addListenersOnButtonHover(const std::function<void()>& call
 void ButtonRenderer::addListenersOnButtonHoverExit(const std::function<void()>& callback)
 {
     OnButtonHoverExit.Subscribe(callback);
+}
+
+void ButtonRenderer::cleanEvents()
+{
+    OnButtonClick.clear();
+    OnButtonHover.clear();
+    OnButtonHoverExit.clear();
 }
 
 Vector2 ButtonRenderer::getMousePosition()

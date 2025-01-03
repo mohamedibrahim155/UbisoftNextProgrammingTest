@@ -157,8 +157,8 @@ void PhysicsSystem::updateComponents(std::vector<Entity*> entities, float deltat
 
 void PhysicsSystem::addPhysicsObject(Entity* entity)
 {
-	Collider* collider = (Collider*)entity->GetComponent(ComponentType::COLLIDER_COMPONENT);
-	RigidBody* rb = (RigidBody*)entity->GetComponent(ComponentType::PHYSICS_COMPONENT);
+	Collider* collider = (Collider*)entity->getComponent(ComponentType::COLLIDER_COMPONENT);
+	RigidBody* rb = (RigidBody*)entity->getComponent(ComponentType::PHYSICS_COMPONENT);
 	
 	if (!rb && !collider) return;
 

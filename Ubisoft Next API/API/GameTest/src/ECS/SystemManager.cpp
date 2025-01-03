@@ -25,6 +25,8 @@ void SystemManager::removeEntity(EntityID ID)
 {
     OnEntityRemoved.Invoke(m_entitiesMap[ID]);
 
+    m_listOfEntities.erase(std::remove(m_listOfEntities.begin(), m_listOfEntities.end(), m_entitiesMap[ID]));
+
     m_entitiesMap.erase(ID);
 }
 
@@ -40,14 +42,26 @@ void SystemManager::cleanSystem()
     m_systemsMap.clear();
     m_entitiesMap.clear();
     m_listOfEntities.clear();
+
+   // cleanEvents();
+
     OnEntityAdded.clear();
     OnEntityRemoved.clear();
 }
+
+void SystemManager::cleanEvents()
+{
+    OnEntityAdded.clear();
+    OnEntityRemoved.clear();
+}
+
+
 
 ISystem* SystemManager::getSystem(eSystemType type)
 {
     return m_systemsMap[type];
 }
+
 
 Entity* SystemManager::getEntityByID(EntityID ID)
 {
@@ -69,7 +83,8 @@ void SystemManager::start()
 
 void SystemManager::updateSystems(float deltaTime)
 {
-    for (std::pair<eSystemType, ISystem*> system: m_systemsMap)
+
+    for (const std::pair<eSystemType, ISystem*>& system: m_systemsMap)
     {
         system.second->update(m_listOfEntities, deltaTime);
     }

@@ -12,6 +12,8 @@ Collider::Collider(eShape type) : IComponent(ComponentType::COLLIDER_COMPONENT)
 	m_center.y = APP_VIRTUAL_HEIGHT * 0.5f;
 }
 
+
+
 void Collider::Init()
 {
 	transform = &gameObject->transform;

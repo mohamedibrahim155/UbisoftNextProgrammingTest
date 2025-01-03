@@ -19,6 +19,7 @@ public:
     void start() override {};
     void updateComponent() override {};
     void render() override {};
+    void cleanUp() override {};
     RigidBody* clone() const override;
 
     void SetBodyType(const eBodyType& type) { this->bodyType = type; };

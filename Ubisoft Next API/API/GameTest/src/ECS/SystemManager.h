@@ -17,6 +17,7 @@ public:
 	void updateSystems(float deltaTime);
 	void render();
 	void cleanSystem();
+	void cleanEvents();
 
 	Entity* getEntityByID(EntityID ID);
 	std::vector<Entity*> getEntities() const;
@@ -25,6 +26,7 @@ public:
 
 	CEvent<Entity*> OnEntityAdded;
 	CEvent<Entity*> OnEntityRemoved;
+
 
 private:
 
