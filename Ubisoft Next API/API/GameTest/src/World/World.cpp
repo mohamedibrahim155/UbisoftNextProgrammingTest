@@ -7,8 +7,8 @@
 #include "../src/ECS/Components/Scripts/PlayerMoveScript.h"
 #include "../src/Utils/Utils.h"
 #include "../src/Utils/PhysicsUtils.h"
-#include "../src/SceneManger/SceneManager.h"
-#include "../src/SceneManger/Scenes/Level1.h"
+#include "../src/LevelManager/LevelManager.h"
+#include "../src/LevelManager/Levels/Level1.h"
 World::World()
 {
 	systemManager = new SystemManager();
@@ -142,9 +142,5 @@ void World::render()
 void World::clean()
 {
 	LevelManager::GetInstance().CleanScene();
-	entityManager->clean();
-	systemManager->cleanSystem();
-
-	delete systemManager;
-	delete entityManager;
+	
 }

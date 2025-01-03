@@ -1,25 +1,25 @@
 #include "stdafx.h"
-#include "BaseScene.h"
+#include "BaseLevel.h"
 
-#include "SceneManager.h"
-CBaseScene::CBaseScene(eScene sceneType) : m_sceneType(sceneType)
+#include "LevelManager.h"
+BaseLevel::BaseLevel(eScene sceneType) : m_sceneType(sceneType)
 {
 	LevelManager::GetInstance().AddLevel(m_sceneType, this);
 }
 
-CBaseScene::~CBaseScene()
+BaseLevel::~BaseLevel()
 {
 	LevelManager::GetInstance().RemoveLevel(m_sceneType);
 }
 
 
 
-void CBaseScene::ChangeScene(eScene changeScene)
+void BaseLevel::ChangeScene(eScene changeScene)
 {
 	LevelManager::GetInstance().ChangeScene(changeScene);
 }
 
-eScene CBaseScene::GetType()
+eScene BaseLevel::GetType()
 {
 	return (m_sceneType);
 }

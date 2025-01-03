@@ -12,12 +12,12 @@ enum eScene
 	SCENE_3 = 3
 };
 
-class CBaseScene
+class BaseLevel
 {
 public:
 
-	CBaseScene(eScene sceneType);
-	virtual ~CBaseScene();
+	BaseLevel(eScene sceneType);
+	virtual ~BaseLevel();
 
 	virtual void Initialize() = 0;
 	virtual void CleanScene() = 0;

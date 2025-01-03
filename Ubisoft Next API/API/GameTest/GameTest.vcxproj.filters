@@ -48,10 +48,10 @@
     <ClCompile Include="src\ECS\Components\Collider\LineCollider.cpp" />
     <ClCompile Include="src\ECS\Components\UI\TextRenderer.cpp" />
     <ClCompile Include="src\ECS\Components\UI\ButtonRenderer.cpp" />
-    <ClCompile Include="src\SceneManger\Scenes\Level1.cpp" />
-    <ClCompile Include="src\SceneManger\Scenes\Level2.cpp" />
-    <ClCompile Include="src\SceneManger\BaseScene.cpp" />
-    <ClCompile Include="src\SceneManger\SceneManager.cpp" />
+    <ClCompile Include="src\LevelManager\Levels\Level1.cpp" />
+    <ClCompile Include="src\LevelManager\Levels\Level2.cpp" />
+    <ClCompile Include="src\LevelManager\BaseLevel.cpp" />
+    <ClCompile Include="src\LevelManager\LevelManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -110,10 +110,10 @@
     <ClInclude Include="src\ECS\Components\Collider\LineCollider.h" />
     <ClInclude Include="src\ECS\Components\UI\TextRenderer.h" />
     <ClInclude Include="src\ECS\Components\UI\ButtonRenderer.h" />
-    <ClInclude Include="src\SceneManger\Scenes\Level1.h" />
-    <ClInclude Include="src\SceneManger\Scenes\Level2.h" />
-    <ClInclude Include="src\SceneManger\BaseScene.h" />
-    <ClInclude Include="src\SceneManger\SceneManager.h" />
+    <ClInclude Include="src\LevelManager\Levels\Level1.h" />
+    <ClInclude Include="src\LevelManager\Levels\Level2.h" />
+    <ClInclude Include="src\LevelManager\BaseLevel.h" />
+    <ClInclude Include="src\LevelManager\LevelManager.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="API">

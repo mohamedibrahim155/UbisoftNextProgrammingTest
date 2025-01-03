@@ -1,14 +1,14 @@
 #include "stdafx.h"
-#include "SceneManager.h"
-#include "../SceneManger/Scenes/Level1.h"
-#include "../SceneManger/Scenes/Level2.h"
+#include "LevelManager.h"
+#include "../LevelManager/Levels/Level1.h"
+#include "../LevelManager/Levels/Level2.h"
 LevelManager& LevelManager::GetInstance()
 {
 	static LevelManager instance;
 	return instance;
 }
 
-void LevelManager::AddLevel(eScene sceneName, CBaseScene* scene)
+void LevelManager::AddLevel(eScene sceneName, BaseLevel* scene)
 {  
 	scene->entityManager = m_entityManager;
 	scene->systemManager = m_systemManager;
@@ -31,8 +31,8 @@ void LevelManager::SetManagers(SystemManager* systemManager, EntityManager* enti
 
 void LevelManager::Init()
 {
-	CBaseScene* level1 = new Level1();
-	CBaseScene* level2 = new Level2();
+	BaseLevel* level1 = new Level1();
+	BaseLevel* level2 = new Level2();
 }
 
 
@@ -51,6 +51,12 @@ void LevelManager::CleanScene()
 	}
 
 	m_listOfScenes.clear();
+
+	m_entityManager->clean();
+	m_systemManager->cleanSystem();
+
+	delete m_systemManager;
+	delete m_entityManager;
 }
 
 
@@ -68,7 +74,7 @@ void LevelManager::ChangeScene(eScene changeScene)
 	m_currentScene->Initialize();
 }
 
-CBaseScene* LevelManager::GetScene(eScene scene)
+BaseLevel* LevelManager::GetScene(eScene scene)
 {
 	return m_listOfScenes[scene];
 }

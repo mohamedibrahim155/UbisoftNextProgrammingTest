@@ -1,9 +1,9 @@
 #pragma once
-#include "../BaseScene.h"
-class Level1 : public CBaseScene
+#include "../BaseLevel.h"
+class Level1 : public BaseLevel
 {
 public:
-	Level1() : CBaseScene(SCENE_1) {};
+	Level1() : BaseLevel(SCENE_1) {};
 
 	~Level1() override = default;
 	// Inherited via CBaseScene

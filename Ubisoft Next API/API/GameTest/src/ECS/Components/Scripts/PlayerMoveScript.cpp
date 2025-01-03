@@ -4,8 +4,8 @@
 #include "../App/app.h"
 #include "../src/ECS/EntityManager.h"
 #include "../src/Utils/PhysicsUtils.h"
-#include "../src/SceneManger/Scenes/Level2.h"
-#include "../src/SceneManger/SceneManager.h"
+#include "../src/LevelManager/Levels/Level2.h"
+#include "../src/LevelManager/LevelManager.h"
 PlayerMoveScript::PlayerMoveScript() : BaseScriptComponent()
 {
 }
@@ -66,11 +66,11 @@ void PlayerMoveScript::updateComponent()
 		//spriteSheet->SetAnimation(-1);
 	}
 
-	if (App::GetController().CheckButton(XINPUT_GAMEPAD_DPAD_RIGHT, false))
+	if (App::GetController().CheckButton(XINPUT_GAMEPAD_DPAD_RIGHT, true))
 	{
 		LevelManager::GetInstance().ChangeScene(SCENE_2);
 	}
-	if (App::GetController().CheckButton(XINPUT_GAMEPAD_DPAD_LEFT, false))
+	if (App::GetController().CheckButton(XINPUT_GAMEPAD_DPAD_LEFT, true))
 	{
 		LevelManager::GetInstance().ChangeScene(SCENE_1);
 	}
