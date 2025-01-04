@@ -22,7 +22,7 @@ private:
 	std::unordered_map<eScene, BaseLevel*>::iterator it;
 	std::unordered_map<eScene, BaseLevel*> m_listOfScenes;
 
-	eScene m_currentSceneType = eScene::SCENE_1;
+	eScene m_currentSceneType = eScene::LEVEL_1;
 	std::string m_currentSceneName = "Untitled";
 
 	BaseLevel* m_currentScene;

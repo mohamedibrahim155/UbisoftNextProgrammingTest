@@ -5,12 +5,14 @@ CircleCollider::CircleCollider() : Collider(eShape::CIRCLE)
 {
     m_circle.centre = { m_center.x, m_center.y };
     m_circle.radius = 1;
+    m_width = 1;
+    m_height = 1;
 }
 
 CircleCollider::CircleCollider(float radius) : Collider(eShape::CIRCLE)
 {
     m_circle.centre = { m_center.x, m_center.y };
-    this->m_circle.radius = radius;
+    m_circle.radius = radius;
 
 }
 
@@ -28,7 +30,7 @@ SCircle CircleCollider::getCircle()
 {
     SCircle circle = m_circle;
 
-    circle.radius *= m_scale.x;
+    circle.radius *= MathF::Max(m_scale.x, m_scale.y);
 
     if (transform)
     {

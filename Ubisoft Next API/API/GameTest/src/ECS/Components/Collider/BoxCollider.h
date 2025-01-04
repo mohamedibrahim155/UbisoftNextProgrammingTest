@@ -19,6 +19,7 @@ public:
     void calculateShape() override;
 
     SBox getBox();
+    void setSize(float x, float y);
 
 
 

@@ -17,18 +17,23 @@ void Level1::Initialize()
 	std::string filename = ASSET_PATH + "IdleBLUE- 150ms - 32x32.png";
 
 	Entity* entity3 = entityManager->createEntity();
-	entity3->addComponent(new SpriteRenderer(filename, Vector2::Zero(), 3));
+	//entity3->addComponent(new SpriteRenderer(filename, Vector2::Zero(), 3));
 
-	SpriteRenderer* sprite = (SpriteRenderer*)entity3->getComponent(ComponentType::RENDER_COMPONENT);
-	sprite->setColor(1, 0, 0);
-	entity3->addComponent(new BoxCollider());
-	//entity3->AddComponent(new CircleCollider());
+	//SpriteRenderer* sprite = (SpriteRenderer*)entity3->getComponent(ComponentType::RENDER_COMPONENT);
+	//sprite->setColor(1, 0, 0);
+	//entity3->addComponent(new BoxCollider());
+	entity3->addComponent(new CircleCollider());
 	entity3->addComponent(new RigidBody(eBodyType::STATIC));
-	entity3->addComponent(new PlayerMoveScript());
-	entity3->transform.scale = Vector2(2, 2);
+	//entity3->addComponent(new PlayerMoveScript());
+	//entity3->transform.scale = Vector2(2, 2);
 	entity3->setTag("Sprite1");
+
+	CircleCollider* circleCollider = (CircleCollider*)entity3->getComponent(ComponentType::COLLIDER_COMPONENT);
+
+	circleCollider->setRadius(50);
+
 	entity3->transform.position = Vector2(0, -250);
-	for (size_t i = 0; i < 100; i++)
+	for (size_t i = 0; i < 1; i++)
 	{
 		float randomWidth = Random::RandomRange(-(float)APP_VIRTUAL_WIDTH, (float)APP_VIRTUAL_WIDTH);
 		float randomheight = Random::RandomRange(-(float)APP_VIRTUAL_HEIGHT, (float)APP_VIRTUAL_HEIGHT);
@@ -58,39 +63,39 @@ void Level1::Initialize()
 	buttonRender->addComponent(new PlayerMoveScript());
 	ButtonRenderer* button = dynamic_cast<ButtonRenderer*>(buttonRender->getComponent(ComponentType::RENDER_COMPONENT));
 
-	button->addListenersOnButtonPress([this]()
-		{
-			Entity* firstEntity = entityManager->createEntity();
+	//button->addListenersOnButtonPress([this]()
+	//	{
+	//		Entity* firstEntity = entityManager->createEntity();
 
-			float randomWidth = Random::RandomRange(-(float)APP_VIRTUAL_WIDTH, (float)APP_VIRTUAL_WIDTH);
-			float randomheight = Random::RandomRange(-(float)APP_VIRTUAL_HEIGHT, (float)APP_VIRTUAL_HEIGHT);
-			firstEntity->addComponent(new SpriteSheetRenderer(ASSET_PATH + "IdleBLUE- 150ms - 32x32.png", 6, 1));
-			//firstEntity->addComponent(new PlayerMoveScript());
-			firstEntity->addComponent(new RigidBody(eBodyType::DYNAMIC));
-			firstEntity->addComponent(new CircleCollider());
-			firstEntity->transform.position = Vector3(randomWidth / 2, randomWidth / 2, 0);
+	//		float randomWidth = Random::RandomRange(-(float)APP_VIRTUAL_WIDTH, (float)APP_VIRTUAL_WIDTH);
+	//		float randomheight = Random::RandomRange(-(float)APP_VIRTUAL_HEIGHT, (float)APP_VIRTUAL_HEIGHT);
+	//		firstEntity->addComponent(new SpriteSheetRenderer(ASSET_PATH + "IdleBLUE- 150ms - 32x32.png", 6, 1));
+	//		//firstEntity->addComponent(new PlayerMoveScript());
+	//		firstEntity->addComponent(new RigidBody(eBodyType::DYNAMIC));
+	//		firstEntity->addComponent(new CircleCollider());
+	//		firstEntity->transform.position = Vector3(randomWidth / 2, randomWidth / 2, 0);
 
 
 
-		});
+	//	});
 
-	button->addListenersOnButtonHover([this]()
-		{
-			Entity* entity3 = entityManager->getEntityByID(1);
+	//button->addListenersOnButtonHover([this]()
+	//	{
+	//		Entity* entity3 = entityManager->getEntityByID(1);
 
-			SpriteRenderer* spriteEn2 = (SpriteRenderer*)entity3->getComponent(ComponentType::RENDER_COMPONENT);
+	//		SpriteRenderer* spriteEn2 = (SpriteRenderer*)entity3->getComponent(ComponentType::RENDER_COMPONENT);
 
-			spriteEn2->setColor(0, 1, 1);
-		});
+	//		spriteEn2->setColor(0, 1, 1);
+	//	});
 
-	button->addListenersOnButtonHoverExit([this]()
-		{
-			Entity* firstEntity3 = entityManager->getEntityByID(1);
+	//button->addListenersOnButtonHoverExit([this]()
+	//	{
+	//		Entity* firstEntity3 = entityManager->getEntityByID(1);
 
-			SpriteRenderer* spriteEn3 = (SpriteRenderer*)firstEntity3->getComponent(ComponentType::RENDER_COMPONENT);
+	//		SpriteRenderer* spriteEn3 = (SpriteRenderer*)firstEntity3->getComponent(ComponentType::RENDER_COMPONENT);
 
-			spriteEn3->setColor(1, 1, 1);
-		});
+	//		spriteEn3->setColor(1, 1, 1);
+	//	});
 
 #pragma endregion
 

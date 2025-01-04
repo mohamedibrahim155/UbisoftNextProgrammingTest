@@ -68,11 +68,11 @@ void PlayerMoveScript::updateComponent()
 
 	if (App::GetController().CheckButton(XINPUT_GAMEPAD_DPAD_RIGHT, true))
 	{
-		LevelManager::GetInstance().ChangeScene(SCENE_2);
+		LevelManager::GetInstance().ChangeScene(LEVEL_2);
 	}
 	if (App::GetController().CheckButton(XINPUT_GAMEPAD_DPAD_LEFT, true))
 	{
-		LevelManager::GetInstance().ChangeScene(SCENE_1);
+		LevelManager::GetInstance().ChangeScene(LEVEL_1);
 	}
 
 

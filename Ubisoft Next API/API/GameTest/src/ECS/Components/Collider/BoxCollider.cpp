@@ -5,6 +5,8 @@ BoxCollider::BoxCollider() : Collider(eShape::BOX)
 {
 	m_box.minimum = { -1, -1 };
 	m_box.maximum = { 1, 1 };
+	m_height = 1;
+	m_width = 1;
 }
 
 BoxCollider::BoxCollider(SpriteRenderer* spriteRenderer)
@@ -74,6 +76,12 @@ SBox BoxCollider::getBox()
 
 
 	return box;
+}
+
+void BoxCollider::setSize(float x, float y)
+{
+   m_scale.x = x;
+   m_scale.y = y;
 }
 
 BoxCollider* BoxCollider::clone() const

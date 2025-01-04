@@ -40,7 +40,7 @@ World::World()
 void World::start()
 {
 	LevelManager::GetInstance().Init();
-	LevelManager::GetInstance().ChangeScene(SCENE_1);
+	LevelManager::GetInstance().ChangeScene(LEVEL_1);
 //#pragma region Entities
 //
 //

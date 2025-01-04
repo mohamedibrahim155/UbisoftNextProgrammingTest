@@ -7,9 +7,9 @@
 class LevelManager;
 enum eScene
 {
-	SCENE_1 = 0,
-	SCENE_2 = 1,
-	SCENE_3 = 3
+	MAINMENU = 0,
+	LEVEL_1 = 1,
+	LEVEL_2 = 2,
 };
 
 class BaseLevel
@@ -34,9 +34,9 @@ protected:
 
 	eScene m_sceneType;
 
-	std::map<eScene, std::string> sceneToString = { {SCENE_1, "Scene1"},
-													{SCENE_2, "Scene2"}, 
-												   { SCENE_3, "Scene3" } };
+	std::map<eScene, std::string> sceneToString = { {LEVEL_1, "Scene1"},
+													{LEVEL_2, "Scene2"}, 
+												   { MAINMENU, "MainMenu" } };
 
 	
 };

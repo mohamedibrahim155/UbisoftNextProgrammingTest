@@ -52,6 +52,7 @@
     <ClCompile Include="src\LevelManager\Levels\Level2.cpp" />
     <ClCompile Include="src\LevelManager\BaseLevel.cpp" />
     <ClCompile Include="src\LevelManager\LevelManager.cpp" />
+    <ClCompile Include="src\LevelManager\Levels\MainMenu.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -114,6 +115,7 @@
     <ClInclude Include="src\LevelManager\Levels\Level2.h" />
     <ClInclude Include="src\LevelManager\BaseLevel.h" />
     <ClInclude Include="src\LevelManager\LevelManager.h" />
+    <ClInclude Include="src\LevelManager\Levels\MainMenu.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="API">
