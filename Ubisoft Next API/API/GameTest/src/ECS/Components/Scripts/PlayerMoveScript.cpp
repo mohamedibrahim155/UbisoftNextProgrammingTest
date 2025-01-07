@@ -38,7 +38,7 @@ void PlayerMoveScript::updateComponent()
 	if (App::GetController().CheckButton(XINPUT_GAMEPAD_DPAD_DOWN, false))
 	{
 		
-		//gameObject->Destroy();
+		gameObject->Destroy();
 
 
 		//Entity* entity = gameObject;

@@ -53,6 +53,8 @@
     <ClCompile Include="src\LevelManager\BaseLevel.cpp" />
     <ClCompile Include="src\LevelManager\LevelManager.cpp" />
     <ClCompile Include="src\LevelManager\Levels\MainMenu.cpp" />
+    <ClCompile Include="src\Pool\Entity\EntityPool.cpp" />
+    <ClCompile Include="src\ECS\Components\Scripts\PoolTestingScript.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -116,6 +118,9 @@
     <ClInclude Include="src\LevelManager\BaseLevel.h" />
     <ClInclude Include="src\LevelManager\LevelManager.h" />
     <ClInclude Include="src\LevelManager\Levels\MainMenu.h" />
+    <ClInclude Include="src\Pool\ObjectPool.h" />
+    <ClInclude Include="src\Pool\Entity\EntityPool.h" />
+    <ClInclude Include="src\ECS\Components\Scripts\PoolTestingScript.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="API">

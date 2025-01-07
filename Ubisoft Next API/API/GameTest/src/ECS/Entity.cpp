@@ -14,20 +14,14 @@ Entity::Entity(EntityID ID) : m_entityID(ID)
 Entity::Entity(const Entity& otherEntity, EntityID ID)
 {
 
-	auto components = otherEntity.getComponents();
-	for (IComponent* component: components)
-	{
-		addComponent(component->getComponentType(), component->clone());
-	}
+	m_entityID = ID;
+	
+	copyComponents(otherEntity);
 	
 	m_isActive = otherEntity.m_isActive;
-	m_tag = otherEntity.m_tag + "_copy";
-	m_entityID = ID;
-	if (otherEntity.m_entityManager)
-	{
-		m_entityManager = otherEntity.m_entityManager;
-		
-	}
+	m_tag = otherEntity.m_tag + std::to_string(ID) + "_copy";
+
+	
 
 }
 
@@ -60,7 +54,7 @@ void Entity::addComponent(ComponentType type,IComponent* component)
 		break;
 	}
 
-	OnComponentAdded.Invoke(component);
+	OnComponentAdded.Invoke(m_listOfComponents[type]);
 
 }
 
@@ -143,7 +137,11 @@ std::vector<IComponent*> Entity::getComponents() const
 
 	for (std::pair<ComponentType, IComponent*> item : m_listOfComponents)
 	{
-		components.push_back(item.second);
+		if (item.second)
+		{
+			components.push_back(item.second);
+		}
+		
 	}
 	return components;
 }
@@ -192,10 +190,11 @@ void Entity::setActive(bool isActive)
 	{
 		if (!component) continue;
 
-		if (component->m_isEnabled)
+		//if (component->m_isEnabled )
 		{
 			component->setEnabled(isActive);
 		}
+		
 	}
 
 }
@@ -268,4 +267,13 @@ void Entity::cleanUps()
 	
 	m_listOfComponents.clear();
 
+}
+
+void Entity::copyComponents(const Entity& otherEntity)
+{
+	auto components = otherEntity.getComponents();
+	for (IComponent* component : components)
+	{
+		addComponent(component->getComponentType(), component->clone());
+	}
 }

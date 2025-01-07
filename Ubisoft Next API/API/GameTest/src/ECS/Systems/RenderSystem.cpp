@@ -6,7 +6,7 @@ void RenderSystem::start(std::vector<Entity*> entities)
 
 	for (Entity* entity : entities)
 	{
-		if (!entity->IsActive() || entity->isDestroyed) continue;
+		//if (!entity->IsActive() || entity->isDestroyed) continue;
 		{
 			addEntityToRenders(entity);
 		}
@@ -94,7 +94,7 @@ void RenderSystem::SubscribeEvents()
 
 		});
 
-	m_systemManager->OnEntityRemoved.Subscribe([&](Entity* entity)
+	m_systemManager->OnEntityRemoved.Subscribe([this](Entity* entity)
 		{
 			removeEntityFromRenders(entity);
 		});

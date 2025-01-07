@@ -11,7 +11,7 @@ class Entity
 public:
 
 	
-
+	
 	Entity(EntityID ID);
 	Entity(const Entity& otherEntity , EntityID ID);
 	virtual ~Entity();
@@ -23,6 +23,8 @@ public:
 	bool removeComponent(ComponentType type);
 	void Destroy(bool ismanagerCall = false);
 	void cleanUps();
+
+	void copyComponents(const Entity& otherEntity);
 
 	//Setters
 	void setActive(bool isActive);

@@ -16,8 +16,9 @@ public:
 	void start();
 	void updateSystems(float deltaTime);
 	void render();
+	void cleanups();
 	void cleanSystem();
-	void cleanEvents();
+
 
 	Entity* getEntityByID(EntityID ID);
 	std::vector<Entity*> getEntities() const;
@@ -34,6 +35,9 @@ private:
 
 	std::unordered_map<EntityID,Entity*> m_entitiesMap;
 	std::vector<Entity*> m_listOfEntities;
+
+	void clearEntities();
+	void clearSystems(bool canDelete = true);
 
 };
 

@@ -60,5 +60,7 @@ private:
 	std::unordered_map<EntityID, PhysicsEntity> staticObjectsMap;
 	std::unordered_map<EntityID, PhysicsEntity> physicsObjectsMap;
 
+	bool ContainsCollider(Collider* collider);
+
 };
 

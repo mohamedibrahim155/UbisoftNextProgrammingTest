@@ -5,18 +5,14 @@ void CustomScriptsControllerSystem::start(std::vector<Entity*> entities)
 {
 	for (Entity* entity : entities)
 	{
-		if (!entity->IsActive() || entity->isDestroyed)continue;
+		//if (!entity->IsActive() || entity->isDestroyed)continue;
 		addScript(entity);
 	}
 
 
 	m_systemManager->OnEntityAdded.Subscribe([this](Entity* entity)
 		{
-			entity->OnComponentAdded.Subscribe([this, entity](IComponent* component)
-				{
-					if (!entity->IsActive() || entity->isDestroyed) return;
-					addScript(entity);
-				});
+			HandleOnEntityAdded(entity);
 			
 		});
 
@@ -25,6 +21,23 @@ void CustomScriptsControllerSystem::start(std::vector<Entity*> entities)
 		{
 			removeScript(entity);
 		});
+}
+
+void CustomScriptsControllerSystem::HandleOnEntityAdded(Entity* entity)
+{
+	entity->OnComponentAdded.Subscribe([this, entity](IComponent* component)
+		{
+			HandleOnComponentAdded(component, entity);
+
+		});
+}
+
+void CustomScriptsControllerSystem::HandleOnComponentAdded(IComponent* component, Entity* entity)
+{
+	if (component->getComponentType() == ComponentType::SCRIPT_COMPONENT)
+	{
+		addScript(entity);
+	}
 }
 
 void CustomScriptsControllerSystem::update(std::vector<Entity*> entities, float deltaTime)
@@ -76,7 +89,13 @@ void CustomScriptsControllerSystem::cleanups()
 
 std::vector<BaseScriptComponent*> CustomScriptsControllerSystem::getScripts() const
 {
-	return std::vector<BaseScriptComponent*>();
+	std::vector<BaseScriptComponent*> scripts;
+	for (std::pair<Entity*, BaseScriptComponent*> bs :  m_listofScripts)
+	{
+		scripts.push_back(bs.second);
+	}
+
+	return scripts;
 }
 
 void CustomScriptsControllerSystem::addScript(Entity* entity)
@@ -108,8 +127,8 @@ bool CustomScriptsControllerSystem::ContainsScript(EntityID id)
 {
 	for (std::pair < Entity*, BaseScriptComponent*> item :  m_listofScripts)
 	{
-		if (item.first->getID() == id);
-		return true;
+		if (item.first->getID() == id)
+			return true;
 	}
 	return false;
 }

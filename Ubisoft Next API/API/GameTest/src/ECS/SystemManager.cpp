@@ -23,37 +23,20 @@ void SystemManager::addEntity(Entity* entity)
 
 void SystemManager::removeEntity(EntityID ID)
 {
-    OnEntityRemoved.Invoke(m_entitiesMap[ID]);
+    Entity* entity = m_entitiesMap[ID];
 
-    m_listOfEntities.erase(std::remove(m_listOfEntities.begin(), m_listOfEntities.end(), m_entitiesMap[ID]));
+    OnEntityRemoved.Invoke(entity);
+
+    m_listOfEntities.erase(std::remove(m_listOfEntities.begin(), m_listOfEntities.end(), entity));
+
+    entity->Destroy(true);
+
+    delete entity;
 
     m_entitiesMap.erase(ID);
 }
 
-void SystemManager::cleanSystem()
-{
-    for (std::pair<eSystemType, ISystem*> system : m_systemsMap)
-    {
-        system.second->cleanups();
 
-        delete  system.second;
-    }
-
-    m_systemsMap.clear();
-    m_entitiesMap.clear();
-    m_listOfEntities.clear();
-
-   // cleanEvents();
-
-    OnEntityAdded.clear();
-    OnEntityRemoved.clear();
-}
-
-void SystemManager::cleanEvents()
-{
-    OnEntityAdded.clear();
-    OnEntityRemoved.clear();
-}
 
 
 
@@ -96,4 +79,51 @@ void SystemManager::render()
     {
         system.second->render(m_listOfEntities);
     }
+}
+
+void SystemManager::cleanups()
+{
+    clearEntities();
+    clearSystems();
+
+    m_systemsMap.clear();
+}
+
+void SystemManager::cleanSystem()
+{
+    clearEntities();
+    clearSystems(false);
+}
+
+void SystemManager::clearSystems(bool canDelete)
+{
+    for (std::pair<eSystemType, ISystem*> system : m_systemsMap)
+    {
+        system.second->cleanups();
+
+        if (canDelete)
+        {
+            delete  system.second;
+        }
+    }
+}
+
+void SystemManager::clearEntities()
+{
+
+    if (m_entitiesMap.size() > 0)
+    {
+        for (auto it = m_entitiesMap.begin(); it != m_entitiesMap.end(); )
+        {
+            removeEntity(it->first);
+            it = m_entitiesMap.begin();
+        }
+    }
+
+    m_entitiesMap.clear();
+
+    OnEntityAdded.clear();
+    OnEntityRemoved.clear();
+
+    m_listOfEntities.clear();
 }

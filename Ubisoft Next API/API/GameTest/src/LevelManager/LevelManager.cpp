@@ -53,7 +53,7 @@ void LevelManager::CleanScene()
 	m_listOfScenes.clear();
 
 	m_entityManager->clean();
-	m_systemManager->cleanSystem();
+	m_systemManager->cleanups();
 
 	delete m_systemManager;
 	delete m_entityManager;

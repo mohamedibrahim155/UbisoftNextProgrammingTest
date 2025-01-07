@@ -113,5 +113,5 @@ void Level1::Initialize()
 
 void Level1::CleanScene()
 {
-	entityManager->clean();
+	systemManager->cleanSystem();
 }

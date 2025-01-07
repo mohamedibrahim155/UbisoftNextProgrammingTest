@@ -28,7 +28,11 @@ void PhysicsSystem::subscribeEvents()
 		{
 			entity->OnComponentAdded.Subscribe([this, entity](IComponent* component)
 				{
-					addPhysicsObject(entity);
+					if (component->getComponentType() ==ComponentType::COLLIDER_COMPONENT || component->getComponentType() == ComponentType::PHYSICS_COMPONENT)
+					{
+						addPhysicsObject(entity);
+					}
+
 				});
 		});
 
@@ -49,17 +53,18 @@ void PhysicsSystem::render(std::vector<Entity*> entities)
 	
 	for (const std::pair<EntityID, PhysicsEntity>& object : staticObjectsMap)
 	{
-		if (object.second.collider != nullptr)
-		{
+		if (!object.second.collider) continue;
+
 			object.second.collider->render();
-		}
+		
 	}
+
 	for (const std::pair<EntityID, PhysicsEntity>& object : physicsObjectsMap)
 	{
-		if (object.second.collider != nullptr)
-		{
-			object.second.collider->render();
-		}
+		if (!object.second.collider) continue;
+		
+		object.second.collider->render();
+		
 	}
 }
 
@@ -96,6 +101,7 @@ void PhysicsSystem::updateComponents(std::vector<Entity*> entities, float deltat
 			Collider* collider = physicsObject.second.collider;
 
 			if (!transform || !rb || !collider) continue;
+			if (!rb->m_isEnabled) continue;
 			if (rb->GetbodyType() == eBodyType::STATIC) continue;
 
 
@@ -113,6 +119,7 @@ void PhysicsSystem::updateComponents(std::vector<Entity*> entities, float deltat
 			{
 				Collider* otherCollider = staticObj.second.collider;
 
+				if (!otherCollider->m_isEnabled || !collider->m_isEnabled) continue;
 				if (otherCollider->IsUI() || collider->IsUI()) continue;
 
 				if (Physics::CheckCollision(collider, otherCollider, collisionPoints, collisionNormals))
@@ -133,7 +140,9 @@ void PhysicsSystem::updateComponents(std::vector<Entity*> entities, float deltat
 
 				Collider* otherCollider = otherObj.second.collider;
 				
+				if (!otherCollider->m_isEnabled || !collider->m_isEnabled) continue;
 				if (otherCollider->IsUI() || collider->IsUI()) continue;
+
 
 				if (Physics::CheckCollision(collider, otherCollider, collisionPoints, collisionNormals))
 				{
@@ -176,7 +185,7 @@ void PhysicsSystem::addPhysicsObject(Entity* entity)
 	}
 
 
-	if (collider) 
+	if (collider && !ContainsCollider(collider)) 
 		listOfColliders.push_back(collider);
 
 }
@@ -223,6 +232,19 @@ Vector2 PhysicsSystem::computeNormals(std::vector<Vector2>& collisionNormals)
 	normal = normal / static_cast<float>(collisionNormals.size());
 
 	return normal;
+}
+
+bool PhysicsSystem::ContainsCollider(Collider* collider)
+{
+	for (Collider* c  : listOfColliders )
+	{
+		if (c == collider)
+		{
+			return true;
+		}
+	}
+
+	return false;
 }
 
 

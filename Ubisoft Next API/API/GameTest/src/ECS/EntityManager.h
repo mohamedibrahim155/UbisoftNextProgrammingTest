@@ -10,7 +10,6 @@ public:
 	~EntityManager() = default;
 	Entity* createEntity();
 	Entity* createEntityFromCopy(Entity* entity);
-	Entity* getEntityByID(EntityID ID);
 
 	void addEntity(Entity* entity);
 	void removeEntity(EntityID ID);
@@ -21,7 +20,6 @@ public:
 private:
 
 	int m_entityCount = 0;
-	std::unordered_map <EntityID, Entity*> m_entitiesMap;
 	std::vector<Entity*> m_listOfEntites;
 
 
