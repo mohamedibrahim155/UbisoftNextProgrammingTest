@@ -14,10 +14,6 @@ public:
 
 	virtual void cleanup()
 	{
-		for (T* obj : m_listOfPools)
-		{
-			delete obj;
-		}
 		m_listOfPools.clear();
 	}
 

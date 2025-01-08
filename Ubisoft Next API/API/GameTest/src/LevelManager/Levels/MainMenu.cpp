@@ -10,6 +10,8 @@
 #include "../src/Utils/PhysicsUtils.h"
 void MainMenu::initialize()
 {
+	systemManager->start();
+
 	Entity* buttonRender = entityManager->createEntity();
 	buttonRender->addComponent(new ButtonRenderer(ASSET_PATH + "Default\\square-rounded-512.png"));
 	buttonRender->transform.position = Vector3(0, 100, 0);
@@ -33,7 +35,11 @@ void MainMenu::initialize()
 
 		});
 
-	systemManager->start();
+	Entity* entityWithPool = entityManager->createEntity();
+	entityWithPool->setTag("PoolManager");
+	entityWithPool->addComponent(new PoolTestingScript(entityManager));
+
+
 }
 
 void MainMenu::cleanScene()

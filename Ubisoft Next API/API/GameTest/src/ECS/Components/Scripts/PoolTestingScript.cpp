@@ -31,7 +31,7 @@ void PoolTestingScript::start()
 
 }
 
-bool PoolTestingScript::update()
+void PoolTestingScript::updateComponent()
 {
 	if (IsKeyPressedOnce('T'))
 	{
@@ -47,7 +47,16 @@ bool PoolTestingScript::update()
 
 		DisableCurrent();
 	}
-	return true;
+}
+
+
+
+void PoolTestingScript::cleanUp()
+{
+	if (m_entitiesPool)
+	{
+		m_entitiesPool->cleanup();
+	}
 }
 
 void PoolTestingScript::Enable()

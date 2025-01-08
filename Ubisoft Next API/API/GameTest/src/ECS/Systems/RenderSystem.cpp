@@ -3,35 +3,23 @@
 #include "../SystemManager.h"
 void RenderSystem::start(std::vector<Entity*> entities)
 {
-
-	for (Entity* entity : entities)
-	{
-		//if (!entity->IsActive() || entity->isDestroyed) continue;
-		{
-			addEntityToRenders(entity);
-		}
-	}
-
-	SubscribeEvents();
+	subscribeEvents();
 }
 
 void RenderSystem::update(std::vector<Entity*> entities, float deltaTime)
 {
-	
-
-
 	//Updates UI
-	for (RenderEntity* renderEntity : m_listOfUIRenderer)
-	{
-		if (!renderEntity->entity->IsActive() || renderEntity->entity->isDestroyed) continue;
+	updateUIComponents();
 
-		renderEntity->component->updateComponent();
-	}
-
-
-	m_sortedSprites.clear();
 	// updates sprites
-	for (RenderEntity* renderEntity : m_listOfSpriteRenderers )
+	updateSprites();
+}
+
+void RenderSystem::updateSprites()
+{
+	m_sortedSprites.clear();
+
+	for (RenderEntity* renderEntity : m_listOfSpriteRenderers)
 	{
 		if (!renderEntity->entity->IsActive() || renderEntity->entity->isDestroyed) continue;
 
@@ -40,12 +28,22 @@ void RenderSystem::update(std::vector<Entity*> entities, float deltaTime)
 		renderEntity->component->updateComponent();
 	}
 
+	// Sorting Sprite based on rendering order
 	std::sort(m_sortedSprites.begin(), m_sortedSprites.end(),
 		[](const std::pair<int, RenderEntity*>& a, const std::pair<int, RenderEntity*>& b) {
 			return a.first < b.first; // Ascending order of renderOrder
 		});
 
-	
+}
+
+void RenderSystem::updateUIComponents()
+{
+	for (RenderEntity* renderEntity : m_listOfUIRenderer)
+	{
+		if (!renderEntity->entity->IsActive() || renderEntity->entity->isDestroyed) continue;
+
+		renderEntity->component->updateComponent();
+	}
 }
 
 void RenderSystem::render(std::vector<Entity*> entities)
@@ -83,13 +81,13 @@ void RenderSystem::cleanups()
 	m_listOfUIRenderer.clear();
 }
 
-void RenderSystem::SubscribeEvents()
+void RenderSystem::subscribeEvents()
 {
 	// If Instantiated on runtime, subscribing when ADDED
 	m_systemManager->OnEntityAdded.Subscribe([this](Entity* entity)
 		{
 			//Subscribing when the relvant component added to this entity
-			HandleOnEntityAdded(entity);
+			handleOnEntityAdded(entity);
 			
 
 		});
@@ -100,7 +98,7 @@ void RenderSystem::SubscribeEvents()
 		});
 }
 
-void RenderSystem::HandleOnEntityAdded(Entity* entity)
+void RenderSystem::handleOnEntityAdded(Entity* entity)
 {
 	entity->OnComponentAdded.Subscribe([this, entity](IComponent* component)
 		{

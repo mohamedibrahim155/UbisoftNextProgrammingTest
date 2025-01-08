@@ -12,7 +12,7 @@
 void Level2::initialize()
 {
 
-
+	systemManager->start();
 
 	std::string filename = ASSET_PATH + "IdleBLUE- 150ms - 32x32.png";
 	Entity* entity3 = entityManager->createEntity();
@@ -34,7 +34,7 @@ void Level2::initialize()
 	entityWithPool->addComponent(new PoolTestingScript(entityManager));
 
 
-	systemManager->start();
+	
 }
 
 void Level2::cleanScene()

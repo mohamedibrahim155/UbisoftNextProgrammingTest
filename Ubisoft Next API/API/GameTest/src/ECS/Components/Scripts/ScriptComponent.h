@@ -9,7 +9,6 @@ public:
 	// Inherited via IComponent
 	virtual void start() {};
 	virtual void updateComponent() {};
-	virtual bool update() { return false; };
 	virtual void render() {};
 	virtual void cleanUp() override {};
 

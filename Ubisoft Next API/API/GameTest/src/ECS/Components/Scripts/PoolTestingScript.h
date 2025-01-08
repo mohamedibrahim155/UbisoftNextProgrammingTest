@@ -8,10 +8,9 @@ public:
 	~PoolTestingScript() override;
 
 	 void start()  override;
-	 void updateComponent() override {};
-	 bool update() override;
+	 void updateComponent() override;
 	 void render()override {} ;
-	 void cleanUp() override {};
+	 void cleanUp() override;
 
     PoolTestingScript* clone() const override
 	{

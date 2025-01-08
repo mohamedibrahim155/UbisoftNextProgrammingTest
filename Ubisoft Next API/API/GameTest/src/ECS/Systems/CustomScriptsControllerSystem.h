@@ -10,6 +10,7 @@ public:
 	
 	// Inherited via ISystem
 	void start(std::vector<Entity*> entities) override;
+	void subscribeEvents();
 	void update(std::vector<Entity*> entities, float deltaTime) override;
 	void render(std::vector<Entity*> entities) override;
 	void cleanups() override;
@@ -18,15 +19,17 @@ public:
 
 private:
 
-	bool ContainsScript(EntityID id);
+	bool containsScriptComponent(EntityID id);
 	
 	void addScript(Entity* entity);
 	void removeScript(Entity* entity);
 	
-	void HandleOnEntityAdded(Entity* entity);
-	void HandleOnComponentAdded(IComponent* component, Entity* entity);
+	void handleOnEntityAdded(Entity* entity);
+	void handleOnComponentAdded(IComponent* component, Entity* entity);
 
 	std::vector<std::pair<Entity*,BaseScriptComponent*>> m_listofScripts;
+
+	bool m_isRefreshed = false;
 
 };
 

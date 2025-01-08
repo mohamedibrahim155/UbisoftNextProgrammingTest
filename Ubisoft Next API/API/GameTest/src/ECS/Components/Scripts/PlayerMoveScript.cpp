@@ -29,64 +29,6 @@ void PlayerMoveScript::start()
 void PlayerMoveScript::updateComponent()
 {
 	//if (gameObject->isDestroyed) return;
-	/*Vector3 pos = gameObject->transform.position;
-
-	pos.x += 1.0f;*/
-
-	//float rotation = gameObject->transform.rotation;
-
-	if (App::GetController().CheckButton(XINPUT_GAMEPAD_DPAD_DOWN, false))
-	{
-		
-		gameObject->Destroy();
-
-
-		//Entity* entity = gameObject;
-
-		//Vector3 pos = gameObject->transform.position;
-
-	 //   pos.x += 10.0f;
-
-		//if (entity)
-		//{
-		//	entity->transform.position.x+= -1.0f;
-		//}
-		//
-
-
-		
-
-			//spriteSheet->SetAnimation(0);
-
-		
-		
-	}
-	else
-	{
-		//spriteSheet->SetAnimation(-1);
-	}
-
-	if (App::GetController().CheckButton(XINPUT_GAMEPAD_DPAD_RIGHT, true))
-	{
-	//	LevelManager::GetInstance().NextLevel();
-
-		return;
-	}
-	if (App::GetController().CheckButton(XINPUT_GAMEPAD_DPAD_LEFT, true))
-	{
-		//LevelManager::GetInstance().NextLevel();
-		return;
-	}
-
-
-	//gameObject->transform.position = (pos);
-	
-
-}
-
-bool PlayerMoveScript::update()
-{
-	//if (gameObject->isDestroyed) return;
 /*Vector3 pos = gameObject->transform.position;
 
 pos.x += 1.0f;*/
@@ -128,21 +70,21 @@ pos.x += 1.0f;*/
 	{
 
 		LevelManager::GetInstance().NextLevel();
-		return false;
+		return ;
 	}
 	if (App::GetController().CheckButton(XINPUT_GAMEPAD_DPAD_LEFT, true))
 	{
 		LevelManager::GetInstance().changeScene(LEVEL_1);
-		return false;
+		return ;
 	}
 	if (App::IsKeyPressed('R'))
 	{
 		LevelManager::GetInstance().RestartLevel();
-		return false;
+		return ;
 	}
 
-	return true;
 }
+
 
 void PlayerMoveScript::render()
 {

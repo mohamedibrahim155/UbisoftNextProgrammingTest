@@ -43,11 +43,12 @@ private:
 
 	void addPhysicsObject(Entity* entity);
 	void removePhysicsObject(Entity* entity);
-	void removeDynamicObject(Entity* entity);
-	void removeStaticObject(Entity* entity);
+
 	void resolveCollisions(RigidBody* rb, std::vector<Vector2>& collisionNormals);
 
 	Vector2 computeNormals(std::vector<Vector2>& collisionNormals);
+
+	bool ContainsCollider(Collider* collider);
 
 	const float FIXED_TIMESTEP = 1.0f / 60.0f;
 	float timer = 0;
@@ -55,12 +56,12 @@ private:
 	std::vector<Vector2> collisionPoints;
 	std::vector<Vector2> collisionNormals;
 
-    static std::vector<Collider*> listOfColliders;
+    static std::vector<Collider*> m_globalColliders;
 
 	std::unordered_map<EntityID, PhysicsEntity> staticObjectsMap;
 	std::unordered_map<EntityID, PhysicsEntity> physicsObjectsMap;
 
-	bool ContainsCollider(Collider* collider);
+	
 
 };
 

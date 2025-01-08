@@ -25,27 +25,21 @@ public:
 	RenderSystem() : ISystem("RenderSystem",  eSystemType::RENDER_SYSTEM) {};
 	 void start(std::vector<Entity*> entities) override;
 	 void update(std::vector<Entity*> entities, float deltaTime) override ;
+	
 	 void render(std::vector<Entity*> entities) override;
 	 void cleanups() override;
-
-
-	
 
 private:
 
 
-	/*
-	TODO : 
-	add List of Sprite Renders
-	add List of UI's renders
-		
-
-	*/
-	void removeEntityFromRenders(Entity* entity);
 	void addEntityToRenders(Entity* entity);
+	void removeEntityFromRenders(Entity* entity);
 
-	void SubscribeEvents();
-	void HandleOnEntityAdded(Entity* entity);
+	void updateSprites();
+	void updateUIComponents();
+
+	void subscribeEvents();
+	void handleOnEntityAdded(Entity* entity);
 
 	std::vector<std::pair<int, RenderEntity*>> m_sortedSprites;
 	std::vector<RenderEntity*> m_listOfUIRenderer;

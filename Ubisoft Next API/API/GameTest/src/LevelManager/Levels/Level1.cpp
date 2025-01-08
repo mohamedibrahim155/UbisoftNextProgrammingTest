@@ -10,7 +10,7 @@
 
 void Level1::initialize()
 {
-
+	systemManager->start();
 	//Creation of gameobjects
 #pragma region Entities
 
@@ -104,7 +104,7 @@ void Level1::initialize()
 
 
 	//Initialise Systems
-	systemManager->start();
+
 
 }
 

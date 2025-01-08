@@ -83,7 +83,7 @@ void LevelManager::NextLevel()
 	int currentLevel = (int)m_currentSceneType;
 	currentLevel++;
 
-	if (currentLevel >= 3)
+	if (currentLevel >= m_listOfScenes.size())
 	{
 		currentLevel = 0;
 	}

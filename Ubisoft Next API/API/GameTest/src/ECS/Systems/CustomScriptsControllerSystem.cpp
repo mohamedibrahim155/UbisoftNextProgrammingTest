@@ -3,17 +3,18 @@
 #include "../SystemManager.h"
 void CustomScriptsControllerSystem::start(std::vector<Entity*> entities)
 {
-	for (Entity* entity : entities)
-	{
-		//if (!entity->IsActive() || entity->isDestroyed)continue;
-		addScript(entity);
-	}
+	subscribeEvents();
+}
+
+#pragma region Events calls
 
 
+void CustomScriptsControllerSystem::subscribeEvents()
+{
 	m_systemManager->OnEntityAdded.Subscribe([this](Entity* entity)
 		{
-			HandleOnEntityAdded(entity);
-			
+			handleOnEntityAdded(entity);
+
 		});
 
 
@@ -23,35 +24,38 @@ void CustomScriptsControllerSystem::start(std::vector<Entity*> entities)
 		});
 }
 
-void CustomScriptsControllerSystem::HandleOnEntityAdded(Entity* entity)
+void CustomScriptsControllerSystem::handleOnEntityAdded(Entity* entity)
 {
 	entity->OnComponentAdded.Subscribe([this, entity](IComponent* component)
 		{
-			HandleOnComponentAdded(component, entity);
+			handleOnComponentAdded(component, entity);
 
 		});
 }
 
-void CustomScriptsControllerSystem::HandleOnComponentAdded(IComponent* component, Entity* entity)
+void CustomScriptsControllerSystem::handleOnComponentAdded(IComponent* component, Entity* entity)
 {
 	if (component->getComponentType() == ComponentType::SCRIPT_COMPONENT)
 	{
 		addScript(entity);
 	}
 }
+#pragma endregion
+
 
 void CustomScriptsControllerSystem::update(std::vector<Entity*> entities, float deltaTime)
 {
 
-
-	for (const std::pair<Entity*, BaseScriptComponent*>& scriptEntity : m_listofScripts)
+	for (auto& scriptEntity : m_listofScripts)
 	{
 		Entity* entity = scriptEntity.first;
 		BaseScriptComponent* scriptComponent = scriptEntity.second;
 
-		if (!entity->IsActive() || entity->isDestroyed || !scriptComponent) continue;
+		if (!entity->IsActive() || entity->isDestroyed || !scriptComponent)
+			continue;
 
-		if (!scriptComponent->m_isEnabled) continue;
+		if (!scriptComponent->m_isEnabled)
+			continue;
 
 		if (!scriptComponent->m_isStartInvoked)
 		{
@@ -60,9 +64,18 @@ void CustomScriptsControllerSystem::update(std::vector<Entity*> entities, float 
 			continue;
 		}
 
+		scriptComponent->updateComponent();
 
-		if (!scriptComponent->update()) break;
-	
+
+		// If the scene has transitioned (indicated by m_isRefreshed 
+		// being set to true during cleanup),
+		// stop iterating over the current scripts.
+		// New scripts will be iterated in the refreshed scene.
+		if (m_isRefreshed)
+		{
+			m_isRefreshed = false;
+			break;
+		}
 	}
 }
 
@@ -85,7 +98,10 @@ void CustomScriptsControllerSystem::render(std::vector<Entity*> entities)
 void CustomScriptsControllerSystem::cleanups()
 {
 	m_listofScripts.clear();
+	m_isRefreshed = true;
 }
+
+
 
 std::vector<BaseScriptComponent*> CustomScriptsControllerSystem::getScripts() const
 {
@@ -104,7 +120,7 @@ void CustomScriptsControllerSystem::addScript(Entity* entity)
 
 	if (!script) return;
 
-	if (!ContainsScript(entity->getID()))
+	if (!containsScriptComponent(entity->getID()))
 	{
 		m_listofScripts.emplace_back(entity, script);
 	}
@@ -123,7 +139,7 @@ void CustomScriptsControllerSystem::removeScript(Entity* entity)
 	}
 }
 
-bool CustomScriptsControllerSystem::ContainsScript(EntityID id)
+bool CustomScriptsControllerSystem::containsScriptComponent(EntityID id)
 {
 	for (std::pair < Entity*, BaseScriptComponent*> item :  m_listofScripts)
 	{
