@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "TextRenderer.h"
 #include "../src/ECS/Entity.h"
-TextRenderer::TextRenderer(std::string message, const Vector2& offset)
+TextRenderer::TextRenderer(const std::string& message, const Vector2& offset)
     : RenderComponent(offset)
 {
     this->message = message;
@@ -11,22 +11,22 @@ TextRenderer::TextRenderer(std::string message, const Vector2& offset)
     setFont(BITMAP_HELVETICA_18);
 }
 
-TextRenderer::TextRenderer(std::string message, const Vector2& offset, const Vector3& color)
+TextRenderer::TextRenderer(const std::string& message, const Vector2& offset, const Vector3& color)
     : RenderComponent(offset)
 {
     this->message = message;
-    this->color = color;
+    this->m_fontColor = color;
 
     setUI(true);
 
     setFont(BITMAP_HELVETICA_18);
 }
 
-TextRenderer::TextRenderer(std::string message, const Vector2& offset, const Vector3& Color, eFontType fontType)
+TextRenderer::TextRenderer(const std::string& message, const Vector2& offset, const Vector3& Color, eFontType fontType)
     : RenderComponent(offset)
 {
     this->message = message;
-    this->color = color;
+    this->m_fontColor = m_fontColor;
 
     setUI(true);
     setFont(fontType);
@@ -55,7 +55,7 @@ void TextRenderer::render()
     if (!m_isEnabled) return;
     if (message.empty()) return;
 
-    App::Print(messagePosition.x, messagePosition.y, message.c_str(), color.x, color.y, color.z,(void*)fontStyle);
+    App::Print(messagePosition.x, messagePosition.y, message.c_str(), m_fontColor.x, m_fontColor.y, m_fontColor.z,(void*)fontStyle);
 }
 
 TextRenderer* TextRenderer::clone() const
@@ -72,7 +72,7 @@ void TextRenderer::setText(const std::string& message)
 
 void TextRenderer::setColor(float r, float g, float b)
 {
-    color = Vector3(r, g, b);
+    m_fontColor = Vector3(r, g, b);
 }
 
 void TextRenderer::setFont(eFontType type)
@@ -116,7 +116,17 @@ void TextRenderer::setFont(eFontType type)
     }
 }
 
+void TextRenderer::setTextRenderOrder(int order)
+{
+    m_renderOrder = order;
+}
+
+void TextRenderer::setOffset(const Vector2& offset)
+{
+    m_offset = offset;
+}
+
 int TextRenderer::renderOrder()
 {
-    return 0;
+    return m_renderOrder;
 }

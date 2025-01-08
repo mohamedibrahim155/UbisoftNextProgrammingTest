@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "BoxCollider.h"
-
+#include "../src/Utils/Utils.h"
 BoxCollider::BoxCollider() : Collider(eShape::BOX)
 {
 	m_box.minimum = { -1, -1 };
@@ -96,22 +96,5 @@ void BoxCollider::render()
 {
 	SBox box = getBox();
 
-	float topLeftX = box.minimum.x;
-	float topLeftY = box.maximum.y;
-
-	float topRightX = box.maximum.x;
-	float topRightY = box.maximum.y;
-
-	float bottomLeftX = box.minimum.x;
-	float bottomLeftY = box.minimum.y;
-
-	float bottomRightX = box.maximum.x;
-	float bottomRightY = box.minimum.y;
-
-	Vector3 color = Vector3(0, 1, 0);
-
-	App::DrawLine(topLeftX, topLeftY, topRightX, topRightY, color.x, color.y, color.z);
-	App::DrawLine(topRightX, topRightY, bottomRightX, bottomRightY, color.x, color.y, color.z);
-	App::DrawLine(bottomRightX, bottomRightY, bottomLeftX, bottomLeftY, color.x, color.y, color.z);
-	App::DrawLine(bottomLeftX, bottomLeftY, topLeftX, topLeftY, color.x, color.y, color.z);
+	Debug::DrawBox(box.minimum, box.maximum, m_debugColor);
 }

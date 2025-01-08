@@ -59,6 +59,50 @@ void Debug::Log(float value)
 {
 }
 
+void Debug::DrawCircle(float cx, float cy, float radius, int segments, const Vector3& color)
+{
+
+    const float increment = 2.0f * PI / segments;
+    float theta = 0.0f;
+
+    for (int i = 0; i < segments; ++i)
+    {
+        // Calculate start and end points of the segment
+        float x1 = cx + radius * cosf(theta);
+        float y1 = cy + radius * sinf(theta);
+
+        theta += increment;
+
+        float x2 = cx + radius * cosf(theta);
+        float y2 = cy + radius * sinf(theta);
+
+        // Draw the line segment
+        App::DrawLine(x1, y1, x2, y2, color.x, color.y, color.z);
+    }
+}
+
+void Debug::DrawBox(const Vector2& minimum, const Vector2& maximum, const Vector3& color)
+{
+    float topLeftX = minimum.x;
+    float topLeftY = maximum.y;
+
+    float topRightX = maximum.x;
+    float topRightY = maximum.y;
+
+    float bottomLeftX = minimum.x;
+    float bottomLeftY = minimum.y;
+
+    float bottomRightX = maximum.x;
+    float bottomRightY = minimum.y;
+
+
+
+    App::DrawLine(topLeftX, topLeftY, topRightX, topRightY, color.x, color.y, color.z);
+    App::DrawLine(topRightX, topRightY, bottomRightX, bottomRightY, color.x, color.y, color.z);
+    App::DrawLine(bottomRightX, bottomRightY, bottomLeftX, bottomLeftY, color.x, color.y, color.z);
+    App::DrawLine(bottomLeftX, bottomLeftY, topLeftX, topLeftY, color.x, color.y, color.z);
+}
+
 
 
 float MathF::Clamp(float value, float min, float max)

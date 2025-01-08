@@ -6,6 +6,7 @@
 #include "../src/Utils/PhysicsUtils.h"
 #include "../src/LevelManager/Levels/Level2.h"
 #include "../src/LevelManager/LevelManager.h"
+#include "../src/InputManager/InputManager.h"
 PlayerMoveScript::PlayerMoveScript() : BaseScriptComponent()
 {
 }
@@ -83,6 +84,15 @@ pos.x += 1.0f;*/
 		return ;
 	}
 
+	if (InputManager::GetInstance().GetKeyDown('W'))
+	{
+		gameObject->transform.position.y += 50;
+	}
+	if (InputManager::GetInstance().GetKeyDown('S'))
+	{
+		gameObject->transform.position.y -= 50;
+
+	}
 }
 
 

@@ -17,9 +17,9 @@ class TextRenderer : public RenderComponent
 {
 public:
 
-	TextRenderer(std::string message, const Vector2& offset = Vector2::Zero());
-	TextRenderer(std::string message, const Vector2& offset, const Vector3& Color = Vector2::One());
-	TextRenderer(std::string message, const Vector2& offset, const Vector3& Color, eFontType fontType = BITMAP_TIMES_ROMAN_10);
+	TextRenderer(const std::string& message, const Vector2& offset = Vector2::Zero());
+	TextRenderer(const std::string& message, const Vector2& offset, const Vector3& Color = Vector2::One());
+	TextRenderer(const std::string& messagee, const Vector2& offset, const Vector3& Color, eFontType fontType = BITMAP_TIMES_ROMAN_10);
 	~TextRenderer() override = default;
 
 	// Inherited via RenderComponent
@@ -34,15 +34,20 @@ public:
 	void setText(const std::string& message);
 	void setColor(float r, float g, float b);
 	void setFont(eFontType type);
+	void setTextRenderOrder(int order);
+	void setOffset(const Vector2& offset);
 
 	// Getters for text Component
 	inline  std::string getText()    const { return message; };
-	inline  Vector3     getColor()   const { return color; };
+	inline  Vector3     getColor()   const { return m_fontColor; };
 private:
 
+	int m_renderOrder = 10;
 	std::string message;
+
 	Vector2 messagePosition;
-	Vector3 color =Vector3::One();
+	Vector3 m_fontColor =Vector3::One();
+
 	void* fontStyle = nullptr;
 
 

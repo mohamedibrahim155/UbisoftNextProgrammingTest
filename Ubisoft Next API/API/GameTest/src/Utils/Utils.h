@@ -21,6 +21,8 @@ public:
 	static void Log(std::string message, Vector3 color = Vector3::One());
 	static void Log(int value);
 	static void Log(float value);
+	static void DrawCircle(float cx, float cy, float radius, int segments, const Vector3& color = Vector3::One());
+	static void DrawBox(const Vector2& minimum, const Vector2& maximum, const Vector3& color);
 };
 
 

@@ -52,12 +52,15 @@ void Level1::initialize()
 		entity4->transform.scale = Vector2(1, 1);
 	}
 
-	Entity* enttity5 = entityManager->createEntity();
-	enttity5->addComponent(new TextRenderer("Hello world"));
-	enttity5->transform.position = Vector3(0, -2, 0);
+	//Entity* enttity5 = entityManager->createEntity();
+	//enttity5->addComponent(new TextRenderer("Hello world"));
 
+	//enttity5->transform.position = Vector3(0, -2, 0);
+
+	TextRenderer* text = new TextRenderer("Heyasodas");
+	text->setColor(1, 0, 0);
 	Entity* buttonRender = entityManager->createEntity();
-	buttonRender->addComponent(new ButtonRenderer(ASSET_PATH + "Default\\square-rounded-512.png"));
+	buttonRender->addComponent(new ButtonRenderer(ASSET_PATH + "Default\\square-rounded-512.png",text));
 	buttonRender->transform.position = Vector3(0, -50, 0);
 	buttonRender->transform.scale = Vector2(0.3f, 0.3f);
 	buttonRender->addComponent(new PlayerMoveScript());

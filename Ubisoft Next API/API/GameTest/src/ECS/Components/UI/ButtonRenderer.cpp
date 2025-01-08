@@ -14,6 +14,23 @@ ButtonRenderer::ButtonRenderer(std::string filename) :
 
 }
 
+ButtonRenderer::ButtonRenderer(std::string filename, TextRenderer* textComponent) : SpriteRenderer(filename, true)
+{
+    setUI(true);
+
+    boxCollider = new BoxCollider(this);
+    boxCollider->setUI(true);
+
+    mousCircle = { getMousePosition(), 5.0f };
+
+    if (textComponent)
+    {
+        this->textComponent = textComponent;
+    }
+}
+
+
+
 
 
 
@@ -23,6 +40,12 @@ ButtonRenderer::ButtonRenderer(std::string filename) :
 void ButtonRenderer::start()
 {
     gameObject->addComponent(boxCollider);
+
+    if (textComponent)
+    {
+        textComponent->setEntity(gameObject);
+        textComponent->start();
+    }
 }
 
 void ButtonRenderer::updateComponent()
@@ -70,21 +93,30 @@ void ButtonRenderer::updateComponent()
     // Update Sprite
     SpriteRenderer::updateComponent();
 
+    if (textComponent)
+    {
+        textComponent->updateComponent();
+    }
 }
 
 void ButtonRenderer::render()
 {
     if (!m_isEnabled) return;
 
+    //Renders Text
+ 
+
     // Render Sprite
     SpriteRenderer::render();
 
-
+    if (textComponent)
+    {
+        textComponent->render();
+    }
 
     // Draw Mouse Circle
-    DrawCircle(mousCircle.centre.x, mousCircle.centre.y, mousCircle.radius, 36, m_debugColor);
-    
-    // Render BoxCollider if enabled
+    Debug::DrawCircle(mousCircle.centre.x, mousCircle.centre.y, mousCircle.radius, 36, m_debugColor);
+   
 
     if (boxCollider && boxCollider->m_isEnabled)
     {
@@ -99,6 +131,11 @@ void ButtonRenderer::render()
 void ButtonRenderer::cleanUp()
 {
     cleanEvents();
+
+    if (textComponent)
+    {
+        delete textComponent;
+    }
 }
 
 ButtonRenderer* ButtonRenderer::clone() const
@@ -129,6 +166,21 @@ void ButtonRenderer::cleanEvents()
     OnButtonHoverExit.clear();
 }
 
+void ButtonRenderer::setTextColor(float r, float g, float b)
+{
+    if (!textComponent) return;
+  
+    textComponent->setColor(r, g, b);
+    
+}
+
+void ButtonRenderer::setText(const std::string& message)
+{
+    if (!textComponent) return;
+
+    textComponent->setText(message);
+}
+
 Vector2 ButtonRenderer::getMousePosition()
 {
     float x, y;
@@ -140,28 +192,7 @@ Vector2 ButtonRenderer::getMousePosition()
 }
 
 
-void ButtonRenderer::DrawCircle(float cx, float cy, float radius, int segments, const Vector3& color)
-{
 
-    const float increment = 2.0f * PI / segments;
-    float theta = 0.0f;
-
-    for (int i = 0; i < segments; ++i)
-    {
-        // Calculate start and end points of the segment
-        float x1 = cx + radius * cosf(theta);
-        float y1 = cy + radius * sinf(theta);
-
-        theta += increment;
-
-        float x2 = cx + radius * cosf(theta);
-        float y2 = cy + radius * sinf(theta);
-
-        // Draw the line segment
-        App::DrawLine(x1, y1, x2, y2, color.x, color.y, color.z);
-    }
-
-}
 
 bool ButtonRenderer::IsMousePressed(const int mouseKey)
 {

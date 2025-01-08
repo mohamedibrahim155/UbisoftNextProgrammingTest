@@ -31,9 +31,6 @@ protected:
     SBox getBounds() override;
     void calculateShape() override;
 
-    
-    void DrawCircle(float cx, float cy, float radius, int segments, const Vector3& color);
-
  
 };
 

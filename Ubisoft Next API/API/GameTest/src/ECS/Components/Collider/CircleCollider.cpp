@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "CircleCollider.h"
-
+#include "../src/Utils/Utils.h"
 CircleCollider::CircleCollider() : Collider(eShape::CIRCLE)
 {
     m_circle.centre = { m_center.x, m_center.y };
@@ -89,29 +89,7 @@ void CircleCollider::calculateShape()
 
 }
 
-void CircleCollider::DrawCircle(float cx, float cy, float radius, int segments, const Vector3& color)
-{
-    const float increment = 2.0f * PI / segments;
-    float theta = 0.0f;
 
-    for (int i = 0; i < segments; ++i) 
-    {
-        // Calculate start and end points of the segment
-        float x1 = cx + radius * cosf(theta);
-        float y1 = cy + radius * sinf(theta);
-
-        theta += increment;
-
-        float x2 = cx + radius * cosf(theta);
-        float y2 = cy + radius * sinf(theta);
-
-        // Draw the line segment
-        App::DrawLine(x1, y1, x2, y2, color.x, color.y, color.z);
-    }
-
-  
-
-}
 
 CircleCollider* CircleCollider::clone() const
 {
@@ -123,8 +101,6 @@ void CircleCollider::render()
 {
     SCircle circle = getCircle();
 
-     const Vector3 color = Vector3(0, 1, 0);
-
-     DrawCircle(circle.centre.x, circle.centre.y, circle.radius, 36, color);
+     Debug::DrawCircle(circle.centre.x, circle.centre.y, circle.radius, 36, m_debugColor);
 
 }

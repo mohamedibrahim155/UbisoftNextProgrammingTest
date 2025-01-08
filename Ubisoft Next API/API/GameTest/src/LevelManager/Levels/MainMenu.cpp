@@ -13,7 +13,10 @@ void MainMenu::initialize()
 	systemManager->start();
 
 	Entity* buttonRender = entityManager->createEntity();
-	buttonRender->addComponent(new ButtonRenderer(ASSET_PATH + "Default\\square-rounded-512.png"));
+
+	TextRenderer* text = new TextRenderer("Heyo");
+	text->setColor(1, 0, 0);
+	buttonRender->addComponent(new ButtonRenderer(ASSET_PATH + "Default\\square-rounded-512.png", text));
 	buttonRender->transform.position = Vector3(0, 100, 0);
 	buttonRender->transform.scale = Vector2(0.3f, 0.3f);
 	buttonRender->addComponent(new PlayerMoveScript());
