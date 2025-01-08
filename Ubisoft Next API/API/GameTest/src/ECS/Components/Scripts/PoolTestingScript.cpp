@@ -2,7 +2,7 @@
 #include "PoolTestingScript.h"
 #include"../src/ECS/Components/Collider/BoxCollider.h"
 #include"../src/ECS/Components/Rigidbody/Rigidbody.h"
-PoolTestingScript::PoolTestingScript() : BaseScriptComponent()
+PoolTestingScript::PoolTestingScript(EntityManager* manager) : BaseScriptComponent(), m_entityManager(manager)
 {
 	//prefab = nullptr;
 	m_entitiesPool = nullptr;
@@ -15,7 +15,6 @@ PoolTestingScript::~PoolTestingScript()
 void PoolTestingScript::start()
 {
 	std::string filename = ASSET_PATH + "IdleBLUE- 150ms - 32x32.png";
-	m_entityManager = getEntity()->m_entityManager;
 
 
 	prefab = m_entityManager->createEntity();
@@ -32,7 +31,7 @@ void PoolTestingScript::start()
 
 }
 
-void PoolTestingScript::updateComponent()
+bool PoolTestingScript::update()
 {
 	if (IsKeyPressedOnce('T'))
 	{
@@ -45,10 +44,10 @@ void PoolTestingScript::updateComponent()
 	{
 		//On Disable
 
-	
+
 		DisableCurrent();
 	}
-
+	return true;
 }
 
 void PoolTestingScript::Enable()

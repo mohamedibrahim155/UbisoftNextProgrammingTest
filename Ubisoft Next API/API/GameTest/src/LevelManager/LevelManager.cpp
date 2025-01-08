@@ -2,13 +2,14 @@
 #include "LevelManager.h"
 #include "../LevelManager/Levels/Level1.h"
 #include "../LevelManager/Levels/Level2.h"
+#include "../LevelManager/Levels/MainMenu.h"
 LevelManager& LevelManager::GetInstance()
 {
 	static LevelManager instance;
 	return instance;
 }
 
-void LevelManager::AddLevel(eScene sceneName, BaseLevel* scene)
+void LevelManager::addLevel(eScene sceneName, BaseLevel* scene)
 {  
 	scene->entityManager = m_entityManager;
 	scene->systemManager = m_systemManager;
@@ -16,14 +17,14 @@ void LevelManager::AddLevel(eScene sceneName, BaseLevel* scene)
 	m_listOfScenes[sceneName] = scene;
 }
 
-void LevelManager::RemoveLevel(eScene sceneName)
+void LevelManager::removeLevel(eScene sceneName)
 {
 	m_listOfScenes.erase(sceneName);
 }
 
 
 
-void LevelManager::SetManagers(SystemManager* systemManager, EntityManager* entityManager)
+void LevelManager::setManagers(SystemManager* systemManager, EntityManager* entityManager)
 {
 	this->m_entityManager = entityManager;
 	this->m_systemManager = systemManager;
@@ -31,17 +32,18 @@ void LevelManager::SetManagers(SystemManager* systemManager, EntityManager* enti
 
 void LevelManager::Init()
 {
+	BaseLevel* mainMenu = new MainMenu();
 	BaseLevel* level1 = new Level1();
 	BaseLevel* level2 = new Level2();
 }
 
 
 
-void LevelManager::CleanScene()
+void LevelManager::cleanScene()
 {
 	if (m_currentScene)
 	{
-		m_currentScene->CleanScene();
+		m_currentScene->cleanScene();
 	}
 
 	while (m_listOfScenes.size() > 0)
@@ -60,21 +62,42 @@ void LevelManager::CleanScene()
 }
 
 
-void LevelManager::ChangeScene(eScene changeScene)
+void LevelManager::changeScene(eScene changeScene)
 {
+	
 	if (m_currentScene)
 	{
-		m_currentScene->CleanScene();
+			m_currentScene->cleanScene();
 	}
 
-	m_currentScene = GetScene(changeScene);
-	m_currentSceneType = m_currentScene->GetType();
-	m_currentSceneName = m_currentScene->GetName();
+	
+	m_currentScene = getScene(changeScene);
+	m_currentSceneType = m_currentScene->getType();
+	m_currentSceneName = m_currentScene->getName();
 
-	m_currentScene->Initialize();
+	m_currentScene->initialize();
 }
 
-BaseLevel* LevelManager::GetScene(eScene scene)
+void LevelManager::NextLevel()
+{
+	int currentLevel = (int)m_currentSceneType;
+	currentLevel++;
+
+	if (currentLevel >= 3)
+	{
+		currentLevel = 0;
+	}
+
+	changeScene((eScene)currentLevel);
+}
+
+void LevelManager::RestartLevel()
+{
+	m_currentScene->cleanScene();
+	m_currentScene->initialize();
+}
+
+BaseLevel* LevelManager::getScene(eScene scene)
 {
 	return m_listOfScenes[scene];
 }

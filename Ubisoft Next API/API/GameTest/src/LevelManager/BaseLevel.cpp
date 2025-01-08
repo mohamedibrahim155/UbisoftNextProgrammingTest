@@ -4,22 +4,22 @@
 #include "LevelManager.h"
 BaseLevel::BaseLevel(eScene sceneType) : m_sceneType(sceneType)
 {
-	LevelManager::GetInstance().AddLevel(m_sceneType, this);
+	LevelManager::GetInstance().addLevel(m_sceneType, this);
 }
 
 BaseLevel::~BaseLevel()
 {
-	LevelManager::GetInstance().RemoveLevel(m_sceneType);
+	LevelManager::GetInstance().removeLevel(m_sceneType);
 }
 
 
 
-void BaseLevel::ChangeScene(eScene changeScene)
+void BaseLevel::changeScene(eScene changeScene)
 {
-	LevelManager::GetInstance().ChangeScene(changeScene);
+	LevelManager::GetInstance().changeScene(changeScene);
 }
 
-eScene BaseLevel::GetType()
+eScene BaseLevel::getType()
 {
 	return (m_sceneType);
 }

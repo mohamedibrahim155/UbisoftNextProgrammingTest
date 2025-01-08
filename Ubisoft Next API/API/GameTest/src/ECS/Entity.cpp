@@ -112,22 +112,16 @@ bool Entity::removeComponent(ComponentType type)
 
 }
 
-void Entity::Destroy(bool isManagerCall)
+void Entity::Destroy()
 {
 	if (isDestroyed) return;
 
-	OnDestroyed.Invoke();
 	setActive(false);
 	isDestroyed = true;
 	cleanUps();
-	if (m_entityManager && !isManagerCall)
-	{
-		m_entityManager->removeEntity(m_entityID);
-	}
-	
-
-	//delete this;
+	OnDestroyed.Invoke();
 }
+
 
 
 
@@ -191,9 +185,8 @@ void Entity::setActive(bool isActive)
 		if (!component) continue;
 
 		//if (component->m_isEnabled )
-		{
-			component->setEnabled(isActive);
-		}
+		
+		component->setEnabled(isActive);
 		
 	}
 
@@ -261,6 +254,12 @@ void Entity::cleanUps()
 		if (item.second)
 		{
 			item.second->cleanUp();
+
+			if (item.second->m_isStartInvoked)
+			{
+				item.second->m_isStartInvoked = false;
+			}
+
 			delete item.second;
 		}
 	}

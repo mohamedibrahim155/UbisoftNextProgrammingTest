@@ -14,7 +14,7 @@ World::World()
 	systemManager = new SystemManager();
 	entityManager = new EntityManager(systemManager);
 
-	LevelManager::GetInstance().SetManagers(systemManager, entityManager);
+	LevelManager::GetInstance().setManagers(systemManager, entityManager);
 
 #pragma region Systems
 
@@ -40,7 +40,7 @@ World::World()
 void World::start()
 {
 	LevelManager::GetInstance().Init();
-	LevelManager::GetInstance().ChangeScene(LEVEL_1);
+	LevelManager::GetInstance().changeScene(LEVEL_1);
 //#pragma region Entities
 //
 //
@@ -141,6 +141,6 @@ void World::render()
 
 void World::clean()
 {
-	LevelManager::GetInstance().CleanScene();
+	LevelManager::GetInstance().cleanScene();
 	
 }

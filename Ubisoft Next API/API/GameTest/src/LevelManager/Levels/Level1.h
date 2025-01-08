@@ -7,8 +7,8 @@ public:
 
 	~Level1() override = default;
 	// Inherited via CBaseScene
-	void Initialize() override;
-	void CleanScene() override;
+	void initialize() override;
+	void cleanScene() override;
 	
 };
 

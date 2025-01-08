@@ -21,7 +21,7 @@ public:
 	void addComponent(IComponent* component);
 	void addComponents(std::vector<IComponent*> components);
 	bool removeComponent(ComponentType type);
-	void Destroy(bool ismanagerCall = false);
+	void Destroy();
 	void cleanUps();
 
 	void copyComponents(const Entity& otherEntity);
@@ -47,9 +47,6 @@ public:
 
 	Transform transform;
 	SpriteRenderer* m_sprite;
-
-	EntityManager* m_entityManager;
-
 
 	bool isDestroyed = false;
 

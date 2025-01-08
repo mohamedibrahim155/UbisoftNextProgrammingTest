@@ -19,13 +19,13 @@ public:
 	BaseLevel(eScene sceneType);
 	virtual ~BaseLevel();
 
-	virtual void Initialize() = 0;
-	virtual void CleanScene() = 0;
-	virtual eScene GetType();
+	virtual void initialize() = 0;
+	virtual void cleanScene() = 0;
+	virtual eScene getType();
 
-	void ChangeScene(eScene eScene);
+	void changeScene(eScene eScene);
 
-	inline std::string GetName() { return sceneToString[m_sceneType]; };
+	inline std::string getName() { return sceneToString[m_sceneType]; };
 
 	SystemManager* systemManager;
 	EntityManager* entityManager;

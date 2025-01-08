@@ -29,10 +29,6 @@ void SystemManager::removeEntity(EntityID ID)
 
     m_listOfEntities.erase(std::remove(m_listOfEntities.begin(), m_listOfEntities.end(), entity));
 
-    entity->Destroy(true);
-
-    delete entity;
-
     m_entitiesMap.erase(ID);
 }
 
@@ -115,7 +111,12 @@ void SystemManager::clearEntities()
     {
         for (auto it = m_entitiesMap.begin(); it != m_entitiesMap.end(); )
         {
-            removeEntity(it->first);
+            EntityID Id = it->first;
+            Entity* entity = it->second;
+
+            removeEntity(Id);
+
+            delete entity;
             it = m_entitiesMap.begin();
         }
     }

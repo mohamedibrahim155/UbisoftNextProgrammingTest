@@ -11,6 +11,7 @@ public:
 	// Inherited via IComponent
 	 void start() override;
 	 void updateComponent()  override;
+	 bool update()  override;
 	 void render() override;
 
 	 SpriteSheetRenderer* m_spriteSheet;

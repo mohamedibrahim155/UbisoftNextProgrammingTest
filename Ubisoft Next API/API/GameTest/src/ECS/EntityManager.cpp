@@ -26,17 +26,37 @@ Entity* EntityManager::createEntityFromCopy(Entity* entity)
 
 void EntityManager::addEntity( Entity* entity)
 {
-    entity->m_entityManager = this;
 
     m_systemManager->addEntity(entity);
+
+    HandleOnDestroyed(entity);
+}
+
+void EntityManager::HandleOnDestroyed(Entity* entity)
+{
+    entity->OnDestroyed.Subscribe([this, entity]()
+        {
+            DestroyEntity(entity);
+        });
 }
 
 void EntityManager::removeEntity(EntityID ID)
 {
-    m_systemManager->removeEntity(ID);
+        m_systemManager->removeEntity(ID);
 }
 
 void EntityManager::clean()
 {
     m_entityCount = 0;
 }
+
+void EntityManager::DestroyEntity(Entity* entity)
+{
+    entity->Destroy();
+
+    removeEntity(entity->getID());
+
+    delete entity;
+}
+
+

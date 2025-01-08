@@ -8,14 +8,16 @@ class   LevelManager
 public:
 	static LevelManager& GetInstance();
 
-	void AddLevel(eScene sceneEnum, BaseLevel* scene);
-	void RemoveLevel(eScene sceneEnum);
-	void SetManagers(SystemManager* m_systemManager, EntityManager* m_entityManager);
+	void addLevel(eScene sceneEnum, BaseLevel* scene);
+	void removeLevel(eScene sceneEnum);
+	void setManagers(SystemManager* m_systemManager, EntityManager* m_entityManager);
 	void Init();
-	void CleanScene();
-	void ChangeScene(eScene changeScene);
+	void cleanScene();
+	void changeScene(eScene changeScene);
+	void NextLevel();
+	void RestartLevel();
 
-	BaseLevel* GetScene(eScene scene);
+	BaseLevel* getScene(eScene scene);
 
 private:
 

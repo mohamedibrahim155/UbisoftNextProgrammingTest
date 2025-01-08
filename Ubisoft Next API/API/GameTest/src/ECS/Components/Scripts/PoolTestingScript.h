@@ -4,17 +4,18 @@
 class PoolTestingScript : public BaseScriptComponent
 {
 public:
-	PoolTestingScript();
+	PoolTestingScript(EntityManager* entityManager);
 	~PoolTestingScript() override;
 
 	 void start()  override;
-	 void updateComponent() override;
+	 void updateComponent() override {};
+	 bool update() override;
 	 void render()override {} ;
 	 void cleanUp() override {};
 
     PoolTestingScript* clone() const override
 	{
-		return new PoolTestingScript();
+		return new PoolTestingScript(this->m_entityManager);
 	};
 
 public :

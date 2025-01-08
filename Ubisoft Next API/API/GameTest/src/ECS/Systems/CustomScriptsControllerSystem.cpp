@@ -44,12 +44,12 @@ void CustomScriptsControllerSystem::update(std::vector<Entity*> entities, float 
 {
 
 
-	for (const std::pair<Entity*,BaseScriptComponent*>&  scriptEntity:  m_listofScripts)
+	for (const std::pair<Entity*, BaseScriptComponent*>& scriptEntity : m_listofScripts)
 	{
 		Entity* entity = scriptEntity.first;
 		BaseScriptComponent* scriptComponent = scriptEntity.second;
 
-		if (!entity->IsActive() || entity->isDestroyed) continue;
+		if (!entity->IsActive() || entity->isDestroyed || !scriptComponent) continue;
 
 		if (!scriptComponent->m_isEnabled) continue;
 
@@ -60,9 +60,9 @@ void CustomScriptsControllerSystem::update(std::vector<Entity*> entities, float 
 			continue;
 		}
 
-		
-		scriptComponent->updateComponent();
 
+		if (!scriptComponent->update()) break;
+	
 	}
 }
 
@@ -112,7 +112,7 @@ void CustomScriptsControllerSystem::addScript(Entity* entity)
 
 void CustomScriptsControllerSystem::removeScript(Entity* entity)
 {
-
+	
 	for (auto it = m_listofScripts.begin(); it != m_listofScripts.end(); ++it)
 	{
 		if ( it->first->getID() == entity->getID())

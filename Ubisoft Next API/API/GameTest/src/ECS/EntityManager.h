@@ -12,11 +12,10 @@ public:
 	Entity* createEntityFromCopy(Entity* entity);
 
 	void addEntity(Entity* entity);
+	void HandleOnDestroyed(Entity* entity);
 	void removeEntity(EntityID ID);
 	void clean();
-
-	inline unsigned int getEntitiesCount() { return m_entityCount;  }
-	inline SystemManager* getSystemManager() { return m_systemManager; }
+	void DestroyEntity(Entity* entity);
 private:
 
 	int m_entityCount = 0;
