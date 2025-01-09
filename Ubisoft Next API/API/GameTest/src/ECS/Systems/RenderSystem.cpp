@@ -46,7 +46,7 @@ void RenderSystem::updateUIComponents()
 	}
 }
 
-void RenderSystem::render(std::vector<Entity*> entities)
+void RenderSystem::render(std::vector<Entity*> entities, bool isDebugVisible)
 {
 	
 	// Renders UI's
@@ -56,7 +56,7 @@ void RenderSystem::render(std::vector<Entity*> entities)
 
 		
 
-		renderEntity->component->render();
+		renderEntity->component->render(isDebugVisible);
 	}
 
 	// Renders sprites
@@ -70,7 +70,7 @@ void RenderSystem::render(std::vector<Entity*> entities)
 
 		if (renderComp == nullptr) continue;
 
-		renderComp->render();
+		renderComp->render(isDebugVisible);
 	}
 }
 

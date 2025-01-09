@@ -10,7 +10,7 @@ public:
 	// Inherited via Collider
 	void start() override {};
 	void updateComponent() override {};
-	void render() override;
+	void render(bool isDebugVisible) override;
 	void calculateShape() override;
 	LineCollider* clone() const override;
 

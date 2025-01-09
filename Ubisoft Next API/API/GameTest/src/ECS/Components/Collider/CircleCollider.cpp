@@ -97,9 +97,11 @@ CircleCollider* CircleCollider::clone() const
 }
 
 
-void CircleCollider::render()
+void CircleCollider::render(bool isDebugVisible)
 {
     SCircle circle = getCircle();
+
+    if (!isDebugVisible) return;
 
      Debug::DrawCircle(circle.centre.x, circle.centre.y, circle.radius, 36, m_debugColor);
 

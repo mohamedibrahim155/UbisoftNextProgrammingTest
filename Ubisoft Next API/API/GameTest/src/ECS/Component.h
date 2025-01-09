@@ -23,7 +23,7 @@ public:
 	
 	virtual void start() = 0;
 	virtual void updateComponent() = 0;
-	virtual void render() = 0;
+	virtual void render(bool isDebugRender = false) = 0;
 	virtual void cleanUp() = 0;
 	virtual IComponent* clone() const = 0;
 

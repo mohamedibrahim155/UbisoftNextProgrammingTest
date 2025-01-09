@@ -13,7 +13,7 @@ public:
     // Inherited via Collider
     void start() override {};
      void updateComponent() override {};
-     void render()  override;
+     void render(bool isDebugVisible)  override;
      CircleCollider* clone() const override;
      void setRadius(float radius) { m_circle.radius = radius; };
 

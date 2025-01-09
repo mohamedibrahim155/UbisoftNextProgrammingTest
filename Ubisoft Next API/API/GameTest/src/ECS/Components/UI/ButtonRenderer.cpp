@@ -2,6 +2,7 @@
 #include "ButtonRenderer.h"
 #include "../src/Timer/Timer.h"
 #include "../src/Utils/PhysicsUtils.h"
+#include "../src/InputManager/InputManager.h"
 ButtonRenderer::ButtonRenderer(std::string filename) : 
     SpriteRenderer(filename,true)
 {
@@ -10,7 +11,7 @@ ButtonRenderer::ButtonRenderer(std::string filename) :
     boxCollider = new BoxCollider(this);
     boxCollider->setUI(true);
 
-    mousCircle = { getMousePosition(), 5.0f };
+    mousCircle = { InputManager::GetInstance().GetMousePosition(), 5.0f };
 
 }
 
@@ -21,7 +22,7 @@ ButtonRenderer::ButtonRenderer(std::string filename, TextRenderer* textComponent
     boxCollider = new BoxCollider(this);
     boxCollider->setUI(true);
 
-    mousCircle = { getMousePosition(), 5.0f };
+    mousCircle = { InputManager::GetInstance().GetMousePosition(), 5.0f};
 
     if (textComponent)
     {
@@ -55,7 +56,7 @@ void ButtonRenderer::updateComponent()
 #pragma region ButtonValidate
 
     // Update mouse position circle
-    mousCircle.centre = getMousePosition();
+    mousCircle.centre = InputManager::GetInstance().GetMousePosition();
 
 
 
@@ -71,7 +72,7 @@ void ButtonRenderer::updateComponent()
             OnButtonHover.Invoke();
         }
 
-        if (IsMousePressed(VK_LBUTTON) || (App::GetController().CheckButton(XINPUT_GAMEPAD_DPAD_UP, true)))
+        if (InputManager::GetInstance().GetKeyDown(VK_LBUTTON) || (App::GetController().CheckButton(XINPUT_GAMEPAD_DPAD_UP, true)))
         {
             OnButtonClick.Invoke();
         }
@@ -99,7 +100,7 @@ void ButtonRenderer::updateComponent()
     }
 }
 
-void ButtonRenderer::render()
+void ButtonRenderer::render(bool isDebugRender)
 {
     if (!m_isEnabled) return;
 
@@ -107,20 +108,21 @@ void ButtonRenderer::render()
  
 
     // Render Sprite
-    SpriteRenderer::render();
+    SpriteRenderer::render(isDebugRender);
 
     if (textComponent)
     {
-        textComponent->render();
+        textComponent->render(isDebugRender);
     }
 
+    if (!isDebugRender) return;
     // Draw Mouse Circle
     Debug::DrawCircle(mousCircle.centre.x, mousCircle.centre.y, mousCircle.radius, 36, m_debugColor);
    
 
     if (boxCollider && boxCollider->m_isEnabled)
     {
-        boxCollider->render();
+        boxCollider->render(isDebugRender);
     }
 
 
@@ -181,28 +183,12 @@ void ButtonRenderer::setText(const std::string& message)
     textComponent->setText(message);
 }
 
-Vector2 ButtonRenderer::getMousePosition()
-{
-    float x, y;
-
-    App::GetMousePos(x, y);
-
-    return Vector2(x, y);
-
-}
 
 
 
 
-bool ButtonRenderer::IsMousePressed(const int mouseKey)
-{
-    bool isPressed = App::IsKeyPressed(mouseKey);
 
-    bool wasPressed = previousMouseKeyStates[mouseKey];
-    previousMouseKeyStates[mouseKey] = isPressed;
 
-    return isPressed && !wasPressed;
-}
 
 int ButtonRenderer::renderOrder()
 {

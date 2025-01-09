@@ -41,6 +41,16 @@ ISystem* SystemManager::getSystem(eSystemType type)
     return m_systemsMap[type];
 }
 
+void SystemManager::SetDebugVisible(bool isVisible)
+{
+    m_debugVisible = isVisible;
+}
+
+
+bool SystemManager::IsDebug() const
+{
+    return m_debugVisible;
+}
 
 Entity* SystemManager::getEntityByID(EntityID ID)
 {
@@ -73,7 +83,7 @@ void SystemManager::render()
 {
     for (std::pair<eSystemType, ISystem*> system : m_systemsMap)
     {
-        system.second->render(m_listOfEntities);
+        system.second->render(m_listOfEntities, m_debugVisible);
     }
 }
 

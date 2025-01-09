@@ -96,9 +96,7 @@ pos.x += 1.0f;*/
 }
 
 
-void PlayerMoveScript::render()
-{
-}
+
 
 PlayerMoveScript* PlayerMoveScript::clone() const
 {

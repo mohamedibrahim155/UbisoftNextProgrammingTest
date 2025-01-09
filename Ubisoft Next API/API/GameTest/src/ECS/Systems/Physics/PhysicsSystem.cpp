@@ -142,14 +142,14 @@ void PhysicsSystem::updateComponents(std::vector<Entity*> entities, float deltat
 
 }
 
-void PhysicsSystem::render(std::vector<Entity*> entities)
+void PhysicsSystem::render(std::vector<Entity*> entities, bool isDebugVisible)
 {
 	
 	for (const std::pair<EntityID, PhysicsEntity>& object : staticObjectsMap)
 	{
 		if (!object.second.collider) continue;
 
-			object.second.collider->render();
+			object.second.collider->render(isDebugVisible);
 		
 	}
 
@@ -157,7 +157,7 @@ void PhysicsSystem::render(std::vector<Entity*> entities)
 	{
 		if (!object.second.collider) continue;
 		
-		object.second.collider->render();
+		object.second.collider->render(isDebugVisible);
 		
 	}
 }

@@ -14,7 +14,7 @@ public:
 	 // Inherited via RenderComponent
 	void start() override;
 	void updateComponent() override;
-	void render() override;
+	void render(bool isDebugRender) override;
 	void cleanUp() override;
 	int renderOrder() override;
 	ButtonRenderer* clone() const override;
@@ -41,10 +41,6 @@ private:
 	CEvent<> OnButtonHover;
 	CEvent<> OnButtonHoverExit;
 
-	Vector2 getMousePosition();
-
-	bool IsMousePressed(const int mouseKey);
-    std::unordered_map<int, bool> previousMouseKeyStates;
 
 	
 };

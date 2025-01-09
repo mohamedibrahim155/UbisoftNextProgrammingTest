@@ -9,7 +9,7 @@ public:
 	// Inherited via IComponent
 	virtual void start() {};
 	virtual void updateComponent() {};
-	virtual void render() {};
+	virtual void render(bool isDebugVisible) override {};
 	virtual void cleanUp() override {};
 
 	// Inherited via IComponent

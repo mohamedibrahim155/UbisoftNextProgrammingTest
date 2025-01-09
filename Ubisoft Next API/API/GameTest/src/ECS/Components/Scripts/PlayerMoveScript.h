@@ -11,7 +11,7 @@ public:
 	// Inherited via IComponent
 	 void start() override;
 	 void updateComponent()  override;
-	 void render() override;
+	 void render(bool isDebugVisible) override {};
 
 	 SpriteSheetRenderer* m_spriteSheet;
 

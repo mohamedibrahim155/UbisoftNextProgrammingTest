@@ -50,7 +50,7 @@ void TextRenderer::updateComponent()
     messagePosition = Vector2(updatedPosition.x, updatedPosition.y);
 }
 
-void TextRenderer::render()
+void TextRenderer::render(bool isDebugVisible)
 {
     if (!m_isEnabled) return;
     if (message.empty()) return;

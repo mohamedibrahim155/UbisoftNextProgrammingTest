@@ -16,7 +16,7 @@ public:
 	// Inherited via IComponent
 	virtual void start() override {};
 	virtual void updateComponent() override {};
-	virtual void render() override {};
+	virtual void render(bool isDebugRender= false) override {};
 	virtual void cleanUp() override {};
 	virtual int renderOrder() =0;
 	virtual RenderComponent* clone() const = 0;
@@ -25,7 +25,6 @@ protected:
 	std::string m_fileName;
 	Vector2 m_centerScreen;
 	Vector2 m_offset;
-
 	
 };
 

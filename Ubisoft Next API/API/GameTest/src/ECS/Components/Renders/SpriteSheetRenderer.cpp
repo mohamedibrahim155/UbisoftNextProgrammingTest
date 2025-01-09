@@ -38,9 +38,9 @@ void SpriteSheetRenderer::updateComponent()
 	SpriteRenderer::updateComponent();
 }
 
-void SpriteSheetRenderer::render()
+void SpriteSheetRenderer::render(bool isDebugVisible)
 {
-	SpriteRenderer::render();
+	SpriteRenderer::render(isDebugVisible);
 }
 
 SpriteSheetRenderer* SpriteSheetRenderer::clone() const

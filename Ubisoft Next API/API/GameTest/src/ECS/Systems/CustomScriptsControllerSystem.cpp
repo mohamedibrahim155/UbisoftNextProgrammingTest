@@ -79,7 +79,7 @@ void CustomScriptsControllerSystem::update(std::vector<Entity*> entities, float 
 	}
 }
 
-void CustomScriptsControllerSystem::render(std::vector<Entity*> entities)
+void CustomScriptsControllerSystem::render(std::vector<Entity*> entities, bool isDebugVisible)
 {
 	for (const std::pair<Entity*, BaseScriptComponent*>& scriptEntity : m_listofScripts)
 	{
@@ -90,7 +90,7 @@ void CustomScriptsControllerSystem::render(std::vector<Entity*> entities)
 
 		if (!scriptComponent->m_isEnabled) continue;
 
-		scriptComponent->render();
+		scriptComponent->render(isDebugVisible);
 
 	}
 }

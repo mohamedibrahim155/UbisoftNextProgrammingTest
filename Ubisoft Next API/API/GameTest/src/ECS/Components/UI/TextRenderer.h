@@ -25,7 +25,7 @@ public:
 	// Inherited via RenderComponent
 	void start() override;
 	void updateComponent() override;
-	void render() override;
+	void render(bool isDebugVisible) override;
     void cleanUp() override {};
 	TextRenderer* clone() const override;
 	int renderOrder() override;

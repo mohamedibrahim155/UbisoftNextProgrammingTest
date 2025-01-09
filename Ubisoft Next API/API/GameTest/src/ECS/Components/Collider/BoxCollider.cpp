@@ -92,9 +92,11 @@ BoxCollider* BoxCollider::clone() const
 
 
 
-void BoxCollider::render()
+void BoxCollider::render(bool isDebugRender)
 {
 	SBox box = getBox();
+
+	if (!isDebugRender) return;
 
 	Debug::DrawBox(box.minimum, box.maximum, m_debugColor);
 }

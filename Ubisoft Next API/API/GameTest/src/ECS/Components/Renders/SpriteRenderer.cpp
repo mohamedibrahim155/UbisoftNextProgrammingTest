@@ -50,7 +50,7 @@ void SpriteRenderer::updateComponent()
 
 }
 
-void SpriteRenderer::render()
+void SpriteRenderer::render(bool isDebugRender)
 {
 	if (!m_isEnabled) return;
 

@@ -19,6 +19,9 @@ public:
 	void cleanups();
 	void cleanSystem();
 
+	void SetDebugVisible(bool isVisible);
+
+	bool IsDebug() const;
 
 	Entity* getEntityByID(EntityID ID);
 	std::vector<Entity*> getEntities() const;
@@ -39,5 +42,6 @@ private:
 	void clearEntities();
 	void clearSystems(bool canDelete = true);
 
+	bool m_debugVisible = true;
 };
 

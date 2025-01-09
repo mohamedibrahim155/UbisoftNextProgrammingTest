@@ -70,7 +70,7 @@ public:
 	virtual void start() {};
 	virtual void Init();
 	virtual void updateComponent() {};
-	virtual void render() {};
+	virtual void render(bool isDebugVisible) override {};
 	virtual void cleanUp() override {};
 	virtual Collider* clone() const override =0;
 

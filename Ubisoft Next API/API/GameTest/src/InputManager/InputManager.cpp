@@ -29,3 +29,10 @@ bool InputManager::GetKey(int key)
 {
     return App::IsKeyPressed(key);
 }
+
+Vector2 InputManager::GetMousePosition()
+{
+    App::GetMousePos(mouseX, mouseY);
+
+    return Vector2(mouseX, mouseY);
+}

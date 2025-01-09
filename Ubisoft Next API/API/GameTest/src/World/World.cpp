@@ -9,6 +9,7 @@
 #include "../src/Utils/PhysicsUtils.h"
 #include "../src/LevelManager/LevelManager.h"
 #include "../src/LevelManager/Levels/Level1.h"
+#include "../src/InputManager/InputManager.h"
 World::World()
 {
 	systemManager = new SystemManager();
@@ -131,6 +132,12 @@ void World::start()
 
 void World::update(float deltaTime)
 {
+	if (InputManager::GetInstance().GetKeyDown('V'))
+	{
+		bool debug = systemManager->IsDebug();
+
+		systemManager->SetDebugVisible(!debug);
+	}
 	systemManager->updateSystems(deltaTime);
 }
 

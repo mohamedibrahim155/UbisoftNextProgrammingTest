@@ -12,7 +12,7 @@ public:
     // Inherited via Collider
     virtual void start() {};
     virtual void updateComponent() {};
-    virtual void render();
+    virtual void render(bool isDebugRender);
     BoxCollider* clone() const override;
 
     SBox getBounds() override;

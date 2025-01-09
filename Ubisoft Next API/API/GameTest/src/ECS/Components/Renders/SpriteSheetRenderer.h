@@ -8,7 +8,7 @@ public:
 	virtual ~SpriteSheetRenderer() override;
 	virtual void start() override;
 	virtual void updateComponent() override;
-	virtual void render() override;
+	virtual void render(bool isDebugVisible) override;
 	virtual SpriteSheetRenderer* clone() const override;
 	void setAnimation(int ID, bool playfromBegining = false);
 	void createAnimation(unsigned int ID, float speed, const std::vector<int>& frames);

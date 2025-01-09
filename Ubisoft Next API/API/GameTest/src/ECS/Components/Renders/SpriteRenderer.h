@@ -12,7 +12,7 @@ public:
 	virtual ~SpriteRenderer() override;
 	virtual void start() override;
 	virtual void updateComponent() override;
-	virtual void render() override;
+	virtual void render(bool isDebugRender = false) override;
 	virtual void cleanUp() override {};
 	 int renderOrder() override;
 

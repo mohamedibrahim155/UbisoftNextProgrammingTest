@@ -18,7 +18,7 @@ public:
 	virtual ~ISystem() = default;
 	virtual void start(std::vector<Entity*> entities)=0;
 	virtual void update(std::vector<Entity*> entities,float deltaTime) = 0;
-	virtual void render(std::vector<Entity*> entities) =0;
+	virtual void render(std::vector<Entity*> entities, bool isDebugVisible) =0;
 	virtual void cleanups() =0;
 
 	SystemManager* m_systemManager;

@@ -38,15 +38,14 @@ LineCollider* LineCollider::clone() const
 
 
 
-void LineCollider::render()
+void LineCollider::render(bool isDebugVisible)
 {
 
 	SLine line = getLine();
 
+	if (!isDebugVisible) return;
 
-
-	const Vector3 color{ 0,1,0 };
-	App::DrawLine(line.startPoint.x, line.startPoint.y, line.endPoint.x, line.endPoint.y, color.x, color.y, color.z);
+	App::DrawLine(line.startPoint.x, line.startPoint.y, line.endPoint.x, line.endPoint.y, m_debugColor.x, m_debugColor.y, m_debugColor.z);
 }
 
 void LineCollider::calculateShape()
