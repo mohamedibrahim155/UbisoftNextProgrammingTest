@@ -22,11 +22,11 @@ TextRenderer::TextRenderer(const std::string& message, const Vector2& offset, co
     setFont(BITMAP_HELVETICA_18);
 }
 
-TextRenderer::TextRenderer(const std::string& message, const Vector2& offset, const Vector3& Color, eFontType fontType)
+TextRenderer::TextRenderer(const std::string& message, const Vector2& offset, const Vector3& textColor, eFontType fontType)
     : RenderComponent(offset)
 {
     this->message = message;
-    this->m_fontColor = m_fontColor;
+    this->m_fontColor = textColor;
 
     setUI(true);
     setFont(fontType);

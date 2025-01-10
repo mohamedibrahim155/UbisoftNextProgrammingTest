@@ -49,15 +49,7 @@ void RenderSystem::updateUIComponents()
 void RenderSystem::render(std::vector<Entity*> entities, bool isDebugVisible)
 {
 	
-	// Renders UI's
-	for (RenderEntity* renderEntity : m_listOfUIRenderer)
-	{
-		if (!renderEntity->entity->IsActive() || renderEntity->entity->isDestroyed) continue;
-
-		
-
-		renderEntity->component->render(isDebugVisible);
-	}
+	
 
 	// Renders sprites
 	for (const auto& pair : m_sortedSprites)
@@ -71,6 +63,17 @@ void RenderSystem::render(std::vector<Entity*> entities, bool isDebugVisible)
 		if (renderComp == nullptr) continue;
 
 		renderComp->render(isDebugVisible);
+	}
+
+
+	// Renders UI's
+	for (RenderEntity* renderEntity : m_listOfUIRenderer)
+	{
+		if (!renderEntity->entity->IsActive() || renderEntity->entity->isDestroyed) continue;
+
+
+
+		renderEntity->component->render(isDebugVisible);
 	}
 }
 

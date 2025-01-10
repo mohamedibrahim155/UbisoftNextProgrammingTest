@@ -25,12 +25,17 @@ public:
 	void addListenersOnButtonHoverExit(const std::function<void()>& callback);
 	void cleanEvents();
 
+	//Setters
 	void setTextColor(float r, float g, float b);
 	void setText(const std::string& message);
+
+	//Getters
+	TextRenderer* getTextComponent() const { return textComponent; }
 private:
 
 	bool isOnHover = false;
 	bool m_isTextEnabled = false;
+
 	SCircle mousCircle;
 	Transform* transform     = nullptr;
 	BoxCollider* boxCollider = nullptr;

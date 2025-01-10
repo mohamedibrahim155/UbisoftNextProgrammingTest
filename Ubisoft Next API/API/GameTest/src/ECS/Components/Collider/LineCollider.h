@@ -5,6 +5,7 @@ class LineCollider : public Collider
 public:
 
 	LineCollider(const Vector2& startpoint, const Vector2& endpoint);
+	LineCollider();
 	~LineCollider() override = default;
 
 	// Inherited via Collider

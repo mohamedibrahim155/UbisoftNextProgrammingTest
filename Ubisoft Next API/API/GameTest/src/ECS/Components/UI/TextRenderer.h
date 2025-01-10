@@ -18,7 +18,7 @@ class TextRenderer : public RenderComponent
 public:
 
 	TextRenderer(const std::string& message, const Vector2& offset = Vector2::Zero());
-	TextRenderer(const std::string& message, const Vector2& offset, const Vector3& Color = Vector2::One());
+	TextRenderer(const std::string& message, const Vector2& offset, const Vector3& Color);
 	TextRenderer(const std::string& messagee, const Vector2& offset, const Vector3& Color, eFontType fontType = BITMAP_TIMES_ROMAN_10);
 	~TextRenderer() override = default;
 

@@ -4,7 +4,13 @@
 LineCollider::LineCollider(const Vector2& startpoint, const Vector2& endpoint) : Collider(eShape::LINE)
 {
 	m_line.startPoint = startpoint + m_center;
-	m_line.endPoint = endpoint + m_center;
+	m_line.endPoint   = endpoint   + m_center;
+}
+
+LineCollider::LineCollider() : Collider(eShape::LINE)
+{
+	m_line.startPoint = m_center;
+	m_line.endPoint   = m_center;
 }
 
 SBox LineCollider::getBounds()
