@@ -9,6 +9,7 @@ enum class eSystemType
 	MOVEMENT_SYSTEM,
 	PHYSICS_SYSTEM,
 	RENDER_SYSTEM,
+	PARTILCE_SYSTEM,
 };
 class ISystem   
 {

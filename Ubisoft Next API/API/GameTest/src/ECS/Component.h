@@ -10,6 +10,7 @@ enum class ComponentType
 	PHYSICS_COMPONENT = 3,
 	COLLIDER_COMPONENT = 4,
 	RENDER_COMPONENT =5,
+	PARTICLE_COMPONENT = 6,
 };
 
 class Entity;
