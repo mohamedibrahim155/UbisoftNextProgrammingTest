@@ -18,7 +18,7 @@ float Random::RandomRange(float min, float max)
     std::random_device rd;
     std::mt19937 gen(rd());
 
-    std::uniform_int_distribution<> dist(min, max - 1);
+    std::uniform_real_distribution<> dist(min, max);
 
     float random_number = dist(gen);
     return random_number;

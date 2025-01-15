@@ -4,6 +4,7 @@
 #include "../src/ECS/Systems/CustomScriptsControllerSystem.h"
 #include "../src/ECS/Systems/MovementSystem.h"
 #include "../src/ECS/Systems/Physics/PhysicsSystem.h"
+#include "../src/ECS/Systems/ParticleSystemRender/ParticleSystem.h"
 #include "../src/ECS/Components/Scripts/PlayerMoveScript.h"
 #include "../src/Utils/Utils.h"
 #include "../src/Utils/PhysicsUtils.h"
@@ -23,10 +24,12 @@ World::World()
 	ISystem* customScriptSystem = new CustomScriptsControllerSystem();
 	ISystem* movementSystem = new MovementSystem();
 	ISystem* physicsSystem = new PhysicsSystem();
+	ISystem* particleSystem = new ParticleSystem();
 
 	systemManager->registerSystem(customScriptSystem);
 	systemManager->registerSystem(physicsSystem);
 	systemManager->registerSystem(movementSystem);
+	systemManager->registerSystem(particleSystem);
 	systemManager->registerSystem(renderSystem);
 #pragma endregion
 

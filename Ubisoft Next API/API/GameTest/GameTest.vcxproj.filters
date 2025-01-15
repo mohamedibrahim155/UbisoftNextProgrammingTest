@@ -57,6 +57,8 @@
     <ClCompile Include="src\ECS\Components\Scripts\PoolTestingScript.cpp" />
     <ClCompile Include="src\InputManager\InputManager.cpp" />
     <ClCompile Include="src\Factory\GameObjectFactory.cpp" />
+    <ClCompile Include="src\ECS\Components\Particle\ParticleComponent.cpp" />
+    <ClCompile Include="src\ECS\Systems\ParticleSystemRender\ParticleSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -125,6 +127,8 @@
     <ClInclude Include="src\ECS\Components\Scripts\PoolTestingScript.h" />
     <ClInclude Include="src\InputManager\InputManager.h" />
     <ClInclude Include="src\Factory\GameObjectFactory.h" />
+    <ClInclude Include="src\ECS\Components\Particle\ParticleComponent.h" />
+    <ClInclude Include="src\ECS\Systems\ParticleSystemRender\ParticleSystem.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="API">

@@ -186,6 +186,8 @@
     <ClInclude Include="App\SimpleController.h" />
     <ClInclude Include="App\SimpleSound.h" />
     <ClInclude Include="App\SimpleSprite.h" />
+    <ClInclude Include="src\ECS\Systems\ParticleSystemRender\ParticleSystem.h" />
+    <ClInclude Include="src\ECS\Components\Particle\ParticleComponent.h" />
     <ClInclude Include="src\Factory\GameObjectFactory.h" />
     <ClInclude Include="src\InputManager\InputManager.h" />
     <ClInclude Include="src\ECS\Components\Scripts\PoolTestingScript.h" />
@@ -235,6 +237,8 @@
     <ClCompile Include="App\SimpleController.cpp" />
     <ClCompile Include="App\SimpleSound.cpp" />
     <ClCompile Include="App\SimpleSprite.cpp" />
+    <ClCompile Include="src\ECS\Systems\ParticleSystemRender\ParticleSystem.cpp" />
+    <ClCompile Include="src\ECS\Components\Particle\ParticleComponent.cpp" />
     <ClCompile Include="src\Factory\GameObjectFactory.cpp" />
     <ClCompile Include="src\InputManager\InputManager.cpp" />
     <ClCompile Include="src\ECS\Components\Scripts\PoolTestingScript.cpp" />
