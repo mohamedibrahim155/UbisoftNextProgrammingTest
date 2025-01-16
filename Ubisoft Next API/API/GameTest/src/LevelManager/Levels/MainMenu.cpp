@@ -33,7 +33,6 @@ MainMenu::~MainMenu()
 }
 void MainMenu::initialize()
 {
-	systemManager->start();
 
 	// Create background and buttons
 	createBackground();

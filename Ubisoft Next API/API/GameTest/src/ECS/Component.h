@@ -11,6 +11,7 @@ enum class ComponentType
 	COLLIDER_COMPONENT = 4,
 	RENDER_COMPONENT =5,
 	PARTICLE_COMPONENT = 6,
+	CAMERA_COMPONENT = 7,
 };
 
 class Entity;

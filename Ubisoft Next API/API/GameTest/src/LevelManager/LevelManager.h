@@ -14,9 +14,10 @@ public:
 	void Init();
 	void cleanScene();
 	void changeScene(eScene changeScene);
+	void initCurrentScene();
 	void NextLevel();
 	void RestartLevel();
-
+	void createCamera();
 	BaseLevel* getScene(eScene scene);
 
 private:

@@ -8,8 +8,8 @@ Collider::Collider(eShape type) : IComponent(ComponentType::COLLIDER_COMPONENT)
 	transform = nullptr;
 	spriteRenderer = nullptr;
 
-	m_center.x = APP_VIRTUAL_WIDTH * 0.5f;
-	m_center.y = APP_VIRTUAL_HEIGHT * 0.5f;
+	m_screenCenter.x = APP_VIRTUAL_WIDTH * 0.5f;
+	m_screenCenter.y = APP_VIRTUAL_HEIGHT * 0.5f;
 }
 
 

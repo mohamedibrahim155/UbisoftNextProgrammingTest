@@ -2,6 +2,8 @@
 #include "../src/ECS/Components/Rigidbody/RigidBody.h"
 #include "../src/ECS/Entity.h"
 #include"../src/ECS/Components/Collider/Collider.h"
+#include "../src/ECS/Components/Collider/CircleCollider.h"
+#include "../src/ECS/Components/Collider/BoxCollider.h"
 #include "../src/Utils/Utils.h"
 
 struct RaycastHit {

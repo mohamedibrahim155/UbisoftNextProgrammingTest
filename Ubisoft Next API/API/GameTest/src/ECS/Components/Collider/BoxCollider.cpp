@@ -64,15 +64,15 @@ SBox BoxCollider::getBox()
 		box.maximum.y *= transform->scale.y;
 		
 		
-		box.minimum.x += transform->position.x  + m_center.x;
-		box.minimum.y += transform->position.y  + m_center.y;
+		box.minimum.x += transform->localPosition.x;
+		box.minimum.y += transform->localPosition.y;
 		
-		box.maximum.x += transform->position.x + m_center.x;
-		box.maximum.y += transform->position.y + m_center.y;
+		box.maximum.x += transform->localPosition.x;
+		box.maximum.y += transform->localPosition.y;
 	}
 
-	box.minimum = box.minimum + m_offset;
-	box.maximum = box.maximum + m_offset;
+	box.minimum = box.minimum + m_screenCenter +  m_offset;
+	box.maximum = box.maximum + m_screenCenter +  m_offset;
 
 
 	return box;
@@ -94,6 +94,8 @@ BoxCollider* BoxCollider::clone() const
 
 void BoxCollider::render(bool isDebugRender)
 {
+	if (!m_isEnabled) return;
+
 	SBox box = getBox();
 
 	if (!isDebugRender) return;

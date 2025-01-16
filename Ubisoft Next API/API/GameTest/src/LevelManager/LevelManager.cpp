@@ -3,6 +3,7 @@
 #include "../LevelManager/Levels/Level1.h"
 #include "../LevelManager/Levels/Level2.h"
 #include "../LevelManager/Levels/MainMenu.h"
+#include "../ECS/Components/Camera/Camera.h"
 LevelManager& LevelManager::GetInstance()
 {
 	static LevelManager instance;
@@ -75,6 +76,15 @@ void LevelManager::changeScene(eScene changeScene)
 	m_currentSceneType = m_currentScene->getType();
 	m_currentSceneName = m_currentScene->getName();
 
+	initCurrentScene();
+}
+
+void LevelManager::initCurrentScene()
+{
+	m_systemManager->start();
+
+	createCamera();
+
 	m_currentScene->initialize();
 }
 
@@ -94,7 +104,15 @@ void LevelManager::NextLevel()
 void LevelManager::RestartLevel()
 {
 	m_currentScene->cleanScene();
-	m_currentScene->initialize();
+	
+	initCurrentScene();
+}
+
+void LevelManager::createCamera()
+{
+	Entity* camera = m_entityManager->createEntity();
+	camera->addComponent(Camera::createCamera());
+	camera->setTag("mainCamera");
 }
 
 BaseLevel* LevelManager::getScene(eScene scene)

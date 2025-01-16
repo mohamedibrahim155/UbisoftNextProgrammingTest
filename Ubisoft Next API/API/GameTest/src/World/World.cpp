@@ -139,7 +139,7 @@ void World::update(float deltaTime)
 	{
 		bool debug = systemManager->IsDebug();
 
-		systemManager->SetDebugVisible(!debug);
+		systemManager->setDebugVisible(!debug);
 	}
 	systemManager->updateSystems(deltaTime);
 }

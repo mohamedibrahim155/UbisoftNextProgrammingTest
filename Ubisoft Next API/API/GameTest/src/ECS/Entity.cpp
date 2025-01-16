@@ -62,18 +62,22 @@ void Entity::addComponent(IComponent* component)
 {
 
 	component->setEntity(this);
-	m_listOfComponents[component->getComponentType()] = component;
-
+	ComponentType type = component->getComponentType();
+	
+	m_listOfComponents[type] = component;
 
 	//Intial References
-	switch (component->getComponentType())
+	switch (type)
 	{
 	case ComponentType::TRANSFORM_COMPONENT:
 		transform = *(dynamic_cast<Transform*>(component));
 		break;
 
 	case ComponentType::RENDER_COMPONENT:
-		m_sprite = dynamic_cast<SpriteRenderer*>(component);
+		if (!m_sprite)
+		{
+			m_sprite = dynamic_cast<SpriteRenderer*>(component);
+		}
 		break;
 
 	case ComponentType::COLLIDER_COMPONENT:
@@ -153,13 +157,16 @@ std::string Entity::getTag() const
 Vector3 Entity::getPosition() 
 {
 	float x, y;
-
+	if (!m_sprite)
+	{
+		return transform.position;
+	}
 	m_sprite->getSprite()->GetPosition(x, y);
 
 	Vector3 position = Vector3(x, y, 0);
 	transform.position = position;
 
-	return transform.position;
+	return position;
 }
 
 bool Entity::IsActive() const
@@ -206,15 +213,17 @@ void Entity::setID(int ID)
 /// Sets position of Sprite
 /// </summary>
 /// <param name="scale"> rotation degree</param>
-void Entity::setPosition(const Vector3& position)
+void Entity::setPosition(const Vector3& position, const Vector3& cameraPosition)
 {
-	transform.position = position;
+
+	// Update the sprite's position for rendering
+		transform.position = position;
+		transform.localPosition = position - cameraPosition;
 
 	if (m_sprite)
 	{
-		m_sprite->setPosition(transform.position);
+		m_sprite->setPosition(position, cameraPosition);
 	}
-
 }
 /// <summary>
 /// Sets rotation of Sprite

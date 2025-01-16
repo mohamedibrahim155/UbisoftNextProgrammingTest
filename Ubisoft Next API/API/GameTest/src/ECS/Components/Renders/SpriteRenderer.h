@@ -20,7 +20,7 @@ public:
 
 	 void setColor(const Vector3&  color);
 	 void setColor(const float& r, const float& g, const float& b);
-	 void setPosition(const Vector3&  position);
+	 void setPosition(const Vector3&  position,  const Vector3& camerePosition);
 	 void setRotation(const float& rotationY);
 	 void setOffset(const Vector2& offset);
 	 void setScale(const Vector2&  scale);

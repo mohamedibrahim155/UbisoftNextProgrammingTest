@@ -29,7 +29,7 @@ public:
 
 	int totalParticles = 10;
 
-	bool isLoop = false;
+	bool m_isLoop = false;
 	bool isPlaying = false;
 
 	Vector2 m_startVelocityX = { -100, 100 };
@@ -38,7 +38,7 @@ public:
 	//Vector2 mOriginInit;
 	Vector2 m_startTime = { 0,2 };
 
-	float m_Gravity = 0;
+	float m_gravity = 0;
 	float m_spawnRadius = 50;
 	float m_scale = 1;
 

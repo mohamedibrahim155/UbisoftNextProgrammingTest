@@ -3,14 +3,14 @@
 
 LineCollider::LineCollider(const Vector2& startpoint, const Vector2& endpoint) : Collider(eShape::LINE)
 {
-	m_line.startPoint = startpoint + m_center;
-	m_line.endPoint   = endpoint   + m_center;
+	m_line.startPoint = startpoint + m_screenCenter;
+	m_line.endPoint   = endpoint   + m_screenCenter;
 }
 
 LineCollider::LineCollider() : Collider(eShape::LINE)
 {
-	m_line.startPoint = m_center;
-	m_line.endPoint   = m_center;
+	m_line.startPoint = m_screenCenter;
+	m_line.endPoint   = m_screenCenter;
 }
 
 SBox LineCollider::getBounds()
@@ -46,6 +46,7 @@ LineCollider* LineCollider::clone() const
 
 void LineCollider::render(bool isDebugVisible)
 {
+	if (!m_isEnabled) return;
 
 	SLine line = getLine();
 
@@ -78,6 +79,7 @@ SLine LineCollider::getLine()
 
 void LineCollider::setLine(const Vector2& startpoint, const Vector2& endpoint)
 {
+
 	m_line.startPoint = startpoint;
 	m_line.endPoint = endpoint;
 

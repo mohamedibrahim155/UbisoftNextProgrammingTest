@@ -16,6 +16,8 @@ public:
      void render(bool isDebugVisible)  override;
      CircleCollider* clone() const override;
      void setRadius(float radius) { m_circle.radius = radius; };
+     void setHeight(const float& height);
+     void setWidth(const float& width);
 
      float getRadius() const { return m_circle.radius; };
 

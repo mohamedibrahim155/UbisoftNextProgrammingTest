@@ -59,6 +59,7 @@
     <ClCompile Include="src\Factory\GameObjectFactory.cpp" />
     <ClCompile Include="src\ECS\Components\Particle\ParticleComponent.cpp" />
     <ClCompile Include="src\ECS\Systems\ParticleSystemRender\ParticleSystem.cpp" />
+    <ClCompile Include="src\ECS\Components\Camera\Camera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -129,6 +130,7 @@
     <ClInclude Include="src\Factory\GameObjectFactory.h" />
     <ClInclude Include="src\ECS\Components\Particle\ParticleComponent.h" />
     <ClInclude Include="src\ECS\Systems\ParticleSystemRender\ParticleSystem.h" />
+    <ClInclude Include="src\ECS\Components\Camera\Camera.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="API">

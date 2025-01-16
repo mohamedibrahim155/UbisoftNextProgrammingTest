@@ -48,7 +48,7 @@ private:
 
 	Vector2 computeNormals(std::vector<Vector2>& collisionNormals);
 
-	bool ContainsCollider(Collider* collider);
+	bool isContainsCollider(Collider* collider);
 
 	const float FIXED_TIMESTEP = 1.0f / 60.0f;
 	float timer = 0;

@@ -3,7 +3,7 @@
 #include "../src/Utils/Utils.h"
 CircleCollider::CircleCollider() : Collider(eShape::CIRCLE)
 {
-    m_circle.centre = { m_center.x, m_center.y };
+    m_circle.centre = { m_screenCenter.x, m_screenCenter.y };
     m_circle.radius = 1;
     m_width = 1;
     m_height = 1;
@@ -11,7 +11,7 @@ CircleCollider::CircleCollider() : Collider(eShape::CIRCLE)
 
 CircleCollider::CircleCollider(float radius) : Collider(eShape::CIRCLE)
 {
-    m_circle.centre = { m_center.x, m_center.y };
+    m_circle.centre = { m_screenCenter.x, m_screenCenter.y };
     m_circle.radius = radius;
 
 }
@@ -19,6 +19,8 @@ CircleCollider::CircleCollider(float radius) : Collider(eShape::CIRCLE)
 CircleCollider::CircleCollider(const CircleCollider& other) : Collider(eShape::CIRCLE)
 {
     this->m_circle = other.m_circle;
+	this->m_width = other.m_width;
+	this->m_height = other.m_height;
 }
 
 
@@ -34,8 +36,8 @@ SCircle CircleCollider::getCircle()
 
     if (transform)
     {
-        circle.centre.x += transform->position.x;
-        circle.centre.y += transform->position.y;
+        circle.centre.x += transform->localPosition.x;
+        circle.centre.y += transform->localPosition.y;
         circle.radius   *= transform->scale.x;
     }
 
@@ -50,8 +52,8 @@ SBox CircleCollider::getBounds()
 
     if (transform)
     {
-        box.minimum = { transform->position.x - m_circle.radius, transform->position.y - m_circle.radius };
-        box.maximum = { transform->position.x + m_circle.radius, transform->position.y + m_circle.radius };
+        box.minimum = { transform->localPosition.x - m_circle.radius, transform->localPosition.y - m_circle.radius };
+        box.maximum = { transform->localPosition.x + m_circle.radius, transform->localPosition.y + m_circle.radius };
 
         box.minimum.x *= transform->scale.x;
         box.minimum.y *= transform->scale.y;
@@ -59,8 +61,8 @@ SBox CircleCollider::getBounds()
         box.maximum.x *= transform->scale.x;
         box.maximum.y *= transform->scale.y;
     }
-    box.minimum = box.minimum + m_center + m_offset;
-    box.maximum = box.maximum + m_center + m_offset;
+    box.minimum = box.minimum  + m_offset;
+    box.maximum = box.maximum  + m_offset;
 
     return box;
 }
@@ -73,19 +75,16 @@ void CircleCollider::calculateShape()
         m_height = spriteRenderer->getSprite()->GetHeight();
     }
 
-    if (transform)
-    {
-        m_circle.centre = Vector2(m_center.x,m_center.y);
-    }
+    m_circle.centre = Vector2(m_screenCenter.x, m_screenCenter.y);
 
     float h = m_height;
     float w = m_width;
 
-    float radius = h;
+    float localRadius = h;
 
-    radius = (w > h ? w * 0.5f : radius * 0.5f);
+    localRadius = (w > h ? w * 0.5f : localRadius * 0.5f);
 
-    this->m_circle.radius = radius;
+    m_circle.radius = localRadius;
 
 }
 
@@ -96,9 +95,22 @@ CircleCollider* CircleCollider::clone() const
     return new CircleCollider(*this);
 }
 
+void CircleCollider::setHeight(const float& height)
+{
+	m_height = height;
+}
+
+void CircleCollider::setWidth(const float& width)
+{
+	m_width = width;
+}
+
+
 
 void CircleCollider::render(bool isDebugVisible)
 {
+    if (!m_isEnabled) return;
+
     SCircle circle = getCircle();
 
     if (!isDebugVisible) return;

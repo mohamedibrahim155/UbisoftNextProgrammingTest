@@ -91,7 +91,7 @@ protected:
 	SpriteRenderer* spriteRenderer = nullptr;
 
 	Vector2  m_offset;
-	Vector2 m_center;
+	Vector2 m_screenCenter;
 	Vector2 m_scale{ 1,1 };
 
 

@@ -10,7 +10,7 @@ public:
 	void registerSystem(ISystem* system);
 	void removeSystem(ISystem* system);
 
-	void addEntity(Entity* entity);
+	void addEntityToSystem(Entity* entity);
 	void removeEntity(EntityID ID);
 
 	void start();
@@ -19,9 +19,10 @@ public:
 	void cleanups();
 	void cleanSystem();
 
-	void SetDebugVisible(bool isVisible);
+	void setDebugVisible(bool isVisible);
 
 	bool IsDebug() const;
+	int getEntitiesCount() const;
 
 	Entity* getEntityByID(EntityID ID);
 	std::vector<Entity*> getEntities() const;

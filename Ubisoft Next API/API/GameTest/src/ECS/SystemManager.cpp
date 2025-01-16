@@ -12,7 +12,7 @@ void SystemManager::removeSystem(ISystem* system)
     m_systemsMap.erase(system->m_systemType);
 }
 
-void SystemManager::addEntity(Entity* entity)
+void SystemManager::addEntityToSystem(Entity* entity)
 {
     m_entitiesMap[entity->getID()] =  entity;
 
@@ -41,7 +41,7 @@ ISystem* SystemManager::getSystem(eSystemType type)
     return m_systemsMap[type];
 }
 
-void SystemManager::SetDebugVisible(bool isVisible)
+void SystemManager::setDebugVisible(bool isVisible)
 {
     m_debugVisible = isVisible;
 }
@@ -50,6 +50,11 @@ void SystemManager::SetDebugVisible(bool isVisible)
 bool SystemManager::IsDebug() const
 {
     return m_debugVisible;
+}
+
+int SystemManager::getEntitiesCount() const
+{
+    return m_listOfEntities.size();
 }
 
 Entity* SystemManager::getEntityByID(EntityID ID)

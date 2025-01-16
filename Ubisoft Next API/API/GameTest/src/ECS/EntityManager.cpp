@@ -3,21 +3,23 @@
 
 EntityManager::EntityManager(SystemManager* manager) : m_systemManager(manager)
 {
-    m_entityCount = 0;
+    m_entityID = 0;
 }
 
 Entity* EntityManager::createEntity()
 {
-    m_entityCount++;
-    Entity* newEntity = new Entity(m_entityCount);
+    m_entityID++;
+
+    Entity* newEntity = new Entity(m_entityID);
     addEntity(newEntity);
     return  newEntity;
 }
 
 Entity* EntityManager::createEntityFromCopy(Entity* entity)
 {
-    m_entityCount++;
-    Entity* newEntity = new Entity(*entity,m_entityCount);
+    m_entityID++;
+
+    Entity* newEntity = new Entity(*entity,m_entityID);
     addEntity(newEntity);
     newEntity->copyComponents(*entity);
     return newEntity;
@@ -26,17 +28,16 @@ Entity* EntityManager::createEntityFromCopy(Entity* entity)
 
 void EntityManager::addEntity( Entity* entity)
 {
+    m_systemManager->addEntityToSystem(entity);
 
-    m_systemManager->addEntity(entity);
-
-    HandleOnDestroyed(entity);
+    subscribeOnDestroy(entity);
 }
 
-void EntityManager::HandleOnDestroyed(Entity* entity)
+void EntityManager::subscribeOnDestroy(Entity* entity)
 {
     entity->OnDestroyed.Subscribe([this, entity]()
         {
-            DestroyEntity(entity);
+            destroyEntity(entity);
         });
 }
 
@@ -47,10 +48,10 @@ void EntityManager::removeEntity(EntityID ID)
 
 void EntityManager::clean()
 {
-    m_entityCount = 0;
+    m_entityID = 0;
 }
 
-void EntityManager::DestroyEntity(Entity* entity)
+void EntityManager::destroyEntity(Entity* entity)
 {
     entity->Destroy();
 

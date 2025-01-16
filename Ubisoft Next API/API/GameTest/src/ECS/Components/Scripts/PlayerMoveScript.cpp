@@ -21,7 +21,8 @@ void PlayerMoveScript::start()
 	gameObject->addComponent(new SpriteSheetRenderer(ASSET_PATH + "IdleBLUE- 150ms - 32x32.png",6,1));
 
 	m_spriteSheet = (SpriteSheetRenderer*)gameObject->getComponent(ComponentType::RENDER_COMPONENT);
-
+	gameObject->addComponent(new CircleCollider());
+	gameObject->addComponent(new RigidBody(eBodyType::STATIC));
 
 	const float speed = 1.0f / 15.0f;
 	m_spriteSheet->createAnimation(0, speed, { 0,1,2,3,4,5,6 });
@@ -39,7 +40,7 @@ pos.x += 1.0f;*/
 	if (App::GetController().CheckButton(XINPUT_GAMEPAD_DPAD_DOWN, false))
 	{
 
-		gameObject->Destroy();
+		//gameObject->Destroy();
 
 
 		//Entity* entity = gameObject;
@@ -84,11 +85,11 @@ pos.x += 1.0f;*/
 		return ;
 	}
 
-	if (InputManager::GetInstance().GetKeyDown('W'))
+	if (InputManager::GetInstance().GetKey(VK_UP ))
 	{
 		gameObject->transform.position.y += 50;
 	}
-	if (InputManager::GetInstance().GetKeyDown('S'))
+	if (InputManager::GetInstance().GetKeyDown(VK_DOWN))
 	{
 		gameObject->transform.position.y -= 50;
 

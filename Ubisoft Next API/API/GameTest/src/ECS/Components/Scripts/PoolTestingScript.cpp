@@ -22,7 +22,7 @@ void PoolTestingScript::start()
 	prefab->addComponent(new SpriteRenderer(filename, Vector2::Zero(), 3));
 	prefab->addComponent(new BoxCollider());
 	prefab->addComponent(new RigidBody(eBodyType::DYNAMIC));
-	prefab->transform.position = Vector2::Zero();
+	//prefab->transform.position = Vector2(512,200);
 	prefab->setActive(false);
 
 	m_entitiesPool = new EntityPool(m_entityManager, prefab);

@@ -18,12 +18,13 @@ public:
 
 private:
 
-	int m_entityCount = 0;
+	int m_entityID = 0;
 
 	std::vector<Entity*> m_listOfEntites;
 	SystemManager* m_systemManager;
 
-	void DestroyEntity(Entity* entity);
-	void HandleOnDestroyed(Entity* entity);
+	void destroyEntity(Entity* entity);
+	void subscribeOnDestroy(Entity* entity);
+
 };
 

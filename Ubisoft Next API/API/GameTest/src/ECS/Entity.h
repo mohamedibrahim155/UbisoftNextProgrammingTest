@@ -30,7 +30,7 @@ public:
 	void setActive(bool isActive);
 	void setTag(const std::string& tag);
 	void setID(int ID);
-	void setPosition(const Vector3& position);
+	void setPosition(const Vector3& position, const Vector3& cameraPosition);
 	void setRotation(const float& rotationY);
 	void setScale(const Vector2& scale);
 	

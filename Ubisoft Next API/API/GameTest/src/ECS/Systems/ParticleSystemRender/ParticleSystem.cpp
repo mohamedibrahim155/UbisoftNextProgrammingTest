@@ -5,13 +5,7 @@ void ParticleSystem::start(std::vector<Entity*> entities)
 {
 	m_systemManager->OnEntityAdded.Subscribe([this] (Entity* entity)
 		{
-			entity->OnComponentAdded.Subscribe([this, entity](IComponent*  components)
-				{
-					if (components->getComponentType() == ComponentType::PARTICLE_COMPONENT)
-					{
-						AddParticle(entity);
-					}
-				});
+			handleOnEntityAdded(entity);
 		});
 
 	m_systemManager->OnEntityRemoved.Subscribe([this](Entity* entity)
@@ -31,7 +25,18 @@ void ParticleSystem::start(std::vector<Entity*> entities)
 		});
 }
 
-void ParticleSystem::AddParticle(Entity* entity)
+void ParticleSystem::handleOnEntityAdded(Entity* entity)
+{
+	entity->OnComponentAdded.Subscribe([this, entity](IComponent* components)
+		{
+			if (components->getComponentType() == ComponentType::PARTICLE_COMPONENT)
+			{
+				addParticle(entity);
+			}
+		});
+}
+
+void ParticleSystem::addParticle(Entity* entity)
 {
 	ParticleComponent* particleComponent = (ParticleComponent*)entity->getComponent(ComponentType::PARTICLE_COMPONENT);
 	if (particleComponent)

@@ -193,18 +193,20 @@ void PhysicsSystem::addPhysicsObject(Entity* entity)
 	}
 
 
-	if (collider && !ContainsCollider(collider)) 
+	if (collider && !isContainsCollider(collider)) 
 		m_globalColliders.push_back(collider);
 
 }
 
 void PhysicsSystem::removePhysicsObject(Entity* entity)
 {
-	staticObjectsMap.erase(entity->getID());
-	physicsObjectsMap.erase(entity->getID());
+	EntityID ID = entity->getID();
+
+	staticObjectsMap.erase(ID);
+	physicsObjectsMap.erase(ID);
 }
 
-bool PhysicsSystem::ContainsCollider(Collider* collider)
+bool PhysicsSystem::isContainsCollider(Collider* collider)
 {
 	for (Collider* c : m_globalColliders)
 	{

@@ -51,9 +51,11 @@ void ParticleComponent::updateComponent()
 	if (!m_isEnabled) return;
 
 
-	if (isLoop)
+	if (m_isLoop)
 	{
-		if (!m_listOfParticles[m_listOfParticles.size() - 1].isActive)
+		int lastIndex = m_listOfParticles.size() - 1;
+
+		if (!m_listOfParticles[lastIndex].isActive)
 		{
 			for (sParticleData& data : m_listOfParticles)
 			{
@@ -71,7 +73,7 @@ void ParticleComponent::updateComponent()
 
 		data.sprite->GetPosition(x, y);
 
-		data.gravity -= m_Gravity  * Timer::GetInstance().deltaTime;
+		data.gravity -= m_gravity  * Timer::GetInstance().deltaTime;
 
 		y -= data.gravity;
 
@@ -151,7 +153,7 @@ void ParticleComponent::ResetParticle(sParticleData& particle)
 	particle.lifeTime = Random::RandomRange(m_startTime.x, m_startTime.y);
 	particle.gravity = 0;
 
-	Vector2 pos = Vector2(gameObject->transform.position.x, gameObject->transform.position.y);
+	Vector2 pos = Vector2(gameObject->transform.localPosition.x, gameObject->transform.localPosition.y);
 
 	float x = Random::RandomRange(-1, 1);
 	float y = Random::RandomRange(-1, 1);
@@ -159,6 +161,6 @@ void ParticleComponent::ResetParticle(sParticleData& particle)
 	pos.x += x * m_spawnRadius;
 	pos.y += y * m_spawnRadius;
 
-	particle.sprite->SetPosition(pos.x +  APP_VIRTUAL_WIDTH/2 , pos.y + APP_VIRTUAL_HEIGHT / 2);
+	particle.sprite->SetPosition(pos.x +  centerScreenX , pos.y + centerScreenY);
 	
 }

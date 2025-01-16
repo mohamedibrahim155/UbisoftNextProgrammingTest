@@ -17,6 +17,7 @@ public:
 
     // Transform Data
     Vector3 position;
+	Vector3 localPosition;
     float rotation;
     Vector2 scale;
 

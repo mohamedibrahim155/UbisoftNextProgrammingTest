@@ -45,7 +45,7 @@ void SpriteRenderer::start()
 void SpriteRenderer::updateComponent()
 {
 	if (!m_isEnabled) return;
-
+	
 	m_sprite->Update(Timer::GetInstance().deltaTime * 1000);
 
 }
@@ -55,7 +55,7 @@ void SpriteRenderer::render(bool isDebugRender)
 	if (!m_isEnabled) return;
 
 	m_sprite->Draw();
-	
+
 }
 
 int SpriteRenderer::renderOrder()
@@ -76,12 +76,11 @@ void SpriteRenderer::setColor(const float& r, const float& g, const float& b)
 	m_sprite->SetColor(r, g, b);
 }
 
-void SpriteRenderer::setPosition(const Vector3&  position)
+void SpriteRenderer::setPosition(const Vector3&  position, const Vector3& cameraPosition)
 {
-	Vector3 adjustedPosition = Vector3(m_centerScreen.x, m_centerScreen.y, 0);
+	Vector3 adjustedPosition = position + Vector3(m_centerScreen.x, m_centerScreen.y, 0)  - cameraPosition ;
 
-	adjustedPosition +=  (position + m_offset);
-
+	adjustedPosition += m_offset;
 	m_sprite->SetPosition(adjustedPosition.x, adjustedPosition.y);
 }
 
