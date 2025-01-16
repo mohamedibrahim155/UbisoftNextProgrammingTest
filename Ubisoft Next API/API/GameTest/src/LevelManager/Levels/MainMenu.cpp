@@ -7,9 +7,9 @@
 #include "stdafx.h"
 
 #include "MainMenu.h"
-#include "../src/ECS/Systems/RenderSystem.h"
-#include "../src/ECS/Systems/CustomScriptsControllerSystem.h"
-#include "../src/ECS/Systems/MovementSystem.h"
+#include "../src/ECS/Systems//Render/RenderSystem.h"
+#include "../src/ECS/Systems//CustomScripts/CustomScriptsControllerSystem.h"
+#include "../src/ECS/Systems/Movement/MovementSystem.h"
 #include "../src/ECS/Systems/Physics/PhysicsSystem.h"
 #include "../src/ECS/Components/Scripts/PlayerMoveScript.h"
 #include "../src/ECS/Components/Scripts/PoolTestingScript.h"

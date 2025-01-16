@@ -1,5 +1,5 @@
 #pragma once
-#include "../System.h"
+#include "../../System.h"
 #include "../src/ECS/Components/Camera/Camera.h"
 class MovementSystem : public ISystem
 {

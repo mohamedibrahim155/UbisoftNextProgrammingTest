@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "RenderSystem.h"
-#include "../SystemManager.h"
+#include "../../SystemManager.h"
 void RenderSystem::start(std::vector<Entity*> entities)
 {
 	subscribeEvents();

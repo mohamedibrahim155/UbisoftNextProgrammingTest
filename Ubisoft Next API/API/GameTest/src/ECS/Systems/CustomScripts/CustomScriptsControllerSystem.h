@@ -1,5 +1,5 @@
 #pragma once
-#include "../System.h"
+#include "../../System.h"
 #include <vector>
 #include "../src/ECS/Components/Scripts/ScriptComponent.h"
 

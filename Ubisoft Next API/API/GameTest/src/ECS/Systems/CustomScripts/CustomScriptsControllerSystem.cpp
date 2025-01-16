@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "CustomScriptsControllerSystem.h"
-#include "../SystemManager.h"
+#include "../../SystemManager.h"
 void CustomScriptsControllerSystem::start(std::vector<Entity*> entities)
 {
 	subscribeEvents();

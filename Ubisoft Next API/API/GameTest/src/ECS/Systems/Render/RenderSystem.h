@@ -1,10 +1,10 @@
 #pragma once
 
-#include "../System.h"
-#include "../Components/Renders/SpriteRenderer.h"
-#include "../Components/Renders/SpriteSheetRenderer.h"
-#include "../Components/UI/TextRenderer.h"
-#include "../Components/UI/ButtonRenderer.h"
+#include "../../System.h"
+#include "../../Components/Renders/SpriteRenderer.h"
+#include "../../Components/Renders/SpriteSheetRenderer.h"
+#include "../../Components/UI/TextRenderer.h"
+#include "../../Components/UI/ButtonRenderer.h"
 
 
 struct RenderEntity
