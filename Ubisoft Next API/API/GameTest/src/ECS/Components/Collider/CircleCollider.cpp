@@ -61,8 +61,8 @@ SBox CircleCollider::getBounds()
         box.maximum.x *= transform->scale.x;
         box.maximum.y *= transform->scale.y;
     }
-    box.minimum = box.minimum  + m_offset;
-    box.maximum = box.maximum  + m_offset;
+    box.minimum = box.minimum + m_screenCenter + m_offset;
+    box.maximum = box.maximum + m_screenCenter + m_offset;
 
     return box;
 }
