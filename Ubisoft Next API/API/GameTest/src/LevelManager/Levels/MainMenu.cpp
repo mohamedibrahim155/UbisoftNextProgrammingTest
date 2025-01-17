@@ -13,6 +13,7 @@
 #include "../src/ECS/Systems/Physics/PhysicsSystem.h"
 #include "../src/Utils/Utils.h"
 #include "../src/Utils/PhysicsUtils.h"
+#include "../src/InputManager/InputManager.h"
 
 
 
@@ -80,15 +81,21 @@ void MainMenu::createButtons()
 	playButton->addListenersOnButtonHover([this]()
 		{
 			PlayOnce(OnhoverSFX);
+			
+
 		});
 	playButton->addListenersOnButtonHoverExit([this]()
 		{
 			StopPlaying(OnhoverSFX);
+
 		});
 	playButton->addListenersOnButtonPress([this]()
 		{
 		
 			PlayOnce(OnclickSFX);
+
+			LoadScene(LEVEL_1);
+		
 		});
 
 	playButtonGameObject->transform.position = Vector3(0, 50, 0);
@@ -142,11 +149,14 @@ void MainMenu::createButtons()
 	creditButton->addListenersOnButtonHover([this]()
 		{
 			PlayOnce(OnhoverSFX);
+
+		
 		});
 
 	creditButton->addListenersOnButtonPress([this]()
 		{
 			PlayOnce(OnclickSFX);
+
 		});
 
 	creditButton->addListenersOnButtonHoverExit([this]()
@@ -180,6 +190,12 @@ void MainMenu::PlayOnce(const std::string& fileName)
 // Plays Background music
 void MainMenu::PlayBackgroundMusic(const std::string& fileName)
 {
+}
+
+void MainMenu::LoadScene(eScene scene)
+{
+
+	changeScene(scene);
 }
 
 

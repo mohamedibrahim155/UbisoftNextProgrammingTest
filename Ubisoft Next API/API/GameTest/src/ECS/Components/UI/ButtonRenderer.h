@@ -35,7 +35,7 @@ private:
 
 	bool isOnHover = false;
 	bool m_isTextEnabled = false;
-
+	bool m_sceneChanged = false;
 	SCircle mousCircle;
 	Transform* transform     = nullptr;
 	BoxCollider* boxCollider = nullptr;

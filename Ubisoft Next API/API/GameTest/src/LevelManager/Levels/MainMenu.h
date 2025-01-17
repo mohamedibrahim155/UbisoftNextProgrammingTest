@@ -35,5 +35,6 @@ private:
 	void StopPlaying(const std::string& fileName);
 	void PlayOnce(const std::string& fileName);
 	void PlayBackgroundMusic(const std::string& fileName);
+	void LoadScene(eScene scene);
 };
 

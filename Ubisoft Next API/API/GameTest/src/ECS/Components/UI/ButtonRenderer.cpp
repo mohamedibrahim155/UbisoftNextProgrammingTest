@@ -61,7 +61,6 @@ void ButtonRenderer::updateComponent()
 
 
 
-
     //Checks Button Collision for ButtonPress
     std::vector<Vector2> collisionPnt, collisionNormal;
     if (Physics::CircleVsBox(&mousCircle, &boxCollider->getBox(), true, collisionPnt, collisionNormal))
@@ -91,13 +90,22 @@ void ButtonRenderer::updateComponent()
 
 #pragma endregion
 
+	//Should not update if scene changed on Button Click
+    if (m_sceneChanged)
+    {
+		m_sceneChanged = false;
+        return;
+    }
+
     // Update Sprite
+
     SpriteRenderer::updateComponent();
 
     if (textComponent)
     {
         textComponent->updateComponent();
     }
+    
 }
 
 void ButtonRenderer::render(bool isDebugRender)
@@ -132,6 +140,7 @@ void ButtonRenderer::render(bool isDebugRender)
 
 void ButtonRenderer::cleanUp()
 {
+    m_sceneChanged = true;
     cleanEvents();
 
     if (textComponent)

@@ -19,6 +19,13 @@ void BaseLevel::changeScene(eScene changeScene)
 	LevelManager::GetInstance().changeScene(changeScene);
 }
 
+void BaseLevel::RestartLevel()
+{
+	LevelManager::GetInstance().RestartLevel();
+}
+
+
+
 eScene BaseLevel::getType()
 {
 	return (m_sceneType);

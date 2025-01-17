@@ -38,10 +38,12 @@ void RenderSystem::updateSprites()
 
 void RenderSystem::updateUIComponents()
 {
-	for (RenderEntity* renderEntity : m_listOfUIRenderer)
-	{
-		if (!renderEntity->entity->IsActive() || renderEntity->entity->isDestroyed) continue;
 
+	for (int i = 0; i < m_listOfUIRenderer.size(); i++)
+	{
+		RenderEntity* renderEntity = m_listOfUIRenderer[i];
+
+		if (!renderEntity->entity->IsActive() || renderEntity->entity->isDestroyed) continue;
 		renderEntity->component->updateComponent();
 	}
 }
@@ -70,8 +72,6 @@ void RenderSystem::render(std::vector<Entity*> entities, bool isDebugVisible)
 	for (RenderEntity* renderEntity : m_listOfUIRenderer)
 	{
 		if (!renderEntity->entity->IsActive() || renderEntity->entity->isDestroyed) continue;
-
-
 
 		renderEntity->component->render(isDebugVisible);
 	}

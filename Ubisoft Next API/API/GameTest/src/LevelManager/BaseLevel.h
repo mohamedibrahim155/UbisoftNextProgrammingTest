@@ -24,6 +24,7 @@ public:
 	virtual eScene getType();
 
 	void changeScene(eScene eScene);
+	void RestartLevel();
 
 	inline std::string getName() { return sceneToString[m_sceneType]; };
 
