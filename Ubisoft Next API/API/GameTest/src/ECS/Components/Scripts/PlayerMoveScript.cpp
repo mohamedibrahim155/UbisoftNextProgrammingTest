@@ -20,7 +20,7 @@ void PlayerMoveScript::start()
 	
 	gameObject->addComponent(new SpriteSheetRenderer(ASSET_PATH + "IdleBLUE- 150ms - 32x32.png",6,1));
 
-	m_spriteSheet = (SpriteSheetRenderer*)gameObject->getComponent(ComponentType::RENDER_COMPONENT);
+	m_spriteSheet = (SpriteSheetRenderer*)gameObject->getComponent(eComponentType::RENDER_COMPONENT);
 	gameObject->addComponent(new CircleCollider());
 	gameObject->addComponent(new RigidBody(eBodyType::STATIC));
 

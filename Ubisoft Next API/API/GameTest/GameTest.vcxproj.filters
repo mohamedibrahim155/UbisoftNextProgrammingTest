@@ -131,6 +131,8 @@
     <ClInclude Include="src\ECS\Components\Particle\ParticleComponent.h" />
     <ClInclude Include="src\ECS\Systems\ParticleSystemRender\ParticleSystem.h" />
     <ClInclude Include="src\ECS\Components\Camera\Camera.h" />
+    <ClInclude Include="src\ECS\Enums\EComponentType.h" />
+    <ClInclude Include="src\ECS\Enums\EShapes.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="API">

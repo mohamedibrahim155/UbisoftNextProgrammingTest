@@ -5,7 +5,7 @@
 #include "../src/Timer/Timer.h"
 ParticleComponent::ParticleComponent(const std::string& filename, 
 	int totalParticles, int row) :
-	IComponent(ComponentType::PARTICLE_COMPONENT), 
+	IComponent(eComponentType::PARTICLE_COMPONENT), 
 	totalParticles(totalParticles),
 	row(row), 
 	fileName(filename)

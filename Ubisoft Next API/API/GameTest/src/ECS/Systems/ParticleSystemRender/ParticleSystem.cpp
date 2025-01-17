@@ -29,7 +29,7 @@ void ParticleSystem::handleOnEntityAdded(Entity* entity)
 {
 	entity->OnComponentAdded.Subscribe([this, entity](IComponent* components)
 		{
-			if (components->getComponentType() == ComponentType::PARTICLE_COMPONENT)
+			if (components->getComponentType() == eComponentType::PARTICLE_COMPONENT)
 			{
 				addParticle(entity);
 			}
@@ -38,7 +38,7 @@ void ParticleSystem::handleOnEntityAdded(Entity* entity)
 
 void ParticleSystem::addParticle(Entity* entity)
 {
-	ParticleComponent* particleComponent = (ParticleComponent*)entity->getComponent(ComponentType::PARTICLE_COMPONENT);
+	ParticleComponent* particleComponent = (ParticleComponent*)entity->getComponent(eComponentType::PARTICLE_COMPONENT);
 	if (particleComponent)
 	{
 		listOfParticleComponents.push_back(std::make_pair(entity, particleComponent));

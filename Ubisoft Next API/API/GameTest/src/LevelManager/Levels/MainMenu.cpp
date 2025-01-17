@@ -72,7 +72,7 @@ void MainMenu::createButtons()
 
 	Entity* playButtonGameObject = factory->createButtonWithText(UIFilePath + "b_1.png", "Play", buttonTextColor);
 
-	ButtonRenderer* playButton =	(ButtonRenderer*)playButtonGameObject->getComponent(ComponentType::RENDER_COMPONENT);
+	ButtonRenderer* playButton =	(ButtonRenderer*)playButtonGameObject->getComponent(eComponentType::RENDER_COMPONENT);
 	playButton->getTextComponent()->setFont(BITMAP_TIMES_ROMAN_24);
 	playButton->getTextComponent()->setOffset(Vector2(-20, -5));
 	
@@ -102,7 +102,7 @@ void MainMenu::createButtons()
 
 	Entity* optionMenuGameobject = factory->createButtonWithText(UIFilePath + "b_1.png", "Controls", buttonTextColor);
 
-	ButtonRenderer* controlButton = (ButtonRenderer*)optionMenuGameobject->getComponent(ComponentType::RENDER_COMPONENT);
+	ButtonRenderer* controlButton = (ButtonRenderer*)optionMenuGameobject->getComponent(eComponentType::RENDER_COMPONENT);
 	controlButton->getTextComponent()->setFont(BITMAP_TIMES_ROMAN_24);
 	controlButton->getTextComponent()->setOffset(Vector2(-40, -5));
 
@@ -135,7 +135,7 @@ void MainMenu::createButtons()
 
 	Entity* creditGameObject = factory->createButtonWithText(UIFilePath + "b_1.png", "Credits", buttonTextColor);
 
-	ButtonRenderer* creditButton = (ButtonRenderer*)creditGameObject->getComponent(ComponentType::RENDER_COMPONENT);
+	ButtonRenderer* creditButton = (ButtonRenderer*)creditGameObject->getComponent(eComponentType::RENDER_COMPONENT);
 	creditButton->getTextComponent()->setFont(BITMAP_TIMES_ROMAN_24);
 	creditButton->getTextComponent()->setOffset(Vector2(-30, -5));
 	

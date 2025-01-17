@@ -30,7 +30,7 @@ Entity::~Entity()
 	cleanUps();
 }
 
-void Entity::addComponent(ComponentType type,IComponent* component)
+void Entity::addComponent(eComponentType type,IComponent* component)
 {
 	component->setEntity(this);
 	m_listOfComponents[type] = component;
@@ -38,15 +38,15 @@ void Entity::addComponent(ComponentType type,IComponent* component)
 	//Intial References
 	switch (component->getComponentType())
 	{
-	case ComponentType::TRANSFORM_COMPONENT:
+	case eComponentType::TRANSFORM_COMPONENT:
 		transform = *(dynamic_cast<Transform*>(component));
 		break;
 
-	case ComponentType::RENDER_COMPONENT:
+	case eComponentType::RENDER_COMPONENT:
 		m_sprite = dynamic_cast<SpriteRenderer*>(component);
 		break;
 
-	case ComponentType::COLLIDER_COMPONENT:
+	case eComponentType::COLLIDER_COMPONENT:
 
 		Collider* collider = dynamic_cast<Collider*>(component);
 
@@ -62,25 +62,25 @@ void Entity::addComponent(IComponent* component)
 {
 
 	component->setEntity(this);
-	ComponentType type = component->getComponentType();
+	eComponentType type = component->getComponentType();
 	
 	m_listOfComponents[type] = component;
 
 	//Intial References
 	switch (type)
 	{
-	case ComponentType::TRANSFORM_COMPONENT:
+	case eComponentType::TRANSFORM_COMPONENT:
 		transform = *(dynamic_cast<Transform*>(component));
 		break;
 
-	case ComponentType::RENDER_COMPONENT:
+	case eComponentType::RENDER_COMPONENT:
 		if (!m_sprite)
 		{
 			m_sprite = dynamic_cast<SpriteRenderer*>(component);
 		}
 		break;
 
-	case ComponentType::COLLIDER_COMPONENT:
+	case eComponentType::COLLIDER_COMPONENT:
 
 		Collider* collider = dynamic_cast<Collider*>(component);
 
@@ -101,9 +101,9 @@ void Entity::addComponents(std::vector<IComponent*> components)
 	}
 }
 
-bool Entity::removeComponent(ComponentType type)
+bool Entity::removeComponent(eComponentType type)
 {
-	std::unordered_map<ComponentType, IComponent*> ::iterator it = m_listOfComponents.find(type);
+	std::unordered_map<eComponentType, IComponent*> ::iterator it = m_listOfComponents.find(type);
 	
 	if (it != m_listOfComponents.end())
 	{
@@ -133,7 +133,7 @@ std::vector<IComponent*> Entity::getComponents() const
 {
 	std::vector<IComponent*> components;
 
-	for (std::pair<ComponentType, IComponent*> item : m_listOfComponents)
+	for (std::pair<eComponentType, IComponent*> item : m_listOfComponents)
 	{
 		if (item.second)
 		{
@@ -144,7 +144,7 @@ std::vector<IComponent*> Entity::getComponents() const
 	return components;
 }
 
-IComponent* Entity::getComponent(ComponentType type)
+IComponent* Entity::getComponent(eComponentType type)
 {
 	return m_listOfComponents[type];
 }
@@ -258,7 +258,7 @@ void Entity::setScale(const Vector2& scale)
 void Entity::cleanUps()
 {
 	// Cleaning Components attached to this gameobject
-	for (std::pair<ComponentType, IComponent*> item : m_listOfComponents)
+	for (std::pair<eComponentType, IComponent*> item : m_listOfComponents)
 	{
 		if (item.second)
 		{

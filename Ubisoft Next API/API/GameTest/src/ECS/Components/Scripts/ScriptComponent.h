@@ -3,7 +3,7 @@
 class BaseScriptComponent :  public IComponent
 {
 public:
-	BaseScriptComponent() : IComponent(ComponentType::SCRIPT_COMPONENT){};
+	BaseScriptComponent() : IComponent(eComponentType::SCRIPT_COMPONENT){};
 	virtual ~BaseScriptComponent() {};
 
 	// Inherited via IComponent

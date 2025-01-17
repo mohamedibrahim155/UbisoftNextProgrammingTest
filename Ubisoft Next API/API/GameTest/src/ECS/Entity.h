@@ -17,10 +17,10 @@ public:
 	virtual ~Entity();
 
 
-	void addComponent(ComponentType type,IComponent* component);
+	void addComponent(eComponentType type,IComponent* component);
 	void addComponent(IComponent* component);
 	void addComponents(std::vector<IComponent*> components);
-	bool removeComponent(ComponentType type);
+	bool removeComponent(eComponentType type);
 	void Destroy();
 	void cleanUps();
 
@@ -41,7 +41,7 @@ public:
 
 	Vector3 getPosition();
 
-	IComponent* getComponent(ComponentType type);
+	IComponent* getComponent(eComponentType type);
 	std::vector<IComponent*> getComponents() const;
 
 
@@ -59,7 +59,7 @@ private:
 	EntityID m_entityID;
 
 	std::string m_tag = "Unkown";
-	std::unordered_map<ComponentType,IComponent*> m_listOfComponents;
+	std::unordered_map<eComponentType,IComponent*> m_listOfComponents;
 
 
 

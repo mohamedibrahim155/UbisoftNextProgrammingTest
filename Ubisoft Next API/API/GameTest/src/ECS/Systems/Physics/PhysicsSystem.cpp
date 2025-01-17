@@ -18,7 +18,7 @@ void PhysicsSystem::subscribeEvents()
 		{
 			entity->OnComponentAdded.Subscribe([this, entity](IComponent* component)
 				{
-					if (component->getComponentType() ==ComponentType::COLLIDER_COMPONENT || component->getComponentType() == ComponentType::PHYSICS_COMPONENT)
+					if (component->getComponentType() ==eComponentType::COLLIDER_COMPONENT || component->getComponentType() == eComponentType::PHYSICS_COMPONENT)
 					{
 						addPhysicsObject(entity);
 					}
@@ -174,8 +174,8 @@ void PhysicsSystem::cleanups()
 
 void PhysicsSystem::addPhysicsObject(Entity* entity)
 {
-	Collider* collider = (Collider*)entity->getComponent(ComponentType::COLLIDER_COMPONENT);
-	RigidBody* rb = (RigidBody*)entity->getComponent(ComponentType::PHYSICS_COMPONENT);
+	Collider* collider = (Collider*)entity->getComponent(eComponentType::COLLIDER_COMPONENT);
+	RigidBody* rb = (RigidBody*)entity->getComponent(eComponentType::PHYSICS_COMPONENT);
 	
 	if (!rb && !collider) return;
 

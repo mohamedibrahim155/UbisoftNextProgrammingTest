@@ -105,7 +105,7 @@ void RenderSystem::handleOnEntityAdded(Entity* entity)
 {
 	entity->OnComponentAdded.Subscribe([this, entity](IComponent* component)
 		{
-			if (component->getComponentType() == ComponentType::RENDER_COMPONENT)
+			if (component->getComponentType() == eComponentType::RENDER_COMPONENT)
 			{
 				addEntityToRenders(entity);
 			}
@@ -141,7 +141,7 @@ void RenderSystem::removeEntityFromRenders(Entity* entity)
 
 void RenderSystem::addEntityToRenders(Entity* entity)
 {
-	RenderComponent* renderComp = (RenderComponent*)entity->getComponent(ComponentType::RENDER_COMPONENT);
+	RenderComponent* renderComp = (RenderComponent*)entity->getComponent(eComponentType::RENDER_COMPONENT);
 
 	if (!renderComp) return;
 

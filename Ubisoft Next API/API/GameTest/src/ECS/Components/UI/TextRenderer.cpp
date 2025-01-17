@@ -46,7 +46,7 @@ void TextRenderer::updateComponent()
 {
     if (!m_isEnabled) return;
 
-    Vector3 updatedPosition = Vector3(gameObject->transform.position + m_centerScreen + m_offset);
+    Vector3 updatedPosition = Vector3(gameObject->transform.localPosition + m_centerScreen + m_offset);
     messagePosition = Vector2(updatedPosition.x, updatedPosition.y);
 }
 

@@ -2,13 +2,7 @@
 #include "../App/app.h"
 #include "../src/ECS/Components/Transform.h"
 #include "../src/ECS/Components/Renders/SpriteRenderer.h"
-
-enum class eShape
-{
-	BOX,
-	CIRCLE,
-	LINE,
-};
+#include "../../Enums/EShapes.h"
 
 
 struct  SBox 

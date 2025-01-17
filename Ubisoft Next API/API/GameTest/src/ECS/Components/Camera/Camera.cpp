@@ -5,7 +5,7 @@
 
 Camera* ::Camera::m_mainCamera = nullptr;
 
-Camera::Camera() : IComponent(ComponentType::CAMERA_COMPONENT) 
+Camera::Camera() : IComponent(eComponentType::CAMERA_COMPONENT) 
 {
 }
 Camera::~Camera()

@@ -2,16 +2,16 @@
 #include "Component.h"
 #include "Entity.h"
 
-IComponent::IComponent(ComponentType type)
+IComponent::IComponent(eComponentType type)
 {
 	componentID = (int)type;
 	gameObject = nullptr;
 	m_isEnabled = true;
 }
 
-ComponentType IComponent::getComponentType()
+eComponentType IComponent::getComponentType()
 {
-	return static_cast<ComponentType>(componentID);
+	return static_cast<eComponentType>(componentID);
 }
 
 Entity* IComponent::getEntity() const

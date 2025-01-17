@@ -2,7 +2,7 @@
 #include "Collider.h"
 #include "../src/ECS/Entity.h"
 
-Collider::Collider(eShape type) : IComponent(ComponentType::COLLIDER_COMPONENT)
+Collider::Collider(eShape type) : IComponent(eComponentType::COLLIDER_COMPONENT)
 {
 	this->m_shape = type;
 	transform = nullptr;

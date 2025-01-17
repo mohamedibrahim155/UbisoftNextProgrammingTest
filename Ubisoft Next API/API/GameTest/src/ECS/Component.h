@@ -1,18 +1,7 @@
 #pragma once
+#include "Enums/EComponentType.h"
 
 
-enum class ComponentType
-{
-	UNKOWN_COMPONENT = -1,
-
-	TRANSFORM_COMPONENT = 1,
-	SCRIPT_COMPONENT = 2,
-	PHYSICS_COMPONENT = 3,
-	COLLIDER_COMPONENT = 4,
-	RENDER_COMPONENT =5,
-	PARTICLE_COMPONENT = 6,
-	CAMERA_COMPONENT = 7,
-};
 
 class Entity;
 
@@ -20,7 +9,7 @@ class IComponent
 {
 public:
 
-	IComponent(ComponentType type);
+	IComponent(eComponentType type);
 	virtual ~IComponent() = default;
 	
 	virtual void start() = 0;
@@ -34,7 +23,7 @@ public:
 	void setUI(bool isUI);
 
 	bool IsUI() const { return m_isUI; }
-	ComponentType getComponentType();
+	eComponentType getComponentType();
 	Entity* getEntity() const;
 
 

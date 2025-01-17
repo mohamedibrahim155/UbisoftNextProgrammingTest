@@ -35,7 +35,7 @@ void CustomScriptsControllerSystem::handleOnEntityAdded(Entity* entity)
 
 void CustomScriptsControllerSystem::handleOnComponentAdded(IComponent* component, Entity* entity)
 {
-	if (component->getComponentType() == ComponentType::SCRIPT_COMPONENT)
+	if (component->getComponentType() == eComponentType::SCRIPT_COMPONENT)
 	{
 		addScript(entity);
 	}
@@ -116,7 +116,7 @@ std::vector<BaseScriptComponent*> CustomScriptsControllerSystem::getScripts() co
 
 void CustomScriptsControllerSystem::addScript(Entity* entity)
 {
-	BaseScriptComponent* script = (BaseScriptComponent*)entity->getComponent(ComponentType::SCRIPT_COMPONENT);
+	BaseScriptComponent* script = (BaseScriptComponent*)entity->getComponent(eComponentType::SCRIPT_COMPONENT);
 
 	if (!script) return;
 
