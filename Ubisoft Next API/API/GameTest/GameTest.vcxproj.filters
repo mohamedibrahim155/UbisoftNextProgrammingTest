@@ -36,7 +36,6 @@
     <ClCompile Include="src\ECS\Components\Renders\SpriteRenderer.cpp" />
     <ClCompile Include="src\ECS\EntityManager.cpp" />
     <ClCompile Include="src\ECS\Systems\CustomScripts\CustomScriptsControllerSystem.cpp" />
-    <ClCompile Include="src\ECS\Components\Scripts\PlayerMoveScript.cpp" />
     <ClCompile Include="src\ECS\Systems\Movement\MovementSystem.cpp" />
     <ClCompile Include="src\ECS\Components\Renders\SpriteSheetRenderer.cpp" />
     <ClCompile Include="src\ECS\Components\Collider\Collider.cpp" />
@@ -54,7 +53,6 @@
     <ClCompile Include="src\LevelManager\LevelManager.cpp" />
     <ClCompile Include="src\LevelManager\Levels\MainMenu.cpp" />
     <ClCompile Include="src\Pool\Entity\EntityPool.cpp" />
-    <ClCompile Include="src\ECS\Components\Scripts\PoolTestingScript.cpp" />
     <ClCompile Include="src\InputManager\InputManager.cpp" />
     <ClCompile Include="src\Factory\GameObjectFactory.cpp" />
     <ClCompile Include="src\ECS\Components\Particle\ParticleComponent.cpp" />
@@ -106,7 +104,6 @@
     <ClInclude Include="src\ECS\EntityManager.h" />
     <ClInclude Include="src\ECS\Systems\CustomScripts\CustomScriptsControllerSystem.h" />
     <ClInclude Include="src\ECS\Components\Scripts\ScriptComponent.h" />
-    <ClInclude Include="src\ECS\Components\Scripts\PlayerMoveScript.h" />
     <ClInclude Include="src\ECS\Systems\Movement\MovementSystem.h" />
     <ClInclude Include="src\ECS\Components\Renders\SpriteSheetRenderer.h" />
     <ClInclude Include="src\ECS\Components\Collider\Collider.h" />
@@ -125,7 +122,6 @@
     <ClInclude Include="src\LevelManager\Levels\MainMenu.h" />
     <ClInclude Include="src\Pool\ObjectPool.h" />
     <ClInclude Include="src\Pool\Entity\EntityPool.h" />
-    <ClInclude Include="src\ECS\Components\Scripts\PoolTestingScript.h" />
     <ClInclude Include="src\InputManager\InputManager.h" />
     <ClInclude Include="src\Factory\GameObjectFactory.h" />
     <ClInclude Include="src\ECS\Components\Particle\ParticleComponent.h" />

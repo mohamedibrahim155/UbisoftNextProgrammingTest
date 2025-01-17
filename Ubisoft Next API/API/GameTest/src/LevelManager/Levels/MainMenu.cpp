@@ -11,8 +11,6 @@
 #include "../src/ECS/Systems//CustomScripts/CustomScriptsControllerSystem.h"
 #include "../src/ECS/Systems/Movement/MovementSystem.h"
 #include "../src/ECS/Systems/Physics/PhysicsSystem.h"
-#include "../src/ECS/Components/Scripts/PlayerMoveScript.h"
-#include "../src/ECS/Components/Scripts/PoolTestingScript.h"
 #include "../src/Utils/Utils.h"
 #include "../src/Utils/PhysicsUtils.h"
 
