@@ -19,8 +19,6 @@ public:
 
 	Vector2 getMousePosition();
 
-	Vector2 GetMousePosition();
-
 private:
 	float m_mouseX;
 	float m_mouseY;
