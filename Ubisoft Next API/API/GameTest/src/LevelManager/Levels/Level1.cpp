@@ -8,7 +8,7 @@
 #include "../src/Utils/PhysicsUtils.h"
 #include "../src/ECS/Components/Particle/ParticleComponent.h"
 #include "../src/ECS/Components/Camera/Camera.h"
-#include "../src/ECS/Components/Scripts/Ball.h"
+#include "../src/Ball/Ball.h"
 
 Level1::Level1() : BaseLevel(LEVEL_1)
 {

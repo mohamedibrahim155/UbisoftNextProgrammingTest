@@ -1,7 +1,7 @@
 #pragma once
-#include "ScriptComponent.h"
-#include "../Collider/CircleCollider.h"
-#include "../Rigidbody/RigidBody.h"
+#include "../src/ECS/Components/Scripts/ScriptComponent.h"
+#include "../src/ECS/Components/Collider/CircleCollider.h"
+#include "../src/ECS/Components/Rigidbody/RigidBody.h"
 
 class Ball : public BaseScriptComponent
 {
