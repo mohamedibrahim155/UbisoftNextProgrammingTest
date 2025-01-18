@@ -11,7 +11,7 @@ ButtonRenderer::ButtonRenderer(std::string filename) :
     boxCollider = new BoxCollider(this);
     boxCollider->setUI(true);
 
-    mousCircle = { InputManager::GetInstance().GetMousePosition(), 5.0f };
+    mousCircle = { InputManager::GetInstance().getMousePosition(), 5.0f };
 
 }
 
@@ -22,7 +22,7 @@ ButtonRenderer::ButtonRenderer(std::string filename, TextRenderer* textComponent
     boxCollider = new BoxCollider(this);
     boxCollider->setUI(true);
 
-    mousCircle = { InputManager::GetInstance().GetMousePosition(), 5.0f};
+    mousCircle = { InputManager::GetInstance().getMousePosition(), 5.0f};
 
     if (textComponent)
     {
@@ -56,7 +56,7 @@ void ButtonRenderer::updateComponent()
 #pragma region ButtonValidate
 
     // Update mouse position circle
-    mousCircle.centre = InputManager::GetInstance().GetMousePosition();
+    mousCircle.centre = InputManager::GetInstance().getMousePosition();
 
 
 
@@ -71,7 +71,7 @@ void ButtonRenderer::updateComponent()
             OnButtonHover.Invoke();
         }
 
-        if (InputManager::GetInstance().GetKeyDown(VK_LBUTTON) || (App::GetController().CheckButton(XINPUT_GAMEPAD_DPAD_UP, true)))
+        if (InputManager::GetInstance().getKeyDown(VK_LBUTTON) || (App::GetController().CheckButton(XINPUT_GAMEPAD_DPAD_UP, true)))
         {
             OnButtonClick.Invoke();
         }

@@ -56,19 +56,21 @@ void MovementSystem::cleanups()
 
 void MovementSystem::updateCameraInputs()
 {
-	if (InputManager::GetInstance().GetKey('W'))
+	if (!m_systemManager->IsDebug()) return;
+
+	if (InputManager::GetInstance().getKey('W'))
 	{
 		Camera::mainCamera()->getEntity()->transform.position.y += 1;
 	}
-	if (InputManager::GetInstance().GetKey('S'))
+	if (InputManager::GetInstance().getKey('S'))
 	{
 		Camera::mainCamera()->getEntity()->transform.position.y -= 1;
 	}
-	if (InputManager::GetInstance().GetKey('A'))
+	if (InputManager::GetInstance().getKey('A'))
 	{
 		Camera::mainCamera()->getEntity()->transform.position.x -= 1;
 	}
-	if (InputManager::GetInstance().GetKey('D'))
+	if (InputManager::GetInstance().getKey('D'))
 	{
 		Camera::mainCamera()->getEntity()->transform.position.x += 1;
 	}

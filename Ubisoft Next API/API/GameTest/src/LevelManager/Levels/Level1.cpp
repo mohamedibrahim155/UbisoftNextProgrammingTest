@@ -22,23 +22,7 @@ void Level1::initialize()
 
 
 
-	for (size_t i = 0; i < 4; i++)
-	{
-		Entity* wallCollider = entityManager->createEntity();
-		wallCollider->setTag("Wall");
 
-		SpriteRenderer* sprite = new SpriteRenderer(ASSET_PATH + "\\IdleBLUE- 150ms - 32x32.png", Vector2::Zero(), 2);
-		BoxCollider* wallBoxCollider = new BoxCollider();
-		//wallBoxCollider->setSize(50,20);
-
-
-
-		wallCollider->addComponent(sprite);
-		wallCollider->addComponent(wallBoxCollider);
-		wallCollider->addComponent(new RigidBody(eBodyType::STATIC));
-
-		wallCollider->transform.position = Vector2(i*100, -200);
-	}
 	
 
 

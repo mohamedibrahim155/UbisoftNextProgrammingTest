@@ -51,7 +51,7 @@ void World::start()
 
 void World::update(float deltaTime)
 {
-	if (InputManager::GetInstance().GetKeyDown('V'))
+	if (InputManager::GetInstance().getKeyDown('V'))
 	{
 		bool debug = systemManager->IsDebug();
 

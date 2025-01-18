@@ -32,9 +32,9 @@ private:
 	void createBackground();
 	void createButtons();
 
-	void StopPlaying(const std::string& fileName);
-	void PlayOnce(const std::string& fileName);
-	void PlayBackgroundMusic(const std::string& fileName);
-	void LoadScene(eScene scene);
+	void stopPlaying(const std::string& fileName);
+	void playOnce(const std::string& fileName);
+	void playBackgroundMusic(const std::string& fileName);
+	void loadScene(eScene scene);
 };
 

@@ -79,21 +79,21 @@ void MainMenu::createButtons()
 	
 	playButton->addListenersOnButtonHover([this]()
 		{
-			PlayOnce(OnhoverSFX);
+			playOnce(OnhoverSFX);
 			
 
 		});
 	playButton->addListenersOnButtonHoverExit([this]()
 		{
-			StopPlaying(OnhoverSFX);
+			stopPlaying(OnhoverSFX);
 
 		});
 	playButton->addListenersOnButtonPress([this]()
 		{
 		
-			PlayOnce(OnclickSFX);
+			playOnce(OnclickSFX);
 
-			LoadScene(LEVEL_1);
+			loadScene(LEVEL_1);
 		
 		});
 
@@ -115,17 +115,17 @@ void MainMenu::createButtons()
 	// Events OnButton hover,Click and HoverExit
 	controlButton->addListenersOnButtonHover([this]()
 		{
-			PlayOnce(OnhoverSFX);
+			playOnce(OnhoverSFX);
 		});
 
 	controlButton->addListenersOnButtonPress([this]()
 		{
-			PlayOnce(OnclickSFX);
+			playOnce(OnclickSFX);
 		});
 
 	controlButton->addListenersOnButtonHoverExit([this]()
 		{
-			StopPlaying(OnhoverSFX);
+			stopPlaying(OnhoverSFX);
 			
 		});
 
@@ -147,20 +147,20 @@ void MainMenu::createButtons()
 	// Events OnButton hover,Click and HoverExit
 	creditButton->addListenersOnButtonHover([this]()
 		{
-			PlayOnce(OnhoverSFX);
+			playOnce(OnhoverSFX);
 
 		
 		});
 
 	creditButton->addListenersOnButtonPress([this]()
 		{
-			PlayOnce(OnclickSFX);
+			playOnce(OnclickSFX);
 
 		});
 
 	creditButton->addListenersOnButtonHoverExit([this]()
 		{
-			StopPlaying(OnhoverSFX);
+			stopPlaying(OnhoverSFX);
 		});
 
 	
@@ -172,7 +172,7 @@ void MainMenu::createButtons()
 }
 
 //Checks and stops the sound if it is playing
-void MainMenu::StopPlaying(const std::string& fileName)
+void MainMenu::stopPlaying(const std::string& fileName)
 {
 	if (App::IsSoundPlaying(fileName.c_str()))
 	{
@@ -181,17 +181,17 @@ void MainMenu::StopPlaying(const std::string& fileName)
 }
 
 //Plays the sound once
-void MainMenu::PlayOnce(const std::string& fileName)
+void MainMenu::playOnce(const std::string& fileName)
 {
 	App::PlaySound(fileName.c_str(), false);
 }
 
 // Plays Background music
-void MainMenu::PlayBackgroundMusic(const std::string& fileName)
+void MainMenu::playBackgroundMusic(const std::string& fileName)
 {
 }
 
-void MainMenu::LoadScene(eScene scene)
+void MainMenu::loadScene(eScene scene)
 {
 
 	changeScene(scene);
