@@ -70,14 +70,16 @@ void PhysicsSystem::updateComponents(std::vector<Entity*> entities, float deltat
 
 		if (!transform || !rb || !collider) continue;
 		if (!rb->m_isEnabled) continue;
-		if (rb->GetbodyType() == eBodyType::STATIC) continue;
+		if (rb->getbodyType() == eBodyType::STATIC) continue;
 
 
 
-		Vector2 acceleration = rb->force / rb->GetMass();
-		acceleration.y += GRAVITY * rb->GetGravityScale();
+		Vector2 acceleration = rb->force / rb->getMass();
+		acceleration.y += GRAVITY * rb->getGravityScale();
 		rb->velocity += acceleration * deltatime;
 
+		Vector2 dragForce = rb->velocity * -rb->getDrag(); // Drag opposes velocity
+		rb->velocity += dragForce * deltatime;
 
 		collisionNormals.clear();
 		collisionPoints.clear();
@@ -187,7 +189,7 @@ void PhysicsSystem::addPhysicsObject(Entity* entity)
 	EntityID id = entity->getID();
 	PhysicsEntity physicsEntity{ entity, collider, rb };
 
-	if (rb && rb->GetbodyType() == eBodyType::STATIC)
+	if (rb && rb->getbodyType() == eBodyType::STATIC)
 	{
 		staticObjectsMap[id] = physicsEntity;
 	}
