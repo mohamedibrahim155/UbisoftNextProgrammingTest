@@ -27,49 +27,78 @@ void BallController::initialize(RigidBody* ballphysics, SpriteRenderer* ballSpri
 
 void BallController::handleAim()
 {
-	if (m_state != BallState::IDLE && m_state != BallState::AIMING) return;
 
-	if (InputManager::GetInstance().getKeyDown(VK_LBUTTON))
+
+	switch (m_state)
 	{
-		m_state = BallState::AIMING;
-		Vector2 pos = { pGameObject->transform.position.x + m_centerScreen.x, pGameObject->transform.position.y + m_centerScreen.y };
+	case BallState::IDLE:
+		Idle();
+		break;
+		break;
+	case BallState::AIMING:
+		Aiming();
+		break;
+	case BallState::SHOOTING:
+		Shoot();
+		break;
 
-		m_renderLine.startPoint = Vector2(pos.x, pos.y);
-
-
+	default:
+		m_state = BallState::IDLE;
+		break;
 	}
-	if (InputManager::GetInstance().getKey(VK_LBUTTON))
-	{
-		Vector2 mousePosition = InputManager::GetInstance().getMousePosition();
-		Vector2 currentPosition = m_renderLine.startPoint - mousePosition;
+#pragma region OldCode
 
-		float length = currentPosition.Magnitude();
 
-		currentPosition = (length > m_maxLineThreshold) ?
-			currentPosition.Normalize() * m_maxLineThreshold : currentPosition.Normalize() * length;
 
-		m_renderLine.endPoint = m_renderLine.startPoint - currentPosition;
+	//if (m_state != BallState::IDLE && m_state != BallState::AIMING) return;
 
-		m_aimDirection = m_renderLine.startPoint - m_renderLine.endPoint;
-	}
+	//if (InputManager::GetInstance().getKeyDown(VK_LBUTTON))
+	//{
+	//	m_state = BallState::AIMING;
+	//	Vector2 pos = { pGameObject->transform.position.x + m_centerScreen.x, pGameObject->transform.position.y + m_centerScreen.y };
 
-	if (InputManager::GetInstance().getKeyUp(VK_LBUTTON))
-	{
-		m_renderLine = { Vector2::Zero(), Vector2::Zero() };
-		shootBall(m_aimDirection);
-		m_state = BallState::SHOOTING;
-	}
+	//	m_renderLine.startPoint = Vector2(pos.x, pos.y);
+
+
+	//}
+	//if (InputManager::GetInstance().getKey(VK_LBUTTON))
+	//{
+	//	Vector2 mousePosition = InputManager::GetInstance().getMousePosition();
+	//	Vector2 currentPosition = m_renderLine.startPoint - mousePosition;
+
+	//	float length = currentPosition.Magnitude();
+
+	//	currentPosition = (length > m_maxLineThreshold) ?
+	//		currentPosition.Normalize() * m_maxLineThreshold : currentPosition.Normalize() * length;
+
+	//	m_renderLine.endPoint = m_renderLine.startPoint - currentPosition;
+
+	//	m_aimDirection = m_renderLine.startPoint - m_renderLine.endPoint;
+	//}
+
+	//if (InputManager::GetInstance().getKeyUp(VK_LBUTTON))
+	//{
+	//	m_renderLine = { Vector2::Zero(), Vector2::Zero() };
+
+
+	//	
+	//	
+	//	shootBall(m_aimDirection);
+	//	m_state = BallState::SHOOTING;
+	//}
+#pragma endregion
+
+
 }
 
 void BallController::restBall()
 {
-	if (m_state == BallState::SHOOTING && !isBallMoving()) 
-	{
+	
+	
 
 		pRigidBody->velocity = Vector2::Zero();
-		m_state = BallState::IDLE;
 		setAimState(true);
-	}
+	
 }
 
 void BallController::resetBall()
@@ -98,6 +127,21 @@ void BallController::renderTrajectory()
 	}
 }
 
+std::string BallController::getState()
+{
+	switch (m_state)
+	{
+	case BallState::IDLE:
+		return "IDLE";
+	case BallState::AIMING:
+		return "AIMING";
+	case BallState::SHOOTING:
+		return "SHOOTING";
+	default:
+		return "default";
+	}
+}
+
 void BallController::shootBall(Vector2 direction)
 {
 	if (direction.Magnitude() <= 0.01f) return; // Prevent shooting when no direction
@@ -123,25 +167,14 @@ bool BallController::cursorInsideRadius()
 	Vector2 mousePosition = InputManager::GetInstance().getMousePosition();
 
 	Vector2 center = pCollider->getCircle().centre;
-	float radius = pCollider->getCircle().radius;
 
 	Vector2 diff = center - mousePosition;
 
 	float dot = diff.x * diff.x + diff.y * diff.y;
 
-
-	if (dot < m_ballRadius * m_ballRadius)
-	{
-		return true;
-	}
-
-	return false;
+	return dot < m_ballRadius * m_ballRadius;
 }
 
-bool BallController::canAim()
-{
-	return m_canAim;
-}
 
 
 
@@ -150,10 +183,76 @@ void BallController::setAimState(bool canAim)
 	m_canAim = canAim;
 }
 
-SLine& BallController::getLineRenderer()
+void BallController::cancelAim()
 {
-	return m_renderLine;
+	if (m_state == BallState::AIMING)
+	{
+		m_state = BallState::IDLE;
+	}
 }
+
+void BallController::Aiming()
+{
+
+	if (InputManager::GetInstance().getKey(VK_LBUTTON))
+	{
+		if (cursorInsideRadius())
+		{
+			Vector2 mousePosition = InputManager::GetInstance().getMousePosition();
+			Vector2 currentPosition = m_renderLine.startPoint - mousePosition;
+
+			float length = currentPosition.Magnitude();
+
+			currentPosition = (length > m_maxLineThreshold) ?
+				currentPosition.Normalize() * m_maxLineThreshold : currentPosition.Normalize() * length;
+
+			m_renderLine.endPoint = m_renderLine.startPoint - currentPosition;
+
+			m_aimDirection = m_renderLine.startPoint - m_renderLine.endPoint;
+		}
+		
+	}
+
+	if (InputManager::GetInstance().getKeyUp(VK_LBUTTON))
+	{
+		if (cursorInsideRadius())
+		{
+			m_renderLine = { Vector2::Zero(), Vector2::Zero() };
+			shootBall(m_aimDirection);
+			m_state = BallState::SHOOTING;
+		}
+		else
+		{
+			m_state = BallState::IDLE;
+		}
+	}
+}
+
+void BallController::Shoot()
+{
+	if (!isBallMoving())
+	{
+		restBall();
+
+		m_state = BallState::IDLE;
+	}
+}
+
+void BallController::Idle()
+{
+	if (cursorInsideRadius() && InputManager::GetInstance().getKeyDown(VK_LBUTTON))
+	{
+		// Initialize the aiming line starting point
+		Vector2 pos = { pGameObject->transform.position.x + m_centerScreen.x,
+						pGameObject->transform.position.y + m_centerScreen.y };
+
+		m_renderLine.startPoint = pos;
+
+		m_state = BallState::AIMING; // Transition to Aiming state
+
+	}
+}
+
 
 float BallController::calculateBounceSpeed(Vector2 aimDir)
 {

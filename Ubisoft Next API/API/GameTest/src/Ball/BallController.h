@@ -21,17 +21,14 @@ public:
 
 	void initialize(RigidBody* ballphysics, SpriteRenderer* ballSprite, CircleCollider* collider);
 
-	bool canAim();
-	bool isBallMoving();
 	bool cursorInsideRadius();
-	void setAimState(bool canAim);
-
 	void handleAim();
 	void restBall();
 	void resetBall();
 	void renderTrajectory();
 
-	SLine& getLineRenderer();
+	std::string getState();
+
 
 private:
 
@@ -42,7 +39,7 @@ private:
 
 	float m_maxLineThreshold = 100;
 	float m_bounceSpeed = 500;
-	float m_ballRadius = 100;
+	float m_ballRadius = 250;
 
 	BallState m_state = BallState::IDLE;
 
@@ -61,10 +58,17 @@ private:
 	CircleCollider* pCollider;
 
 
+	bool isBallMoving();
+
 	float calculateBounceSpeed(Vector2 aimDir);
 	void  shootBall(Vector2 direction);
+	void setAimState(bool canAim);
+	void cancelAim();
 
-	
+	void Aiming();
+	void Shoot();
+	void Idle();
+
 
 };
 

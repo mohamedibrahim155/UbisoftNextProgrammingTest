@@ -13,12 +13,6 @@ void Ball::start()
 
 	createBall();
 
-	//Creating controller
-	controller = new BallController(this);
-	controller->initialize(rigidBody, ballSprite, (CircleCollider*)circleCollider);
-
-
-
 }
 
 void Ball::updateComponent()
@@ -27,7 +21,7 @@ void Ball::updateComponent()
 	if (!controller) return;
 
 	controller->handleAim(); // Handles aiming and shooting logic
-	controller->restBall(); // Handles resetting after the ball stops
+	//controller->restBall(); // Handles resetting after the ball stops
 
 
 }
@@ -36,12 +30,17 @@ void Ball::render(bool isDebugVisible)
 {
 	if (!controller) return;
 
+	bool isInRange = controller->cursorInsideRadius();
 
-	controller->renderTrajectory();
+	if (isInRange)
+	{
+		controller->renderTrajectory();
+
+	}
 
 	if (!isDebugVisible) return;
 	std::string total = rigidBody ? std::to_string(rigidBody->velocity.x) + " " + std::to_string(rigidBody->velocity.y) : " ";
-	App::Print(100, 100, total.c_str(), 1, 1, 1);
+	App::Print(100, 100, controller->getState().c_str(), 1, 1, 1);
 }
 
 void Ball::cleanUp()
@@ -76,6 +75,10 @@ void Ball::createBall()
 
 	gameObject->transform.position = m_spawnPosition;
 
+
+	//Creating controller
+	controller = new BallController(this);
+	controller->initialize(rigidBody, ballSprite, (CircleCollider*)circleCollider);
 }
 
 
