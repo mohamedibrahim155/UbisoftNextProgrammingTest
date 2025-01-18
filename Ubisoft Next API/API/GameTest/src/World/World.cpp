@@ -51,8 +51,19 @@ void World::start()
 
 void World::update(float deltaTime)
 {
+	if (Timer::GetInstance().unscaledTime == 0)
+	{
+		Timer::GetInstance().unscaledTime = 1;
+		return;
+	}
+	
 
-	LevelManager::GetInstance().update(deltaTime);
+	if (Timer::GetInstance().unscaledTime == 1)
+	{
+		LevelManager::GetInstance().update(deltaTime);
+	}
+	
+	
 
 	//systemManager->updateSystems(deltaTime);
 }

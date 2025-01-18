@@ -3,10 +3,12 @@
 #include "../src/ECS/Components/Collider/CircleCollider.h"
 #include "../src/ECS/Components/Rigidbody/RigidBody.h"
 
+class BallController;
+
 class Ball : public BaseScriptComponent
 {
 public:
-	Ball() : BaseScriptComponent() {};
+	Ball();
 		~Ball() override = default;
   void start() override;
   void updateComponent() override;
@@ -17,32 +19,13 @@ private:
 
 	const std::string ballTexture = ASSET_PATH + "\\Ball\\ball_red_small.png";
 
-	bool m_showLine = false;
-	bool m_canAim = true;
-	bool m_skipFirstframe = true;
-
-	float timerDelay = 0.2f;
-	float timer = 0.0f;
-	float m_maxLineThreshold = 100;
-	float m_bounceSpeed = 500;
-
-	Vector2 m_centerScreen { APP_VIRTUAL_WIDTH / 2, APP_VIRTUAL_HEIGHT / 2 };
-
-	Vector2 m_aimDirection;
+	Vector3 m_spawnPosition{ -300.0f, 200.0f, 0 };
 
 	RigidBody* rigidBody;
 	SpriteRenderer* ballSprite;
 	Collider* circleCollider;
+	BallController* controller;
 
-
-	SLine m_renderLine;
-
-	float calculateBounceSpeed(Vector2 aimDir);
 	void createBall();
-	void updateInput();
-	void handleAim();
-	void OnBallRelease();
-	void renderLine();
-	void restBall();
 };
 

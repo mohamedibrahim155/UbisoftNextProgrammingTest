@@ -3,12 +3,7 @@
 
 InputManager::InputManager()
 {
-    m_mouseX = 0;
-    m_mouseY = 0;
-    for (size_t i = 0; i < 256; ++i)
-    {
-        m_keysStates[i] = false;
-    }
+    refreshInputs();
 }
 
 InputManager::~InputManager()
@@ -54,6 +49,17 @@ bool InputManager::getKeyUp(int key)
 bool InputManager::getKey(int key)
 {
     return App::IsKeyPressed(key);
+}
+
+void InputManager::refreshInputs()
+{
+    m_keysStates.clear();
+    m_mouseX = 0;
+    m_mouseY = 0;
+    for (size_t i = 0; i < 256; ++i)
+    {
+        m_keysStates[i] = false;
+    }
 }
 
 //Gets the mouseposition from the screen

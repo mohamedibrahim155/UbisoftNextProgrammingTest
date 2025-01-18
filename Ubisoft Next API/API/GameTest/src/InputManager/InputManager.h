@@ -17,6 +17,8 @@ public:
 	bool getKeyUp(int key);
 	bool getKey(int key);
 
+	void refreshInputs();
+
 	Vector2 getMousePosition();
 
 private:

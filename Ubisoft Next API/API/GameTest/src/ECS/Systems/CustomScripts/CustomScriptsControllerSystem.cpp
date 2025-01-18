@@ -71,11 +71,11 @@ void CustomScriptsControllerSystem::update(std::vector<Entity*> entities, float 
 		// being set to true during cleanup),
 		// stop iterating over the current scripts.
 		// New scripts will be iterated in the refreshed scene.
-		if (m_isRefreshed)
+		/*if (m_isRefreshed)
 		{
 			m_isRefreshed = false;
 			break;
-		}
+		}*/
 	}
 }
 

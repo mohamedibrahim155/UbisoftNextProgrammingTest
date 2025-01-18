@@ -90,9 +90,10 @@ void LevelManager::update(float deltaTime)
 
 	if (m_currentScene->isLevelCompleted())
 	{
+		Timer::GetInstance().unscaledTime = 0;
 		m_currentScene->cleanScene();
 		m_currentScene = nullptr;
-
+		InputManager::GetInstance().refreshInputs();
 		nextLevel();
 		return;
 	}
