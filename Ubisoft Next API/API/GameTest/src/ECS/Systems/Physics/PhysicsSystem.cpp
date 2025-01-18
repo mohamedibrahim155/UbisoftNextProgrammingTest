@@ -52,7 +52,7 @@ void PhysicsSystem::updatePhysics(std::vector<Entity*> entities, float deltatime
 	if (timer >= FIXED_TIMESTEP)
 	{
 		updateComponents(entities, FIXED_TIMESTEP);
-		timer = 0;
+		timer -= FIXED_TIMESTEP;
 	}
 }
 
@@ -86,11 +86,11 @@ void PhysicsSystem::updateComponents(std::vector<Entity*> entities, float deltat
 #pragma region Static Collision
 
 
-
 		//StaticObjects collisions
 		for (const std::pair<EntityID, PhysicsEntity>& staticObj : staticObjectsMap)
 		{
 			Collider* otherCollider = staticObj.second.collider;
+			RigidBody* otherRB = staticObj.second.rb;
 
 			if (!otherCollider->m_isEnabled || !collider->m_isEnabled) continue;
 			if (otherCollider->IsUI() || collider->IsUI()) continue;
@@ -101,7 +101,6 @@ void PhysicsSystem::updateComponents(std::vector<Entity*> entities, float deltat
 				{
 					continue;
 				}
-				resolveCollisions(rb, collisionNormals);
 			}
 		}
 #pragma endregion
@@ -110,7 +109,7 @@ void PhysicsSystem::updateComponents(std::vector<Entity*> entities, float deltat
 
 
 
-		//DynamicObjects
+		//DynamicObjects collisions
 		for (const std::pair<EntityID, PhysicsEntity>& otherObj : physicsObjectsMap)
 		{
 
@@ -129,11 +128,14 @@ void PhysicsSystem::updateComponents(std::vector<Entity*> entities, float deltat
 				{
 					continue;
 				}
-
-				resolveCollisions(rb, collisionNormals);
 			}
+
 		}
+
+		
 #pragma endregion
+
+		resolveCollisions(rb);
 
 		// Update position
 		transform->position += rb->velocity * deltatime;
@@ -163,7 +165,6 @@ void PhysicsSystem::render(std::vector<Entity*> entities, bool isDebugVisible)
 }
 #pragma endregion
 
-
 void PhysicsSystem::cleanups()
 {
 	//clears all list
@@ -177,7 +178,10 @@ void PhysicsSystem::addPhysicsObject(Entity* entity)
 	Collider* collider = (Collider*)entity->getComponent(eComponentType::COLLIDER_COMPONENT);
 	RigidBody* rb = (RigidBody*)entity->getComponent(eComponentType::PHYSICS_COMPONENT);
 	
-	if (!rb && !collider) return;
+	if (rb == nullptr || collider == nullptr)
+	{
+		return;
+	}
 
 
 	EntityID id = entity->getID();
@@ -219,32 +223,52 @@ bool PhysicsSystem::isContainsCollider(Collider* collider)
 	return false;
 }
 
-
-
 #pragma region Collision
-void PhysicsSystem::resolveCollisions(RigidBody* rb, std::vector<Vector2>& collisionNormals)
-{
-	if (collisionNormals.empty()) return;
-
-	Vector2 normal = computeNormals(collisionNormals);
-
-	Vector2 incident = rb->velocity;
-	float dotProduct = Vector2::Dot(incident, normal);
-
-	rb->velocity = (dotProduct < 0) ? 
-		  Vector2::Reflect(incident, normal) * -rb->bounciness : Vector2::Zero();
-}
 
 Vector2 PhysicsSystem::computeNormals(std::vector<Vector2>& collisionNormals)
 {
 	Vector2 normal = Vector2::Zero();
 	for (const auto& n : collisionNormals)
 	{
-		normal += Vector2::Normalize(n);
+	
+		normal = normal + n;
 	}
 	normal = normal / static_cast<float>(collisionNormals.size());
 
 	return normal;
+}
+
+void PhysicsSystem::resolveCollisions(RigidBody* rb)
+{
+	if (collisionNormals.size() > 0)
+	{
+		Vector2 normal = computeNormals(collisionNormals);
+
+		normal = normal.Normalize();
+
+		Vector2 incident = rb->velocity;
+
+		float dotProduct = Vector2::Dot(incident, normal);
+
+		if (dotProduct < 0)
+		{
+			normal = normal * -1;
+			dotProduct = -dotProduct;
+		}
+
+		Vector2 reflected = Vector2::Reflect(incident, normal);
+
+		float distancedReflected = reflected.Magnitude();
+		if (distancedReflected > 0.001f)
+		{
+			rb->velocity = reflected * rb->bounciness;
+		}
+		else
+		{
+			rb->velocity = Vector2::Zero();
+		}
+
+	}
 }
 #pragma endregion
 

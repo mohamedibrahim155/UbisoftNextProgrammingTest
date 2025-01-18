@@ -70,6 +70,18 @@ Entity* GameObjectFactory::createButtonWithText(const std::string& filename, con
 	return entity;
 }
 
+Entity* GameObjectFactory::createButtonWithText(const std::string& filename, const std::string& message, const Vector3& textColor, const std::string& tag)
+{
+	Entity* entity = m_entityManager->createEntity();
+	entity->setTag(tag);
+	TextRenderer* text = createText(message, textColor, eFontType::BITMAP_TIMES_ROMAN_10);
+
+	ButtonRenderer* buttonRender = new ButtonRenderer(filename, text);
+
+	entity->addComponent(buttonRender);
+	return entity;
+}
+
 Collider* GameObjectFactory::createCollider(eShape shape)
 {
 	switch (shape)

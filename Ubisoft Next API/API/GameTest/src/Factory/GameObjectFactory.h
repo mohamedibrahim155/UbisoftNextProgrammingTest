@@ -17,6 +17,7 @@ public:
 
 	Entity* createButton(const std::string& filename);
 	Entity* createButtonWithText(const std::string& filename, const std::string& message, const Vector3& textColor = Vector3::One());
+	Entity* createButtonWithText(const std::string& filename, const std::string& message, const Vector3& textColor, const std::string& tag);
 
 private:
 

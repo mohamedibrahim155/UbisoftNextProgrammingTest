@@ -44,7 +44,7 @@ struct Vector2
 		}
 		return Vector2::Zero();
 	}
-	static Vector2 Normalize(const Vector2 other)\
+	static Vector2 Normalize(const Vector2 other)
 	{
 		float magnitude = other.Magnitude();
 
@@ -196,6 +196,18 @@ struct  Vector3
 		}
 
 		return { x, y, z };
+	}
+
+	static Vector3 Normalize(const Vector3 other)
+	{
+		float magnitude = other.Magnitude();
+
+		if (magnitude > 1e-6f)
+		{
+			return Vector3(other.x / magnitude, other.y / magnitude, other.z / magnitude);
+		}
+
+		return Vector3::Zero();
 	}
 
 	static Vector3 Zero()

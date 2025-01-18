@@ -39,19 +39,19 @@ private:
 
 	void updatePhysics(std::vector<Entity*> entities ,float deltatime);
 	void updateComponents(std::vector<Entity*> entities, float deltatime);
+	void resolveCollisions(RigidBody* rb);
 	void subscribeEvents();
 
 	void addPhysicsObject(Entity* entity);
 	void removePhysicsObject(Entity* entity);
 
-	void resolveCollisions(RigidBody* rb, std::vector<Vector2>& collisionNormals);
 
 	Vector2 computeNormals(std::vector<Vector2>& collisionNormals);
 
 	bool isContainsCollider(Collider* collider);
 
 	const float FIXED_TIMESTEP = 1.0f / 60.0f;
-	float timer = 0;
+	float timer = FIXED_TIMESTEP;
 
 	std::vector<Vector2> collisionPoints;
 	std::vector<Vector2> collisionNormals;

@@ -186,6 +186,7 @@
     <ClInclude Include="App\SimpleController.h" />
     <ClInclude Include="App\SimpleSound.h" />
     <ClInclude Include="App\SimpleSprite.h" />
+    <ClInclude Include="src\ECS\Components\Scripts\Ball.h" />
     <ClInclude Include="src\ECS\Components\Camera\Camera.h" />
     <ClInclude Include="src\ECS\Enums\EComponentType.h" />
     <ClInclude Include="src\ECS\Enums\EShapes.h" />
@@ -238,6 +239,7 @@
     <ClCompile Include="App\SimpleController.cpp" />
     <ClCompile Include="App\SimpleSound.cpp" />
     <ClCompile Include="App\SimpleSprite.cpp" />
+    <ClCompile Include="src\ECS\Components\Scripts\Ball.cpp" />
     <ClCompile Include="src\ECS\Components\Camera\Camera.cpp" />
     <ClCompile Include="src\ECS\Systems\ParticleSystemRender\ParticleSystem.cpp" />
     <ClCompile Include="src\ECS\Components\Particle\ParticleComponent.cpp" />

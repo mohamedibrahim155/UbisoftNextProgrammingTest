@@ -46,7 +46,7 @@ void World::start()
 	LevelManager::GetInstance().Init();
 
 	//Sets the current scene to level 1
-	LevelManager::GetInstance().changeScene(MAINMENU);
+	LevelManager::GetInstance().changeScene(LEVEL_1);
 }
 
 void World::update(float deltaTime)
