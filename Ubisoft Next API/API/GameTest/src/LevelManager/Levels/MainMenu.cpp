@@ -81,7 +81,7 @@ void MainMenu::createButtons()
 		{
 			playOnce(OnhoverSFX);
 			
-
+		
 		});
 	playButton->addListenersOnButtonHoverExit([this]()
 		{
@@ -93,7 +93,7 @@ void MainMenu::createButtons()
 		
 			playOnce(OnclickSFX);
 
-			loadScene(LEVEL_1);
+			isMainMenuLevelCompleted = true;
 		
 		});
 
@@ -195,6 +195,12 @@ void MainMenu::loadScene(eScene scene)
 {
 
 	changeScene(scene);
+}
+
+
+bool MainMenu::isLevelCompleted()
+{
+	return isMainMenuLevelCompleted;
 }
 
 

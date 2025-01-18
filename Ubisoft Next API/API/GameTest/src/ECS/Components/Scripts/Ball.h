@@ -19,7 +19,10 @@ private:
 
 	bool m_showLine = false;
 	bool m_canAim = true;
+	bool m_skipFirstframe = true;
 
+	float timerDelay = 0.2f;
+	float timer = 0.0f;
 	float m_maxLineThreshold = 100;
 	float m_bounceSpeed = 500;
 

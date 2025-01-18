@@ -10,5 +10,6 @@ public:
 	// Inherited via CBaseScene
 	void initialize() override;
 	void cleanScene() override;
+	bool isLevelCompleted() override;
 };
 

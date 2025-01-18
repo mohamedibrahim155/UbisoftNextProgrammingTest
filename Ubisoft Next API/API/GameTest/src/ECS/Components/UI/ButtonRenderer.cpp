@@ -71,7 +71,7 @@ void ButtonRenderer::updateComponent()
             OnButtonHover.Invoke();
         }
 
-        if (InputManager::GetInstance().getKeyDown(VK_LBUTTON) || (App::GetController().CheckButton(XINPUT_GAMEPAD_DPAD_UP, true)))
+        if (InputManager::GetInstance().getKeyDown(VK_LBUTTON))
         {
             OnButtonClick.Invoke();
         }
@@ -91,11 +91,11 @@ void ButtonRenderer::updateComponent()
 #pragma endregion
 
 	//Should not update if scene changed on Button Click
-    if (m_sceneChanged)
+ /*   if (m_sceneChanged)
     {
 		m_sceneChanged = false;
         return;
-    }
+    }*/
 
     // Update Sprite
 

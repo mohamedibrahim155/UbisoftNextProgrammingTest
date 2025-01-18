@@ -11,6 +11,17 @@ void Ball::start()
 
 void Ball::updateComponent()
 {
+	//timer += Timer::GetInstance().deltaTime;
+	//if (timer >= timerDelay)
+	//{
+	//	m_skipFirstframe = false;
+	//}
+
+
+	//if (m_skipFirstframe)
+	//{
+	//	return;
+	//}
 	handleAim();
 	restBall();
 	updateInput();
@@ -55,6 +66,8 @@ void Ball::createBall()
 	gameObject->addComponent(ballSprite);
 	gameObject->addComponent(circleCollider);
 	gameObject->addComponent(rigidBody);
+
+	gameObject->transform.position = Vector2(-300, 0);
 }
 
 void Ball::updateInput()

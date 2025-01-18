@@ -20,9 +20,10 @@ public:
 	// Inherited via BaseLevel
 	void initialize() override;
 	void cleanScene() override;
-
+	bool isLevelCompleted() override;
 private:
 
+	bool isMainMenuLevelCompleted = false;
 	GameObjectFactory* factory;
 
 	const std::string UIFilePath = ASSET_PATH + "\\UI\\Basic\\";
@@ -36,5 +37,9 @@ private:
 	void playOnce(const std::string& fileName);
 	void playBackgroundMusic(const std::string& fileName);
 	void loadScene(eScene scene);
+
+	
+
+	
 };
 

@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "BaseLevel.h"
-
 #include "LevelManager.h"
 BaseLevel::BaseLevel(eScene sceneType) : m_sceneType(sceneType)
 {
@@ -21,9 +20,8 @@ void BaseLevel::changeScene(eScene changeScene)
 
 void BaseLevel::RestartLevel()
 {
-	LevelManager::GetInstance().RestartLevel();
+	LevelManager::GetInstance().restartLevel();
 }
-
 
 
 eScene BaseLevel::getType()

@@ -20,3 +20,9 @@ void Level2::cleanScene()
 {
 	systemManager->cleanSystem();
 }
+
+bool Level2::isLevelCompleted()
+{
+	return false;
+}
+

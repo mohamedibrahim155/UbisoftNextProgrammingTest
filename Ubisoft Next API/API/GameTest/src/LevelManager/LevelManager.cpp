@@ -4,6 +4,7 @@
 #include "../LevelManager/Levels/Level2.h"
 #include "../LevelManager/Levels/MainMenu.h"
 #include "../ECS/Components/Camera/Camera.h"
+#include "../InputManager/InputManager.h"
 LevelManager& LevelManager::GetInstance()
 {
 	static LevelManager instance;
@@ -68,7 +69,8 @@ void LevelManager::changeScene(eScene changeScene)
 	
 	if (m_currentScene)
 	{
-			m_currentScene->cleanScene();
+		m_entityManager->clean();
+		m_currentScene->cleanScene();
 	}
 
 	
@@ -77,6 +79,44 @@ void LevelManager::changeScene(eScene changeScene)
 	m_currentSceneName = m_currentScene->getName();
 
 	initCurrentScene();
+}
+
+void LevelManager::update(float deltaTime)
+{
+	if (m_currentScene == nullptr)
+	{
+		return;
+	}
+
+	if (m_currentScene->isLevelCompleted())
+	{
+		m_currentScene->cleanScene();
+		m_currentScene = nullptr;
+
+		nextLevel();
+		return;
+	}
+
+
+	updateSystem(deltaTime);
+}
+
+void LevelManager::updateSystem(float deltaTime)
+{
+	if (InputManager::GetInstance().getKeyDown('V'))
+	{
+		bool debug = m_systemManager->IsDebug();
+
+		m_systemManager->setDebugVisible(!debug);
+	}
+	m_systemManager->updateSystems(deltaTime);
+}
+
+void LevelManager::render()
+{
+	if (m_currentScene == nullptr) return;
+
+	m_systemManager->render();
 }
 
 void LevelManager::initCurrentScene()
@@ -88,7 +128,7 @@ void LevelManager::initCurrentScene()
 	m_currentScene->initialize();
 }
 
-void LevelManager::NextLevel()
+void LevelManager::nextLevel()
 {
 	int currentLevel = (int)m_currentSceneType;
 	currentLevel++;
@@ -101,7 +141,7 @@ void LevelManager::NextLevel()
 	changeScene((eScene)currentLevel);
 }
 
-void LevelManager::RestartLevel()
+void LevelManager::restartLevel()
 {
 	m_currentScene->cleanScene();
 	

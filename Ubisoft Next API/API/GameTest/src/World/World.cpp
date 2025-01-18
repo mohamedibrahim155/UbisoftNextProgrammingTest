@@ -46,23 +46,22 @@ void World::start()
 	LevelManager::GetInstance().Init();
 
 	//Sets the current scene to level 1
-	LevelManager::GetInstance().changeScene(LEVEL_1);
+	LevelManager::GetInstance().changeScene(MAINMENU);
 }
 
 void World::update(float deltaTime)
 {
-	if (InputManager::GetInstance().getKeyDown('V'))
-	{
-		bool debug = systemManager->IsDebug();
 
-		systemManager->setDebugVisible(!debug);
-	}
-	systemManager->updateSystems(deltaTime);
+	LevelManager::GetInstance().update(deltaTime);
+
+	//systemManager->updateSystems(deltaTime);
 }
 
 void World::render()
 {
-	systemManager->render();
+	LevelManager::GetInstance().render();
+
+//	systemManager->render();
 }
 
 void World::clean()

@@ -21,6 +21,7 @@ public:
 
 	virtual void initialize() = 0;
 	virtual void cleanScene() = 0;
+	virtual bool isLevelCompleted() = 0;
 	virtual eScene getType();
 
 	void changeScene(eScene eScene);

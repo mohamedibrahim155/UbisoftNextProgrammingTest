@@ -76,6 +76,23 @@ void Level1::createWalls()
 	wallCollider4->transform.position = Vector2(0, -m_centerScreen.y);
 }
 
+void Level1::updateTimer()
+{
+	if (timer < 2)
+	{
+		timer += Timer::GetInstance().deltaTime;
+	}
+	else
+	{
+		levelOneCompleted = true;
+	}
+}
+
+bool Level1::isLevelCompleted()
+{
+	return false;
+}
+
 
 
 

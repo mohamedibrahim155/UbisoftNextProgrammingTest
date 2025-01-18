@@ -14,10 +14,12 @@ public:
 	void Init();
 	void cleanScene();
 	void changeScene(eScene changeScene);
-	void initCurrentScene();
-	void NextLevel();
-	void RestartLevel();
-	void createCamera();
+	void update(float deltaTime);
+	void render();
+	void nextLevel();
+	void restartLevel();
+	void loseLevel();
+
 	BaseLevel* getScene(eScene scene);
 
 private:
@@ -33,6 +35,8 @@ private:
 	SystemManager* m_systemManager;
 	EntityManager* m_entityManager;
 
-
+	void initCurrentScene();
+	void updateSystem(float deltaTime);
+	void createCamera();
 };
 
