@@ -6,8 +6,6 @@
 #include "../src/ECS/Systems/Physics/PhysicsSystem.h"
 bool Physics::CheckCollision(Collider* colliderA, Collider* colliderB, std::vector<Vector2>& collisionPt, std::vector<Vector2>& collisionNormal)
 {
-	// Checking AABB collision 
-	if (BoxVsBox(&colliderA->getBounds(), &colliderB->getBounds(), collisionPt, collisionNormal))
 	{
 		switch (colliderA->GetShapeType())
 		{

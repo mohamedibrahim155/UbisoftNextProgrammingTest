@@ -304,10 +304,7 @@ std::string BallController::getState()
 
 void BallController::onCollisionStay(Collider* collider)
 {
-	if (collider->getEntity()->getTag() == "Wall Left")
-	{
-		// collision logic
-	}
+	
 }
 
 

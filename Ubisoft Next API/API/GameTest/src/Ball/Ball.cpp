@@ -54,6 +54,12 @@ void Ball::cleanUp()
 	}
 }
 
+void Ball::setSpawnPosition(const float& x, const float& y)
+{
+	m_spawnPosition.x = x;
+	m_spawnPosition.y = y;
+}
+
 void Ball::createBall()
 {
 	// Set Tag

@@ -186,6 +186,7 @@
     <ClInclude Include="App\SimpleController.h" />
     <ClInclude Include="App\SimpleSound.h" />
     <ClInclude Include="App\SimpleSprite.h" />
+    <ClInclude Include="src\GameManager\GameManager.h" />
     <ClInclude Include="src\Ball\GoalPost.h" />
     <ClInclude Include="src\Ball\BallController.h" />
     <ClInclude Include="src\Ball\Ball.h" />
@@ -241,6 +242,7 @@
     <ClCompile Include="App\SimpleController.cpp" />
     <ClCompile Include="App\SimpleSound.cpp" />
     <ClCompile Include="App\SimpleSprite.cpp" />
+    <ClCompile Include="src\GameManager\GameManager.cpp" />
     <ClCompile Include="src\Ball\GoalPost.cpp" />
     <ClCompile Include="src\Ball\BallController.cpp" />
     <ClCompile Include="src\Ball\Ball.cpp" />

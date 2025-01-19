@@ -15,11 +15,12 @@ public:
      void render(bool isDebugVisible) override;
      void cleanUp() override;
 
+	 void setSpawnPosition(const float& x, const float& y);
 private:
 
 	const std::string BALL_TEXTURE_PATH = ASSET_PATH + "\\Ball\\ball_red_small.png";
 
-	Vector3 m_spawnPosition{ -300.0f, 200.0f, 0 };
+	Vector3 m_spawnPosition;
 
 	// references
 	RigidBody* rigidBody;

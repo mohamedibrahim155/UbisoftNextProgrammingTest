@@ -58,7 +58,7 @@ private:
 
     static std::vector<Collider*> m_globalColliders;
 
-	std::unordered_map<EntityID, PhysicsEntity> staticObjectsMap;
+	//std::unordered_map<EntityID, PhysicsEntity> staticObjectsMap;
 	std::unordered_map<EntityID, PhysicsEntity> physicsObjectsMap;
 
 	

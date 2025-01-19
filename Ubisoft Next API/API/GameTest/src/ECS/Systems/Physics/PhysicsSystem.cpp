@@ -95,35 +95,6 @@ void PhysicsSystem::updateComponents(std::vector<Entity*> entities, float deltat
 		collisionPoints.clear();
 
 
-#pragma region Static Collision
-
-
-		//StaticObjects collisions
-		for (const std::pair<EntityID, PhysicsEntity>& staticObj : staticObjectsMap)
-		{
-			Collider* otherCollider = staticObj.second.collider;
-			RigidBody* otherRB = staticObj.second.rb;
-
-			if (!otherCollider->m_isEnabled || !collider->m_isEnabled) continue;
-			if (otherCollider->IsUI() || collider->IsUI()) continue;
-
-			if (Physics::CheckCollision(collider, otherCollider, collisionPoints, collisionNormals))
-			{
-				if (collider->IsTrigger() || otherCollider->IsTrigger())
-				{
-					collider->OnTrigger.Invoke(otherCollider);
-					otherCollider->OnTrigger.Invoke(collider);
-					continue;
-				}
-				collider->OnCollision.Invoke(otherCollider);
-				otherCollider->OnCollision.Invoke(collider);
-				resolveCollisions(rb);
-
-			}
-			
-		}
-#pragma endregion
-
 #pragma region Dynamic Collisions
 
 
@@ -139,9 +110,13 @@ void PhysicsSystem::updateComponents(std::vector<Entity*> entities, float deltat
 			if (!otherCollider->m_isEnabled || !collider->m_isEnabled) continue;
 			if (otherCollider->IsUI() || collider->IsUI()) continue;
 
+			std::vector<Vector2> perObjectCollisions;
+			std::vector<Vector2> perObjectNormals;
 
-			if (Physics::CheckCollision(collider, otherCollider, collisionPoints, collisionNormals))
+			if (Physics::CheckCollision(collider, otherCollider, perObjectCollisions, perObjectNormals))
 			{
+				collisionPoints.insert(collisionPoints.end(), perObjectCollisions.begin(), perObjectCollisions.end());
+				collisionNormals.insert(collisionNormals.end(), perObjectNormals.begin(), perObjectNormals.end());
 
 
 				if (collider->IsTrigger() || otherCollider->IsTrigger())
@@ -154,14 +129,16 @@ void PhysicsSystem::updateComponents(std::vector<Entity*> entities, float deltat
 
 				collider->OnCollision.Invoke(otherCollider);
 				otherCollider->OnCollision.Invoke(collider);
-				resolveCollisions(rb);
+
 
 			}
+
 
 		}
 
 		
 #pragma endregion
+		resolveCollisions(rb);
 
 
 		// Update position
@@ -174,13 +151,6 @@ void PhysicsSystem::updateComponents(std::vector<Entity*> entities, float deltat
 void PhysicsSystem::render(std::vector<Entity*> entities, bool isDebugVisible)
 {
 	
-	for (const std::pair<EntityID, PhysicsEntity>& object : staticObjectsMap)
-	{
-		if (!object.second.collider) continue;
-
-			object.second.collider->render(isDebugVisible);
-		
-	}
 
 	for (const std::pair<EntityID, PhysicsEntity>& object : physicsObjectsMap)
 	{
@@ -195,7 +165,6 @@ void PhysicsSystem::render(std::vector<Entity*> entities, bool isDebugVisible)
 void PhysicsSystem::cleanups()
 {
 	//clears all list
-	staticObjectsMap.clear();
 	physicsObjectsMap.clear();
 	m_globalColliders.clear();
 }
@@ -214,15 +183,7 @@ void PhysicsSystem::addPhysicsObject(Entity* entity)
 	EntityID id = entity->getID();
 	PhysicsEntity physicsEntity{ entity, collider, rb };
 
-	if (rb && rb->getbodyType() == eBodyType::STATIC)
-	{
-		staticObjectsMap[id] = physicsEntity;
-	}
-	else
-	{
-		physicsObjectsMap[id] = physicsEntity;
-	}
-
+	physicsObjectsMap[id] = physicsEntity;
 
 	if (collider && !isContainsCollider(collider)) 
 		m_globalColliders.push_back(collider);
@@ -232,8 +193,6 @@ void PhysicsSystem::addPhysicsObject(Entity* entity)
 void PhysicsSystem::removePhysicsObject(Entity* entity)
 {
 	EntityID ID = entity->getID();
-
-	staticObjectsMap.erase(ID);
 	physicsObjectsMap.erase(ID);
 }
 
@@ -298,6 +257,9 @@ void PhysicsSystem::resolveCollisions(RigidBody* rb)
 
 	}
 }
+
+
+
 #pragma endregion
 
 

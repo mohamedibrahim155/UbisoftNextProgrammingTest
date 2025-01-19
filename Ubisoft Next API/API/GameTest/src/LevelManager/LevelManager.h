@@ -18,7 +18,6 @@ public:
 	void render();
 	void nextLevel();
 	void restartLevel();
-	void loseLevel();
 
 	BaseLevel* getScene(eScene scene);
 	BaseLevel* getCurrentScene();

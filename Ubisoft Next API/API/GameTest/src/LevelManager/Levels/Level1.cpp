@@ -36,7 +36,16 @@ void Level1::start()
 	createBackground();
 
 	Entity* entityWithBallScript = entityManager->createEntity();
-	entityWithBallScript->addComponent(new Ball(entityManager));
+	Ball* ball1 = new Ball(entityManager);
+	entityWithBallScript->addComponent(ball1);
+	ball1->setSpawnPosition(-300, 200);
+
+	Entity* entityWithBallScript2 = entityManager->createEntity();
+
+	Ball* ball2 = new Ball(entityManager);
+	entityWithBallScript2->addComponent(ball2);
+
+	ball2->setSpawnPosition(-300, 100);
 
 
 	Entity* entityWithGoalPost = entityManager->createEntity();
