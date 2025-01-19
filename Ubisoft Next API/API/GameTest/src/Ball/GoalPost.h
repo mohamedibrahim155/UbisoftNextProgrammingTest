@@ -15,9 +15,10 @@ public:
 	 void render(bool isDebugVisible) override {};
 	 void cleanUp() override {};
 
+	 bool hasTargetReached();
 private:
 
-
+	bool hasReached = false;
 	const std::string SPRITE_PATH = ASSET_PATH + "\\Ball\\hole_large.png";
 
 	Vector2 m_spawnPosition;
@@ -29,8 +30,8 @@ private:
 
 	void createGoalHole();
 	void subscribeOnTrigger();
-	void OnTrigger(Collider* collider);
-	void TargetReached();
+	void onTrigger(Collider* collider);
+	void targetReached();
 
 };
 

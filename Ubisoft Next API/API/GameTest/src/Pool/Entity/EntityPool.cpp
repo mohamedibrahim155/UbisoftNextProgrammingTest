@@ -62,6 +62,14 @@ void EntityPool::resize()
 	}
 }
 
+void EntityPool::setScaleForEntities(const Vector2& scale)
+{
+	for (size_t i = 0; i < m_listOfPools.size(); i++)
+	{
+		m_listOfPools[i]->transform.scale = scale;
+	}
+}
+
 
 
 void EntityPool::destroyObject(Entity* object)
@@ -79,6 +87,11 @@ void EntityPool::destroyAt(int index)
 	{
 		destroyObject(m_listOfPools[index]);
 	}
+}
+
+Entity* EntityPool::getEntityAt(int index)
+{
+	return m_listOfPools[index];
 }
 
 

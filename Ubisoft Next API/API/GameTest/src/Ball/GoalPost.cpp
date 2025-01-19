@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "GoalPost.h"
 #include "../src/ECS/Components/Collider/BoxCollider.h"
+#include "../src/LevelManager/LevelManager.h"
 GoalPost::GoalPost(const Vector2& spawnPosition) : BaseScriptComponent()
 {
 	m_spawnPosition = spawnPosition;
@@ -19,6 +20,11 @@ void GoalPost::updateComponent()
 	{
 		return;
 	}
+}
+
+bool GoalPost::hasTargetReached()
+{
+	return hasReached;
 }
 
 void GoalPost::createGoalHole()
@@ -47,18 +53,20 @@ void GoalPost::subscribeOnTrigger()
 {
 	pCircleCollider->OnTrigger.Subscribe([this](Collider* collider)
 		{
-			OnTrigger(collider);
+			onTrigger(collider);
 		});
 }
 
-void GoalPost::OnTrigger(Collider* collider)
+void GoalPost::onTrigger(Collider* collider)
 {
 	if (collider->getEntity()->getTag() == "Ball")
 	{
-		TargetReached();
+
+		hasReached = true;
 	}
 }
 
-void GoalPost::TargetReached()
+void GoalPost::targetReached()
 {
+	//hasTargetReached = true;
 }

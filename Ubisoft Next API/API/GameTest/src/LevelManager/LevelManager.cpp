@@ -66,12 +66,12 @@ void LevelManager::cleanScene()
 
 void LevelManager::changeScene(eScene changeScene)
 {
-	
 	if (m_currentScene)
 	{
-		m_entityManager->clean();
 		m_currentScene->cleanScene();
+		m_entityManager->clean();
 	}
+
 
 	
 	m_currentScene = getScene(changeScene);
@@ -92,6 +92,7 @@ void LevelManager::update(float deltaTime)
 	{
 		Timer::GetInstance().unscaledTime = 0;
 		m_currentScene->cleanScene();
+		m_entityManager->clean();
 		m_currentScene = nullptr;
 		InputManager::GetInstance().refreshInputs();
 		nextLevel();

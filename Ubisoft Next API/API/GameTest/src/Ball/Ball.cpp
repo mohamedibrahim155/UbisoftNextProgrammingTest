@@ -4,8 +4,9 @@
 #include "../src/InputManager/InputManager.h"
 #include "../src/Ball/BallController.h"
 
-Ball::Ball() : BaseScriptComponent()
+Ball::Ball(EntityManager* entityManager) : BaseScriptComponent()
 {
+	this->entityManager = entityManager;
 }
 
 void Ball::start()
@@ -28,12 +29,16 @@ void Ball::render(bool isDebugVisible)
 {
 	if (!controller) return;
 
-	bool isInRange = controller->cursorInsideRadius();
+	bool isInRange = controller->isInRange();
 
 	if (isInRange)
 	{
 		controller->renderTrajectory();
 
+	}
+	else
+	{
+		controller->resetPoolEntites();
 	}
 
 	if (!isDebugVisible) return;
@@ -49,15 +54,13 @@ void Ball::cleanUp()
 	}
 }
 
-
-
 void Ball::createBall()
 {
 	// Set Tag
 	gameObject->setTag("Ball");
 
 	// Creates the components needed to the ball
-	ballSprite = new SpriteRenderer(ballTexture,Vector2::Zero(), 5);
+	ballSprite = new SpriteRenderer(BALL_TEXTURE_PATH,Vector2::Zero(), 5);
 	circleCollider = new CircleCollider();
 	rigidBody = new RigidBody(eBodyType::DYNAMIC);
 
@@ -77,7 +80,7 @@ void Ball::createBall()
 
 	//Creating controller
 	controller = new BallController(this);
-	controller->initialize(rigidBody, ballSprite, (CircleCollider*)circleCollider);
+	controller->initialize(rigidBody, ballSprite, (CircleCollider*)circleCollider,entityManager);
 }
 
 

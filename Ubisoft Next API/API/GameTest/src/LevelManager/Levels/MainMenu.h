@@ -26,9 +26,10 @@ private:
 	bool isMainMenuLevelCompleted = false;
 	GameObjectFactory* factory;
 
-	const std::string UIFilePath = ASSET_PATH + "\\UI\\Basic\\";
-	const std::string OnhoverSFX = ASSET_PATH + "\\Sounds\\SFX\\UI" + "\\001_Hover_01.wav";
-	const std::string OnclickSFX = ASSET_PATH + "\\Sounds\\SFX\\UI" + "\\013_Confirm_03.wav";
+	const std::string BUTTON_UI_PATH = ASSET_PATH + "\\UI\\Basic\\";
+	const std::string BACKGROUND_PATH = ASSET_PATH + "\\UI\\Background\\";
+	const std::string ON_HOVER_SFX = ASSET_PATH + "\\Sounds\\SFX\\UI" + "\\001_Hover_01.wav";
+	const std::string ON_CLICK_SFX = ASSET_PATH + "\\Sounds\\SFX\\UI" + "\\013_Confirm_03.wav";
 
 	void createBackground();
 	void createButtons();

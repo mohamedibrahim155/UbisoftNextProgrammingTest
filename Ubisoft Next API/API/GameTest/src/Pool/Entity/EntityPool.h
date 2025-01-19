@@ -11,10 +11,11 @@ public:
 	Entity* spawnObject() override;
 	void destroyObject(Entity* object) override;
 	void resize() override;
-	
+	void setScaleForEntities(const Vector2& scale);
 	Entity* getEntity();
 	std::vector<Entity*> getActiveEntites() const;
 	void destroyAt(int index);
+	Entity* getEntityAt(int index);
 
 private:
 

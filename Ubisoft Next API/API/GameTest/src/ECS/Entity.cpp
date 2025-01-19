@@ -20,8 +20,8 @@ Entity::Entity(const Entity& otherEntity, EntityID ID)
 	
 	m_isActive = otherEntity.m_isActive;
 	m_tag = otherEntity.m_tag + std::to_string(ID) + "_copy";
-
 	
+
 
 }
 

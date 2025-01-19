@@ -15,6 +15,16 @@ Level1::Level1() : BaseLevel(LEVEL_1)
 {
 	m_centerScreen.x = APP_VIRTUAL_WIDTH / 2;
 	m_centerScreen.y = APP_VIRTUAL_HEIGHT / 2;
+
+	factory = new GameObjectFactory(entityManager);
+}
+
+Level1::~Level1()
+{
+	if (factory)
+	{
+		delete factory;
+	}
 }
 
 void Level1::initialize()
@@ -22,14 +32,19 @@ void Level1::initialize()
 	//Creation of gameobjects
 #pragma region Entities
 
+
+	createBackground();
+
 	Entity* entityWithBallScript = entityManager->createEntity();
-	entityWithBallScript->addComponent(new Ball());
+	entityWithBallScript->addComponent(new Ball(entityManager));
+
 
 	Entity* entityWithGoalPost = entityManager->createEntity();
-
-	entityWithGoalPost->addComponent(new GoalPost(Vector2(300, 50)));
+	goalPost = new GoalPost(Vector2(300, 50));
+	entityWithGoalPost->addComponent(goalPost);
 
 	createWalls();
+
 
 #pragma endregion
 
@@ -81,23 +96,28 @@ void Level1::createWalls()
 
 void Level1::createBackground()
 {
+	float row = APP_VIRTUAL_WIDTH / 256;
+	float column = APP_VIRTUAL_HEIGHT / 256;
+
+	for (int x = 0; x < row+1; x++)
+	{
+		for (int y = 0; y < column+1; y++)
+		{
+			Vector2 position = Vector2(x * 256, y * 256) - m_centerScreen ;
+			Entity* bgSprite = factory->createSpriteObject(BACKGROUND_PATH, position, 0);
+
+		}
+	}
+
 }
 
-void Level1::updateTimer()
-{
-	if (timer < 2)
-	{
-		timer += Timer::GetInstance().deltaTime;
-	}
-	else
-	{
-		levelOneCompleted = true;
-	}
-}
+
 
 bool Level1::isLevelCompleted()
 {
-	return false;
+	if (!goalPost) return false;
+	
+	return goalPost->hasTargetReached();
 }
 
 

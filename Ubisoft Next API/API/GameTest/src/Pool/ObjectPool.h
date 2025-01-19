@@ -19,6 +19,7 @@ public:
 
 	virtual void destroyObject(T* object) = 0;
 
+	unsigned int getPoolSize() const { return m_listOfPools.size(); }
 protected:
 
 	int m_resizeAmount = 10;

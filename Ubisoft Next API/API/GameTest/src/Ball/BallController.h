@@ -1,9 +1,8 @@
 #pragma once
 #include "Ball.h"
+#include "../Pool/Entity/EntityPool.h"
 
-
-
-enum class BallState
+enum class eBallState
 {
 	IDLE,
 	AIMING,
@@ -18,37 +17,36 @@ public:
 	~BallController();
 
 
+	bool isInRange();
 
-	void initialize(RigidBody* ballphysics, SpriteRenderer* ballSprite, CircleCollider* collider);
-
-	bool cursorInsideRadius();
+	//Initialise
+	void initialize(RigidBody* ballphysics, SpriteRenderer* ballSprite, CircleCollider* collider, EntityManager* entityManager);
+	void initializePool();
 	void handleAim();
-	void restBall();
-	void resetBall();
+
+	void reset();
+	void resetPoolEntites();
 	void renderTrajectory();
 
 	std::string getState();
 
-
 private:
 
 
-	bool m_canAim = true;
-	bool m_aiming = false;
-	bool m_showLine = false;
-
 	float m_maxLineThreshold = 100;
 	float m_bounceSpeed = 500;
-	float m_ballRadius = 250;
+	float m_cursoeRadius = 250;
+	float m_stoppingFactor = 35;
 
-	BallState m_state = BallState::IDLE;
+	const std::string CIRCLE_PATH = ASSET_PATH + "\\Default\\circle_256.png";
+	eBallState m_state = eBallState::IDLE;
 
 	Vector2 m_aimDirection;
 	Vector3 m_initalPosition;
 	Vector2 m_centerScreen = { APP_VIRTUAL_WIDTH / 2 ,APP_VIRTUAL_HEIGHT / 2 };
 
-
-	SLine m_renderLine;
+	// rendersLine
+	SLine m_projectileLine;
 
 	// references
 	Ball* pBall;
@@ -56,21 +54,24 @@ private:
 	RigidBody* pRigidBody;
 	SpriteRenderer* pSprite;
 	CircleCollider* pCollider;
+	EntityManager* pEntityManager;
+
+	EntityPool* pEntityPool;
 
 
-	bool isBallMoving();
-
+	bool isMoving();
 	float calculateBounceSpeed(Vector2 aimDir);
-	void  shootBall(Vector2 direction);
-	void setAimState(bool canAim);
-	void cancelAim();
 
-	void Aiming();
-	void Shoot();
-	void Idle();
+	void subscribeCollisionEvent();
+	void shootBall(Vector2 direction);
+	void stopBall();
 
-	void OnCollisionEnter(Collider* collider);
+	//states
+	void aimState();
+	void shootState();
+	void idleState();
+	void setState(eBallState nextState);
 
-
+	void onCollisionStay(Collider* collider);
 };
 

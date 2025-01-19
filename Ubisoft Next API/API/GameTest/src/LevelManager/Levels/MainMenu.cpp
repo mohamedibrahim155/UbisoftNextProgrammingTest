@@ -46,10 +46,9 @@ void MainMenu::cleanScene()
 // Method to create background asset
 void MainMenu::createBackground()
 {
-	std::string UIFilePath = ASSET_PATH + "\\UI\\Background\\";
 
 	
-	Entity* background = factory->createSpriteObject(UIFilePath  + "background_0.png",Vector2::Zero(), -1);
+	Entity* background = factory->createSpriteObject(BACKGROUND_PATH + "background_0.png",Vector2::Zero(), -1);
 	background->transform.scale = Vector2(5,5);
 
 	// TODO: Add background music
@@ -69,7 +68,7 @@ void MainMenu::createButtons()
 
 	const Vector3  buttonTextColor(0.902, 0.451, 0);
 
-	Entity* playButtonGameObject = factory->createButtonWithText(UIFilePath + "b_1.png", "Play", buttonTextColor, "PlayButton");
+	Entity* playButtonGameObject = factory->createButtonWithText(BUTTON_UI_PATH + "b_1.png", "Play", buttonTextColor, "PlayButton");
 	ButtonRenderer* playButton =	(ButtonRenderer*)playButtonGameObject->getComponent(eComponentType::RENDER_COMPONENT);
 	playButton->getTextComponent()->setFont(BITMAP_TIMES_ROMAN_24);
 	playButton->getTextComponent()->setOffset(Vector2(-20, -5));
@@ -79,19 +78,19 @@ void MainMenu::createButtons()
 	
 	playButton->addListenersOnButtonHover([this]()
 		{
-			playOnce(OnhoverSFX);
+			playOnce(ON_HOVER_SFX);
 			
 		
 		});
 	playButton->addListenersOnButtonHoverExit([this]()
 		{
-			stopPlaying(OnhoverSFX);
+			stopPlaying(ON_HOVER_SFX);
 
 		});
 	playButton->addListenersOnButtonPress([this]()
 		{
 		
-			playOnce(OnclickSFX);
+			playOnce(ON_CLICK_SFX);
 
 			isMainMenuLevelCompleted = true;
 		
@@ -104,7 +103,7 @@ void MainMenu::createButtons()
 	//Creates ControlsButton  entity and position accordingly	
 #pragma region ControlsButton
 
-	Entity* optionMenuGameobject = factory->createButtonWithText(UIFilePath + "b_1.png", "Controls", buttonTextColor, "Option Button");
+	Entity* optionMenuGameobject = factory->createButtonWithText(BUTTON_UI_PATH + "b_1.png", "Controls", buttonTextColor, "Option Button");
 
 	ButtonRenderer* controlButton = (ButtonRenderer*)optionMenuGameobject->getComponent(eComponentType::RENDER_COMPONENT);
 	controlButton->getTextComponent()->setFont(BITMAP_TIMES_ROMAN_24);
@@ -115,17 +114,17 @@ void MainMenu::createButtons()
 	// Events OnButton hover,Click and HoverExit
 	controlButton->addListenersOnButtonHover([this]()
 		{
-			playOnce(OnhoverSFX);
+			playOnce(ON_HOVER_SFX);
 		});
 
 	controlButton->addListenersOnButtonPress([this]()
 		{
-			playOnce(OnclickSFX);
+			playOnce(ON_CLICK_SFX);
 		});
 
 	controlButton->addListenersOnButtonHoverExit([this]()
 		{
-			stopPlaying(OnhoverSFX);
+			stopPlaying(ON_HOVER_SFX);
 			
 		});
 
@@ -137,7 +136,7 @@ void MainMenu::createButtons()
 	//Creates Credit button  entity and position accordingly	
 #pragma region CreditButton
 
-	Entity* creditGameObject = factory->createButtonWithText(UIFilePath + "b_1.png", "Credits", buttonTextColor, "Credit Button");
+	Entity* creditGameObject = factory->createButtonWithText(BUTTON_UI_PATH + "b_1.png", "Credits", buttonTextColor, "Credit Button");
 
 	ButtonRenderer* creditButton = (ButtonRenderer*)creditGameObject->getComponent(eComponentType::RENDER_COMPONENT);
 	creditButton->getTextComponent()->setFont(BITMAP_TIMES_ROMAN_24);
@@ -147,20 +146,20 @@ void MainMenu::createButtons()
 	// Events OnButton hover,Click and HoverExit
 	creditButton->addListenersOnButtonHover([this]()
 		{
-			playOnce(OnhoverSFX);
+			playOnce(ON_HOVER_SFX);
 
 		
 		});
 
 	creditButton->addListenersOnButtonPress([this]()
 		{
-			playOnce(OnclickSFX);
+			playOnce(ON_CLICK_SFX);
 
 		});
 
 	creditButton->addListenersOnButtonHoverExit([this]()
 		{
-			stopPlaying(OnhoverSFX);
+			stopPlaying(ON_HOVER_SFX);
 		});
 
 	
