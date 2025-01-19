@@ -120,6 +120,8 @@ void Entity::Destroy()
 {
 	if (isDestroyed) return;
 
+	if(dontDestoryOnLoad) return;
+
 	setActive(false);
 	isDestroyed = true;
 	cleanUps();

@@ -130,15 +130,17 @@ void PhysicsSystem::updateComponents(std::vector<Entity*> entities, float deltat
 				collider->OnCollision.Invoke(otherCollider);
 				otherCollider->OnCollision.Invoke(collider);
 
+				resolveCollisions(rb);
 
 			}
+
+
 
 
 		}
 
 		
 #pragma endregion
-		resolveCollisions(rb);
 
 
 		// Update position

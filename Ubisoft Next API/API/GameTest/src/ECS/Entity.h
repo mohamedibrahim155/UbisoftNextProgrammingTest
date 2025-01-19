@@ -49,6 +49,7 @@ public:
 	SpriteRenderer* m_sprite;
 
 	bool isDestroyed = false;
+	bool dontDestoryOnLoad = false;
 
 	CEvent<> OnDestroyed;
 	CEvent<IComponent*> OnComponentAdded;

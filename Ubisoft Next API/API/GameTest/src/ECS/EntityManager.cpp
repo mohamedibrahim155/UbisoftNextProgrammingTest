@@ -53,11 +53,11 @@ void EntityManager::clean()
 
 void EntityManager::destroyEntity(Entity* entity)
 {
-    entity->Destroy();
+   // entity->Destroy();
 
     removeEntity(entity->getID());
 
-    delete entity;
+   // delete entity;
 }
 
 
