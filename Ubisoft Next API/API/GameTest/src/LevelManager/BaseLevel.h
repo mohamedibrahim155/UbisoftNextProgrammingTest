@@ -20,7 +20,7 @@ public:
 	BaseLevel(eScene sceneType);
 	virtual ~BaseLevel();
 
-	virtual void initialize() = 0;
+	virtual void start() = 0;
 	virtual void cleanScene() = 0;
 	virtual bool isLevelCompleted() = 0;
 	virtual eScene getType();

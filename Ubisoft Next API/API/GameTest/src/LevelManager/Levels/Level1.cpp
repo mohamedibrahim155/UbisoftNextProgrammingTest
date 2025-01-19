@@ -27,7 +27,7 @@ Level1::~Level1()
 	}
 }
 
-void Level1::initialize()
+void Level1::start()
 {
 	//Creation of gameobjects
 #pragma region Entities

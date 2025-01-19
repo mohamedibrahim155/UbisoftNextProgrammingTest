@@ -18,7 +18,7 @@ public:
 
 	~Level1() override;
 	// Inherited via CBaseScene
-	void initialize() override;
+	void start() override;
 	void cleanScene() override;
 	bool isLevelCompleted() override;
 private:

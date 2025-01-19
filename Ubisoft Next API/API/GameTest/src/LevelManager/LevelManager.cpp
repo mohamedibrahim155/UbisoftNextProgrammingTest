@@ -77,7 +77,7 @@ void LevelManager::changeScene(eScene changeScene)
 	m_currentSceneType = changeScene;
 	m_currentSceneName = m_currentScene->getName();
 
-	initCurrentScene();
+	startLevel();
 
 }
 
@@ -135,14 +135,14 @@ void LevelManager::render()
 	m_systemManager->render();
 }
 
-void LevelManager::initCurrentScene()
+void LevelManager::startLevel()
 {
 
 	m_systemManager->start();
 
 	createCamera();
 
-	m_currentScene->initialize();
+	m_currentScene->start();
 
 
 	InputManager::GetInstance().refreshInputs();
@@ -163,9 +163,7 @@ void LevelManager::nextLevel()
 
 void LevelManager::restartLevel()
 {
-	m_currentScene->cleanScene();
-	
-	initCurrentScene();
+	queSceneChange(m_currentSceneType);
 }
 
 void LevelManager::createCamera()

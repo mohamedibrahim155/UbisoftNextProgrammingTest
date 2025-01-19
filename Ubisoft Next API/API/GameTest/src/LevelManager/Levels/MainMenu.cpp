@@ -30,7 +30,7 @@ MainMenu::~MainMenu()
 	}
 
 }
-void MainMenu::initialize()
+void MainMenu::start()
 {
 
 	// Create background and buttons

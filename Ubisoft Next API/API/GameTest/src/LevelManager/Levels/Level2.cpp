@@ -7,7 +7,7 @@
 #include "../src/Utils/Utils.h"
 #include "../src/Utils/PhysicsUtils.h"
 
-void Level2::initialize()
+void Level2::start()
 {
 
 

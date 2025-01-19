@@ -18,7 +18,7 @@ public:
 	MainMenu();
 	~MainMenu() override;
 	// Inherited via BaseLevel
-	void initialize() override;
+	void start() override;
 	void cleanScene() override;
 	bool isLevelCompleted() override;
 private:

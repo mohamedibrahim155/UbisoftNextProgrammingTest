@@ -39,7 +39,7 @@ private:
 	SystemManager* m_systemManager;
 	EntityManager* m_entityManager;
 
-	void initCurrentScene();
+	void startLevel();
 	void updateSystem(float deltaTime);
 	void createCamera();
 	void changeScene(eScene changeScene);
