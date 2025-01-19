@@ -10,18 +10,7 @@ void ParticleSystem::start(std::vector<Entity*> entities)
 
 	m_systemManager->OnEntityRemoved.Subscribe([this](Entity* entity)
 		{
-			listOfParticleComponents.erase(std::remove_if(listOfParticleComponents.begin(), listOfParticleComponents.end(), [entity](std::pair<Entity*, ParticleComponent*> pair)
-				{
-					if (pair.first == entity)
-					{
-						pair.second->cleanUp();
-						return true;
-					}
-					else
-					{
-						return false;
-					}
-				}), listOfParticleComponents.end());
+			handleOnEntityRemoved(entity);
 		});
 }
 
@@ -36,34 +25,48 @@ void ParticleSystem::handleOnEntityAdded(Entity* entity)
 		});
 }
 
+void ParticleSystem::handleOnEntityRemoved(Entity* entity)
+{
+
+	EntityID ID = entity->getID();
+
+	listOfParticleComponents.erase(ID);
+}
+
 void ParticleSystem::addParticle(Entity* entity)
 {
 	ParticleComponent* particleComponent = (ParticleComponent*)entity->getComponent(eComponentType::PARTICLE_COMPONENT);
 	if (particleComponent)
 	{
-		listOfParticleComponents.push_back(std::make_pair(entity, particleComponent));
+		listOfParticleComponents[entity->getID()] = particleComponent;
 	}
 }
 
 void ParticleSystem::update(std::vector<Entity*> entities, float deltaTime)
 {
-	for (std::pair<Entity*, ParticleComponent*> pair : listOfParticleComponents)
+	for (std::pair<EntityID,ParticleComponent*> item : listOfParticleComponents)
 	{
-		if (!pair.second->m_isStartInvoked)
+		ParticleComponent* particle = item.second;
+
+		if (!particle->m_isStartInvoked)
 		{
-			pair.second->start();
-			pair.second->m_isStartInvoked = true;
+			particle->start();
+			particle->m_isStartInvoked = true;
 			continue;
 		}
-		pair.second->updateComponent();
+
+
+		particle->updateComponent();
 	}
 }
 
 void ParticleSystem::render(std::vector<Entity*> entities, bool isDebugVisible)
 {
-	for (std::pair<Entity*, ParticleComponent*> pair : listOfParticleComponents)
+	for (std::pair<EntityID, ParticleComponent*> item : listOfParticleComponents)
 	{
-		pair.second->render(isDebugVisible);
+		ParticleComponent* particle = item.second;
+
+		particle->render(isDebugVisible);
 	}
 
 }

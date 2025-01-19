@@ -16,9 +16,10 @@ public:
 
 private:
 
-	std::vector<std::pair<Entity*, ParticleComponent* >> listOfParticleComponents;
+	std::unordered_map<EntityID,ParticleComponent* > listOfParticleComponents;
 
 	void handleOnEntityAdded(Entity* entity);
+	void handleOnEntityRemoved(Entity* entity);
 	void addParticle(Entity* entity);
 };
 
