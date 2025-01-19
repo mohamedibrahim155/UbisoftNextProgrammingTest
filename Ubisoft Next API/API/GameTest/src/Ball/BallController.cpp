@@ -20,13 +20,15 @@ BallController::~BallController()
 
 #pragma region Init
 
-void BallController::initialize(RigidBody* ballphysics, SpriteRenderer* ballSprite, CircleCollider* collider, EntityManager* entityManager)
+void BallController::initialize(EntityManager* entityManager)
 {
-	this->pRigidBody = ballphysics;
-	this->pSprite = ballSprite;
-	this->pCollider = collider;
 	this->pEntityManager = entityManager;
     this->pGameObject = pBall->getEntity();
+
+	this->pRigidBody = (RigidBody*)pGameObject->getComponent(eComponentType::PHYSICS_COMPONENT);
+	this->pSprite = (SpriteRenderer*)pGameObject->getComponent(eComponentType::RENDER_COMPONENT);
+	this->pCollider = (CircleCollider*)pGameObject->getComponent(eComponentType::COLLIDER_COMPONENT);
+	this->pParticle = (ParticleComponent*)pGameObject->getComponent(eComponentType::PARTICLE_COMPONENT);
 
 	m_initalPosition = pGameObject->transform.position;
 
@@ -36,7 +38,7 @@ void BallController::initialize(RigidBody* ballphysics, SpriteRenderer* ballSpri
 
 void BallController::subscribeCollisionEvent()
 {
-	pCollider->OnCollision.Subscribe([this](Collider* otherCollider)
+	pCollider->OnTrigger.Subscribe([this](Collider* otherCollider)
 		{
 			onCollisionStay(otherCollider);
 		});
@@ -304,7 +306,11 @@ std::string BallController::getState()
 
 void BallController::onCollisionStay(Collider* collider)
 {
-	
+	bool isNotPlayed = true;
+	if (collider->getEntity()->getTag() == "Goal")
+	{
+		pParticle->Play();
+	}
 }
 
 

@@ -28,8 +28,8 @@ World::World()
 	systemManager->registerSystem(customScriptSystem);
 	systemManager->registerSystem(physicsSystem);
 	systemManager->registerSystem(movementSystem);
-	systemManager->registerSystem(particleSystem);
 	systemManager->registerSystem(renderSystem);
+	systemManager->registerSystem(particleSystem);
 #pragma endregion
 
 

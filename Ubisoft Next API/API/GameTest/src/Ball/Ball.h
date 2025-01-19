@@ -2,6 +2,7 @@
 #include "../src/ECS/Components/Scripts/ScriptComponent.h"
 #include "../src/ECS/Components/Collider/CircleCollider.h"
 #include "../src/ECS/Components/Rigidbody/RigidBody.h"
+#include "../src/ECS/Components/Particle/ParticleComponent.h"
 
 class BallController;
 
@@ -26,6 +27,8 @@ private:
 	RigidBody* rigidBody;
 	SpriteRenderer* ballSprite;
 	Collider* circleCollider;
+	ParticleComponent* particleComponent;
+
 	BallController* controller;
 	EntityManager* entityManager;
 

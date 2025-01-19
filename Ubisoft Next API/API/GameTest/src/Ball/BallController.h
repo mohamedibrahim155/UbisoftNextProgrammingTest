@@ -20,7 +20,7 @@ public:
 	bool isInRange();
 
 	//Initialise
-	void initialize(RigidBody* ballphysics, SpriteRenderer* ballSprite, CircleCollider* collider, EntityManager* entityManager);
+	void initialize(EntityManager* entityManager);
 	void initializePool();
 	void handleAim();
 
@@ -54,6 +54,7 @@ private:
 	RigidBody* pRigidBody;
 	SpriteRenderer* pSprite;
 	CircleCollider* pCollider;
+	ParticleComponent* pParticle;
 	EntityManager* pEntityManager;
 
 	EntityPool* pEntityPool;

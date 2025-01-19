@@ -39,6 +39,8 @@ ParticleComponent::~ParticleComponent()
 
 void ParticleComponent::start()
 {
+	if (!playOnAwake) return;
+
 	for (sParticleData& data : m_listOfParticles)
 	{
 		ResetParticle(data);
@@ -132,6 +134,14 @@ void ParticleComponent::cleanUp()
 	}
 
 	m_listOfParticles.clear();
+}
+
+void ParticleComponent::Play()
+{
+	for (sParticleData& data : m_listOfParticles)
+	{
+		ResetParticle(data);
+	}
 }
 
 ParticleComponent* ParticleComponent::clone() const

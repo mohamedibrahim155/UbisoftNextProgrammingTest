@@ -57,7 +57,7 @@ void GoalPost::onTrigger(Collider* collider)
 {
 	if (collider->getEntity()->getTag() == "Ball")
 	{
-		LevelManager::GetInstance().queSceneChange(MAINMENU);
+
 	}
 }
 

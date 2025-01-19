@@ -24,6 +24,7 @@ public:
 	void updateComponent() override;
 	void render(bool isDebugRender) override;
 	void cleanUp() override;
+	void Play();
 	ParticleComponent* clone() const override;
 
 
@@ -31,6 +32,7 @@ public:
 
 	bool m_isLoop = false;
 	bool isPlaying = false;
+	bool playOnAwake = true;
 
 	Vector2 m_startVelocityX = { -100, 100 };
 	Vector2 m_startVelocityY = { -100, 100 };
