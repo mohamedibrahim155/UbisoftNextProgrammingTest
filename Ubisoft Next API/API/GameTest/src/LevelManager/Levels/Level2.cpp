@@ -19,6 +19,7 @@ void Level2::initialize()
 void Level2::cleanScene()
 {
 	systemManager->cleanSystem();
+	entityManager->clean();
 }
 
 bool Level2::isLevelCompleted()

@@ -16,10 +16,6 @@ void GoalPost::start()
 
 void GoalPost::updateComponent()
 {
-	if (pCircleCollider->IsTrigger())
-	{
-		return;
-	}
 }
 
 bool GoalPost::hasTargetReached()
@@ -61,8 +57,7 @@ void GoalPost::onTrigger(Collider* collider)
 {
 	if (collider->getEntity()->getTag() == "Ball")
 	{
-
-		hasReached = true;
+		LevelManager::GetInstance().queSceneChange(MAINMENU);
 	}
 }
 
@@ -70,3 +65,4 @@ void GoalPost::targetReached()
 {
 	//hasTargetReached = true;
 }
+

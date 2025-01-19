@@ -25,6 +25,12 @@ void Collider::Init()
 	calculateShape();
 }
 
+void Collider::cleanUp()
+{
+	OnCollision.clear();
+	OnTrigger.clear();
+}
+
 
 void Collider::SetTrigger(bool trigger)
 {

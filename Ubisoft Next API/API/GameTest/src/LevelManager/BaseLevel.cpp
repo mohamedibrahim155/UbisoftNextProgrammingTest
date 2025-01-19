@@ -13,12 +13,13 @@ BaseLevel::~BaseLevel()
 
 
 
-void BaseLevel::changeScene(eScene changeScene)
+void BaseLevel::loadScene(eScene changeScene)
 {
-	LevelManager::GetInstance().changeScene(changeScene);
+	//LevelManager::GetInstance().changeScene(changeScene);
+	LevelManager::GetInstance().queSceneChange(changeScene);
 }
 
-void BaseLevel::RestartLevel()
+void BaseLevel::restartLevel()
 {
 	LevelManager::GetInstance().restartLevel();
 }

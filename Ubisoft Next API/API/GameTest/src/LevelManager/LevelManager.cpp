@@ -32,7 +32,7 @@ void LevelManager::setManagers(SystemManager* systemManager, EntityManager* enti
 	this->m_systemManager = systemManager;
 }
 
-void LevelManager::Init()
+void LevelManager::createLevels()
 {
 	BaseLevel* mainMenu = new MainMenu();
 	BaseLevel* level1 = new Level1();
@@ -59,8 +59,7 @@ void LevelManager::cleanScene()
 	m_entityManager->clean();
 	m_systemManager->cleanups();
 
-	delete m_systemManager;
-	delete m_entityManager;
+	
 }
 
 
@@ -75,14 +74,30 @@ void LevelManager::changeScene(eScene changeScene)
 
 	
 	m_currentScene = getScene(changeScene);
-	m_currentSceneType = m_currentScene->getType();
+	m_currentSceneType = changeScene;
 	m_currentSceneName = m_currentScene->getName();
 
 	initCurrentScene();
+
+}
+
+void LevelManager::queSceneChange(eScene changeScene)
+{
+	m_pendingSceneToLoad = changeScene;
 }
 
 void LevelManager::update(float deltaTime)
 {
+	// checks of there's any scene transition happening
+	if (m_pendingSceneToLoad != eScene::NONE)
+	{
+		// changes the state of current scene
+		changeScene(m_pendingSceneToLoad);
+		// refres
+		m_pendingSceneToLoad = eScene::NONE;
+		return;
+	}
+
 	if (m_currentScene == nullptr)
 	{
 		return;
@@ -90,11 +105,8 @@ void LevelManager::update(float deltaTime)
 
 	if (m_currentScene->isLevelCompleted())
 	{
-		Timer::GetInstance().unscaledTime = 0;
 		m_currentScene->cleanScene();
-		m_entityManager->clean();
 		m_currentScene = nullptr;
-		InputManager::GetInstance().refreshInputs();
 		nextLevel();
 		return;
 	}
@@ -105,6 +117,7 @@ void LevelManager::update(float deltaTime)
 
 void LevelManager::updateSystem(float deltaTime)
 {
+
 	if (InputManager::GetInstance().getKeyDown('V'))
 	{
 		bool debug = m_systemManager->IsDebug();
@@ -112,6 +125,7 @@ void LevelManager::updateSystem(float deltaTime)
 		m_systemManager->setDebugVisible(!debug);
 	}
 	m_systemManager->updateSystems(deltaTime);
+
 }
 
 void LevelManager::render()
@@ -123,11 +137,15 @@ void LevelManager::render()
 
 void LevelManager::initCurrentScene()
 {
+
 	m_systemManager->start();
 
 	createCamera();
 
 	m_currentScene->initialize();
+
+
+	InputManager::GetInstance().refreshInputs();
 }
 
 void LevelManager::nextLevel()
@@ -140,7 +158,7 @@ void LevelManager::nextLevel()
 		currentLevel = 0;
 	}
 
-	changeScene((eScene)currentLevel);
+	queSceneChange((eScene)currentLevel);
 }
 
 void LevelManager::restartLevel()
@@ -160,4 +178,9 @@ void LevelManager::createCamera()
 BaseLevel* LevelManager::getScene(eScene scene)
 {
 	return m_listOfScenes[scene];
+}
+
+BaseLevel* LevelManager::getCurrentScene()
+{
+	return m_listOfScenes[m_currentScene->getType()];
 }

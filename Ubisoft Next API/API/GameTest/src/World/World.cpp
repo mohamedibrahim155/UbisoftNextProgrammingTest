@@ -33,50 +33,33 @@ World::World()
 #pragma endregion
 
 
-	
-
-
-
-
 }
 
 void World::start()
 {
 	// Creates levels
-	LevelManager::GetInstance().Init();
+	LevelManager::GetInstance().createLevels();
 
 	//Sets the current scene to level 1
-	LevelManager::GetInstance().changeScene(MAINMENU);
+	LevelManager::GetInstance().queSceneChange(MAINMENU);
 }
 
 void World::update(float deltaTime)
 {
-	//if (Timer::GetInstance().unscaledTime == 0)
-	//{
-	//	Timer::GetInstance().unscaledTime = 1;
-	//	return;
-	//}
-	
 
-	//if (Timer::GetInstance().unscaledTime == 1)
-	{
-		LevelManager::GetInstance().update(deltaTime);
-	}
-	
-	
-
-	//systemManager->updateSystems(deltaTime);
+	LevelManager::GetInstance().update(deltaTime);
 }
 
 void World::render()
 {
 	LevelManager::GetInstance().render();
 
-//	systemManager->render();
 }
 
 void World::clean()
 {
 	LevelManager::GetInstance().cleanScene();
 	
+	delete systemManager;
+	delete entityManager;
 }

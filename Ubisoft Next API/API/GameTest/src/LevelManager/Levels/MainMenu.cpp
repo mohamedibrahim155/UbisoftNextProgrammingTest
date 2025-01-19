@@ -41,6 +41,7 @@ void MainMenu::initialize()
 void MainMenu::cleanScene()
 {
 	systemManager->cleanSystem();
+	entityManager->clean();
 }
 
 // Method to create background asset
@@ -91,9 +92,7 @@ void MainMenu::createButtons()
 		{
 		
 			playOnce(ON_CLICK_SFX);
-
-			isMainMenuLevelCompleted = true;
-		
+			loadScene(LEVEL_1);
 		});
 
 	playButtonGameObject->transform.position = Vector3(0, 50, 0);
@@ -190,16 +189,9 @@ void MainMenu::playBackgroundMusic(const std::string& fileName)
 {
 }
 
-void MainMenu::loadScene(eScene scene)
-{
-
-	changeScene(scene);
-}
-
-
 bool MainMenu::isLevelCompleted()
 {
-	return isMainMenuLevelCompleted;
+	return false;
 }
 
 

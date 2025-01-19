@@ -65,7 +65,7 @@ public:
 	virtual void Init();
 	virtual void updateComponent() {};
 	virtual void render(bool isDebugVisible) override {};
-	virtual void cleanUp() override {};
+	virtual void cleanUp() override;
 	virtual Collider* clone() const override =0;
 	virtual eShape GetShapeType() const { return m_shape; };
 	virtual SBox getBounds() = 0;

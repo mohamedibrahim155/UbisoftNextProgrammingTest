@@ -23,7 +23,6 @@ public:
 	bool isLevelCompleted() override;
 private:
 
-	bool isMainMenuLevelCompleted = false;
 	GameObjectFactory* factory;
 
 	const std::string BUTTON_UI_PATH = ASSET_PATH + "\\UI\\Basic\\";
@@ -37,7 +36,6 @@ private:
 	void stopPlaying(const std::string& fileName);
 	void playOnce(const std::string& fileName);
 	void playBackgroundMusic(const std::string& fileName);
-	void loadScene(eScene scene);
 
 	
 

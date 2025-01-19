@@ -7,6 +7,7 @@
 class LevelManager;
 enum eScene
 {
+	NONE = -1,
 	MAINMENU = 0,
 	LEVEL_1 = 1,
 	LEVEL_2 = 2,
@@ -24,8 +25,8 @@ public:
 	virtual bool isLevelCompleted() = 0;
 	virtual eScene getType();
 
-	void changeScene(eScene eScene);
-	void RestartLevel();
+	void loadScene(eScene eScene);
+	void restartLevel();
 
 	inline std::string getName() { return sceneToString[m_sceneType]; };
 

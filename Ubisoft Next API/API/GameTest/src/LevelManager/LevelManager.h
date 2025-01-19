@@ -11,9 +11,9 @@ public:
 	void addLevel(eScene sceneEnum, BaseLevel* scene);
 	void removeLevel(eScene sceneEnum);
 	void setManagers(SystemManager* m_systemManager, EntityManager* m_entityManager);
-	void Init();
+	void createLevels();
 	void cleanScene();
-	void changeScene(eScene changeScene);
+	void queSceneChange(eScene changeScene);
 	void update(float deltaTime);
 	void render();
 	void nextLevel();
@@ -21,6 +21,8 @@ public:
 	void loseLevel();
 
 	BaseLevel* getScene(eScene scene);
+	BaseLevel* getCurrentScene();
+private:
 
 private:
 
@@ -28,9 +30,11 @@ private:
 	std::unordered_map<eScene, BaseLevel*> m_listOfScenes;
 
 	eScene m_currentSceneType = eScene::LEVEL_1;
+	eScene m_pendingSceneToLoad = eScene::NONE;
 	std::string m_currentSceneName = "Untitled";
 
 	BaseLevel* m_currentScene;
+
 
 	SystemManager* m_systemManager;
 	EntityManager* m_entityManager;
@@ -38,5 +42,6 @@ private:
 	void initCurrentScene();
 	void updateSystem(float deltaTime);
 	void createCamera();
+	void changeScene(eScene changeScene);
 };
 

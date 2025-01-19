@@ -127,4 +127,5 @@ bool Level1::isLevelCompleted()
 void Level1::cleanScene()
 {
 	systemManager->cleanSystem();
+	entityManager->clean();
 }
