@@ -26,6 +26,7 @@ private:
 	
 	// method to create invisble walls around
 	void createWalls();
+	void createBackground();
 
 	void updateTimer();
 

@@ -69,6 +69,8 @@ private:
 	void Shoot();
 	void Idle();
 
+	void OnCollisionEnter(Collider* collider);
+
 
 };
 

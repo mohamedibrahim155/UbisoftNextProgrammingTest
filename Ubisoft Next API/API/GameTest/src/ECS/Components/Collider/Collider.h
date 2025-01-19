@@ -3,7 +3,7 @@
 #include "../src/ECS/Components/Transform.h"
 #include "../src/ECS/Components/Renders/SpriteRenderer.h"
 #include "../../Enums/EShapes.h"
-
+#include "../src/Events/Event.h"
 
 struct  SBox 
 {
@@ -67,7 +67,6 @@ public:
 	virtual void render(bool isDebugVisible) override {};
 	virtual void cleanUp() override {};
 	virtual Collider* clone() const override =0;
-
 	virtual eShape GetShapeType() const { return m_shape; };
 	virtual SBox getBounds() = 0;
 	virtual void calculateShape() = 0;
@@ -76,6 +75,8 @@ public:
 
 	void SetTrigger(bool trigger);
 
+	CEvent<Collider*> OnCollision;
+	CEvent<Collider*> OnTrigger;
 protected:
 
 	bool m_isTrigger = false;
@@ -88,8 +89,7 @@ protected:
 	Vector2 m_screenCenter;
 	Vector2 m_scale{ 1,1 };
 
-
-
+	
 
 };
 

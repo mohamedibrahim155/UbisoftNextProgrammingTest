@@ -31,6 +31,8 @@ public:
         m_callbacks.clear();
     }
 
+    unsigned size() const { return m_callbacks.size(); }
+
 private:
     std::vector<EVENT> m_callbacks;
 };

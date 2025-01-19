@@ -9,6 +9,7 @@
 #include "../src/ECS/Components/Particle/ParticleComponent.h"
 #include "../src/ECS/Components/Camera/Camera.h"
 #include "../src/Ball/Ball.h"
+#include "../src/Ball/GoalPost.h"
 
 Level1::Level1() : BaseLevel(LEVEL_1)
 {
@@ -24,7 +25,9 @@ void Level1::initialize()
 	Entity* entityWithBallScript = entityManager->createEntity();
 	entityWithBallScript->addComponent(new Ball());
 
+	Entity* entityWithGoalPost = entityManager->createEntity();
 
+	entityWithGoalPost->addComponent(new GoalPost(Vector2(300, 50)));
 
 	createWalls();
 
@@ -74,6 +77,10 @@ void Level1::createWalls()
 	wallCollider4->addComponent(wallBoxCollider4);
 	wallCollider4->addComponent(new RigidBody(eBodyType::STATIC));
 	wallCollider4->transform.position = Vector2(0, -m_centerScreen.y);
+}
+
+void Level1::createBackground()
+{
 }
 
 void Level1::updateTimer()

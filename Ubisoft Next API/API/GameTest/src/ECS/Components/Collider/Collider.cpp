@@ -26,7 +26,6 @@ void Collider::Init()
 }
 
 
-
 void Collider::SetTrigger(bool trigger)
 {
 	m_isTrigger = trigger;

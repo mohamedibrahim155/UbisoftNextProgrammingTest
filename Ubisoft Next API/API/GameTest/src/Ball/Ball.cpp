@@ -20,9 +20,7 @@ void Ball::updateComponent()
 	
 	if (!controller) return;
 
-	controller->handleAim(); // Handles aiming and shooting logic
-	//controller->restBall(); // Handles resetting after the ball stops
-
+	controller->handleAim(); 
 
 }
 
@@ -73,6 +71,7 @@ void Ball::createBall()
 	gameObject->addComponent(circleCollider);
 	gameObject->addComponent(rigidBody);
 
+	//Sets initial Position
 	gameObject->transform.position = m_spawnPosition;
 
 

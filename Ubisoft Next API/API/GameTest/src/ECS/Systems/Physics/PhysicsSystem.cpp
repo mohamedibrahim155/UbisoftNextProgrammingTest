@@ -70,6 +70,16 @@ void PhysicsSystem::updateComponents(std::vector<Entity*> entities, float deltat
 
 		if (!transform || !rb || !collider) continue;
 		if (!rb->m_isEnabled) continue;
+
+		if (!rb->m_isStartInvoked && !collider->m_isStartInvoked)
+		{
+			rb->start();
+			rb->m_isStartInvoked = true;
+			collider->start();
+			collider->m_isStartInvoked = true;
+			continue;
+		}
+
 		if (rb->getbodyType() == eBodyType::STATIC) continue;
 
 
@@ -101,9 +111,16 @@ void PhysicsSystem::updateComponents(std::vector<Entity*> entities, float deltat
 			{
 				if (collider->IsTrigger() || otherCollider->IsTrigger())
 				{
+					collider->OnTrigger.Invoke(otherCollider);
+					otherCollider->OnTrigger.Invoke(collider);
 					continue;
 				}
+				collider->OnCollision.Invoke(otherCollider);
+				otherCollider->OnCollision.Invoke(collider);
+				resolveCollisions(rb);
+
 			}
+			
 		}
 #pragma endregion
 
@@ -126,10 +143,19 @@ void PhysicsSystem::updateComponents(std::vector<Entity*> entities, float deltat
 			if (Physics::CheckCollision(collider, otherCollider, collisionPoints, collisionNormals))
 			{
 
+
 				if (collider->IsTrigger() || otherCollider->IsTrigger())
 				{
+					collider->OnTrigger.Invoke(otherCollider);
+					otherCollider->OnTrigger.Invoke(collider);
+
 					continue;
 				}
+
+				collider->OnCollision.Invoke(otherCollider);
+				otherCollider->OnCollision.Invoke(collider);
+				resolveCollisions(rb);
+
 			}
 
 		}
@@ -137,7 +163,6 @@ void PhysicsSystem::updateComponents(std::vector<Entity*> entities, float deltat
 		
 #pragma endregion
 
-		resolveCollisions(rb);
 
 		// Update position
 		transform->position += rb->velocity * deltatime;
@@ -259,6 +284,7 @@ void PhysicsSystem::resolveCollisions(RigidBody* rb)
 		}
 
 		Vector2 reflected = Vector2::Reflect(incident, normal);
+
 
 		float distancedReflected = reflected.Magnitude();
 		if (distancedReflected > 0.001f)

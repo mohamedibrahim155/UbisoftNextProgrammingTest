@@ -60,6 +60,7 @@
     <ClCompile Include="src\ECS\Components\Camera\Camera.cpp" />
     <ClCompile Include="src\Ball\Ball.cpp" />
     <ClCompile Include="src\Ball\BallController.cpp" />
+    <ClCompile Include="src\Ball\GoalPost.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -133,6 +134,7 @@
     <ClInclude Include="src\ECS\Enums\EShapes.h" />
     <ClInclude Include="src\Ball\Ball.h" />
     <ClInclude Include="src\Ball\BallController.h" />
+    <ClInclude Include="src\Ball\GoalPost.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="API">

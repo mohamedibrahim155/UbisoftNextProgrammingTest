@@ -23,6 +23,11 @@ void BallController::initialize(RigidBody* ballphysics, SpriteRenderer* ballSpri
 	pGameObject = pBall->getEntity();
 
 	m_initalPosition = pGameObject->transform.position;
+
+	pCollider->OnCollision.Subscribe([this](Collider* otherCollider)
+		{
+			OnCollisionEnter(otherCollider);
+		});
 }
 
 void BallController::handleAim()
@@ -250,6 +255,14 @@ void BallController::Idle()
 
 		m_state = BallState::AIMING; // Transition to Aiming state
 
+	}
+}
+
+void BallController::OnCollisionEnter(Collider* collider)
+{
+	if (collider->getEntity()->getTag() == "Wall Left")
+	{
+		resetBall();
 	}
 }
 
