@@ -108,5 +108,11 @@ void GoalPost::onTriggerEnter(Collider* collider)
 void GoalPost::targetReached()
 {
 	m_hasReached = true;
+
+	int currentScore = GameManager::GetInstance().getScore();
+
+	currentScore += 200;
+
+	GameManager::GetInstance().updateScore(currentScore);
 }
 

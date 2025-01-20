@@ -2,7 +2,7 @@
 #include "BallController.h"
 #include "../InputManager/InputManager.h"
 #include "../Utils/PhysicsUtils.h"
-
+#include "../src/GameManager/GameManager.h"
 BallController::BallController(Ball* ballComponent):
 	pBall(ballComponent),
     pRigidBody(nullptr), 
@@ -54,7 +54,7 @@ void BallController::initializePool()
 
 
 	pEntityPool = new EntityPool(pEntityManager, projectileBallPrefab);
-	pEntityPool->setScaleForEntities(Vector2(0.05f, 0.05f));
+	pEntityPool->setScaleForEntities(Vector2(0.025f, 0.025f));
 }
 
 #pragma endregion
@@ -149,7 +149,6 @@ void BallController::renderTrajectory()
 
 	resetPoolEntites();
 
-
 	for (float t = 0; t < 2.0f; t += 0.2f) // Simulate for 2 seconds
 	{
 		// Calculate the position of the current trajectory point
@@ -160,19 +159,25 @@ void BallController::renderTrajectory()
 		if (!trajectoryEntity) continue;
 
 		// Set the position of the trajectory entity
+		Vector2 scale = trajectoryEntity->transform.scale * (2.0f - t);
 		trajectoryEntity->transform.position = position - m_centerScreen;
+		trajectoryEntity->transform.scale = scale;
 	}
 }
 
 void BallController::resetPoolEntites()
 {
+
 	std::vector<Entity*> activeEntities = pEntityPool->getActiveEntites();
 
 	// Deactivate all active trajectory entities before recalculating positions
 	for (Entity* entity : activeEntities)
 	{
 		pEntityPool->destroyObject(entity);
+
 	}
+
+	pEntityPool->setScaleForEntities(Vector2(0.025f, 0.025f));
 }
 
 void BallController::shootBall(Vector2 direction)
@@ -183,6 +188,7 @@ void BallController::shootBall(Vector2 direction)
 
 	pRigidBody->velocity += direction.Normalize() * bounceSpeed;
 	
+	GameManager::GetInstance().updateStrike();
 }
 
 

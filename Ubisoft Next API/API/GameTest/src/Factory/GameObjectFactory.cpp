@@ -32,7 +32,7 @@ void GameObjectFactory::createBackground()
 		for (int y = 0; y < column +1 ; y++)
 		{
 			Vector2 position = Vector2(x * scaledSpriteWidth, y * scaledSpriteHeight) - centerScreen;
-			Entity* bgSprite = createSpriteObject(BACKGROUND_IMAGE_PATH, position, -1);
+			Entity* bgSprite = createSpriteObject(BACKGROUND_IMAGE_PATH, position, -2);
 
 			bgSprite->transform.scale = Vector2(scale, scale);
 		}
@@ -130,6 +130,32 @@ Collider* GameObjectFactory::createCollider(eShape shape)
 	}
 	return nullptr;
 }
+
+BoxCollider* GameObjectFactory::AsBox(Entity* entity)
+{
+	BoxCollider* box = (BoxCollider*)entity->getComponent(eComponentType::COLLIDER_COMPONENT);
+
+	if (box)
+	{
+		return box;
+	}
+
+	return nullptr;
+}
+
+CircleCollider* GameObjectFactory::AsCircle(Entity* entity)
+{
+	CircleCollider* circle = (CircleCollider*)entity->getComponent(eComponentType::COLLIDER_COMPONENT);
+
+	if (circle)
+	{
+		return circle;
+	}
+
+	return nullptr;
+}
+
+
 
 TextRenderer* GameObjectFactory::createText(const std::string& message, const Vector3& textColor, eFontType fontType)
 {

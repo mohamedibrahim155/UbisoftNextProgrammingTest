@@ -34,7 +34,7 @@ private:
 
 
 	float m_maxLineThreshold = 100;
-	float m_bounceSpeed = 500;
+	float m_bounceSpeed = 1000;
 	float m_cursoeRadius = 250;
 	float m_stoppingFactor = 35;
 

@@ -23,7 +23,7 @@ public:
 	bool isLevelCompleted() override;
 private:
 
-
+	const std::string LEVEL_ONE_PATH = ASSET_PATH + "\\Background\\LevelOne.png";
 	bool levelOneCompleted = false;
 	// Determines the center of window screen
 	Vector2 m_centerScreen;
@@ -35,6 +35,8 @@ private:
 
 	//creates BackgroundImages
 	void createBackground();
+
+	void createBlocks();
 
 	
 	GoalPost* goalPost;

@@ -21,7 +21,7 @@ void GameManager::showLevelComplete()
 {
 	CompletedLevel* level = (CompletedLevel*)LevelManager::GetInstance().getScene(LEVEL_COMPLETE);
 	LevelManager::GetInstance().queSceneChange(LEVEL_COMPLETE);
-
+	OnScoreChanged.clear();
 
 }
 
@@ -45,6 +45,7 @@ void GameManager::strike()
 void GameManager::reset()
 {
 	m_currentStroke = 0;
+	m_score = 0;
 }
 
 void GameManager::updateStrike()
@@ -55,10 +56,13 @@ void GameManager::updateStrike()
 		return;
 	}
 	m_currentStroke++;
+
+	onStrikeValueChanged.Invoke();
 }
 
 void GameManager::updateScore(int value)
 {
 	m_score = value;
+	OnScoreChanged.Invoke(value);
 }
 

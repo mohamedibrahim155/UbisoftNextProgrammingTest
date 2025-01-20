@@ -43,12 +43,14 @@ void CompletedLevel::createPopUp()
 
 	ButtonRenderer* button = new ButtonRenderer(LEVEL_COMPLETE_BUTTON);
 
-	button->addListenersOnButtonPress([this]()
-		{
-		 // load Next level
-		});
 
 	gameObject1->addComponent(button);
+
+	button->addListenersOnButtonPress([this]()
+		{
+			GameManager::GetInstance().reset();
+		});
+
 	gameObject1->transform.position = Vector2(150, -100);
 
 	
@@ -58,6 +60,8 @@ void CompletedLevel::createPopUp()
 	ButtonRenderer* mainMenu = new ButtonRenderer(MAINMENU_BUTTON);
 	mainMenu->addListenersOnButtonPress([this]()
 		{
+			GameManager::GetInstance().reset();
+
 			loadScene(MAINMENU);
 		});
 

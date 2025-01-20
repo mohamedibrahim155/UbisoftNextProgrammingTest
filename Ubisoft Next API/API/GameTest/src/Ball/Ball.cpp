@@ -42,8 +42,10 @@ void Ball::render(bool isDebugVisible)
 	}
 
 	if (!isDebugVisible) return;
-	std::string total = rigidBody ? std::to_string(rigidBody->velocity.x) + " " + std::to_string(rigidBody->velocity.y) : " ";
-	App::Print(100, 100, controller->getState().c_str(), 1, 1, 1);
+
+	Vector2 mousePos = InputManager::GetInstance().getMousePosition();
+	std::string total = std::to_string(mousePos.x) + " " + std::to_string(mousePos.y);
+	App::Print(100, 100, total.c_str(), 1, 1, 1);
 }
 
 void Ball::cleanUp()

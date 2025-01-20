@@ -1,7 +1,8 @@
 #pragma once
 #include "../src/ECS/EntityManager.h"
 #include "../src/ECS/Components/Rigidbody/RigidBody.h"
-#include "../src/ECS/Components/Collider/Collider.h"
+#include "../src/ECS/Components/Collider/CircleCollider.h"
+#include "../src/ECS/Components/Collider/BoxCollider.h"
 #include "../src/ECS/Components/UI/TextRenderer.h"
 
 class GameObjectFactory
@@ -19,7 +20,8 @@ public:
 	Entity* createButton(const std::string& filename);
 	Entity* createButtonWithText(const std::string& filename, const std::string& message, const Vector3& textColor = Vector3::One());
 	Entity* createButtonWithText(const std::string& filename, const std::string& message, const Vector3& textColor, const std::string& tag);
-
+	BoxCollider* AsBox(Entity* entity);
+	CircleCollider* AsCircle(Entity* entity);
 private:
 
 	const std::string BACKGROUND_IMAGE_PATH = ASSET_PATH + "\\Background\\Green_256.png";

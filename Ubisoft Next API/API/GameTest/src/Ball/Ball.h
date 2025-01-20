@@ -19,7 +19,7 @@ public:
 	 void setSpawnPosition(const float& x, const float& y);
 private:
 
-	const std::string BALL_TEXTURE_PATH = ASSET_PATH + "\\Ball\\ball_red_small.png";
+	const std::string BALL_TEXTURE_PATH = ASSET_PATH + "\\Ball\\ball_red_small2.png";
 
 	Vector3 m_spawnPosition;
 

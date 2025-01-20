@@ -15,17 +15,21 @@ public:
 
 	void updateStrike();
 	void updateScore(int value);
+	
 
 	int getCurrentStrike() { return m_currentStroke; }
 	int getMaxtrike() { return m_maxStroke; }
 	int getScore() { return m_score; }
+
+	CEvent<int> OnScoreChanged;
+	CEvent<> onStrikeValueChanged;
 private:
 
 	//EntityManager* m_entityManager;
 
 	int m_maxStroke = 3;
 	int m_currentStroke = 0;
-	int m_score = 100;
+	int m_score = 0;
 
 	CEvent<> onStrokeCompleted;
 
