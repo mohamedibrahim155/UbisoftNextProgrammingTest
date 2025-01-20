@@ -17,6 +17,8 @@ public:
      void cleanUp() override;
 
 	 void setSpawnPosition(const float& x, const float& y);
+
+	 BallController* getController() { return controller; }
 private:
 
 	const std::string BALL_TEXTURE_PATH = ASSET_PATH + "\\Ball\\ball_red_small2.png";

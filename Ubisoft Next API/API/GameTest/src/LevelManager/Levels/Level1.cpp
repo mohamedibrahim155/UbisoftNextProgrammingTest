@@ -11,6 +11,8 @@
 #include "../src/Ball/Ball.h"
 #include "../src/Ball/GoalPost.h"
 #include "../src/UI/UIDisplayer.h"
+#include "../src/Block/Blocks.h"
+#include "../src/Block/BlockHolder.h"
 
 Level1::Level1() : BaseLevel(LEVEL_1)
 {
@@ -62,6 +64,39 @@ void Level1::start()
 	UIDisplayer* strokeUI = new UIDisplayer(eUIType::STROKE);
 	entityWithStrike->addComponent(strokeUI);
 	entityWithStrike->transform.position = Vector2(300, 350);
+
+	// blocks
+	Entity* entity1 = entityManager->createEntity();
+	Block* block1 = new Block(eColorType::WHITE);
+	entity1->addComponent(block1);
+	entity1->transform.position = Vector2(-113, -17);
+	entity1->transform.scale = Vector2(0.25f, 0.25f);
+
+	Entity* entity2 = entityManager->createEntity();
+	Block* block2 = new Block(eColorType::BLACK);
+	entity2->addComponent(block2);
+	entity2->transform.position = Vector2(197, 185);
+	entity2->transform.scale = Vector2(0.25f, 0.25f);
+
+
+	Entity* entity3 = entityManager->createEntity();
+	Block* block3 = new Block(eColorType::WHITE);
+	entity3->addComponent(block3);
+	entity3->transform.position = Vector2(138, -147);
+	entity3->transform.scale = Vector2(0.25f, 0.25f);
+
+	// block holder
+	Entity* entityWithBlockHolder = entityManager->createEntity();
+
+	BlockHolder* blockHolder = new BlockHolder(ball1);
+
+	blockHolder->addBlock(block1);
+	blockHolder->addBlock(block2);
+	blockHolder->addBlock(block3);
+
+	entityWithBlockHolder->addComponent(blockHolder);
+
+
 #pragma endregion
 
 
@@ -116,12 +151,12 @@ void Level1::createBackground()
 	factory->createBackgroundWhiteBorder();
 
 
-	factory->createSpriteObject(LEVEL_ONE_PATH,Vector2::Zero(),-1);
+	//factory->createSpriteObject(LEVEL_ONE_PATH,Vector2::Zero(),-1);
 }
 
 void Level1::createBlocks()
 {
-	Entity* block1 = factory->createPhysicsObject(eShape::BOX, eBodyType::STATIC);
+	/*Entity* block1 = factory->createPhysicsObject(eShape::BOX, eBodyType::STATIC);
 	BoxCollider* collider = factory->AsBox(block1);
 
 	collider->setSize(53,53);
@@ -138,7 +173,32 @@ void Level1::createBlocks()
 	BoxCollider* collider3 = factory->AsBox(block3);
 
 	collider3->setSize(53, 53);
-	block3->transform.position = Vector2(138, -147);
+	block3->transform.position = Vector2(138, -147);*/
+
+
+	//Entity* entity1 = entityManager->createEntity();
+	//Block* block1 = new Block(eColorType::WHITE);
+	//entity1->addComponent(block1);
+	//entity1->transform.position = Vector2(-113, -17);
+	//entity1->transform.scale = Vector2(0.25f,0.25f);
+
+	//Entity* entity2 = entityManager->createEntity();
+	//Block* block2 = new Block(eColorType::BLACK);
+	//entity2->addComponent(block2);
+	//entity2->transform.position = Vector2(197, 185);
+	//entity2->transform.scale = Vector2(0.25f, 0.25f);
+
+
+	//Entity* entity3 = entityManager->createEntity();
+	//Block* block3 = new Block(eColorType::WHITE);
+	//entity3->addComponent(block3);
+	//entity3->transform.position = Vector2(138, -147);
+	//entity3->transform.scale = Vector2(0.25f, 0.25f);
+
+	//Entity* entityWithBlockHolder = entityManager->createEntity();
+	//BlockHolder* blockHolder = new BlockHolder();
+	//blockHolder->setController(ba)
+	//entityWithBlockHolder->addComponent(blockHolder);
 }
 
 

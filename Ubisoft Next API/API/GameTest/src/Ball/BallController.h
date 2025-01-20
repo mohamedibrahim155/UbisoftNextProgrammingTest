@@ -1,13 +1,14 @@
 #pragma once
 #include "Ball.h"
 #include "../Pool/Entity/EntityPool.h"
-
+#include "EColorType.h"
 enum class eBallState
 {
 	IDLE,
 	AIMING,
 	SHOOTING
 };
+
 class BallController
 {
 
@@ -30,6 +31,8 @@ public:
 
 	std::string getState();
 
+	eColorType getColorState() const { return m_type; };
+
 private:
 
 
@@ -39,7 +42,9 @@ private:
 	float m_stoppingFactor = 35;
 
 	const std::string CIRCLE_PATH = ASSET_PATH + "\\Default\\circle_256.png";
+
 	eBallState m_state = eBallState::IDLE;
+	eColorType m_type = eColorType::WHITE;
 
 	Vector2 m_aimDirection;
 	Vector3 m_initalPosition;
@@ -73,5 +78,11 @@ private:
 	void setState(eBallState nextState);
 
 	void OntriggerEnter(Collider* collider);
+	void OnCollisionEnter(Collider* collider);
+
+	bool checkType(eColorType type);
+
+	void changeType(eColorType type);
+	void updateSpriteColor(eColorType type);
 };
 
