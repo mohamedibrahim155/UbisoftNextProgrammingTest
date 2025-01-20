@@ -37,9 +37,9 @@ void BallController::initialize(EntityManager* entityManager)
 
 void BallController::subscribeCollisionEvent()
 {
-	pCollider->OnTrigger.Subscribe([this](Collider* otherCollider)
+	pCollider->OnTriggerEnter.Subscribe([this](Collider* otherCollider)
 		{
-			onCollisionStay(otherCollider);
+			OntriggerEnter(otherCollider);
 		});
 }
 
@@ -303,9 +303,12 @@ std::string BallController::getState()
 #pragma endregion
 
 
-void BallController::onCollisionStay(Collider* collider)
+void BallController::OntriggerEnter(Collider* collider)
 {
-	
+	if (collider->getEntity()->getTag() == "Goal")
+	{
+		//stopBall();
+	}
 }
 
 

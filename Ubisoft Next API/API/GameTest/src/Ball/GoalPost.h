@@ -13,17 +13,16 @@ public:
 	~GoalPost() override = default;
 	 void start() override;
 	 void updateComponent() override;
-	 void CheckLevelCompleteState();
 	 void render(bool isDebugVisible) override {};
 	 void cleanUp() override {};
 private:
 
-	bool hasReached = false;
-	bool playPartilcle = false;
-	float particleInvokeTime = 1;
 	const std::string SPRITE_PATH = ASSET_PATH + "\\Ball\\hole_large.png";
-	const std:: string DEFAULT_CIRCLE_PATH = ASSET_PATH + "\\Default\\circle-512.png";
+	const std::string DEFAULT_CIRCLE_PATH = ASSET_PATH + "\\Default\\circle-512.png";
 
+	bool m_hasReached = false;
+	float m_delayTime = 1;
+	
 	Vector2 m_spawnPosition;
 
 	CircleCollider* pCircleCollider;
@@ -34,9 +33,12 @@ private:
 
 	void createGoalHole();
 	void subscribeOnTrigger();
-	void onTriggerStay(Collider* collider);
+	void onTriggerEnter(Collider* collider);
 
 	void targetReached();
+	void checkGoalReached();
+	void reset();
+
 
 };
 

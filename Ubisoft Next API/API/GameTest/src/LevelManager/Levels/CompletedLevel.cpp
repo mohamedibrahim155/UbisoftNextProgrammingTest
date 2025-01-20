@@ -32,9 +32,9 @@ bool CompletedLevel::isLevelCompleted()
 
 void CompletedLevel::setScoreText(int score)
 {
-	if (!text) return;
+	if (!m_scoreText) return;
 	std::string scoreText = "Scrore : " +  std::to_string(score);
-	text->setText(scoreText);
+	m_scoreText->setText(scoreText);
 }
 
 void CompletedLevel::createPopUp()
@@ -45,38 +45,34 @@ void CompletedLevel::createPopUp()
 
 	button->addListenersOnButtonPress([this]()
 		{
-			//GameManager::GetInstance().OnLevelCompleteClick(true);
+		 // load Next level
 		});
 
 	gameObject1->addComponent(button);
-
 	gameObject1->transform.position = Vector2(150, -100);
 
 	
 
 
 	Entity* gameObject2 = entityManager->createEntity();
-
 	ButtonRenderer* mainMenu = new ButtonRenderer(MAINMENU_BUTTON);
-
 	mainMenu->addListenersOnButtonPress([this]()
 		{
 			loadScene(MAINMENU);
 		});
 
 	gameObject2->addComponent(mainMenu);
-
-
 	gameObject2->transform.position =  Vector2(-200, -100);
 
 
-	Entity* textGameObject = entityManager->createEntity();
+	Entity* scoreTextGameObject = entityManager->createEntity();
 	
-	text = new TextRenderer("");
-	text->setColor(0.8, 0.2, 0.3);
+	m_scoreText = new TextRenderer("");
+	m_scoreText->setColor(0.8, 0.2, 0.3);
 
-	textGameObject->addComponent(text);
-	textGameObject->transform.position = Vector2(-70, 0);
+	scoreTextGameObject->addComponent(m_scoreText);
+	scoreTextGameObject->transform.position = Vector2(-70, 0);
+	setScoreText(GameManager::GetInstance().getScore());
 
 
 	Entity* completedTextGameObject = entityManager->createEntity();
@@ -88,7 +84,6 @@ void CompletedLevel::createPopUp()
 	completedTextGameObject->addComponent(completedText);
 	completedTextGameObject->transform.position = Vector2(-150, 50);
 
-	setScoreText(GameManager::GetInstance().getScore());
 	
 }
 

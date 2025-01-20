@@ -28,7 +28,11 @@ void Collider::Init()
 void Collider::cleanUp()
 {
 	OnCollision.clear();
+	OnCollisionEnter.clear();
+	OnCollisionExit.clear();
 	OnTrigger.clear();
+	OnTriggerEnter.clear();
+	OnTriggerExit.clear();
 }
 
 

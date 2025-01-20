@@ -77,6 +77,13 @@ public:
 
 	CEvent<Collider*> OnCollision;
 	CEvent<Collider*> OnTrigger;
+	CEvent<Collider*> OnCollisionEnter;
+	CEvent<Collider*> OnTriggerEnter;
+	CEvent<Collider*> OnCollisionExit;
+	CEvent<Collider*> OnTriggerExit;
+
+	bool isColliding = false;
+	bool isTriggering = false;
 protected:
 
 	bool m_isTrigger = false;

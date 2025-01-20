@@ -72,6 +72,6 @@ private:
 	void idleState();
 	void setState(eBallState nextState);
 
-	void onCollisionStay(Collider* collider);
+	void OntriggerEnter(Collider* collider);
 };
 

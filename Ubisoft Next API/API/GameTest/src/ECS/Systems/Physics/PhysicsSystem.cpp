@@ -121,17 +121,64 @@ void PhysicsSystem::updateComponents(std::vector<Entity*> entities, float deltat
 
 				if (collider->IsTrigger() || otherCollider->IsTrigger())
 				{
-					collider->OnTrigger.Invoke(otherCollider);
-					otherCollider->OnTrigger.Invoke(collider);
+					//trigger enter
+					if (!collider->isTriggering && !otherCollider->isTriggering)
+					{
+						collider->OnTriggerEnter.Invoke(otherCollider);
+						otherCollider->OnTriggerEnter.Invoke(collider);
+						
+						collider->isTriggering = true;
+						otherCollider->isTriggering = true;
+					}
 
-					continue;
+					// trigger stay
+						collider->OnTrigger.Invoke(otherCollider);
+						otherCollider->OnTrigger.Invoke(collider);
+				
+						continue;
 				}
 
+				//On collision Enter
+				if (!collider->isColliding && !otherCollider->isColliding)
+				{
+					collider->OnCollisionEnter.Invoke(otherCollider);
+					otherCollider->OnCollisionEnter.Invoke(collider);
+
+					collider->isColliding = true;
+					otherCollider->isColliding = true;
+				}
+
+				// On Collision Stay
 				collider->OnCollision.Invoke(otherCollider);
 				otherCollider->OnCollision.Invoke(collider);
 
 				resolveCollisions(rb);
 
+			}
+			else
+			{
+				// Ontrigger Exit
+				if (collider->IsTrigger() || otherCollider->IsTrigger())
+				{
+					if (collider->isTriggering && otherCollider->isTriggering)
+					{
+						collider->OnTriggerExit.Invoke(otherCollider);
+						otherCollider->OnTriggerExit.Invoke(collider);
+
+						collider->isTriggering = false;
+						otherCollider->isTriggering = false;
+					}
+				}
+
+				//On Collision Exit
+				if (collider->isColliding && otherCollider->isColliding)
+				{
+					collider->OnCollisionExit.Invoke(otherCollider);
+					otherCollider->OnCollisionExit.Invoke(collider);
+
+					collider->isColliding = false;
+					otherCollider->isColliding = false;
+				}
 			}
 
 

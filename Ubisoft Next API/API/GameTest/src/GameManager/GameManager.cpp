@@ -17,13 +17,10 @@ void GameManager::setMaxStroke(int strokeChances)
 	m_maxStroke = strokeChances;
 }
 
-void GameManager::OnLevelCompleteClick(bool show)
+void GameManager::showLevelComplete()
 {
 	CompletedLevel* level = (CompletedLevel*)LevelManager::GetInstance().getScene(LEVEL_COMPLETE);
-
-	GameManager::GetInstance().getCurrentStrike();
-
-	level->setScoreText(getScore());
+	LevelManager::GetInstance().queSceneChange(LEVEL_COMPLETE);
 
 
 }

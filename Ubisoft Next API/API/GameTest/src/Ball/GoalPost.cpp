@@ -2,6 +2,7 @@
 #include "GoalPost.h"
 #include "../src/ECS/Components/Collider/BoxCollider.h"
 #include "../src/LevelManager/LevelManager.h"
+#include "../src/GameManager/GameManager.h"
 GoalPost::GoalPost(const Vector2& spawnPosition) : BaseScriptComponent()
 {
 	m_spawnPosition = spawnPosition;
@@ -16,26 +17,32 @@ void GoalPost::start()
 
 void GoalPost::updateComponent()
 {
-	CheckLevelCompleteState();
+	checkGoalReached();
 }
 
-void GoalPost::CheckLevelCompleteState()
+void GoalPost::checkGoalReached()
 {
 
-	if (hasReached)
+	if (m_hasReached)
 	{
-		if (particleInvokeTime <= 0)
+		if (m_delayTime <= 0)
 		{
-			pParticle->Play();
-			hasReached = false;
-			//LevelManager::GetInstance().nextLevel();
+
+			reset();
+			GameManager::GetInstance().showLevelComplete();
 			return;
 		}
 		else
 		{
-			particleInvokeTime -= Timer::GetInstance().deltaTime;
+			m_delayTime -= Timer::GetInstance().deltaTime;
 		}
 	}
+}
+
+void GoalPost::reset()
+{
+	m_delayTime = 0;
+	m_hasReached = false;
 }
 
 void GoalPost::createGoalHole()
@@ -77,25 +84,29 @@ void GoalPost::createGoalHole()
 
 void GoalPost::subscribeOnTrigger()
 {
-	pCircleCollider->OnTrigger.Subscribe([this](Collider* collider)
+	pCircleCollider->OnTriggerEnter.Subscribe([this](Collider* collider)
 		{
-			onTriggerStay(collider);
+			onTriggerEnter(collider);
 		});
 }
 
-void GoalPost::onTriggerStay(Collider* collider)
+void GoalPost::onTriggerEnter(Collider* collider)
 {
 	if (collider->getEntity()->getTag() == "Ball")
 	{
-		if (!hasReached)
-		{
+		
+		
+			//targetReached();
+			pParticle->Play();
+
+			collider->getEntity()->setActive(false);
 			targetReached();
-		}
+		
 	}
 }
 
 void GoalPost::targetReached()
 {
-	hasReached = true;
+	m_hasReached = true;
 }
 

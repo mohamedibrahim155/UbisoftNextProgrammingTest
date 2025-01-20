@@ -15,7 +15,6 @@ public:
 	void cleanScene() override;
 
 	bool isLevelCompleted() override;
-	void setScoreText(int score);
 
 private:
 
@@ -24,10 +23,11 @@ private:
 	const std::string MAINMENU_BUTTON = ASSET_PATH + "\\UI\\Button\\mainmenu.png";
 	GameObjectFactory* m_factory;
 
-	TextRenderer* text = nullptr;
+	TextRenderer* m_scoreText = nullptr;
 
 	void createPopUp();
 	void createBackgound();
+	void setScoreText(int score);
 
 };
 

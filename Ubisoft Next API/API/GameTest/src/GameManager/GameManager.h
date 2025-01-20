@@ -8,7 +8,7 @@ public:
 	static GameManager& GetInstance();
 
 	void setMaxStroke(int strokeChances);
-	void OnLevelCompleteClick(bool show);
+	void showLevelComplete();
 	void gameOver();
 	void strike();
 	void reset();
