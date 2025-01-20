@@ -66,6 +66,7 @@
     <ClCompile Include="src\UI\UIDisplayer.cpp" />
     <ClCompile Include="src\Block\Blocks.cpp" />
     <ClCompile Include="src\Block\BlockHolder.cpp" />
+    <ClCompile Include="src\LevelManager\Levels\GameOverLevel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -146,6 +147,7 @@
     <ClInclude Include="src\Block\Blocks.h" />
     <ClInclude Include="src\Ball\EColorType.h" />
     <ClInclude Include="src\Block\BlockHolder.h" />
+    <ClInclude Include="src\LevelManager\Levels\GameOverLevel.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="API">

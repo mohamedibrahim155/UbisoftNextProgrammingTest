@@ -79,7 +79,7 @@ void GoalPost::createGoalHole()
 
 
 	gameObject->transform.position = m_spawnPosition;
-	gameObject->transform.scale = Vector2(0.5f, 0.5f);
+	gameObject->transform.scale = Vector2(0.4f, 0.4f);
 }
 
 void GoalPost::subscribeOnTrigger()

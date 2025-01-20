@@ -49,7 +49,7 @@ void Level1::start()
 
 	// UI's
 	Entity* entityWithGoalPost = entityManager->createEntity();
-	goalPost = new GoalPost(Vector2(300, 50));
+	goalPost = new GoalPost(Vector2(420, 50));
 	entityWithGoalPost->addComponent(goalPost);
 
 	Entity* entityWithScoreDisplayer = entityManager->createEntity();
@@ -129,59 +129,55 @@ void Level1::createBackground()
 
 void Level1::createBlocks()
 {
-	/*Entity* block1 = factory->createPhysicsObject(eShape::BOX, eBodyType::STATIC);
-	BoxCollider* collider = factory->AsBox(block1);
-
-	collider->setSize(53,53);
-	block1->transform.position = Vector2(-113,-17);
-
-	Entity* block2 = factory->createPhysicsObject(eShape::BOX, eBodyType::STATIC);
-	BoxCollider* collider2 = factory->AsBox(block2);
-
-	collider2->setSize(53, 53);
-	block2->transform.position = Vector2(197, 185);
-
-
-	Entity* block3 = factory->createPhysicsObject(eShape::BOX, eBodyType::STATIC);
-	BoxCollider* collider3 = factory->AsBox(block3);
-
-	collider3->setSize(53, 53);
-	block3->transform.position = Vector2(138, -147);*/
+	
 
 	//Ball
 	Entity* entityWithBallScript = entityManager->createEntity();
 	Ball* ball1 = new Ball(entityManager,eColorType::WHITE);
 	entityWithBallScript->addComponent(ball1);
-	ball1->setSpawnPosition(-300, 200);
-
-	// blocks
-	Entity* entity1 = entityManager->createEntity();
-	Block* block1 = new Block(eColorType::WHITE);
-	entity1->addComponent(block1);
-	entity1->transform.position = Vector2(-113, -17);
-	entity1->transform.scale = Vector2(0.25f, 0.25f);
-
-	Entity* entity2 = entityManager->createEntity();
-	Block* block2 = new Block(eColorType::BLACK);
-	entity2->addComponent(block2);
-	entity2->transform.position = Vector2(197, 185);
-	entity2->transform.scale = Vector2(0.25f, 0.25f);
+	ball1->setSpawnPosition(-450, 0);
 
 
-	Entity* entity3 = entityManager->createEntity();
-	Block* block3 = new Block(eColorType::WHITE);
-	entity3->addComponent(block3);
-	entity3->transform.position = Vector2(138, -147);
-	entity3->transform.scale = Vector2(0.25f, 0.25f);
-
-	// block holder
 	Entity* entityWithBlockHolder = entityManager->createEntity();
 
 	BlockHolder* blockHolder = new BlockHolder(ball1);
 
+	// straightBlocks
+	
+	// blocks
+	Entity* entity1 = factory->createSpriteObject(BLOCK_1_PATH,Vector2::Zero(),-1);
+	Block* block1 = new Block(eColorType::WHITE);
+	entity1->addComponent(block1);
+	entity1->transform.position = Vector2(-200, 0);
+	entity1->transform.scale = Vector2(1.05f, 1.05f);
+
+	Entity* entity2 = factory->createSpriteObject(BLOCK_2_PATH, Vector2::Zero(), -1);
+	Block* block2 = new Block(eColorType::BLACK);
+	entity2->addComponent(block2);
+	entity2->transform.position = Vector2(290, 40);
+	entity2->transform.scale = Vector2(1, 1);
+
+
+
+
+
+	Entity* entity3 = factory->createSpriteObject(BLOCK_3_PATH, Vector2::Zero(), -1);
+	Block* block3 = new Block(eColorType::WHITE);
+	entity3->addComponent(block3);
+	entity3->transform.position = Vector2(394, -68);
+	entity3->transform.scale = Vector2(0.75, 0.75);
+
+	Entity* entity4 = factory->createSpriteObject(BLOCK_3_PATH, Vector2::Zero(), -1);
+	Block* block4 = new Block(eColorType::WHITE);
+	entity4->addComponent(block4);
+	entity4->transform.position = Vector2(394, 148);
+	entity4->transform.scale = Vector2(0.75, 0.75);
+
+	//// block holder
 	blockHolder->addBlock(block1);
 	blockHolder->addBlock(block2);
 	blockHolder->addBlock(block3);
+	blockHolder->addBlock(block4);
 
 	entityWithBlockHolder->addComponent(blockHolder);
 }

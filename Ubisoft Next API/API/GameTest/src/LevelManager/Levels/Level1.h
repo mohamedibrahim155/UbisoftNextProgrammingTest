@@ -24,6 +24,9 @@ public:
 private:
 
 	const std::string LEVEL_ONE_PATH = ASSET_PATH + "\\Background\\LevelOne.png";
+	const std::string BLOCK_1_PATH = ASSET_PATH + "\\Block\\Level 1\\Block_1.png";
+	const std::string BLOCK_2_PATH = ASSET_PATH + "\\Block\\Level 1\\Block_2.png";
+	const std::string BLOCK_3_PATH = ASSET_PATH + "\\Block\\Level 1\\Block_3.png";
 	bool levelOneCompleted = false;
 	// Determines the center of window screen
 	Vector2 m_centerScreen;

@@ -61,13 +61,12 @@ void Block::createBlock()
 	gameObject->setTag("Block");
 
 	// create components
-	pSprite = new SpriteRenderer(BLOCK_TEXTURE_PATH, true);
+	pSprite = (SpriteRenderer*)gameObject->getComponent(eComponentType::RENDER_COMPONENT);
 	pCollider = new BoxCollider();
 	pRigidbody = new RigidBody(eBodyType::STATIC);
 
 
 	// adds components
-	gameObject->addComponent(pSprite);
 	gameObject->addComponent(pCollider);
 	gameObject->addComponent(pRigidbody);
 }
