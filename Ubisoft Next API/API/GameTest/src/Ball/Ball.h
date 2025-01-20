@@ -27,7 +27,6 @@ private:
 	RigidBody* rigidBody;
 	SpriteRenderer* ballSprite;
 	Collider* circleCollider;
-	ParticleComponent* particleComponent;
 
 	BallController* controller;
 	EntityManager* entityManager;

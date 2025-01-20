@@ -10,7 +10,7 @@ GameObjectFactory::GameObjectFactory(EntityManager* entityManager) :  m_entityMa
 {
 }
 
-void GameObjectFactory::createBackground(const std::string& fileName)
+void GameObjectFactory::createBackground()
 {
 	// Scaling factor for the sprite
 	float scale = 0.5f;
@@ -32,11 +32,17 @@ void GameObjectFactory::createBackground(const std::string& fileName)
 		for (int y = 0; y < column +1 ; y++)
 		{
 			Vector2 position = Vector2(x * scaledSpriteWidth, y * scaledSpriteHeight) - centerScreen;
-			Entity* bgSprite = createSpriteObject(fileName, position, -1);
+			Entity* bgSprite = createSpriteObject(BACKGROUND_IMAGE_PATH, position, -1);
 
 			bgSprite->transform.scale = Vector2(scale, scale);
 		}
 	}
+}
+
+void GameObjectFactory::createBackgroundWhiteBorder()
+{
+	Entity* entity= createSpriteObject(BACKGROUND_BORDER_PATH,Vector2::Zero(), 0);
+
 }
 
 Entity* GameObjectFactory::createPhysicsObject(eShape shape, eBodyType bodyType)

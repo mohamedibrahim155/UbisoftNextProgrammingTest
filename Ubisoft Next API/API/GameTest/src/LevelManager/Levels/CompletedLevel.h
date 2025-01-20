@@ -22,7 +22,6 @@ private:
 
 	const std::string LEVEL_COMPLETE_BUTTON = ASSET_PATH + "\\UI\\Button\\levelComplete.png";
 	const std::string MAINMENU_BUTTON = ASSET_PATH + "\\UI\\Button\\mainmenu.png";
-	const std::string BACKGROUND_TEXTURE_PATH = ASSET_PATH + "\\Background\\Green_256.png";
 	GameObjectFactory* m_factory;
 
 	TextRenderer* text = nullptr;

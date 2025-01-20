@@ -3,6 +3,7 @@
 #include "../src/ECS/Components/Collider/CircleCollider.h"
 #include "../src/ECS/Components/Rigidbody/RigidBody.h"
 #include "../src/ECS/Components/Renders/SpriteRenderer.h"
+#include "../src/ECS/Components/Particle/ParticleComponent.h"
 class GoalPost : public BaseScriptComponent
 
 {
@@ -12,25 +13,29 @@ public:
 	~GoalPost() override = default;
 	 void start() override;
 	 void updateComponent() override;
+	 void CheckLevelCompleteState();
 	 void render(bool isDebugVisible) override {};
 	 void cleanUp() override {};
-
-	 bool hasTargetReached();
 private:
 
 	bool hasReached = false;
+	bool playPartilcle = false;
+	float particleInvokeTime = 1;
 	const std::string SPRITE_PATH = ASSET_PATH + "\\Ball\\hole_large.png";
+	const std:: string DEFAULT_CIRCLE_PATH = ASSET_PATH + "\\Default\\circle-512.png";
 
 	Vector2 m_spawnPosition;
 
 	CircleCollider* pCircleCollider;
 	RigidBody* pRigidbody;
 	SpriteRenderer* pSprite;
+	ParticleComponent* pParticle;
 	
 
 	void createGoalHole();
 	void subscribeOnTrigger();
-	void onTrigger(Collider* collider);
+	void onTriggerStay(Collider* collider);
+
 	void targetReached();
 
 };

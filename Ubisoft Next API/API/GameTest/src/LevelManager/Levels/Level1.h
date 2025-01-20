@@ -24,7 +24,6 @@ public:
 private:
 
 
-	const std::string BACKGROUND_PATH = ASSET_PATH + "\\Background\\Green_256.png";
 	bool levelOneCompleted = false;
 	// Determines the center of window screen
 	Vector2 m_centerScreen;

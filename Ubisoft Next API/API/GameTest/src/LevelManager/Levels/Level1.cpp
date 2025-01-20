@@ -39,14 +39,7 @@ void Level1::start()
 	Ball* ball1 = new Ball(entityManager);
 	entityWithBallScript->addComponent(ball1);
 	ball1->setSpawnPosition(-300, 200);
-
-	Entity* entityWithBallScript2 = entityManager->createEntity();
-
-	Ball* ball2 = new Ball(entityManager);
-	entityWithBallScript2->addComponent(ball2);
-
-	ball2->setSpawnPosition(-300, 100);
-
+	
 
 	Entity* entityWithGoalPost = entityManager->createEntity();
 	goalPost = new GoalPost(Vector2(300, 50));
@@ -60,12 +53,12 @@ void Level1::start()
 
 }
 
-void Level1::createWalls()
+void Level1::createWalls()	
 {
 	Entity* wallCollider = entityManager->createEntity();
 	wallCollider->setTag("Wall Left");
 	BoxCollider* wallBoxCollider = new BoxCollider();
-	wallBoxCollider->setSize(10, 768);
+	wallBoxCollider->setSize(50, 768);
 
 	wallCollider->addComponent(wallBoxCollider);
 	wallCollider->addComponent(new RigidBody(eBodyType::STATIC));
@@ -75,7 +68,7 @@ void Level1::createWalls()
 	Entity* wallCollider2 = entityManager->createEntity();
 	wallCollider2->setTag("Wall Right ");
 	BoxCollider* wallBoxCollider2 = new BoxCollider();
-	wallBoxCollider2->setSize(10, 768);
+	wallBoxCollider2->setSize(50, 768);
 
 	wallCollider2->addComponent(wallBoxCollider2);
 	wallCollider2->addComponent(new RigidBody(eBodyType::STATIC));
@@ -86,7 +79,7 @@ void Level1::createWalls()
 	Entity* wallCollider3 = entityManager->createEntity();
 	wallCollider3->setTag("Wall Top ");
 	BoxCollider* wallBoxCollider3 = new BoxCollider();
-	wallBoxCollider3->setSize(m_centerScreen.x * 2, 10);
+	wallBoxCollider3->setSize(m_centerScreen.x * 2, 50);
 
 	wallCollider3->addComponent(wallBoxCollider3);
 	wallCollider3->addComponent(new RigidBody(eBodyType::STATIC));
@@ -96,7 +89,7 @@ void Level1::createWalls()
 	Entity* wallCollider4 = entityManager->createEntity();
 	wallCollider4->setTag("Wall Bottom ");
 	BoxCollider* wallBoxCollider4 = new BoxCollider();
-	wallBoxCollider4->setSize(m_centerScreen.x * 2, 10);
+	wallBoxCollider4->setSize(m_centerScreen.x * 2, 50);
 
 	wallCollider4->addComponent(wallBoxCollider4);
 	wallCollider4->addComponent(new RigidBody(eBodyType::STATIC));
@@ -105,18 +98,8 @@ void Level1::createWalls()
 
 void Level1::createBackground()
 {
-	float row = APP_VIRTUAL_WIDTH / 256;
-	float column = APP_VIRTUAL_HEIGHT / 256;
-
-	for (int x = 0; x < row+1; x++)
-	{
-		for (int y = 0; y < column+1; y++)
-		{
-			Vector2 position = Vector2(x * 256, y * 256) - m_centerScreen ;
-			Entity* bgSprite = factory->createSpriteObject(BACKGROUND_PATH, position, 0);
-
-		}
-	}
+	factory->createBackground();
+	factory->createBackgroundWhiteBorder();
 
 }
 
@@ -124,9 +107,9 @@ void Level1::createBackground()
 
 bool Level1::isLevelCompleted()
 {
-	if (!goalPost) return false;
 	
-	return goalPost->hasTargetReached();
+	return false;
+
 }
 
 

@@ -47,7 +47,8 @@ void MainMenu::cleanScene()
 // Method to create background asset
 void MainMenu::createBackground()
 {
-	factory->createBackground(BACKGROUND_PATH);
+	factory->createBackground();
+	factory->createBackgroundWhiteBorder();
 }
 
 

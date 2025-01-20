@@ -26,7 +26,6 @@ private:
 	GameObjectFactory* factory;
 
 	const std::string BUTTON_UI_PATH = ASSET_PATH + "\\UI\\Basic\\";
-	const std::string BACKGROUND_PATH = ASSET_PATH + "\\Background\\Green_256.png";
 	const std::string ON_HOVER_SFX = ASSET_PATH + "\\Sounds\\SFX\\UI" + "\\001_Hover_01.wav";
 	const std::string ON_CLICK_SFX = ASSET_PATH + "\\Sounds\\SFX\\UI" + "\\013_Confirm_03.wav";
 

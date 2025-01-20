@@ -38,6 +38,6 @@ public:
 protected:
 	bool m_isUI = false;
 	Entity* gameObject;
-	Vector3 m_debugColor{ 0,1,0 };
+	Vector3 m_debugColor{ 1,0,0 };
 };
 

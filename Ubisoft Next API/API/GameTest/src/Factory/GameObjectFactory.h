@@ -10,7 +10,8 @@ public:
 	GameObjectFactory(EntityManager* entityManager);
 	~GameObjectFactory() = default;
 
-	void createBackground(const std::string& fileName);
+	void createBackground();
+	void createBackgroundWhiteBorder();
 	Entity* createPhysicsObject(eShape shape, eBodyType bodyType);
 	Entity* createPhysicsObjectWithSprite(const std::string& filenmame, const Vector2& offset, int spriteOrder, eShape shape, eBodyType bodyType);
 	Entity* createSpriteObject(const std::string& filenmame, const Vector2& offset, int spriteOrder);
@@ -21,10 +22,14 @@ public:
 
 private:
 
+	const std::string BACKGROUND_IMAGE_PATH = ASSET_PATH + "\\Background\\Green_256.png";
+	const std::string BACKGROUND_BORDER_PATH = ASSET_PATH + "\\Background\\border2.png";
+
 	EntityManager* m_entityManager;
 
 	Collider* createCollider(eShape shape);
 	TextRenderer* createText(const std::string& message, const Vector3& textColor, eFontType fontType);
+
 
 };
 

@@ -94,6 +94,7 @@ void CompletedLevel::createPopUp()
 
 void CompletedLevel::createBackgound()
 {
-	m_factory->createBackground(BACKGROUND_TEXTURE_PATH);
+	m_factory->createBackgroundWhiteBorder();
+	m_factory->createBackground();
 
 }

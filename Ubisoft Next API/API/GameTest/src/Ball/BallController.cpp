@@ -28,7 +28,6 @@ void BallController::initialize(EntityManager* entityManager)
 	this->pRigidBody = (RigidBody*)pGameObject->getComponent(eComponentType::PHYSICS_COMPONENT);
 	this->pSprite = (SpriteRenderer*)pGameObject->getComponent(eComponentType::RENDER_COMPONENT);
 	this->pCollider = (CircleCollider*)pGameObject->getComponent(eComponentType::COLLIDER_COMPONENT);
-	this->pParticle = (ParticleComponent*)pGameObject->getComponent(eComponentType::PARTICLE_COMPONENT);
 
 	m_initalPosition = pGameObject->transform.position;
 
@@ -306,11 +305,7 @@ std::string BallController::getState()
 
 void BallController::onCollisionStay(Collider* collider)
 {
-	bool isNotPlayed = true;
-	if (collider->getEntity()->getTag() == "Goal")
-	{
-		pParticle->Play();
-	}
+	
 }
 
 
