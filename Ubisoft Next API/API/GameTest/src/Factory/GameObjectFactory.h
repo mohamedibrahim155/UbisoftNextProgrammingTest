@@ -10,7 +10,7 @@ public:
 	GameObjectFactory(EntityManager* entityManager);
 	~GameObjectFactory() = default;
 
-
+	void createBackground(const std::string& fileName);
 	Entity* createPhysicsObject(eShape shape, eBodyType bodyType);
 	Entity* createPhysicsObjectWithSprite(const std::string& filenmame, const Vector2& offset, int spriteOrder, eShape shape, eBodyType bodyType);
 	Entity* createSpriteObject(const std::string& filenmame, const Vector2& offset, int spriteOrder);

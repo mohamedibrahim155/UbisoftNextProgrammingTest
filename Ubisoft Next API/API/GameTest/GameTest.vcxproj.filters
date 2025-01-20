@@ -62,6 +62,7 @@
     <ClCompile Include="src\Ball\BallController.cpp" />
     <ClCompile Include="src\Ball\GoalPost.cpp" />
     <ClCompile Include="src\GameManager\GameManager.cpp" />
+    <ClCompile Include="src\LevelManager\Levels\CompletedLevel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -137,6 +138,7 @@
     <ClInclude Include="src\Ball\BallController.h" />
     <ClInclude Include="src\Ball\GoalPost.h" />
     <ClInclude Include="src\GameManager\GameManager.h" />
+    <ClInclude Include="src\LevelManager\Levels\CompletedLevel.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="API">

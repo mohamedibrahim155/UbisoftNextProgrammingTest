@@ -11,6 +11,8 @@ enum eScene
 	MAINMENU = 0,
 	LEVEL_1 = 1,
 	LEVEL_2 = 2,
+	LEVEL_COMPLETE =3
+
 };
 
 class BaseLevel

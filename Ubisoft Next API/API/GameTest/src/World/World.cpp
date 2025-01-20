@@ -41,7 +41,7 @@ void World::start()
 	LevelManager::GetInstance().createLevels();
 
 	//Sets the current scene to level 1
-	LevelManager::GetInstance().queSceneChange(MAINMENU);
+	LevelManager::GetInstance().queSceneChange(LEVEL_COMPLETE);
 }
 
 void World::update(float deltaTime)

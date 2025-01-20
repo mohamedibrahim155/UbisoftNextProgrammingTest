@@ -10,6 +10,35 @@ GameObjectFactory::GameObjectFactory(EntityManager* entityManager) :  m_entityMa
 {
 }
 
+void GameObjectFactory::createBackground(const std::string& fileName)
+{
+	// Scaling factor for the sprite
+	float scale = 0.5f;
+
+	// Effective size of the scaled sprite
+	float scaledSpriteWidth = 256 * scale;
+	float scaledSpriteHeight = 256 * scale;
+
+	// Calculate the number of rows and columns needed to fill the screen
+	float row = APP_VIRTUAL_WIDTH / scaledSpriteWidth;
+	float column = APP_VIRTUAL_HEIGHT / scaledSpriteHeight;
+
+	// Center of the screen
+	Vector2 centerScreen = Vector2(APP_VIRTUAL_WIDTH / 2, APP_VIRTUAL_HEIGHT / 2);
+
+
+	for (int x = 0; x < row +1 ; x++)
+	{
+		for (int y = 0; y < column +1 ; y++)
+		{
+			Vector2 position = Vector2(x * scaledSpriteWidth, y * scaledSpriteHeight) - centerScreen;
+			Entity* bgSprite = createSpriteObject(fileName, position, -1);
+
+			bgSprite->transform.scale = Vector2(scale, scale);
+		}
+	}
+}
+
 Entity* GameObjectFactory::createPhysicsObject(eShape shape, eBodyType bodyType)
 {
 	Entity* physicsEntity = m_entityManager->createEntity();

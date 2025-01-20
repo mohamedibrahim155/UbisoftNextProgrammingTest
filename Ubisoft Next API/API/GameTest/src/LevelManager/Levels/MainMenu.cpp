@@ -47,15 +47,7 @@ void MainMenu::cleanScene()
 // Method to create background asset
 void MainMenu::createBackground()
 {
-
-	
-	Entity* background = factory->createSpriteObject(BACKGROUND_PATH + "background_0.png",Vector2::Zero(), -1);
-	background->transform.scale = Vector2(5,5);
-
-	// TODO: Add background music
-	//std::string bgMusicAssetPath;
-	//PlayBackgroundMusic(bgMusicAssetPath)
-
+	factory->createBackground(BACKGROUND_PATH);
 }
 
 
