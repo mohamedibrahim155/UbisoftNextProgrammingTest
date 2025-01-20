@@ -4,7 +4,7 @@
 #include "../src/InputManager/InputManager.h"
 #include "../src/Ball/BallController.h"
 
-Ball::Ball(EntityManager* entityManager) : BaseScriptComponent()
+Ball::Ball(EntityManager* entityManager, eColorType type) : BaseScriptComponent(), m_intialBallType(type)
 {
 	this->entityManager = entityManager;
 }
@@ -89,6 +89,7 @@ void Ball::createBall()
 	//Creating controller
 	controller = new BallController(this);
 	controller->initialize(entityManager);
+	controller->setType(m_intialBallType);
 }
 
 

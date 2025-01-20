@@ -38,11 +38,6 @@ void BallController::initialize(EntityManager* entityManager)
 
 void BallController::subscribeCollisionEvent()
 {
-	pCollider->OnTriggerEnter.Subscribe([this](Collider* otherCollider)
-		{
-			OntriggerEnter(otherCollider);
-		});
-
 	pCollider->OnCollisionEnter.Subscribe([this](Collider* otherCollider)
 		{
 			OnCollisionEnter(otherCollider);
@@ -315,24 +310,11 @@ std::string BallController::getState()
 #pragma endregion
 
 
-void BallController::OntriggerEnter(Collider* collider)
-{
-	if (collider->getEntity()->getTag() == "Goal")
-	{
-		//stopBall();
-	}
-	if (collider->getEntity()->getTag() == "Block")
-	{
 
-	}
-}
 
 void BallController::OnCollisionEnter(Collider* collider)
 {
-	if (collider->getEntity()->getTag() == "Goal")
-	{
-		//stopBall();
-	}
+
 	if (collider->getEntity()->getTag() == "Block")
 	{
 		Block* script = (Block*)collider->getEntity()->getComponent(eComponentType::SCRIPT_COMPONENT);
@@ -340,22 +322,17 @@ void BallController::OnCollisionEnter(Collider* collider)
 		if (script)
 		{
 			eColorType blockType = script->getType();
-			bool isSimilar = checkType(blockType);
-
-			if (!isSimilar)
+			if (m_type != blockType)
 			{
-				changeType(blockType);
+				setType(blockType);
+
 			}
 		}
 	}
 }
 
-bool BallController::checkType(eColorType blockType)
-{
-	return  (m_type == blockType);
-}
 
-void BallController::changeType(eColorType type)
+void BallController::setType(eColorType type)
 {
 	m_type =type;
 
@@ -367,18 +344,7 @@ void BallController::updateSpriteColor(eColorType type)
 	if (!pSprite) return;
 
 	Vector2 color = Vector2::One();
-	switch (type)
-	{
-	case eColorType::WHITE:
-		color *= 1;
-		break;
-	case eColorType::BLACK:
-		color *= 0.5f;
-		break;
-	}
-
-	pSprite->setColor(color);
-
+	pSprite->setColor(type == eColorType::WHITE ? color : color * 0.5f);
 }
 
 

@@ -3,13 +3,13 @@
 #include "../src/ECS/Components/Collider/CircleCollider.h"
 #include "../src/ECS/Components/Rigidbody/RigidBody.h"
 #include "../src/ECS/Components/Particle/ParticleComponent.h"
-
+#include "EColorType.h"
 class BallController;
 
 class Ball : public BaseScriptComponent
 {
 public:
-	Ball(EntityManager* entityManager);
+	Ball(EntityManager* entityManager, eColorType type);
 	~Ball() override = default;
      void start() override;
      void updateComponent() override;
@@ -22,6 +22,8 @@ public:
 private:
 
 	const std::string BALL_TEXTURE_PATH = ASSET_PATH + "\\Ball\\ball_red_small2.png";
+
+	eColorType m_intialBallType = eColorType::WHITE;
 
 	Vector3 m_spawnPosition;
 

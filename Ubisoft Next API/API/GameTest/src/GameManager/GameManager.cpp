@@ -22,15 +22,20 @@ void GameManager::showLevelComplete()
 	CompletedLevel* level = (CompletedLevel*)LevelManager::GetInstance().getScene(LEVEL_COMPLETE);
 	LevelManager::GetInstance().queSceneChange(LEVEL_COMPLETE);
 	OnScoreChanged.clear();
+	onStrikeValueChanged.clear();
+	onStrokeCompleted.clear();
+
 
 }
 
 void GameManager::gameOver()
 {
+
 }
 
 void GameManager::strike()
 {
+	m_currentStroke++;
 
 	if (m_currentStroke >= m_maxStroke)
 	{
@@ -38,7 +43,6 @@ void GameManager::strike()
 		return;
 	}
 
-	m_currentStroke++;
 
 }
 

@@ -45,12 +45,9 @@ void Level1::start()
 
 
 
-	Entity* entityWithBallScript = entityManager->createEntity();
-	Ball* ball1 = new Ball(entityManager);
-	entityWithBallScript->addComponent(ball1);
-	ball1->setSpawnPosition(-300, 200);
 
 
+	// UI's
 	Entity* entityWithGoalPost = entityManager->createEntity();
 	goalPost = new GoalPost(Vector2(300, 50));
 	entityWithGoalPost->addComponent(goalPost);
@@ -65,36 +62,12 @@ void Level1::start()
 	entityWithStrike->addComponent(strokeUI);
 	entityWithStrike->transform.position = Vector2(300, 350);
 
-	// blocks
-	Entity* entity1 = entityManager->createEntity();
-	Block* block1 = new Block(eColorType::WHITE);
-	entity1->addComponent(block1);
-	entity1->transform.position = Vector2(-113, -17);
-	entity1->transform.scale = Vector2(0.25f, 0.25f);
+	//Entity* entityWithlevelNumber = entityManager->createEntity();
+	//UIDisplayer* LevelNumberUI = new UIDisplayer(eUIType::LEVELNUMBER);
+	//entityWithlevelNumber->addComponent(LevelNumberUI);
+	//entityWithlevelNumber->transform.position = Vector2(300, 350);
 
-	Entity* entity2 = entityManager->createEntity();
-	Block* block2 = new Block(eColorType::BLACK);
-	entity2->addComponent(block2);
-	entity2->transform.position = Vector2(197, 185);
-	entity2->transform.scale = Vector2(0.25f, 0.25f);
-
-
-	Entity* entity3 = entityManager->createEntity();
-	Block* block3 = new Block(eColorType::WHITE);
-	entity3->addComponent(block3);
-	entity3->transform.position = Vector2(138, -147);
-	entity3->transform.scale = Vector2(0.25f, 0.25f);
-
-	// block holder
-	Entity* entityWithBlockHolder = entityManager->createEntity();
-
-	BlockHolder* blockHolder = new BlockHolder(ball1);
-
-	blockHolder->addBlock(block1);
-	blockHolder->addBlock(block2);
-	blockHolder->addBlock(block3);
-
-	entityWithBlockHolder->addComponent(blockHolder);
+	
 
 
 #pragma endregion
@@ -175,30 +148,42 @@ void Level1::createBlocks()
 	collider3->setSize(53, 53);
 	block3->transform.position = Vector2(138, -147);*/
 
+	//Ball
+	Entity* entityWithBallScript = entityManager->createEntity();
+	Ball* ball1 = new Ball(entityManager,eColorType::WHITE);
+	entityWithBallScript->addComponent(ball1);
+	ball1->setSpawnPosition(-300, 200);
 
-	//Entity* entity1 = entityManager->createEntity();
-	//Block* block1 = new Block(eColorType::WHITE);
-	//entity1->addComponent(block1);
-	//entity1->transform.position = Vector2(-113, -17);
-	//entity1->transform.scale = Vector2(0.25f,0.25f);
+	// blocks
+	Entity* entity1 = entityManager->createEntity();
+	Block* block1 = new Block(eColorType::WHITE);
+	entity1->addComponent(block1);
+	entity1->transform.position = Vector2(-113, -17);
+	entity1->transform.scale = Vector2(0.25f, 0.25f);
 
-	//Entity* entity2 = entityManager->createEntity();
-	//Block* block2 = new Block(eColorType::BLACK);
-	//entity2->addComponent(block2);
-	//entity2->transform.position = Vector2(197, 185);
-	//entity2->transform.scale = Vector2(0.25f, 0.25f);
+	Entity* entity2 = entityManager->createEntity();
+	Block* block2 = new Block(eColorType::BLACK);
+	entity2->addComponent(block2);
+	entity2->transform.position = Vector2(197, 185);
+	entity2->transform.scale = Vector2(0.25f, 0.25f);
 
 
-	//Entity* entity3 = entityManager->createEntity();
-	//Block* block3 = new Block(eColorType::WHITE);
-	//entity3->addComponent(block3);
-	//entity3->transform.position = Vector2(138, -147);
-	//entity3->transform.scale = Vector2(0.25f, 0.25f);
+	Entity* entity3 = entityManager->createEntity();
+	Block* block3 = new Block(eColorType::WHITE);
+	entity3->addComponent(block3);
+	entity3->transform.position = Vector2(138, -147);
+	entity3->transform.scale = Vector2(0.25f, 0.25f);
 
-	//Entity* entityWithBlockHolder = entityManager->createEntity();
-	//BlockHolder* blockHolder = new BlockHolder();
-	//blockHolder->setController(ba)
-	//entityWithBlockHolder->addComponent(blockHolder);
+	// block holder
+	Entity* entityWithBlockHolder = entityManager->createEntity();
+
+	BlockHolder* blockHolder = new BlockHolder(ball1);
+
+	blockHolder->addBlock(block1);
+	blockHolder->addBlock(block2);
+	blockHolder->addBlock(block3);
+
+	entityWithBlockHolder->addComponent(blockHolder);
 }
 
 

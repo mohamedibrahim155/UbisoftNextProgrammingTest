@@ -106,13 +106,13 @@ void LevelManager::update(float deltaTime)
 		return;
 	}
 
-	if (m_currentScene->isLevelCompleted())
+	/*if (m_currentScene->isLevelCompleted())
 	{
 		m_currentScene->cleanScene();
 		m_currentScene = nullptr;
 		nextLevel();
 		return;
-	}
+	}*/
 
 
 	updateSystem(deltaTime);

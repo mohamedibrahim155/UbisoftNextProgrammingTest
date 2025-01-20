@@ -28,9 +28,10 @@ public:
 	void reset();
 	void resetPoolEntites();
 	void renderTrajectory();
+	void setType(eColorType type);
+
 
 	std::string getState();
-
 	eColorType getColorState() const { return m_type; };
 
 private:
@@ -65,9 +66,9 @@ private:
 
 
 	bool isMoving();
+
 	float calculateBounceSpeed(Vector2 aimDir);
 
-	void subscribeCollisionEvent();
 	void shootBall(Vector2 direction);
 	void stopBall();
 
@@ -77,12 +78,11 @@ private:
 	void idleState();
 	void setState(eBallState nextState);
 
-	void OntriggerEnter(Collider* collider);
+	// collisions
+	void subscribeCollisionEvent();
 	void OnCollisionEnter(Collider* collider);
 
-	bool checkType(eColorType type);
 
-	void changeType(eColorType type);
 	void updateSpriteColor(eColorType type);
 };
 

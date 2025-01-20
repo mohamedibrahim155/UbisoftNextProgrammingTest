@@ -9,9 +9,12 @@ enum eScene
 {
 	NONE = -1,
 	MAINMENU = 0,
-	LEVEL_1 = 1,
-	LEVEL_2 = 2,
-	LEVEL_COMPLETE =3
+	LEVEL_COMPLETE = 1,
+	GAME_OVER = 2,
+	LEVEL_1 = 3,
+	LEVEL_2 = 4,
+	LEVEL_3 = 5,
+
 
 };
 

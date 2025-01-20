@@ -6,7 +6,8 @@ enum class eUIType
 {
     NONE,
     SCORE,
-    STROKE
+    STROKE,
+    LEVELNUMBER,
 };
 class UIDisplayer : public BaseScriptComponent
 {
