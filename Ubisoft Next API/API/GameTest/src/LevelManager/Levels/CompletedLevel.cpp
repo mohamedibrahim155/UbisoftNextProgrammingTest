@@ -33,7 +33,7 @@ bool CompletedLevel::isLevelCompleted()
 void CompletedLevel::setScoreText(int score)
 {
 	if (!m_scoreText) return;
-	std::string scoreText = "Scrore : " +  std::to_string(score);
+	std::string scoreText = "Score : " +  std::to_string(score);
 	m_scoreText->setText(scoreText);
 }
 

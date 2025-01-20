@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "Level2.h"
+#include "Level3.h"
 #include "../src/ECS/Systems/Render/RenderSystem.h"
 #include "../src/ECS/Systems/CustomScripts/CustomScriptsControllerSystem.h"
 #include "../src/ECS/Systems/Movement/MovementSystem.h"
@@ -14,15 +14,14 @@
 #include "../src/Block/Blocks.h"
 #include "../src/Block/BlockHolder.h"
 
-Level2::Level2() : BaseLevel(LEVEL_2)
+Level3::Level3() : BaseLevel(LEVEL_3)
 {
 	m_centerScreen.x = APP_VIRTUAL_WIDTH / 2;
 	m_centerScreen.y = APP_VIRTUAL_HEIGHT / 2;
 
 	factory = new GameObjectFactory(entityManager);
 }
-
-Level2::~Level2()
+Level3::~Level3()
 {
 	if (factory)
 	{
@@ -30,7 +29,7 @@ Level2::~Level2()
 	}
 }
 
-void Level2::start()
+void Level3::start()
 {
 
 
@@ -45,13 +44,9 @@ void Level2::start()
 
 	createBlocks();
 
-
-
-
-
 	// UI's
 	Entity* entityWithGoalPost = entityManager->createEntity();
-	goalPost = new GoalPost(Vector2(420, -300));
+	goalPost = new GoalPost(Vector2(420, 298));
 	entityWithGoalPost->addComponent(goalPost);
 
 	Entity* entityWithScoreDisplayer = entityManager->createEntity();
@@ -77,18 +72,18 @@ void Level2::start()
 
 }
 
-void Level2::cleanScene()
+void Level3::cleanScene()
 {
 	systemManager->cleanSystem();
 	entityManager->clean();
 }
 
-bool Level2::isLevelCompleted()
+bool Level3::isLevelCompleted()
 {
 	return false;
 }
 
-void Level2::createWalls()
+void Level3::createWalls()
 {
 	Entity* wallCollider = entityManager->createEntity();
 	wallCollider->setTag("Wall Left");
@@ -131,17 +126,17 @@ void Level2::createWalls()
 	wallCollider4->transform.position = Vector2(0, -m_centerScreen.y);
 }
 
-void Level2::createBackground()
+void Level3::createBackground()
 {
 	factory->createBackground();
 	factory->createBackgroundWhiteBorder();
 }
 
-void Level2::createBlocks()
+void Level3::createBlocks()
 {
 	//Ball
 	Entity* entityWithBallScript = entityManager->createEntity();
-	Ball* ball1 = new Ball(entityManager, eColorType::WHITE);
+	Ball* ball1 = new Ball(entityManager, eColorType::BLACK);
 	entityWithBallScript->addComponent(ball1);
 	ball1->setSpawnPosition(-450, -310);
 
@@ -153,9 +148,9 @@ void Level2::createBlocks()
 
 	// blocks
 	Entity* entity1 = factory->createSpriteObject(BLOCK_2_PATH, Vector2::Zero(), -1);
-	Block* block1 = new Block(eColorType::BLACK);
+	Block* block1 = new Block(eColorType::WHITE);
 	entity1->addComponent(block1);
-	entity1->transform.position = Vector2(-350, -300);
+	entity1->transform.position = Vector2(-322, -274);
 	entity1->transform.scale = Vector2(0.75, 0.75);
 
 
@@ -163,46 +158,60 @@ void Level2::createBlocks()
 	Entity* entity2 = factory->createSpriteObject(BLOCK_3_PATH, Vector2::Zero(), -1);
 	Block* block2 = new Block(eColorType::WHITE);
 	entity2->addComponent(block2);
-	entity2->transform.position = Vector2(-425, -200);
+	entity2->transform.position = Vector2(-145, 216);
 	entity2->transform.scale = Vector2(0.75, 0.75);
 
 
 
 
 
-	Entity* entity3 = factory->createSpriteObject(BLOCK_3_PATH, Vector2::Zero(), -1);
-	Block* block3 = new Block(eColorType::BLACK);
+	Entity* entity3 = factory->createSpriteObject(BLOCK_2_PATH, Vector2::Zero(), -1);
+	Block* block3 = new Block(eColorType::WHITE);
 	entity3->addComponent(block3);
-	entity3->transform.position = Vector2(395, -220);
+	entity3->transform.position = Vector2(-245, 294);
 	entity3->transform.scale = Vector2(0.75, 0.75);
 
 	Entity* entity4 = factory->createSpriteObject(BLOCK_2_PATH, Vector2::Zero(), -1);
-	Block* block4 = new Block(eColorType::WHITE);
+	Block* block4 = new Block(eColorType::BLACK);
 	entity4->addComponent(block4);
-	entity4->transform.position = Vector2(295, -296);
-	entity4->transform.scale = Vector2(0.75, 0.75);
+	entity4->transform.position = Vector2(280, 270);
+	entity4->transform.scale = Vector2(1, 1);
 
 
-	Entity* entity5 = factory->createSpriteObject(BLOCK_2_PATH, Vector2::Zero(), -1);
+	Entity* entity5 = factory->createSpriteObject(BLOCK_3_PATH, Vector2::Zero(), -1);
 	Block* block5 = new Block(eColorType::BLACK);
 	entity5->addComponent(block5);
-	entity5->transform.position = Vector2(27, -154);
+	entity5->transform.position = Vector2(384, 166);
 	entity5->transform.scale = Vector2(1, 1);
 
 
-	Entity* entity6 = factory->createSpriteObject(BLOCK_3_PATH, Vector2::Zero(), -1);
-	Block* block6 = new Block(eColorType::BLACK);
+	Entity* entity6 = factory->createSpriteObject(BLOCK_2_PATH, Vector2::Zero(), -1);
+	Block* block6 = new Block(eColorType::WHITE);
 	entity6->addComponent(block6);
-	entity6->transform.position = Vector2(27, 254);
-	entity6->transform.scale = Vector2(1.5, 1.5);
+	entity6->transform.position = Vector2(406, -28);
+	entity6->transform.scale = Vector2(0.75, 0.75);
 
 
-	Entity* entity7 = factory->createSpriteObject(BLOCK_2_PATH, Vector2::Zero(), -1);
-	Block* block7 = new Block(eColorType::WHITE);
+
+	Entity* entity7 = factory->createSpriteObject(BLOCK_3_PATH, Vector2::Zero(), -1);
+	Block* block7 = new Block(eColorType::BLACK);
 	entity7->addComponent(block7);
-	entity7->transform.position = Vector2(295, 83);
-	entity7->transform.scale = Vector2(1.25, 1.25);
+	entity7->transform.position = Vector2(220, -230);
+	entity7->transform.scale = Vector2(0.75, 0.75);
 
+
+	Entity* entity8 = factory->createSpriteObject(BLOCK_3_PATH, Vector2::Zero(), -1);
+	Block* block8 = new Block(eColorType::BLACK);
+	entity8->addComponent(block8);
+	entity8->transform.position = Vector2(-134, -230);
+	entity8->transform.scale = Vector2(0.75, 0.75);
+
+
+	Entity* entity9 = factory->createSpriteObject(BLOCK_3_PATH, Vector2::Zero(), -1);
+	Block* block9 = new Block(eColorType::WHITE);
+	entity9->addComponent(block9);
+	entity9->transform.position = Vector2(40, -8);
+	entity9->transform.scale = Vector2(0.75, 0.75);
 
 	//// block holder
 	blockHolder->addBlock(block1);
@@ -212,10 +221,12 @@ void Level2::createBlocks()
 	blockHolder->addBlock(block5);
 	blockHolder->addBlock(block6);
 	blockHolder->addBlock(block7);
+	blockHolder->addBlock(block8);
+	blockHolder->addBlock(block9);
 
-	//blockHolder->debugEnity = entity7;
+//	blockHolder->debugEnity = entity9;
 
 	entityWithBlockHolder->addComponent(blockHolder);
-	
+
 }
 

@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Filename: Level1.cpp
-// Scene that load the Level 2 assets
+// Filename: Level3.cpp
+// Scene that load the Level 3 assets
 ///////////////////////////////////////////////////////////////////////////////
 //-----------------------------------------------------------------------------
 #pragma once
@@ -8,14 +8,14 @@
 #include "../src/Factory/GameObjectFactory.h"
 #include "../src/Ball/GoalPost.h"
 //-----------------------------------------------------------------------------
-// Level2 inherited from BaseLevel
-class Level2 :
-    public BaseLevel
+// Level 3 inherited from BaseLevel
+class Level3 :
+	public BaseLevel
 {
 public:
-	Level2() ;
+	Level3();
 
-	~Level2() override;
+	~Level3() override;
 	// Inherited via CBaseScene
 	void start() override;
 	void cleanScene() override;

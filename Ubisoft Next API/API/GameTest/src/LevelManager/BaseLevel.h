@@ -42,9 +42,14 @@ protected:
 
 	eScene m_sceneType;
 
-	std::map<eScene, std::string> sceneToString = { {LEVEL_1, "Scene1"},
-													{LEVEL_2, "Scene2"}, 
-												   { MAINMENU, "MainMenu" } };
+	std::map<eScene, std::string> sceneToString = {
+		{LEVEL_1, "LEVEL 1"},										
+		{LEVEL_2, "LEVEL 2"}, 										  
+		{LEVEL_3, "LEVEL 3"}, 										  
+		{ MAINMENU, "MAIN MENU" },
+		{LEVEL_COMPLETE, "LEVEL COMPLETE"},
+		{GAME_OVER, "GAME OVER"},
+	};
 
 	
 };

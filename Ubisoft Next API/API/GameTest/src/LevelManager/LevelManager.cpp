@@ -2,6 +2,7 @@
 #include "LevelManager.h"
 #include "../LevelManager/Levels/Level1.h"
 #include "../LevelManager/Levels/Level2.h"
+#include "../LevelManager/Levels/Level3.h"
 #include "../LevelManager/Levels/MainMenu.h"
 #include "../LevelManager/Levels/CompletedLevel.h"
 #include "../ECS/Components/Camera/Camera.h"
@@ -38,6 +39,7 @@ void LevelManager::createLevels()
 	BaseLevel* mainMenu = new MainMenu();
 	BaseLevel* level1 = new Level1();
 	BaseLevel* level2 = new Level2();
+	BaseLevel* level3 = new Level3();
 	BaseLevel* completedLevel = new CompletedLevel();
 
 }

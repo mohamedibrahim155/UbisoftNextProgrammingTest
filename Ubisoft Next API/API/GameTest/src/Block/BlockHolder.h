@@ -9,7 +9,7 @@ public:
 
 	void start()   override;
 	 void updateComponent() override;
-	 //void render(bool isDebugVisible) override {};
+	 void render(bool isDebugVisible) override;
 	 void cleanUp() override;
 
 	 void setController(BallController* m_ballController);
@@ -21,11 +21,16 @@ public:
 
 	bool checkState(eColorType balltype, eColorType blockType);
 
+
+	Entity* debugEnity;
+	void updateInputs();
 private:
 
 	int skipFrame = 1;
 	BallController* m_ballController;
 	Ball* m_ball;
 	std::vector<Block*> m_listOfBlocks;
+
+	
 };
 
