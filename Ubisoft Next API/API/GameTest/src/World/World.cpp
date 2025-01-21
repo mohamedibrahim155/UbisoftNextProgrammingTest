@@ -1,3 +1,7 @@
+///////////////////////////////////////////////////////////////////////////////
+// Filename: World.cpp
+// world renders to the assets of world
+///////////////////////////////////////////////////////////////////////////////
 #include "stdafx.h"
 #include "World.h"
 #include "../src/ECS/Systems/Render/RenderSystem.h"
@@ -12,19 +16,24 @@
 #include "../src/InputManager/InputManager.h"
 World::World()
 {
+	//creates system Manager
 	systemManager = new SystemManager();
 	entityManager = new EntityManager(systemManager);
+
 
 	LevelManager::GetInstance().setManagers(systemManager, entityManager);
 
 #pragma region Systems
 
+
+	//Creating systems
 	ISystem* renderSystem = new RenderSystem();
 	ISystem* customScriptSystem = new CustomScriptsControllerSystem();
 	ISystem* movementSystem = new MovementSystem();
 	ISystem* physicsSystem = new PhysicsSystem();
 	ISystem* particleSystem = new ParticleSystem();
 
+	//Registering systems to the Manager
 	systemManager->registerSystem(customScriptSystem);
 	systemManager->registerSystem(physicsSystem);
 	systemManager->registerSystem(movementSystem);

@@ -72,6 +72,6 @@ private:
 
 	void clearSystems(bool canDelete = true);
 
-	bool m_debugVisible = true;
+	bool m_debugVisible = false;
 };
 

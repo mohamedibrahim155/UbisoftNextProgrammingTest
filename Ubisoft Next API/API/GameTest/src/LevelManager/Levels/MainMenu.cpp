@@ -95,9 +95,9 @@ void MainMenu::createButtons()
 	//Creates ControlsButton  entity and position accordingly	
 #pragma region ControlsButton
 
-	Entity* optionMenuGameobject = factory->createButton(CONTROLS_BUTTON_UI_PATH);
+	Entity* controlButtonGameObject = factory->createButton(CONTROLS_BUTTON_UI_PATH);
 
-	ButtonRenderer* controlButton = (ButtonRenderer*)optionMenuGameobject->getComponent(eComponentType::RENDER_COMPONENT);
+	ButtonRenderer* controlButton = (ButtonRenderer*)controlButtonGameObject->getComponent(eComponentType::RENDER_COMPONENT);
 
 
 	// Events OnButton hover,Click and HoverExit
@@ -119,40 +119,10 @@ void MainMenu::createButtons()
 		});
 
 	//Update position and scale
-	optionMenuGameobject->transform.position = Vector3(0, -70, 0);
+	controlButtonGameObject->transform.position = Vector3(0, -70, 0);
 #pragma endregion
 
-	//Creates Credit button  entity and position accordingly	
-#pragma region CreditButton
 
-	Entity* creditGameObject = factory->createButton(CREDITS_BUTTON_UI_PATH);
-
-	ButtonRenderer* creditButton = (ButtonRenderer*)creditGameObject->getComponent(eComponentType::RENDER_COMPONENT);
-	
-
-	// Events OnButton hover,Click and HoverExit
-	creditButton->addListenersOnButtonHover([this]()
-		{
-			playOnce(ON_HOVER_SFX);
-
-		
-		});
-
-	creditButton->addListenersOnButtonPress([this]()
-		{
-			playOnce(ON_CLICK_SFX);
-
-		});
-
-	creditButton->addListenersOnButtonHoverExit([this]()
-		{
-			stopPlaying(ON_HOVER_SFX);
-		});
-
-	
-	//Update position and scale
-	creditGameObject->transform.position = Vector3(0, -200, 0);
-#pragma endregion
 
 }
 
