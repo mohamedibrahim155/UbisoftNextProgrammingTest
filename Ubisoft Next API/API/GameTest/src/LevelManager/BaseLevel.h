@@ -10,10 +10,11 @@ enum eScene
 	NONE = -1,
 	MAINMENU = 0,
 	LEVEL_COMPLETE = 1,
-	GAME_OVER = 2,
-	LEVEL_1 = 3,
-	LEVEL_2 = 4,
-	LEVEL_3 = 5,
+	CONTROLS = 2,
+	GAME_OVER = 3,
+	LEVEL_1 = 4,
+	LEVEL_2 = 5,
+	LEVEL_3 = 6,
 
 
 };

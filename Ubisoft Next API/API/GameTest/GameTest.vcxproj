@@ -186,6 +186,7 @@
     <ClInclude Include="App\SimpleController.h" />
     <ClInclude Include="App\SimpleSound.h" />
     <ClInclude Include="App\SimpleSprite.h" />
+    <ClInclude Include="src\LevelManager\Levels\ControlsLevel.h" />
     <ClInclude Include="src\LevelManager\Levels\Level3.h" />
     <ClInclude Include="src\LevelManager\Levels\GameOverLevel.h" />
     <ClInclude Include="src\Ball\EColorType.h" />
@@ -249,6 +250,7 @@
     <ClCompile Include="App\SimpleController.cpp" />
     <ClCompile Include="App\SimpleSound.cpp" />
     <ClCompile Include="App\SimpleSprite.cpp" />
+    <ClCompile Include="src\LevelManager\Levels\ControlsLevel.cpp" />
     <ClCompile Include="src\LevelManager\Levels\Level3.cpp" />
     <ClCompile Include="src\LevelManager\Levels\GameOverLevel.cpp" />
     <ClCompile Include="src\Block\BlockHolder.cpp" />

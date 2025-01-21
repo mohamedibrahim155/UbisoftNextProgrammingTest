@@ -74,6 +74,7 @@ void ButtonRenderer::updateComponent()
         if (InputManager::GetInstance().getKeyDown(VK_LBUTTON))
         {
             OnButtonClick.Invoke();
+            InputManager::GetInstance().refreshInputs();
         }
 
         isOnHover = true;

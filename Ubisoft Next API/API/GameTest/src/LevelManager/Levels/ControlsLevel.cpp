@@ -1,12 +1,11 @@
-
 ///////////////////////////////////////////////////////////////////////////////
-// Filename: GameOverLevel.cpp
+// Filename: ControlLevel.cpp
 // Scene has loads the assets and functionaly for the main menu
 ///////////////////////////////////////////////////////////////////////////////
 //-----------------------------------------------------------------------------
 
 #include "stdafx.h"
-#include "GameOverLevel.h"
+#include "ControlsLevel.h"
 
 #include "../src/ECS/Systems//Render/RenderSystem.h"
 #include "../src/ECS/Systems//CustomScripts/CustomScriptsControllerSystem.h"
@@ -15,15 +14,25 @@
 #include "../src/Utils/Utils.h"
 #include "../src/Utils/PhysicsUtils.h"
 #include "../src/InputManager/InputManager.h"
-//#include "../src/"
 
 
-GameOverLevel::GameOverLevel() : BaseLevel(GAME_OVER)
+
+#include "../src/ECS/Systems//Render/RenderSystem.h"
+#include "../src/ECS/Systems//CustomScripts/CustomScriptsControllerSystem.h"
+#include "../src/ECS/Systems/Movement/MovementSystem.h"
+#include "../src/ECS/Systems/Physics/PhysicsSystem.h"
+#include "../src/Utils/Utils.h"
+#include "../src/Utils/PhysicsUtils.h"
+#include "../src/InputManager/InputManager.h"
+
+
+
+ControlsLevel::ControlsLevel(): BaseLevel(CONTROLS)
 {
 	// Factory to create different types of game objects
 	factory = new GameObjectFactory(entityManager);
 }
-GameOverLevel::~GameOverLevel()
+ControlsLevel::~ControlsLevel()
 {
 	if (factory)
 	{
@@ -31,7 +40,7 @@ GameOverLevel::~GameOverLevel()
 	}
 
 }
-void GameOverLevel::start()
+void ControlsLevel::start()
 {
 
 	// Create background and buttons
@@ -39,62 +48,63 @@ void GameOverLevel::start()
 	createButtons();
 }
 
-void GameOverLevel::cleanScene()
+void ControlsLevel::cleanScene()
 {
 	systemManager->cleanSystem();
 	entityManager->clean();
 }
 
 // Method to create background asset
-void GameOverLevel::createBackground()
+void ControlsLevel::createBackground()
 {
 	factory->createBackground();
 	factory->createBackgroundWhiteBorder();
-	factory->createSpriteObject(GAMEOVER_UI, Vector2::Zero(), 0);
+	factory->createSpriteObject(CONTROLS_UI_PATH, Vector2::Zero(), -2);
 }
 
 
 // Method to create buttons
-void GameOverLevel::createButtons()
+void ControlsLevel::createButtons()
 {
 
-	//Creates play button entity and position accordingly	
-#pragma region PlayButton
+     //Creates Menu entity and position accordingly	
+#pragma region Menu
 
 
 	const Vector3  buttonTextColor(0.902, 0.451, 0);
 
-	Entity* retryButtonGameobject = factory->createButton(RETRY_UI);
-	ButtonRenderer* retryButton = (ButtonRenderer*)retryButtonGameobject->getComponent(eComponentType::RENDER_COMPONENT);
+	Entity* menuButtonGameObject = factory->createButton(MENU_BUTON_UI_PATH);
+	ButtonRenderer* menuButton =	(ButtonRenderer*)menuButtonGameObject->getComponent(eComponentType::RENDER_COMPONENT);
+	
 
 
-
-
-	retryButton->addListenersOnButtonHover([this]()
+	
+	menuButton->addListenersOnButtonHover([this]()
 		{
 			playOnce(ON_HOVER_SFX);
+			
+		
 		});
-	retryButton->addListenersOnButtonHoverExit([this]()
+	menuButton->addListenersOnButtonHoverExit([this]()
 		{
 			stopPlaying(ON_HOVER_SFX);
+
 		});
-	retryButton->addListenersOnButtonPress([this]()
+	menuButton->addListenersOnButtonPress([this]()
 		{
-
-			playOnce(ON_CLICK_SFX);
 		
-			loadScene(m_retryLevel);
+			playOnce(ON_CLICK_SFX);
+			loadScene(MAINMENU);
 		});
 
-	retryButtonGameobject->transform.position = Vector3(0, -150, 0);
-	retryButtonGameobject->transform.scale = Vector2(1, 1);
+	menuButtonGameObject->transform.position = Vector3(0, -300, 0);
 
-
+#pragma endregion
 
 }
 
 //Checks and stops the sound if it is playing
-void GameOverLevel::stopPlaying(const std::string& fileName)
+void ControlsLevel::stopPlaying(const std::string& fileName)
 {
 	if (App::IsSoundPlaying(fileName.c_str()))
 	{
@@ -103,24 +113,19 @@ void GameOverLevel::stopPlaying(const std::string& fileName)
 }
 
 //Plays the sound once
-void GameOverLevel::playOnce(const std::string& fileName)
+void ControlsLevel::playOnce(const std::string& fileName)
 {
 	App::PlaySound(fileName.c_str(), false);
 }
 
 // Plays Background music
-void GameOverLevel::playBackgroundMusic(const std::string& fileName)
+void ControlsLevel::playBackgroundMusic(const std::string& fileName)
 {
 }
 
-bool GameOverLevel::isLevelCompleted()
+bool ControlsLevel::isLevelCompleted()
 {
 	return false;
-}
-
-void GameOverLevel::setRetryLevel(eScene retyLevel)
-{
-	m_retryLevel = retyLevel;
 }
 
 

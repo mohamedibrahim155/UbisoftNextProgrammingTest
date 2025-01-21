@@ -1,6 +1,9 @@
+#pragma once
+
+
 ///////////////////////////////////////////////////////////////////////////////
-// Filename: Gameover.cpp
-// Scene has loads the assets and functionaly for the Game over scene
+// Filename: MainMenu.cpp
+// Scene has loads the assets and functionaly for the main menu
 ///////////////////////////////////////////////////////////////////////////////
 //-----------------------------------------------------------------------------
 
@@ -10,27 +13,23 @@
 
 
 //-----------------------------------------------------------------------------
-// GameOver inherited from BaseLevel
+// MainMenu inherited from BaseLevel
 //-----------------------------------------------------------------------------
-class GameOverLevel : public BaseLevel
+class ControlsLevel : public BaseLevel
 {
 public:
-	GameOverLevel();
-	~GameOverLevel() override;
+	ControlsLevel();
+	~ControlsLevel() override;
 	// Inherited via BaseLevel
 	void start() override;
 	void cleanScene() override;
 	bool isLevelCompleted() override;
-
-	void setRetryLevel(eScene retyLevel);
 private:
-
-	eScene m_retryLevel = eScene::LEVEL_2;
 
 	GameObjectFactory* factory;
 
-	const std::string RETRY_UI = ASSET_PATH + "\\UI\\Button\\Retry.png";
-	const std::string GAMEOVER_UI = ASSET_PATH + "\\Background\\gameOver.png";
+	const std::string CONTROLS_UI_PATH = ASSET_PATH + "\\Background\\Controls.png";
+	const std::string MENU_BUTON_UI_PATH = ASSET_PATH + "\\UI\\Button\\Menu.png";
 	const std::string ON_HOVER_SFX = ASSET_PATH + "\\Sounds\\SFX\\UI" + "\\001_Hover_01.wav";
 	const std::string ON_CLICK_SFX = ASSET_PATH + "\\Sounds\\SFX\\UI" + "\\013_Confirm_03.wav";
 
@@ -45,4 +44,5 @@ private:
 
 
 };
+
 

@@ -110,6 +110,7 @@ void MainMenu::createButtons()
 	controlButton->addListenersOnButtonPress([this]()
 		{
 			playOnce(ON_CLICK_SFX);
+			loadScene(CONTROLS);
 		});
 
 	controlButton->addListenersOnButtonHoverExit([this]()
