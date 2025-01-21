@@ -28,9 +28,9 @@ public:
 	PhysicsSystem() : ISystem("PhysicsSystem", eSystemType::PHYSICS_SYSTEM) {};
 	// Inherited via ISystem
 	~PhysicsSystem() override = default;
-	void start(std::vector<Entity*> entities) override;
+	void start() override;
 	void update(std::vector<Entity*> entities, float deltaTime) override;
-	void render(std::vector<Entity*> entities, bool isDebugVisible) override;
+	void render(bool isDebugVisible) override;
 	void cleanups() override;
 
 	static std::vector<Collider*> getWorldColliders();

@@ -32,7 +32,7 @@ void PhysicsSystem::subscribeEvents()
 		});
 }
 
-void PhysicsSystem::start(std::vector<Entity*> entities)
+void PhysicsSystem::start()
 {
 	m_globalColliders.clear();
 	subscribeEvents();
@@ -197,7 +197,7 @@ void PhysicsSystem::updateComponents(std::vector<Entity*> entities, float deltat
 
 }
 
-void PhysicsSystem::render(std::vector<Entity*> entities, bool isDebugVisible)
+void PhysicsSystem::render(bool isDebugVisible)
 {
 	
 

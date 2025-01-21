@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "RenderSystem.h"
 #include "../../SystemManager.h"
-void RenderSystem::start(std::vector<Entity*> entities)
+void RenderSystem::start()
 {
 	subscribeEvents();
 }
@@ -48,7 +48,7 @@ void RenderSystem::updateUIComponents()
 	}
 }
 
-void RenderSystem::render(std::vector<Entity*> entities, bool isDebugVisible)
+void RenderSystem::render( bool isDebugVisible)
 {
 	
 	

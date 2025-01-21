@@ -3,7 +3,7 @@
 #include "../src/ECS/SystemManager.h"
 #include "../src/InputManager/InputManager.h"
 
-void MovementSystem::start(std::vector<Entity*> entities)
+void MovementSystem::start()
 {
 	
 }
@@ -46,13 +46,7 @@ void MovementSystem::update(std::vector<Entity*> entities, float deltaTime)
 	
 }
 
-void MovementSystem::render(std::vector<Entity*> entities, bool isDebugVisible)
-{
-}
 
-void MovementSystem::cleanups()
-{
-}
 
 void MovementSystem::updateCameraInputs()
 {

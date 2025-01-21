@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "ParticleSystem.h"
 #include "../src/ECS/SystemManager.h"
-void ParticleSystem::start(std::vector<Entity*> entities)
+void ParticleSystem::start()
 {
 	m_systemManager->OnEntityAdded.Subscribe([this] (Entity* entity)
 		{
@@ -60,7 +60,7 @@ void ParticleSystem::update(std::vector<Entity*> entities, float deltaTime)
 	}
 }
 
-void ParticleSystem::render(std::vector<Entity*> entities, bool isDebugVisible)
+void ParticleSystem::render( bool isDebugVisible)
 {
 	for (std::pair<EntityID, ParticleComponent*> item : listOfParticleComponents)
 	{

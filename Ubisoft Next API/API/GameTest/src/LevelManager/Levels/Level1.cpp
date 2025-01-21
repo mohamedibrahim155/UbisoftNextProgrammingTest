@@ -63,14 +63,6 @@ void Level1::start()
 	entityWithStrike->addComponent(strokeUI);
 	entityWithStrike->transform.position = Vector2(300, 300);
 
-	//Entity* entityWithlevelNumber = entityManager->createEntity();
-	//UIDisplayer* LevelNumberUI = new UIDisplayer(eUIType::LEVELNUMBER);
-	//entityWithlevelNumber->addComponent(LevelNumberUI);
-	//entityWithlevelNumber->transform.position = Vector2(300, 350);
-
-	
-
-
 #pragma endregion
 
 }

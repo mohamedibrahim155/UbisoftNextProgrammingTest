@@ -73,7 +73,7 @@ void SystemManager::start()
 {
     for (std::pair<eSystemType, ISystem*> system : m_systemsMap)
     {
-        system.second->start(m_listOfEntities);
+        system.second->start();
     }
 }
 
@@ -90,7 +90,7 @@ void SystemManager::render()
 {
     for (std::pair<eSystemType, ISystem*> system : m_systemsMap)
     {
-        system.second->render(m_listOfEntities, m_debugVisible);
+        system.second->render(m_debugVisible);
     }
 }
 

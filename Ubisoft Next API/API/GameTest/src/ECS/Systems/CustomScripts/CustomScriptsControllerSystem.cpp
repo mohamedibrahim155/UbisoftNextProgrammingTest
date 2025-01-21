@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "CustomScriptsControllerSystem.h"
 #include "../../SystemManager.h"
-void CustomScriptsControllerSystem::start(std::vector<Entity*> entities)
+void CustomScriptsControllerSystem::start()
 {
 	subscribeEvents();
 }
@@ -79,7 +79,7 @@ void CustomScriptsControllerSystem::update(std::vector<Entity*> entities, float 
 	}
 }
 
-void CustomScriptsControllerSystem::render(std::vector<Entity*> entities, bool isDebugVisible)
+void CustomScriptsControllerSystem::render(bool isDebugVisible)
 {
 	for (const std::pair<Entity*, BaseScriptComponent*>& scriptEntity : m_listofScripts)
 	{

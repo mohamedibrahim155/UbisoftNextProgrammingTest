@@ -53,21 +53,12 @@ void Level3::start()
 	Entity* entityWithScoreDisplayer = entityManager->createEntity();
 	UIDisplayer* scoreUI = new UIDisplayer(eUIType::SCORE);
 	entityWithScoreDisplayer->addComponent(scoreUI);
-	entityWithScoreDisplayer->transform.position = Vector2(150, 350);
+	entityWithScoreDisplayer->transform.position = Vector2(-450, 300);
 
 	Entity* entityWithStrike = entityManager->createEntity();
 	UIDisplayer* strokeUI = new UIDisplayer(eUIType::STROKE);
 	entityWithStrike->addComponent(strokeUI);
-	entityWithStrike->transform.position = Vector2(300, 350);
-
-	//Entity* entityWithlevelNumber = entityManager->createEntity();
-	//UIDisplayer* LevelNumberUI = new UIDisplayer(eUIType::LEVELNUMBER);
-	//entityWithlevelNumber->addComponent(LevelNumberUI);
-	//entityWithlevelNumber->transform.position = Vector2(300, 350);
-
-
-
-
+	entityWithStrike->transform.position = Vector2(300, 300);
 #pragma endregion
 
 

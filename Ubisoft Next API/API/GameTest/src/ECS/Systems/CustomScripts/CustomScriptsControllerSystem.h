@@ -9,10 +9,10 @@ public:
 	CustomScriptsControllerSystem() : ISystem("CustomScriptControllerSystem", eSystemType::CUSTOMSCRIPT_SYSTEM) {};
 	
 	// Inherited via ISystem
-	void start(std::vector<Entity*> entities) override;
+	void start() override;
 	void subscribeEvents();
 	void update(std::vector<Entity*> entities, float deltaTime) override;
-	void render(std::vector<Entity*> entities, bool isDebugVisible) override;
+	void render(bool isDebugVisible) override;
 	void cleanups() override;
 
 	std::vector<BaseScriptComponent*> getScripts() const;

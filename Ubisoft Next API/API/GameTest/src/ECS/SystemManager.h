@@ -1,3 +1,8 @@
+///////////////////////////////////////////////////////////////////////////////
+// Filename: SystemManager.h
+// System Manager holds and Update every entites in the world
+///////////////////////////////////////////////////////////////////////////////
+
 #pragma once
 #include <unordered_map>
 #include "System.h"
@@ -7,11 +12,16 @@ class SystemManager
 
 public:
 
+	// adds system in a map
 	void registerSystem(ISystem* system);
+
+	// removes  system in a map
 	void removeSystem(ISystem* system);
 
+	//adds a entity to the system
 	void addEntityToSystem(Entity* entity);
 	void removeEntity(EntityID ID);
+
 
 	void start();
 	void updateSystems(float deltaTime);
