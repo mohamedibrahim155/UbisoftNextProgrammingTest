@@ -1,3 +1,8 @@
+
+///////////////////////////////////////////////////////////////////////////////
+// Filename: ISystem.h
+//  interface class responsible to create different types  system
+///////////////////////////////////////////////////////////////////////////////
 #pragma once
 #include "Entity.h"
 class SystemManager;
@@ -11,6 +16,8 @@ enum class eSystemType
 	RENDER_SYSTEM,
 	PARTILCE_SYSTEM,
 };
+
+
 class ISystem   
 {
 public:

@@ -1,3 +1,8 @@
+
+///////////////////////////////////////////////////////////////////////////////
+// Filename: RenderSystem.h
+// Respnsible to render all the sprites and UI in world
+///////////////////////////////////////////////////////////////////////////////
 #pragma once
 
 #include "../../System.h"
@@ -5,6 +10,7 @@
 #include "../../Components/Renders/SpriteSheetRenderer.h"
 #include "../../Components/UI/TextRenderer.h"
 #include "../../Components/UI/ButtonRenderer.h"
+
 
 
 struct RenderEntity

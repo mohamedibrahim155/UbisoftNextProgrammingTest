@@ -47,18 +47,7 @@ void GameManager::gameOver()
 
 }
 
-void GameManager::strike()
-{
-	m_currentStroke++;
 
-	if (m_currentStroke >= m_maxStroke)
-	{
-		onStrokeCompleted.Invoke();
-		return;
-	}
-
-
-}
 
 void GameManager::reset()
 {

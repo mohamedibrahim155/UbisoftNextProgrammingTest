@@ -1,17 +1,26 @@
+///////////////////////////////////////////////////////////////////////////////
+// Filename: SystemManager.cpp
+// System Manager holds and Update every entites in the world
+///////////////////////////////////////////////////////////////////////////////
+
 #include "stdafx.h"
 #include "SystemManager.h"
 
+
+//Registering a system to the manager
 void SystemManager::registerSystem(ISystem* system)
 {
     system->m_systemManager = this;
     m_systemsMap[system->m_systemType] = system;
 }
 
+//Removes a system from Manager
 void SystemManager::removeSystem(ISystem* system)
 {
     m_systemsMap.erase(system->m_systemType);
 }
 
+//Adds
 void SystemManager::addEntityToSystem(Entity* entity)
 {
     m_entitiesMap[entity->getID()] =  entity;

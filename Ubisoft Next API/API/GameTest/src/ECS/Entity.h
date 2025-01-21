@@ -1,3 +1,8 @@
+///////////////////////////////////////////////////////////////////////////////
+// Filename: Entity.h
+// Entity holds the maps of components and Unique ID's
+///////////////////////////////////////////////////////////////////////////////
+
 #pragma once
 #include "Components/Transform.h"
 #include<unordered_map>
@@ -11,16 +16,20 @@ class Entity
 public:
 
 	
-	
+	// creates from entity manager
 	Entity(EntityID ID);
+
+	// copy entity from other
 	Entity(const Entity& otherEntity , EntityID ID);
 	virtual ~Entity();
 
-
+	// add components to map
 	void addComponent(eComponentType type,IComponent* component);
 	void addComponent(IComponent* component);
 	void addComponents(std::vector<IComponent*> components);
 	bool removeComponent(eComponentType type);
+
+	//cleans the entity
 	void Destroy();
 	void cleanUps();
 
@@ -51,15 +60,22 @@ public:
 	bool isDestroyed = false;
 	bool dontDestoryOnLoad = false;
 
+	//event triggered when entity dynamically destroyed
 	CEvent<> OnDestroyed;
+
+	//event when component added to notify the relavant system
 	CEvent<IComponent*> OnComponentAdded;
 
 private:
 
 	bool m_isActive = true;
+
+	// unique Entity ID
 	EntityID m_entityID;
 
 	std::string m_tag = "Unkown";
+
+	// maps holds the type of component
 	std::unordered_map<eComponentType,IComponent*> m_listOfComponents;
 
 
