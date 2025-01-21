@@ -4,36 +4,36 @@
 #include "../src/InputManager/InputManager.h"
 #include "../src/Ball/BallController.h"
 
-Ball::Ball(EntityManager* entityManager, eColorType type) : BaseScriptComponent(), m_intialBallType(type)
+BallComponent::BallComponent(EntityManager* entityManager, eColorType type) : BaseScriptComponent(), m_intialBallType(type)
 {
 	this->entityManager = entityManager;
 }
 
-void Ball::start()
+void BallComponent::start()
 {
 
 	createBall();
 
 }
 
-void Ball::updateComponent()
+void BallComponent::updateComponent()
 {
 	
 	if (!controller) return;
 
-	controller->handleAim(); 
+	controller->updateAim(); 
 
 }
 
-void Ball::render(bool isDebugVisible)
+void BallComponent::render(bool isDebugVisible)
 {
 	if (!controller) return;
 
-	bool isInRange = controller->isInRange();
+	bool isInRange = controller->isWithinCursorRange();
 
 	if (isInRange)
 	{
-		controller->renderTrajectory();
+		controller->renderAimLine();
 
 	}
 	else
@@ -48,7 +48,7 @@ void Ball::render(bool isDebugVisible)
 	App::Print(100, 100, total.c_str(), 1, 1, 1);
 }
 
-void Ball::cleanUp()
+void BallComponent::cleanUp()
 {
 	if (controller)
 	{
@@ -56,13 +56,13 @@ void Ball::cleanUp()
 	}
 }
 
-void Ball::setSpawnPosition(const float& x, const float& y)
+void BallComponent::setSpawnPosition(const float& x, const float& y)
 {
 	m_spawnPosition.x = x;
 	m_spawnPosition.y = y;
 }
 
-void Ball::createBall()
+void BallComponent::createBall()
 {
 	// Set Tag
 	gameObject->setTag("Ball");
@@ -102,8 +102,8 @@ void Ball::createBall()
 
 	//Creating controller
 	controller = new BallController(this);
-	controller->initialize(entityManager);
-	controller->setType(m_intialBallType);
+	controller->init(entityManager);
+	controller->setColorType(m_intialBallType);
 }
 
 

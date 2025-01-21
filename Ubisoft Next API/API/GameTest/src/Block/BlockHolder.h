@@ -4,31 +4,26 @@
 class BlockHolder :  public BaseScriptComponent
 {
 public:
-	BlockHolder(Ball* ball);
+	BlockHolder(BallComponent* ball);
 	~BlockHolder();
 
-	void start()   override;
+	 void start()   override;
 	 void updateComponent() override;
-	 void render(bool isDebugVisible) override;
+	 void render(bool isDebugVisible) override {};
 	 void cleanUp() override;
 
 	 void setController(BallController* m_ballController);
 
 	void addBlock(Block* newBlock);
-	void removeBlock(Block* removeBlock);
 
 	void updateColliders(eColorType ballType);
 
 	bool checkState(eColorType balltype, eColorType blockType);
-
-
-	Entity* debugEnity;
-	void updateInputs();
 private:
 
 	int skipFrame = 1;
 	BallController* m_ballController;
-	Ball* m_ball;
+	BallComponent* m_ball;
 	std::vector<Block*> m_listOfBlocks;
 
 	

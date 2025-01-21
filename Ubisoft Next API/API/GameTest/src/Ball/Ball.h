@@ -6,11 +6,11 @@
 #include "EColorType.h"
 class BallController;
 
-class Ball : public BaseScriptComponent
+class BallComponent : public BaseScriptComponent
 {
 public:
-	Ball(EntityManager* entityManager, eColorType type);
-	~Ball() override = default;
+	BallComponent(EntityManager* entityManager, eColorType type);
+	~BallComponent() override = default;
      void start() override;
      void updateComponent() override;
      void render(bool isDebugVisible) override;

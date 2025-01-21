@@ -1,3 +1,9 @@
+///////////////////////////////////////////////////////////////////////////////
+// Filename: BallController.cpp
+// Controls the ball's movement and behavior
+///////////////////////////////////////////////////////////////////////////////
+//-----------------------------------------------------------------------------
+
 #include "stdafx.h"
 #include "BallController.h"
 #include "../InputManager/InputManager.h"
@@ -5,7 +11,9 @@
 #include "../src/GameManager/GameManager.h"
 #include "../src/Block/Blocks.h"
 #include "../src/LevelManager/LevelManager.h"
-BallController::BallController(Ball* ballComponent):
+
+
+BallController::BallController(BallComponent* ballComponent):
 	pBall(ballComponent),
     pRigidBody(nullptr), 
     pSprite(nullptr)
@@ -22,11 +30,13 @@ BallController::~BallController()
 
 #pragma region Init
 
-void BallController::initialize(EntityManager* entityManager)
+// Intial references from Ball
+void BallController::init(EntityManager* entityManager)
 {
 	this->pEntityManager = entityManager;
     this->pGameObject = pBall->getEntity();
 
+	//intial references
 	this->pRigidBody = (RigidBody*)pGameObject->getComponent(eComponentType::PHYSICS_COMPONENT);
 	this->pSprite = (SpriteRenderer*)pGameObject->getComponent(eComponentType::RENDER_COMPONENT);
 	this->pCollider = (CircleCollider*)pGameObject->getComponent(eComponentType::COLLIDER_COMPONENT);
@@ -35,15 +45,16 @@ void BallController::initialize(EntityManager* entityManager)
 	m_initalPosition = pGameObject->transform.position;
 
 	subscribeEvents();
-	initializePool();
+	initPool();
 
 }
 
+// Subscribes global events
 void BallController::subscribeEvents()
 {
 	pCollider->OnCollisionEnter.Subscribe([this](Collider* otherCollider)
 		{
-			OnCollisionEnter(otherCollider);
+			onCollisionEnter(otherCollider);
 		});
 
 	GameManager::GetInstance().onStrokeCompleted.Subscribe([this]() 
@@ -52,10 +63,11 @@ void BallController::subscribeEvents()
 		});
 }
 
-void BallController::initializePool()
+// create a prefab and creates Object pooling
+void BallController::initPool()
 {
 	Entity* projectileBallPrefab = pEntityManager->createEntity();
-	SpriteRenderer* circleSprite = new SpriteRenderer(CIRCLE_PATH, true);
+	SpriteRenderer* circleSprite = new SpriteRenderer(BALL_SPRITE_PATH, true);
 
 	projectileBallPrefab->addComponent(circleSprite);
 	projectileBallPrefab->setActive(false);
@@ -68,78 +80,38 @@ void BallController::initializePool()
 
 #pragma endregion
 
-
-void BallController::handleAim()
+// State's handling - could have been in stateMachine
+void BallController::updateAim()
 {
-	
 
 	switch (m_state)
 	{
 	case eBallState::IDLE:
-		idleState();
+		onIdleState();
 		break;
 		break;
 	case eBallState::AIMING:
-		aimState();
+		onAimState();
 		break;
 	case eBallState::SHOOTING:
-		shootState();
+		onShootState();
 		break;
 
 	default:
-		setState(eBallState::IDLE);
+		setCurrentState(eBallState::IDLE);
 		break;
 	}
-#pragma region OldCode
-
-
-
-	//if (m_state != BallState::IDLE && m_state != BallState::AIMING) return;
-
-	//if (InputManager::GetInstance().getKeyDown(VK_LBUTTON))
-	//{
-	//	m_state = BallState::AIMING;
-	//	Vector2 pos = { pGameObject->transform.position.x + m_centerScreen.x, pGameObject->transform.position.y + m_centerScreen.y };
-
-	//	m_renderLine.startPoint = Vector2(pos.x, pos.y);
-
-
-	//}
-	//if (InputManager::GetInstance().getKey(VK_LBUTTON))
-	//{
-	//	Vector2 mousePosition = InputManager::GetInstance().getMousePosition();
-	//	Vector2 currentPosition = m_renderLine.startPoint - mousePosition;
-
-	//	float length = currentPosition.Magnitude();
-
-	//	currentPosition = (length > m_maxLineThreshold) ?
-	//		currentPosition.Normalize() * m_maxLineThreshold : currentPosition.Normalize() * length;
-
-	//	m_renderLine.endPoint = m_renderLine.startPoint - currentPosition;
-
-	//	m_aimDirection = m_renderLine.startPoint - m_renderLine.endPoint;
-	//}
-
-	//if (InputManager::GetInstance().getKeyUp(VK_LBUTTON))
-	//{
-	//	m_renderLine = { Vector2::Zero(), Vector2::Zero() };
-
-
-	//	
-	//	
-	//	shootBall(m_aimDirection);
-	//	m_state = BallState::SHOOTING;
-	//}
-#pragma endregion
 
 
 }
 
-void BallController::stopBall()
+// force stops the ball
+void BallController::haltBall()
 {
 	pRigidBody->velocity = Vector2::Zero();
 }
 
+// resets the ball data's
 void BallController::reset()
 {
 	pGameObject->transform.position = m_initalPosition;
@@ -147,7 +119,8 @@ void BallController::reset()
 	m_state = eBallState::IDLE;
 }
 
-void BallController::renderTrajectory()
+// renders the trajectory line which uses object pool
+void BallController::renderAimLine()
 {
 	if (m_state != eBallState::AIMING) return;
 
@@ -175,6 +148,7 @@ void BallController::renderTrajectory()
 	}
 }
 
+// resets pool to inactive state
 void BallController::resetPoolEntites()
 {
 
@@ -190,12 +164,12 @@ void BallController::resetPoolEntites()
 	pEntityPool->setScaleForEntities(Vector2(0.025f, 0.025f));
 }
 
-
-void BallController::shootBall(Vector2 direction)
+// shoots ball based on Aimed direction
+void BallController::launchBall(Vector2 direction)
 {
 	if (direction.Magnitude() <= 0.01f) return; // Prevent shooting when no direction
 
-	float bounceSpeed = calculateBounceSpeed(direction);
+	float bounceSpeed = calculateBounceVelocity(direction);
 
 	pRigidBody->velocity += direction.Normalize() * bounceSpeed;
 	
@@ -204,13 +178,14 @@ void BallController::shootBall(Vector2 direction)
 }
 
 
-
+// checks if its moving
 bool BallController::isMoving()
 {
 	return pRigidBody->velocity.Magnitude() > m_stoppingFactor;
 }
 
-bool BallController::isInRange()
+// checks if the cursor is near to ball's position
+bool BallController::isWithinCursorRange()
 {
 
 	Vector2 mousePosition = InputManager::GetInstance().getMousePosition();
@@ -226,12 +201,32 @@ bool BallController::isInRange()
 
 #pragma region States
 
-void BallController::aimState()
+// Handles Idle state
+void BallController::onIdleState()
+{
+	if (isWithinCursorRange() && InputManager::GetInstance().getKeyDown(VK_LBUTTON))
+	{
+		// Initialize the aiming line starting point
+		Vector2 pos = { pGameObject->transform.position.x + m_centerScreen.x,
+						pGameObject->transform.position.y + m_centerScreen.y };
+
+		m_projectileLine.startPoint = pos;
+
+		setCurrentState(eBallState::AIMING); // Transition to Aiming state
+
+	}
+
+	//Deactivates projectile on screen
+	resetPoolEntites();
+}
+
+// Handles Aim state
+void BallController::onAimState()
 {
 
 	if (InputManager::GetInstance().getKey(VK_LBUTTON))
 	{
-		if (isInRange())
+		if (isWithinCursorRange())
 		{
 			Vector2 mousePosition = InputManager::GetInstance().getMousePosition();
 			Vector2 currentPosition = m_projectileLine.startPoint - mousePosition;
@@ -250,16 +245,16 @@ void BallController::aimState()
 
 	if (InputManager::GetInstance().getKeyUp(VK_LBUTTON))
 	{
-		if (isInRange())
+		if (isWithinCursorRange())
 		{
 			m_projectileLine = { Vector2::Zero(), Vector2::Zero() };
-			shootBall(m_aimDirection);
-			setState(eBallState::SHOOTING);
+			launchBall(m_aimDirection);
+			setCurrentState(eBallState::SHOOTING);
 
 		}
 		else
 		{
-			setState(eBallState::IDLE);
+			setCurrentState(eBallState::IDLE);
 		}
 
 		resetPoolEntites();
@@ -267,19 +262,21 @@ void BallController::aimState()
 	}
 }
 
-void BallController::shootState()
+// Handles Shooting state
+void BallController::onShootState()
 {
 	if (!isMoving())
 	{
-		stopBall();
+		haltBall();
 
 		m_state = eBallState::IDLE;
 
-		checkForGameOver();
+		checkGameOver();
 	}
 }
 
-void BallController::checkForGameOver()
+// Handles game over state
+void BallController::checkGameOver()
 {
 	
 	if (isGameOver)
@@ -291,25 +288,8 @@ void BallController::checkForGameOver()
 	}
 }
 
-void BallController::idleState()
-{
-	if (isInRange() && InputManager::GetInstance().getKeyDown(VK_LBUTTON))
-	{
-		// Initialize the aiming line starting point
-		Vector2 pos = { pGameObject->transform.position.x + m_centerScreen.x,
-						pGameObject->transform.position.y + m_centerScreen.y };
-
-		m_projectileLine.startPoint = pos;
-
-		setState(eBallState::AIMING); // Transition to Aiming state
-
-	}
-
-	//Deactivates projectile on screen
-	resetPoolEntites();
-}
-
-void BallController::setState(eBallState nextState)
+// Changes state if current != previous
+void BallController::setCurrentState(eBallState nextState)
 {
 	if (m_state != nextState)
 	{
@@ -317,7 +297,8 @@ void BallController::setState(eBallState nextState)
 	}
 }
 
-std::string BallController::getState()
+// return the current state as string
+std::string BallController::getCurrentState()
 {
 	switch (m_state)
 	{
@@ -336,10 +317,10 @@ std::string BallController::getState()
 
 
 
-
-void BallController::OnCollisionEnter(Collider* collider)
+// Handle collision enter
+void BallController::onCollisionEnter(Collider* collider)
 {
-
+	// checks ball collides with Block
 	if (collider->getEntity()->getTag() == "Block")
 	{
 		Block* script = (Block*)collider->getEntity()->getComponent(eComponentType::SCRIPT_COMPONENT);
@@ -349,28 +330,32 @@ void BallController::OnCollisionEnter(Collider* collider)
 			eColorType blockType = script->getType();
 			if (m_type != blockType)
 			{
-				setType(blockType);
+				setColorType(blockType);
 
+				
 				Vector3 color = blockType == eColorType::WHITE ? Vector3::One() * 0.5f : Vector3::One();
 
 
 				pParticle->m_colorX = color.x;
 				pParticle->m_colorY = color.y;
 				pParticle->m_colorZ = color.z;
-				pParticle->Play();
+
+				pParticle->Play(); // triggers particle 
 			}
 		}
 	}
 }
 
 
-void BallController::setType(eColorType type)
+//change the color type and updates sprite color
+void BallController::setColorType(eColorType type)
 {
 	m_type =type;
 
 	updateSpriteColor(type);
 }
 
+//sets sprite color based on type
 void BallController::updateSpriteColor(eColorType type)
 {
 	if (!pSprite) return;
@@ -382,10 +367,8 @@ void BallController::updateSpriteColor(eColorType type)
 }
 
 
-
-
-
-float BallController::calculateBounceSpeed(Vector2 aimDir)
+// returns velocity based on dragged line
+float BallController::calculateBounceVelocity(Vector2 aimDir)
 {
 	float length = aimDir.Magnitude();
 

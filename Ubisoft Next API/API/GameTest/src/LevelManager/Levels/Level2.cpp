@@ -142,7 +142,7 @@ void Level2::createBlocks()
 {
 	//Ball
 	Entity* entityWithBallScript = entityManager->createEntity();
-	Ball* ball1 = new Ball(entityManager, eColorType::WHITE);
+	BallComponent* ball1 = new BallComponent(entityManager, eColorType::WHITE);
 	entityWithBallScript->addComponent(ball1);
 	ball1->setSpawnPosition(-450, -310);
 

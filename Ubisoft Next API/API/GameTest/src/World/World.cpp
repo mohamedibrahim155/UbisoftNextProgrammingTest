@@ -40,7 +40,7 @@ void World::start()
 	// Creates levels
 	LevelManager::GetInstance().createLevels();
 
-	//Sets the current scene to level 1
+	//Sets the current scene to Mainmenu
 	LevelManager::GetInstance().queSceneChange(MAINMENU);
 }
 

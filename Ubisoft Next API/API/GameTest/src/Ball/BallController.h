@@ -1,8 +1,19 @@
+
+///////////////////////////////////////////////////////////////////////////////
+// Filename: BallController.h
+// Controls the ball movement and behavior
+///////////////////////////////////////////////////////////////////////////////
+//-----------------------------------------------------------------------------
 #pragma once
 #include "Ball.h"
 #include "../Pool/Entity/EntityPool.h"
 #include "EColorType.h"
 #include "../src/Events/Event.h"
+
+
+//-----------------------------------------------------------------------------
+// States of Ball
+//-----------------------------------------------------------------------------
 enum class eBallState
 {
 	IDLE,
@@ -14,50 +25,58 @@ class BallController
 {
 
 public:
-	BallController(Ball* ballComponent);
+
+	BallController(BallComponent* ballComponent);
 
 	~BallController();
 
-
-	bool isInRange();
-
 	//Initialise
-	void initialize(EntityManager* entityManager);
-	void initializePool();
-	void handleAim();
+	void init(EntityManager* entityManager);
+	void initPool();
 
+	//Updates the Aim direction
+	void updateAim();
+
+	// renders projectile line to screen
+	void renderAimLine();
+
+	//resets
 	void reset();
 	void resetPoolEntites();
-	void renderTrajectory();
-	void setType(eColorType type);
 
+	//Setter
+	void setColorType(eColorType type);
 
-	std::string getState();
-	eColorType getColorState() const { return m_type; };
+	//Getters
+	bool isWithinCursorRange();
+	std::string getCurrentState();
+	eColorType getColor() const { return m_type; };
 
 private:
 
 	bool isGameOver = false;
 
-	float m_maxLineThreshold = 100;
-	float m_bounceSpeed = 1000;
-	float m_cursoeRadius = 250;
-	float m_stoppingFactor = 35;
+	const float m_maxLineThreshold = 100;
+	const float m_bounceSpeed = 1000;
+	const float m_cursoeRadius = 250;
+	const float m_stoppingFactor = 35;
 
-	const std::string CIRCLE_PATH = ASSET_PATH + "\\Default\\circle_256.png";
+	const std::string BALL_SPRITE_PATH = ASSET_PATH + "\\Default\\circle_256.png";
 
 	eBallState m_state = eBallState::IDLE;
 	eColorType m_type = eColorType::WHITE;
 
 	Vector2 m_aimDirection;
 	Vector3 m_initalPosition;
+
+	//center of window
 	Vector2 m_centerScreen = { APP_VIRTUAL_WIDTH / 2 ,APP_VIRTUAL_HEIGHT / 2 };
 
-	// rendersLine
+	// render Line
 	SLine m_projectileLine;
 
 	// references
-	Ball* pBall;
+	BallComponent* pBall;
 	Entity* pGameObject;
 	RigidBody* pRigidBody;
 	SpriteRenderer* pSprite;
@@ -67,26 +86,32 @@ private:
 
 	EntityPool* pEntityPool;
 
-
+	// checks if ball's in motion
 	bool isMoving();
 
-	float calculateBounceSpeed(Vector2 aimDir);
-
-	void shootBall(Vector2 direction);
-	void stopBall();
+	// calculates bounce speed based on drag length
+	float calculateBounceVelocity(Vector2 aimDir);
 
 	//states
-	void aimState();
-	void shootState();
-	void checkForGameOver();
-	void idleState();
-	void setState(eBallState nextState);
+	void onIdleState();
+	void onAimState();
+	void onShootState();
+	void setCurrentState(eBallState nextState);
 
 	// collisions
 	void subscribeEvents();
-	void OnCollisionEnter(Collider* collider);
+	void onCollisionEnter(Collider* collider);
 
-
+	// updates sprite color based on type
 	void updateSpriteColor(eColorType type);
+
+	//method checks the gameOver condition
+	void checkGameOver();
+
+	// shoot the ball on a given direction
+	void launchBall(Vector2 direction);
+
+	// force stop ball
+	void haltBall();
 };
 
