@@ -25,6 +25,7 @@ private:
 
 	GameObjectFactory* factory;
 
+	const std::string TITLE_UI_PATH = ASSET_PATH + "\\Background\\Title.png";
 	const std::string PLAY_BUTTON_UI_PATH = ASSET_PATH + "\\UI\\Button\\Play.png";
 	const std::string CONTROLS_BUTTON_UI_PATH = ASSET_PATH + "\\UI\\Button\\Controls.png";
 	const std::string CREDITS_BUTTON_UI_PATH = ASSET_PATH + "\\UI\\Button\\Credits.png";

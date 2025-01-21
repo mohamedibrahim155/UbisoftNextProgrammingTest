@@ -49,6 +49,10 @@ void MainMenu::createBackground()
 {
 	factory->createBackground();
 	factory->createBackgroundWhiteBorder();
+
+	 factory->createSpriteObject(TITLE_UI_PATH, Vector2::Zero(), -2);
+
+
 }
 
 
