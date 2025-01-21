@@ -56,11 +56,11 @@ void GoalPost::createGoalHole()
 	pParticle = new ParticleComponent(DEFAULT_CIRCLE_PATH, 50, 1);
 
 	pParticle->m_colorX = 1;
-	pParticle->m_colorY = 0;
+	pParticle->m_colorY = 1;
 	pParticle->m_colorZ = 1;
 	pParticle->m_spawnRadius = 1;
 	pParticle->m_gravity = -3;
-	pParticle->m_scale = 0.008f;
+	pParticle->m_scale = 0.02f;
 
 	pParticle->m_startVelocityX = { -300, 300 };
 	pParticle->m_startVelocityY = { -300, 300 };
@@ -109,10 +109,7 @@ void GoalPost::targetReached()
 {
 	m_hasReached = true;
 
-	int currentScore = GameManager::GetInstance().getScore();
-
-	currentScore += 200;
-
-	GameManager::GetInstance().updateScore(currentScore);
+	// update score
+	GameManager::GetInstance().updateScore();
 }
 

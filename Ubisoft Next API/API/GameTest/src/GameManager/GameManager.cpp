@@ -29,11 +29,6 @@ void GameManager::showLevelComplete()
 	LevelManager::GetInstance().queSceneChange(LEVEL_COMPLETE);
 
 
-	//OnScoreChanged.clear();
-	//onStrikeValueChanged.clear();
-	//onStrokeCompleted.clear();
-
-
 }
 
 void GameManager::gameOver()
@@ -49,13 +44,6 @@ void GameManager::gameOver()
 
 		LevelManager::GetInstance().queSceneChange(GAME_OVER);
 		reset();
-
-	
-
-
-	
-
-
 
 }
 
@@ -98,9 +86,23 @@ void GameManager::updateStrike()
 	onStrikeValueChanged.Invoke();
 }
 
-void GameManager::updateScore(int value)
+void GameManager::updateScore()
 {
-	m_score = value;
-	OnScoreChanged.Invoke(value);
+	m_score += scoreMultiplier();
+
+	OnScoreChanged.Invoke(m_score);
+}
+
+int GameManager::scoreMultiplier()
+{
+	if (m_currentStroke <= 0) return 0;
+
+	float ratio = static_cast<float>(m_maxStroke) / m_currentStroke;
+
+	int total = static_cast<int>(ratio * m_scoreMultiplier);
+
+	return total;
+
+	return total;
 }
 

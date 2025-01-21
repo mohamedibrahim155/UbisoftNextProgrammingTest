@@ -12,7 +12,7 @@ void UIDisplayer::start()
 
 	m_displayText =  new TextRenderer("");
 	m_displayText->setFont(BITMAP_HELVETICA_18);
-	m_displayText->setColor(1,0,0.85f);
+	m_displayText->setColor(0,0,0);
 	gameObject->addComponent(m_displayText);
 
 	updateUI();

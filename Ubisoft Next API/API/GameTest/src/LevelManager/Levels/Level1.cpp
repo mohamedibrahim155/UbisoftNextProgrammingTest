@@ -56,12 +56,12 @@ void Level1::start()
 	Entity* entityWithScoreDisplayer = entityManager->createEntity();
 	UIDisplayer* scoreUI = new UIDisplayer(eUIType::SCORE);
 	entityWithScoreDisplayer->addComponent(scoreUI);
-	entityWithScoreDisplayer->transform.position = Vector2(150, 350);
+	entityWithScoreDisplayer->transform.position = Vector2(-450, 300);
 
 	Entity* entityWithStrike= entityManager->createEntity();
 	UIDisplayer* strokeUI = new UIDisplayer(eUIType::STROKE);
 	entityWithStrike->addComponent(strokeUI);
-	entityWithStrike->transform.position = Vector2(300, 350);
+	entityWithStrike->transform.position = Vector2(300, 300);
 
 	//Entity* entityWithlevelNumber = entityManager->createEntity();
 	//UIDisplayer* LevelNumberUI = new UIDisplayer(eUIType::LEVELNUMBER);
@@ -122,9 +122,6 @@ void Level1::createBackground()
 {
 	factory->createBackground();
 	factory->createBackgroundWhiteBorder();
-
-
-	//factory->createSpriteObject(LEVEL_ONE_PATH,Vector2::Zero(),-1);
 }
 
 void Level1::createBlocks()

@@ -54,6 +54,7 @@ void CompletedLevel::createPopUp()
 
 	button->addListenersOnButtonPress([this]()
 		{
+			GameManager::GetInstance().reset();
 			loadScene(m_nextLevel);
 
 		});
@@ -67,7 +68,7 @@ void CompletedLevel::createPopUp()
 	ButtonRenderer* mainMenu = new ButtonRenderer(MAINMENU_BUTTON);
 	mainMenu->addListenersOnButtonPress([this]()
 		{
-
+			GameManager::GetInstance().reset();
 			loadScene(MAINMENU);
 		});
 
@@ -78,7 +79,7 @@ void CompletedLevel::createPopUp()
 	Entity* scoreTextGameObject = entityManager->createEntity();
 	
 	m_scoreText = new TextRenderer("");
-	m_scoreText->setColor(0.8, 0.2, 0.3);
+	m_scoreText->setColor(0, 0, 0);
 
 	scoreTextGameObject->addComponent(m_scoreText);
 	scoreTextGameObject->transform.position = Vector2(-70, -60);

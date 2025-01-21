@@ -62,6 +62,7 @@ private:
 	RigidBody* pRigidBody;
 	SpriteRenderer* pSprite;
 	CircleCollider* pCollider;
+	ParticleComponent* pParticle;
 	EntityManager* pEntityManager;
 
 	EntityPool* pEntityPool;

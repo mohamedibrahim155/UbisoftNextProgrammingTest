@@ -22,7 +22,7 @@ public:
 private:
 
 	const std::string BALL_TEXTURE_PATH = ASSET_PATH + "\\Ball\\ball_red_small2.png";
-
+	const std::string PARTICLE_PATH = ASSET_PATH + "\\Default\\square-rounded-512.png";
 	eColorType m_intialBallType = eColorType::WHITE;
 
 	Vector3 m_spawnPosition;
@@ -31,6 +31,7 @@ private:
 	RigidBody* rigidBody;
 	SpriteRenderer* ballSprite;
 	Collider* circleCollider;
+	ParticleComponent* particleComponent;
 
 	BallController* controller;
 	EntityManager* entityManager;

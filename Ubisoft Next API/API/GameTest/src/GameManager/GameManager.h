@@ -14,7 +14,7 @@ public:
 	void reset();
 
 	void updateStrike();
-	void updateScore(int value);
+	void updateScore();
 	
 
 	int getCurrentStrike() { return m_currentStroke; }
@@ -32,7 +32,9 @@ private:
 	int m_maxStroke = 5;
 	int m_currentStroke = 0;
 	int m_score = 0;
+	int m_scoreMultiplier = 100;
 
+	int scoreMultiplier();
 
 };
 

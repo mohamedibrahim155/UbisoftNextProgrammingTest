@@ -30,6 +30,7 @@ void BallController::initialize(EntityManager* entityManager)
 	this->pRigidBody = (RigidBody*)pGameObject->getComponent(eComponentType::PHYSICS_COMPONENT);
 	this->pSprite = (SpriteRenderer*)pGameObject->getComponent(eComponentType::RENDER_COMPONENT);
 	this->pCollider = (CircleCollider*)pGameObject->getComponent(eComponentType::COLLIDER_COMPONENT);
+	this->pParticle = (ParticleComponent*)pGameObject->getComponent(eComponentType::PARTICLE_COMPONENT);
 
 	m_initalPosition = pGameObject->transform.position;
 
@@ -350,6 +351,13 @@ void BallController::OnCollisionEnter(Collider* collider)
 			{
 				setType(blockType);
 
+				Vector3 color = blockType == eColorType::WHITE ? Vector3::One() * 0.5f : Vector3::One();
+
+
+				pParticle->m_colorX = color.x;
+				pParticle->m_colorY = color.y;
+				pParticle->m_colorZ = color.z;
+				pParticle->Play();
 			}
 		}
 	}
@@ -367,8 +375,10 @@ void BallController::updateSpriteColor(eColorType type)
 {
 	if (!pSprite) return;
 
-	Vector2 color = Vector2::One();
+	Vector3 color = Vector3::One();
 	pSprite->setColor(type == eColorType::WHITE ? color : color * 0.5f);
+
+	
 }
 
 

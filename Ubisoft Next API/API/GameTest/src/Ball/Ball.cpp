@@ -71,7 +71,20 @@ void Ball::createBall()
 	ballSprite = new SpriteRenderer(BALL_TEXTURE_PATH,Vector2::Zero(), 5);
 	circleCollider = new CircleCollider();
 	rigidBody = new RigidBody(eBodyType::DYNAMIC);
-	
+
+	particleComponent = new ParticleComponent(PARTICLE_PATH, 50, 1);
+
+	particleComponent->m_colorX = 1;
+	particleComponent->m_colorY = 1;
+	particleComponent->m_colorZ = 1;
+	particleComponent->m_spawnRadius = 1;
+	particleComponent->m_gravity = -3;
+	particleComponent->m_scale = 0.005f;
+	particleComponent->m_startVelocityX = { -600, 600 };
+	particleComponent->m_startVelocityY = { -600, 600 };
+	particleComponent->m_startTime = { 0.1,0.2 };
+	particleComponent->playOnAwake = false;
+
 	//Sets rigid body properties
 	rigidBody->bounciness = 1;
 	rigidBody->setMass (20);
@@ -81,6 +94,7 @@ void Ball::createBall()
 	gameObject->addComponent(ballSprite);
 	gameObject->addComponent(circleCollider);
 	gameObject->addComponent(rigidBody);
+	gameObject->addComponent(particleComponent);
 
 	//Sets initial Position
 	gameObject->transform.position = m_spawnPosition;
