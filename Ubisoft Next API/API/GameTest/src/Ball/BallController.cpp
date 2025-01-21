@@ -255,8 +255,6 @@ void BallController::aimState()
 			shootBall(m_aimDirection);
 			setState(eBallState::SHOOTING);
 
-			GameManager::GetInstance().updateStrike();
-
 		}
 		else
 		{

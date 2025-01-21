@@ -36,6 +36,8 @@ void MainMenu::start()
 	// Create background and buttons
 	createBackground();
 	createButtons();
+
+	playBackgroundMusic(BACGROUND_MUSIC);
 }
 
 void MainMenu::cleanScene()
@@ -49,10 +51,7 @@ void MainMenu::createBackground()
 {
 	factory->createBackground();
 	factory->createBackgroundWhiteBorder();
-
-	 factory->createSpriteObject(TITLE_UI_PATH, Vector2::Zero(), -2);
-
-
+    factory->createSpriteObject(TITLE_UI_PATH, Vector2::Zero(), -2);
 }
 
 
@@ -175,6 +174,9 @@ void MainMenu::playOnce(const std::string& fileName)
 // Plays Background music
 void MainMenu::playBackgroundMusic(const std::string& fileName)
 {
+	if (App::IsSoundPlaying(fileName.c_str())) return;
+
+	App::PlaySound(fileName.c_str(), true);
 }
 
 bool MainMenu::isLevelCompleted()
