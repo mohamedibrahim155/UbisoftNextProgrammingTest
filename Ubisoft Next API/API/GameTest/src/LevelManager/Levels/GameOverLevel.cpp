@@ -63,10 +63,8 @@ void GameOverLevel::createButtons()
 
 	const Vector3  buttonTextColor(0.902, 0.451, 0);
 
-	Entity* retryButtonGameobject = factory->createButtonWithText(BUTTON_UI_PATH + "b_1.png", "Play", buttonTextColor, "PlayButton");
+	Entity* retryButtonGameobject = factory->createButton(RETRY_UI);
 	ButtonRenderer* retryButton = (ButtonRenderer*)retryButtonGameobject->getComponent(eComponentType::RENDER_COMPONENT);
-	retryButton->getTextComponent()->setFont(BITMAP_TIMES_ROMAN_24);
-	retryButton->getTextComponent()->setOffset(Vector2(-20, -5));
 
 
 
@@ -83,12 +81,12 @@ void GameOverLevel::createButtons()
 		{
 
 			playOnce(ON_CLICK_SFX);
-			
-			restartLevel();
+		
+			loadScene(m_retryLevel);
 		});
 
-	retryButtonGameobject->transform.position = Vector3(0, 50, 0);
-	retryButtonGameobject->transform.scale = Vector2(0.2f, 0.2f);
+	retryButtonGameobject->transform.position = Vector3(0, -150, 0);
+	retryButtonGameobject->transform.scale = Vector2(1, 1);
 #pragma endregion
 
 	//Creates ControlsButton  entity and position accordingly	
@@ -184,6 +182,11 @@ void GameOverLevel::playBackgroundMusic(const std::string& fileName)
 bool GameOverLevel::isLevelCompleted()
 {
 	return false;
+}
+
+void GameOverLevel::setRetryLevel(eScene retyLevel)
+{
+	m_retryLevel = retyLevel;
 }
 
 

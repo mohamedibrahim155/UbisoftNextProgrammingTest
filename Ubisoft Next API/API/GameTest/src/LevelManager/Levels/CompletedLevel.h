@@ -16,18 +16,23 @@ public:
 
 	bool isLevelCompleted() override;
 
+
+	void setNextLevelToLoad(eScene nextLevel);
+
 private:
 
 
 	const std::string LEVEL_COMPLETE_BUTTON = ASSET_PATH + "\\UI\\Button\\levelComplete.png";
-	const std::string MAINMENU_BUTTON = ASSET_PATH + "\\UI\\Button\\mainmenu.png";
+	const std::string MAINMENU_BUTTON = ASSET_PATH + "\\UI\\Button\\menu.png";
 	GameObjectFactory* m_factory;
 
 	TextRenderer* m_scoreText = nullptr;
+	eScene m_nextLevel;
 
 	void createPopUp();
 	void createBackgound();
 	void setScoreText(int score);
+
 
 };
 

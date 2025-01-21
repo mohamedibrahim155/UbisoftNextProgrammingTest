@@ -5,6 +5,7 @@
 #include "../LevelManager/Levels/Level3.h"
 #include "../LevelManager/Levels/MainMenu.h"
 #include "../LevelManager/Levels/CompletedLevel.h"
+#include "../LevelManager/Levels/GameOverLevel.h"
 #include "../ECS/Components/Camera/Camera.h"
 #include "../InputManager/InputManager.h"
 LevelManager& LevelManager::GetInstance()
@@ -37,10 +38,13 @@ void LevelManager::setManagers(SystemManager* systemManager, EntityManager* enti
 void LevelManager::createLevels()
 {
 	BaseLevel* mainMenu = new MainMenu();
+	BaseLevel* completedLevel = new CompletedLevel();
+	BaseLevel* gameOver = new GameOverLevel();
+
 	BaseLevel* level1 = new Level1();
 	BaseLevel* level2 = new Level2();
 	BaseLevel* level3 = new Level3();
-	BaseLevel* completedLevel = new CompletedLevel();
+
 
 }
 
@@ -153,7 +157,7 @@ void LevelManager::startLevel()
 	InputManager::GetInstance().refreshInputs();
 }
 
-void LevelManager::nextLevel()
+eScene LevelManager::nextLevel()
 {
 	int currentLevel = (int)m_currentSceneType;
 	currentLevel++;
@@ -163,7 +167,7 @@ void LevelManager::nextLevel()
 		currentLevel = 0;
 	}
 
-	queSceneChange((eScene)currentLevel);
+	return (eScene)currentLevel;
 }
 
 void LevelManager::restartLevel()

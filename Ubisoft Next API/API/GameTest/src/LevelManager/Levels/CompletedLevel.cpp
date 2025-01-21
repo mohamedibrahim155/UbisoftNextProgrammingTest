@@ -30,6 +30,12 @@ bool CompletedLevel::isLevelCompleted()
     return false;
 }
 
+void CompletedLevel::setNextLevelToLoad(eScene nextLevel)
+{
+
+	m_nextLevel = nextLevel;
+}
+
 void CompletedLevel::setScoreText(int score)
 {
 	if (!m_scoreText) return;
@@ -48,7 +54,9 @@ void CompletedLevel::createPopUp()
 
 	button->addListenersOnButtonPress([this]()
 		{
-			GameManager::GetInstance().reset();
+			//GameManager::GetInstance().reset();
+			loadScene(m_nextLevel);
+
 		});
 
 	gameObject1->transform.position = Vector2(150, -100);
@@ -60,7 +68,7 @@ void CompletedLevel::createPopUp()
 	ButtonRenderer* mainMenu = new ButtonRenderer(MAINMENU_BUTTON);
 	mainMenu->addListenersOnButtonPress([this]()
 		{
-			GameManager::GetInstance().reset();
+			//GameManager::GetInstance().reset();
 
 			loadScene(MAINMENU);
 		});
@@ -86,6 +94,7 @@ void CompletedLevel::createPopUp()
 	completedText->setFont(BITMAP_TIMES_ROMAN_24);
 
 	completedTextGameObject->addComponent(completedText);
+
 	completedTextGameObject->transform.position = Vector2(-150, 50);
 
 	

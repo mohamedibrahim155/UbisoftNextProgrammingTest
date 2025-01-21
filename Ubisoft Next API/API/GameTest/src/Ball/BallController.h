@@ -2,6 +2,7 @@
 #include "Ball.h"
 #include "../Pool/Entity/EntityPool.h"
 #include "EColorType.h"
+#include "../src/Events/Event.h"
 enum class eBallState
 {
 	IDLE,
@@ -36,6 +37,7 @@ public:
 
 private:
 
+	bool isGameOver = false;
 
 	float m_maxLineThreshold = 100;
 	float m_bounceSpeed = 1000;
@@ -75,11 +77,12 @@ private:
 	//states
 	void aimState();
 	void shootState();
+	void checkForGameOver();
 	void idleState();
 	void setState(eBallState nextState);
 
 	// collisions
-	void subscribeCollisionEvent();
+	void subscribeEvents();
 	void OnCollisionEnter(Collider* collider);
 
 

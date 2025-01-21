@@ -16,7 +16,7 @@ public:
 	void queSceneChange(eScene changeScene);
 	void update(float deltaTime);
 	void render();
-	void nextLevel();
+	eScene nextLevel();
 	void restartLevel();
 
 	BaseLevel* getScene(eScene scene);

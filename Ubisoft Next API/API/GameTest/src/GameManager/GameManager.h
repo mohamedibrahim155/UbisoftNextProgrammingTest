@@ -21,17 +21,18 @@ public:
 	int getMaxtrike() { return m_maxStroke; }
 	int getScore() { return m_score; }
 
+	CEvent<> onStrokeCompleted;
 	CEvent<int> OnScoreChanged;
 	CEvent<> onStrikeValueChanged;
+
 private:
 
 	//EntityManager* m_entityManager;
 
-	int m_maxStroke = 3;
+	int m_maxStroke = 1;
 	int m_currentStroke = 0;
 	int m_score = 0;
 
-	CEvent<> onStrokeCompleted;
 
 };
 

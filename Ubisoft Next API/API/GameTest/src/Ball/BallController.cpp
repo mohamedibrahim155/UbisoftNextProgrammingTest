@@ -4,6 +4,7 @@
 #include "../Utils/PhysicsUtils.h"
 #include "../src/GameManager/GameManager.h"
 #include "../src/Block/Blocks.h"
+#include "../src/LevelManager/LevelManager.h"
 BallController::BallController(Ball* ballComponent):
 	pBall(ballComponent),
     pRigidBody(nullptr), 
@@ -32,15 +33,21 @@ void BallController::initialize(EntityManager* entityManager)
 
 	m_initalPosition = pGameObject->transform.position;
 
-	subscribeCollisionEvent();
+	subscribeEvents();
 	initializePool();
+
 }
 
-void BallController::subscribeCollisionEvent()
+void BallController::subscribeEvents()
 {
 	pCollider->OnCollisionEnter.Subscribe([this](Collider* otherCollider)
 		{
 			OnCollisionEnter(otherCollider);
+		});
+
+	GameManager::GetInstance().onStrokeCompleted.Subscribe([this]() 
+		{
+			isGameOver = true;
 		});
 }
 
@@ -63,6 +70,7 @@ void BallController::initializePool()
 
 void BallController::handleAim()
 {
+	
 
 	switch (m_state)
 	{
@@ -181,6 +189,7 @@ void BallController::resetPoolEntites()
 	pEntityPool->setScaleForEntities(Vector2(0.025f, 0.025f));
 }
 
+
 void BallController::shootBall(Vector2 direction)
 {
 	if (direction.Magnitude() <= 0.01f) return; // Prevent shooting when no direction
@@ -189,6 +198,7 @@ void BallController::shootBall(Vector2 direction)
 
 	pRigidBody->velocity += direction.Normalize() * bounceSpeed;
 	
+	//updates strike 
 	GameManager::GetInstance().updateStrike();
 }
 
@@ -243,8 +253,10 @@ void BallController::aimState()
 		{
 			m_projectileLine = { Vector2::Zero(), Vector2::Zero() };
 			shootBall(m_aimDirection);
-
 			setState(eBallState::SHOOTING);
+
+			GameManager::GetInstance().updateStrike();
+
 		}
 		else
 		{
@@ -263,6 +275,20 @@ void BallController::shootState()
 		stopBall();
 
 		m_state = eBallState::IDLE;
+
+		checkForGameOver();
+	}
+}
+
+void BallController::checkForGameOver()
+{
+	
+	if (isGameOver)
+	{
+		GameManager::GetInstance().gameOver();
+		isGameOver = false;
+
+		return;
 	}
 }
 

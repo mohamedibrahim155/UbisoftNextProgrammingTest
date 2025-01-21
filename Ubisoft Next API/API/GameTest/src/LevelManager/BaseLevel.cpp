@@ -15,7 +15,6 @@ BaseLevel::~BaseLevel()
 
 void BaseLevel::loadScene(eScene changeScene)
 {
-	//LevelManager::GetInstance().changeScene(changeScene);
 	LevelManager::GetInstance().queSceneChange(changeScene);
 }
 

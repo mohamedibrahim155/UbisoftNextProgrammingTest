@@ -88,7 +88,7 @@ Entity* GameObjectFactory::createButton(const std::string& filename)
 
 	ButtonRenderer* buttonRender = new ButtonRenderer(filename, nullptr);
 
-
+	entity->addComponent(buttonRender);
 
 	return entity;
 }

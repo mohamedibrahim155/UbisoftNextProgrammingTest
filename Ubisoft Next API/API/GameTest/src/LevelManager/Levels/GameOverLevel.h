@@ -21,11 +21,15 @@ public:
 	void start() override;
 	void cleanScene() override;
 	bool isLevelCompleted() override;
+
+	void setRetryLevel(eScene retyLevel);
 private:
+
+	eScene m_retryLevel = eScene::LEVEL_2;
 
 	GameObjectFactory* factory;
 
-	const std::string BUTTON_UI_PATH = ASSET_PATH + "\\UI\\Basic\\";
+	const std::string RETRY_UI = ASSET_PATH + "\\UI\\Button\\Retry.png";
 	const std::string ON_HOVER_SFX = ASSET_PATH + "\\Sounds\\SFX\\UI" + "\\001_Hover_01.wav";
 	const std::string ON_CLICK_SFX = ASSET_PATH + "\\Sounds\\SFX\\UI" + "\\013_Confirm_03.wav";
 

@@ -62,10 +62,8 @@ void MainMenu::createButtons()
 
 	const Vector3  buttonTextColor(0.902, 0.451, 0);
 
-	Entity* playButtonGameObject = factory->createButtonWithText(BUTTON_UI_PATH + "b_1.png", "Play", buttonTextColor, "PlayButton");
+	Entity* playButtonGameObject = factory->createButton(PLAY_BUTTON_UI_PATH);
 	ButtonRenderer* playButton =	(ButtonRenderer*)playButtonGameObject->getComponent(eComponentType::RENDER_COMPONENT);
-	playButton->getTextComponent()->setFont(BITMAP_TIMES_ROMAN_24);
-	playButton->getTextComponent()->setOffset(Vector2(-20, -5));
 	
 
 
@@ -88,19 +86,15 @@ void MainMenu::createButtons()
 			loadScene(LEVEL_1);
 		});
 
-	playButtonGameObject->transform.position = Vector3(0, 50, 0);
-	playButtonGameObject->transform.scale = Vector2(0.2f, 0.2f);
+	playButtonGameObject->transform.position = Vector3(0, 55, 0);
 #pragma endregion
 
 	//Creates ControlsButton  entity and position accordingly	
 #pragma region ControlsButton
 
-	Entity* optionMenuGameobject = factory->createButtonWithText(BUTTON_UI_PATH + "b_1.png", "Controls", buttonTextColor, "Option Button");
+	Entity* optionMenuGameobject = factory->createButton(CONTROLS_BUTTON_UI_PATH);
 
 	ButtonRenderer* controlButton = (ButtonRenderer*)optionMenuGameobject->getComponent(eComponentType::RENDER_COMPONENT);
-	controlButton->getTextComponent()->setFont(BITMAP_TIMES_ROMAN_24);
-	controlButton->getTextComponent()->setOffset(Vector2(-40, -5));
-
 
 
 	// Events OnButton hover,Click and HoverExit
@@ -121,18 +115,15 @@ void MainMenu::createButtons()
 		});
 
 	//Update position and scale
-	optionMenuGameobject->transform.position = Vector3(0, -50, 0);
-	optionMenuGameobject->transform.scale = Vector2(0.2f, 0.2f);
+	optionMenuGameobject->transform.position = Vector3(0, -70, 0);
 #pragma endregion
 
 	//Creates Credit button  entity and position accordingly	
 #pragma region CreditButton
 
-	Entity* creditGameObject = factory->createButtonWithText(BUTTON_UI_PATH + "b_1.png", "Credits", buttonTextColor, "Credit Button");
+	Entity* creditGameObject = factory->createButton(CREDITS_BUTTON_UI_PATH);
 
 	ButtonRenderer* creditButton = (ButtonRenderer*)creditGameObject->getComponent(eComponentType::RENDER_COMPONENT);
-	creditButton->getTextComponent()->setFont(BITMAP_TIMES_ROMAN_24);
-	creditButton->getTextComponent()->setOffset(Vector2(-30, -5));
 	
 
 	// Events OnButton hover,Click and HoverExit
@@ -156,8 +147,7 @@ void MainMenu::createButtons()
 
 	
 	//Update position and scale
-	creditGameObject->transform.position = Vector3(0, -150, 0);
-	creditGameObject->transform.scale = Vector2(0.2f, 0.2f);
+	creditGameObject->transform.position = Vector3(0, -200, 0);
 #pragma endregion
 
 }
