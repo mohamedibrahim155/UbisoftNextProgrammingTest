@@ -13,6 +13,7 @@
 #include "../src/UI/UIDisplayer.h"
 #include "../src/Block/Blocks.h"
 #include "../src/Block/BlockHolder.h"
+#include "../src/GameManager/GameManager.h"
 
 Level1::Level1() : BaseLevel(LEVEL_1)
 {
@@ -71,7 +72,6 @@ void Level1::start()
 
 
 #pragma endregion
-
 
 }
 

@@ -13,6 +13,7 @@
 #include "../src/UI/UIDisplayer.h"
 #include "../src/Block/Blocks.h"
 #include "../src/Block/BlockHolder.h"
+#include "../src/GameManager/GameManager.h"
 
 Level2::Level2() : BaseLevel(LEVEL_2)
 {

@@ -54,12 +54,11 @@ void CompletedLevel::createPopUp()
 
 	button->addListenersOnButtonPress([this]()
 		{
-			//GameManager::GetInstance().reset();
 			loadScene(m_nextLevel);
 
 		});
 
-	gameObject1->transform.position = Vector2(150, -100);
+	gameObject1->transform.position = Vector2(150, -150);
 
 	
 
@@ -68,13 +67,12 @@ void CompletedLevel::createPopUp()
 	ButtonRenderer* mainMenu = new ButtonRenderer(MAINMENU_BUTTON);
 	mainMenu->addListenersOnButtonPress([this]()
 		{
-			//GameManager::GetInstance().reset();
 
 			loadScene(MAINMENU);
 		});
 
 	gameObject2->addComponent(mainMenu);
-	gameObject2->transform.position =  Vector2(-200, -100);
+	gameObject2->transform.position =  Vector2(-200, -150);
 
 
 	Entity* scoreTextGameObject = entityManager->createEntity();
@@ -83,26 +81,15 @@ void CompletedLevel::createPopUp()
 	m_scoreText->setColor(0.8, 0.2, 0.3);
 
 	scoreTextGameObject->addComponent(m_scoreText);
-	scoreTextGameObject->transform.position = Vector2(-70, 0);
+	scoreTextGameObject->transform.position = Vector2(-70, -60);
 	setScoreText(GameManager::GetInstance().getScore());
-
-
-	Entity* completedTextGameObject = entityManager->createEntity();
-
-	TextRenderer* completedText= new TextRenderer("LEVEL COMPLETED !");
-	completedText->setColor(0.5, 0.2, 0);
-	completedText->setFont(BITMAP_TIMES_ROMAN_24);
-
-	completedTextGameObject->addComponent(completedText);
-
-	completedTextGameObject->transform.position = Vector2(-150, 50);
-
-	
 }
 
 void CompletedLevel::createBackgound()
 {
 	m_factory->createBackgroundWhiteBorder();
 	m_factory->createBackground();
+	m_factory->createSpriteObject(LEVEL_COMPLETE_BG_PATH, Vector2::Zero(), 0);
+
 
 }

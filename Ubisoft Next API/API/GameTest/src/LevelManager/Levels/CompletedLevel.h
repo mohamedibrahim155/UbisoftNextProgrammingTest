@@ -23,6 +23,7 @@ private:
 
 
 	const std::string LEVEL_COMPLETE_BUTTON = ASSET_PATH + "\\UI\\Button\\levelComplete.png";
+	const std::string LEVEL_COMPLETE_BG_PATH = ASSET_PATH + "\\Background\\LevelComplete.png";
 	const std::string MAINMENU_BUTTON = ASSET_PATH + "\\UI\\Button\\menu.png";
 	GameObjectFactory* m_factory;
 

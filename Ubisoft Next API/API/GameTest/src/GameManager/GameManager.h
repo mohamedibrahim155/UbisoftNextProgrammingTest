@@ -29,7 +29,7 @@ private:
 
 	//EntityManager* m_entityManager;
 
-	int m_maxStroke = 1;
+	int m_maxStroke = 5;
 	int m_currentStroke = 0;
 	int m_score = 0;
 
