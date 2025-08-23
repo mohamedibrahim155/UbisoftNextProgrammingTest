@@ -1,0 +1,38 @@
+#pragma once
+#include "Collider.h"
+class BoxCollider :
+    public Collider
+{
+public:
+    BoxCollider();
+    BoxCollider(SpriteRenderer* spriteRenderer);
+
+    ~BoxCollider() = default;
+
+    // Inherited via Collider
+    virtual void start() {};
+    virtual void updateComponent() {};
+    virtual void render(bool isDebugRender);
+    BoxCollider* clone() const override;
+
+    SBox getBounds() override;
+    void calculateShape() override;
+
+    SBox getBox();
+    void setSize(float x, float y);
+
+
+
+protected:
+    
+    float m_width;
+    float m_height;
+
+    SBox m_box;
+    
+   
+
+   
+
+};
+

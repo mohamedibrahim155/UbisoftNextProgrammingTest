@@ -1,21 +1,39 @@
 #pragma once
 #include <functional>
 #include <unordered_map>
+#include<string>
 
+template <typename... Args>
 class CEvent
 {
 
 public:
-	using EVENT = std::function<void()>;
-	void Subscribe(std::string eventName, EVENT callback);
-	void UnSubscribe(std::string eventName);
-	void UnSubscribeAllEvents();
+    using EVENT = std::function<void(Args...)>;
 
-	void Invoke();
+    void Subscribe(EVENT callback) 
+    {
+        m_callbacks.push_back(std::move(callback));
+    }
+
+    void Invoke(Args... args) 
+    {
+        for (auto& callback : m_callbacks) 
+        {
+            if (callback)
+            {
+                callback(args...);
+            }
+        }
+    }
+
+    void clear()
+    {
+        m_callbacks.clear();
+    }
+
+    unsigned size() const { return m_callbacks.size(); }
 
 private:
-
-	std::unordered_map<std::string,EVENT> m_listOfEvents;
-
+    std::vector<EVENT> m_callbacks;
 };
 

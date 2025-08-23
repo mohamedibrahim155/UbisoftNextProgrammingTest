@@ -1,0 +1,96 @@
+#include "stdafx.h"
+#include "CompletedLevel.h"
+#include "../src//GameManager/GameManager.h"
+CompletedLevel::CompletedLevel() : BaseLevel(LEVEL_COMPLETE)
+{
+    m_factory = new GameObjectFactory(entityManager);
+}
+
+CompletedLevel::~CompletedLevel()
+{
+	if (m_factory)
+	{
+		delete m_factory;
+	}
+}
+
+void CompletedLevel::start()
+{
+	createBackgound();
+	createPopUp();
+}
+
+void CompletedLevel::cleanScene()
+{
+	systemManager->cleanSystem();
+}
+
+bool CompletedLevel::isLevelCompleted()
+{
+    return false;
+}
+
+void CompletedLevel::setNextLevelToLoad(eScene nextLevel)
+{
+
+	m_nextLevel = nextLevel;
+}
+
+void CompletedLevel::setScoreText(int score)
+{
+	if (!m_scoreText) return;
+	std::string scoreText = "Score : " +  std::to_string(score);
+	m_scoreText->setText(scoreText);
+}
+
+void CompletedLevel::createPopUp()
+{
+	Entity* gameObject1 = entityManager->createEntity();
+
+	ButtonRenderer* button = new ButtonRenderer(LEVEL_COMPLETE_BUTTON);
+
+
+	gameObject1->addComponent(button);
+
+	button->addListenersOnButtonPress([this]()
+		{
+			GameManager::GetInstance().reset();
+			loadScene(m_nextLevel);
+
+		});
+
+	gameObject1->transform.position = Vector2(150, -150);
+
+	
+
+
+	Entity* gameObject2 = entityManager->createEntity();
+	ButtonRenderer* mainMenu = new ButtonRenderer(MAINMENU_BUTTON);
+	mainMenu->addListenersOnButtonPress([this]()
+		{
+			GameManager::GetInstance().reset();
+			loadScene(MAINMENU);
+		});
+
+	gameObject2->addComponent(mainMenu);
+	gameObject2->transform.position =  Vector2(-200, -150);
+
+
+	Entity* scoreTextGameObject = entityManager->createEntity();
+	
+	m_scoreText = new TextRenderer("");
+	m_scoreText->setColor(0, 0, 0);
+
+	scoreTextGameObject->addComponent(m_scoreText);
+	scoreTextGameObject->transform.position = Vector2(-70, -60);
+	setScoreText(GameManager::GetInstance().getScore());
+}
+
+void CompletedLevel::createBackgound()
+{
+	m_factory->createBackgroundWhiteBorder();
+	m_factory->createBackground();
+	m_factory->createSpriteObject(LEVEL_COMPLETE_BG_PATH, Vector2::Zero(), 0);
+
+
+}

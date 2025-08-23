@@ -1,0 +1,57 @@
+#pragma once
+
+#include <string>
+#include <map>
+#include "../src/ECS/EntityManager.h"
+#include "../src/ECS/SystemManager.h"
+class LevelManager;
+enum eScene
+{
+	NONE = -1,
+	MAINMENU = 0,
+	LEVEL_COMPLETE = 1,
+	CONTROLS = 2,
+	GAME_OVER = 3,
+	LEVEL_1 = 4,
+	LEVEL_2 = 5,
+	LEVEL_3 = 6,
+
+
+};
+
+class BaseLevel
+{
+public:
+
+	BaseLevel(eScene sceneType);
+	virtual ~BaseLevel();
+
+	virtual void start() = 0;
+	virtual void cleanScene() = 0;
+	virtual bool isLevelCompleted() = 0;
+	virtual eScene getType();
+
+	void loadScene(eScene eScene);
+	void restartLevel();
+
+	inline std::string getName() { return sceneToString[m_sceneType]; };
+
+	SystemManager* systemManager;
+	EntityManager* entityManager;
+
+protected:
+
+	eScene m_sceneType;
+
+	std::map<eScene, std::string> sceneToString = {
+		{LEVEL_1, "LEVEL 1"},										
+		{LEVEL_2, "LEVEL 2"}, 										  
+		{LEVEL_3, "LEVEL 3"}, 										  
+		{ MAINMENU, "MAIN MENU" },
+		{LEVEL_COMPLETE, "LEVEL COMPLETE"},
+		{GAME_OVER, "GAME OVER"},
+	};
+
+	
+};
+

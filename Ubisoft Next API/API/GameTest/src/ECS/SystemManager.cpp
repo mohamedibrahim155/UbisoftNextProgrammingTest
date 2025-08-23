@@ -1,0 +1,157 @@
+///////////////////////////////////////////////////////////////////////////////
+// Filename: SystemManager.cpp
+// System Manager holds and Update every entites in the world
+///////////////////////////////////////////////////////////////////////////////
+
+#include "stdafx.h"
+#include "SystemManager.h"
+
+
+//Registering a system to the manager
+void SystemManager::registerSystem(ISystem* system)
+{
+    system->m_systemManager = this;
+    m_systemsMap[system->m_systemType] = system;
+}
+
+//Removes a system from Manager
+void SystemManager::removeSystem(ISystem* system)
+{
+    m_systemsMap.erase(system->m_systemType);
+}
+
+//Adds
+void SystemManager::addEntityToSystem(Entity* entity)
+{
+    m_entitiesMap[entity->getID()] =  entity;
+
+    m_listOfEntities.push_back(entity);
+
+    OnEntityAdded.Invoke(entity);
+}
+
+void SystemManager::removeEntity(EntityID ID)
+{
+    Entity* entity = m_entitiesMap[ID];
+
+    OnEntityRemoved.Invoke(entity);
+
+    m_listOfEntities.erase(std::remove(m_listOfEntities.begin(), m_listOfEntities.end(), entity));
+
+    m_entitiesMap.erase(ID);
+
+    delete entity;
+}
+
+
+
+
+
+ISystem* SystemManager::getSystem(eSystemType type)
+{
+    return m_systemsMap[type];
+}
+
+void SystemManager::setDebugVisible(bool isVisible)
+{
+    m_debugVisible = isVisible;
+}
+
+
+bool SystemManager::IsDebug() const
+{
+    return m_debugVisible;
+}
+
+int SystemManager::getEntitiesCount() const
+{
+    return m_listOfEntities.size();
+}
+
+Entity* SystemManager::getEntityByID(EntityID ID)
+{
+    return m_entitiesMap[ID];
+}
+
+std::vector<Entity*> SystemManager::getEntities() const
+{
+    return m_listOfEntities;
+}
+
+void SystemManager::start()
+{
+    for (std::pair<eSystemType, ISystem*> system : m_systemsMap)
+    {
+        system.second->start();
+    }
+}
+
+void SystemManager::updateSystems(float deltaTime)
+{
+
+    for (const std::pair<eSystemType, ISystem*>& system: m_systemsMap)
+    {
+        system.second->update(m_listOfEntities, deltaTime);
+    }
+}
+
+void SystemManager::render()
+{
+    for (std::pair<eSystemType, ISystem*> system : m_systemsMap)
+    {
+        system.second->render(m_debugVisible);
+    }
+}
+
+void SystemManager::cleanups()
+{
+    clearEntities();
+    clearSystems();
+
+    m_systemsMap.clear();
+}
+
+void SystemManager::cleanSystem()
+{
+    clearEntities();
+    clearSystems(false);
+}
+
+void SystemManager::clearSystems(bool canDelete)
+{
+    for (std::pair<eSystemType, ISystem*> system : m_systemsMap)
+    {
+        system.second->cleanups();
+
+        if (canDelete)
+        {
+            delete  system.second;
+        }
+    }
+}
+
+void SystemManager::clearEntities()
+{
+
+    if (m_entitiesMap.size() > 0)
+    {
+        for (auto it = m_entitiesMap.begin(); it != m_entitiesMap.end(); )
+        {
+            EntityID Id = it->first;
+            Entity* entity = it->second;
+
+            removeEntity(Id);
+
+
+           // delete entity;
+            it = m_entitiesMap.begin();
+        }
+    }
+
+    m_entitiesMap.clear();
+
+    OnEntityAdded.clear();
+    OnEntityRemoved.clear();
+
+    m_listOfEntities.clear();
+}

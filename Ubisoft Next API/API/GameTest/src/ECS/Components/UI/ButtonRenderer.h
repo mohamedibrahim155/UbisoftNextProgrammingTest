@@ -1,0 +1,52 @@
+#pragma once
+#include "../src/ECS/Component.h"
+#include "../src/Events/Event.h"
+#include "../src/ECS/Components/Renders/SpriteRenderer.h"
+#include  "TextRenderer.h"
+#include "../Collider/BoxCollider.h"
+class ButtonRenderer : public SpriteRenderer
+{
+public:
+	ButtonRenderer(std::string filename);
+	ButtonRenderer(std::string filename, TextRenderer* textComponent);
+	 ~ButtonRenderer() override = default;
+
+	 // Inherited via RenderComponent
+	void start() override;
+	void updateComponent() override;
+	void render(bool isDebugRender) override;
+	void cleanUp() override;
+	int renderOrder() override;
+	ButtonRenderer* clone() const override;
+
+	//Events listeners
+	void addListenersOnButtonPress(const std::function<void()>& callback);
+	void addListenersOnButtonHover(const std::function<void()>& callback);
+	void addListenersOnButtonHoverExit(const std::function<void()>& callback);
+	void cleanEvents();
+
+	//Setters
+	void setTextColor(float r, float g, float b);
+	void setText(const std::string& message);
+
+	//Getters
+	TextRenderer* getTextComponent() const { return textComponent; }
+private:
+
+	bool isOnHover = false;
+	bool m_isTextEnabled = false;
+	bool m_sceneChanged = false;
+	SCircle mousCircle;
+	Transform* transform     = nullptr;
+	BoxCollider* boxCollider = nullptr;
+	TextRenderer* textComponent;
+
+	//Events
+	CEvent<> OnButtonClick;
+	CEvent<> OnButtonHover;
+	CEvent<> OnButtonHoverExit;
+
+
+	
+};
+
