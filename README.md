@@ -1,8 +1,9 @@
-# UbisoftNextProgramming2025
-Ubisoft's next contest
+# Ubisoft Next Programming Challenge 2025
 
-Theme: Mini-Golf
+---
 
-Link: https://rio-ibu.itch.io/bouncy-golf-2d
+#  🎯Theme: Mini-Golf
 
-Technical document : [UbisoftNext document.pdf](https://github.com/user-attachments/files/22014816/UbisoftNext.document.pdf)
+# 🎮Game link: https://rio-ibu.itch.io/bouncy-golf-2d
+
+# 💻Technical document : [UbisoftNext document.pdf](https://github.com/user-attachments/files/22014816/UbisoftNext.document.pdf)
